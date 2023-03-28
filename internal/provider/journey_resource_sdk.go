@@ -4,8 +4,8 @@ package provider
 
 import (
 	"encoding/json"
+	"epilotjourney/internal/sdk/pkg/models/shared"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"journey/internal/sdk/pkg/models/shared"
 )
 
 func (r *JourneyResourceModel) ToSDKType() *shared.JourneyCreationRequest {

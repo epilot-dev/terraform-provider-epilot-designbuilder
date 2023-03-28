@@ -3,8 +3,8 @@
 package sdk
 
 import (
-	"journey/internal/sdk/pkg/models/shared"
-	"journey/internal/sdk/pkg/utils"
+	"epilotjourney/internal/sdk/pkg/models/shared"
+	"epilotjourney/internal/sdk/pkg/utils"
 	"net/http"
 	"time"
 )

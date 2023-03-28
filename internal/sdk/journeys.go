@@ -4,10 +4,10 @@ package sdk
 
 import (
 	"context"
+	"epilotjourney/internal/sdk/pkg/models/operations"
+	"epilotjourney/internal/sdk/pkg/models/shared"
+	"epilotjourney/internal/sdk/pkg/utils"
 	"fmt"
-	"journey/internal/sdk/pkg/models/operations"
-	"journey/internal/sdk/pkg/models/shared"
-	"journey/internal/sdk/pkg/utils"
 	"net/http"
 	"strings"
 )

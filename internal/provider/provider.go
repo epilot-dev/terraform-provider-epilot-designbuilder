@@ -4,8 +4,8 @@ package provider
 
 import (
 	"context"
-	"journey/internal/sdk"
-	"journey/internal/sdk/pkg/models/shared"
+	"epilotjourney/internal/sdk"
+	"epilotjourney/internal/sdk/pkg/models/shared"
 
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
@@ -14,27 +14,27 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-var _ provider.Provider = &JourneyProvider{}
+var _ provider.Provider = &EpilotjourneyProvider{}
 
-type JourneyProvider struct {
+type EpilotjourneyProvider struct {
 	// version is set to the provider version on release, "dev" when the
 	// provider is built and ran locally, and "test" when running acceptance
 	// testing.
 	version string
 }
 
-// JourneyProviderModel describes the provider data model.
-type JourneyProviderModel struct {
+// EpilotjourneyProviderModel describes the provider data model.
+type EpilotjourneyProviderModel struct {
 	ServerURL     types.String `tfsdk:"server_url"`
 	Authorization types.String `tfsdk:"authorization"`
 }
 
-func (p *JourneyProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
-	resp.TypeName = "journey"
+func (p *EpilotjourneyProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
+	resp.TypeName = "epilotjourney"
 	resp.Version = p.version
 }
 
-func (p *JourneyProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
+func (p *EpilotjourneyProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"server_url": schema.StringAttribute{
@@ -49,8 +49,8 @@ func (p *JourneyProvider) Schema(ctx context.Context, req provider.SchemaRequest
 	}
 }
 
-func (p *JourneyProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
-	var data JourneyProviderModel
+func (p *EpilotjourneyProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
+	var data EpilotjourneyProviderModel
 
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)
 
@@ -82,19 +82,19 @@ func (p *JourneyProvider) Configure(ctx context.Context, req provider.ConfigureR
 	resp.ResourceData = client
 }
 
-func (p *JourneyProvider) Resources(ctx context.Context) []func() resource.Resource {
+func (p *EpilotjourneyProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
 		NewJourneyResource,
 	}
 }
 
-func (p *JourneyProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
+func (p *EpilotjourneyProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{}
 }
 
 func New(version string) func() provider.Provider {
 	return func() provider.Provider {
-		return &JourneyProvider{
+		return &EpilotjourneyProvider{
 			version: version,
 		}
 	}

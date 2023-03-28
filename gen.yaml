@@ -7,4 +7,4 @@ generation:
 terraform:
   version: 0.0.1
   author: epilot
-  packageName: journey
+  packageName: epilotjourney

@@ -1,4 +1,4 @@
-module journey
+module epilotjourney
 
 go 1.14
 
