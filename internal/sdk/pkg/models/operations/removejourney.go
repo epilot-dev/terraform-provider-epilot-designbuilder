@@ -6,13 +6,9 @@ import (
 	"net/http"
 )
 
-type RemoveJourneyPathParams struct {
+type RemoveJourneyRequest struct {
 	// Journey ID
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-}
-
-type RemoveJourneyRequest struct {
-	PathParams RemoveJourneyPathParams
 }
 
 type RemoveJourneyResponse struct {

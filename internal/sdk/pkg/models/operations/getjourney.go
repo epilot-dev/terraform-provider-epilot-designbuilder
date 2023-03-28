@@ -7,19 +7,11 @@ import (
 	"net/http"
 )
 
-type GetJourneyPathParams struct {
+type GetJourneyRequest struct {
 	// Journey ID
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-}
-
-type GetJourneyQueryParams struct {
 	// Organization ID
 	OrgID *string `queryParam:"style=form,explode=true,name=orgId"`
-}
-
-type GetJourneyRequest struct {
-	PathParams  GetJourneyPathParams
-	QueryParams GetJourneyQueryParams
 }
 
 type GetJourneyResponse struct {

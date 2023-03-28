@@ -7,11 +7,6 @@ import (
 	"net/http"
 )
 
-type PatchUpdateJourneyRequest struct {
-	// Payload
-	Request map[string]interface{} `request:"mediaType=application/json"`
-}
-
 type PatchUpdateJourneyResponse struct {
 	ContentType string
 	// Success

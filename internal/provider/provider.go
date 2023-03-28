@@ -25,8 +25,8 @@ type EpilotjourneyProvider struct {
 
 // EpilotjourneyProviderModel describes the provider data model.
 type EpilotjourneyProviderModel struct {
-	ServerURL     types.String `tfsdk:"server_url"`
-	Authorization types.String `tfsdk:"authorization"`
+	ServerURL  types.String `tfsdk:"server_url"`
+	EpilotAuth types.String `tfsdk:"epilot_auth"`
 }
 
 func (p *EpilotjourneyProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
@@ -41,7 +41,7 @@ func (p *EpilotjourneyProvider) Schema(ctx context.Context, req provider.SchemaR
 				MarkdownDescription: "Server URL (defaults to https://journey-config.sls.epilot.io)",
 				Optional:            true,
 			},
-			"authorization": schema.StringAttribute{
+			"epilot_auth": schema.StringAttribute{
 				Optional:  true,
 				Sensitive: true,
 			},
@@ -64,10 +64,7 @@ func (p *EpilotjourneyProvider) Configure(ctx context.Context, req provider.Conf
 		ServerURL = "https://journey-config.sls.epilot.io"
 	}
 
-	authorization := data.Authorization.ValueString()
-	epilotAuth := shared.SchemeEpilotAuth{
-		Authorization: authorization,
-	}
+	epilotAuth := data.EpilotAuth.ValueString()
 	security := shared.Security{
 		EpilotAuth: epilotAuth,
 	}

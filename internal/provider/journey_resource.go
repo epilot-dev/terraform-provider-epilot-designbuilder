@@ -5,9 +5,9 @@ package provider
 import (
 	"context"
 	"epilotjourney/internal/sdk"
-	"epilotjourney/internal/sdk/pkg/models/operations"
 	"fmt"
 
+	"epilotjourney/internal/sdk/pkg/models/operations"
 	"epilotjourney/internal/validators"
 	"github.com/hashicorp/terraform-plugin-framework-validators/mapvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
@@ -353,10 +353,7 @@ func (r *JourneyResource) Create(ctx context.Context, req resource.CreateRequest
 		return
 	}
 
-	request1 := data.ToSDKType()
-	request := operations.CreateJourneyRequest{
-		Request: request1,
-	}
+	request := *data.ToSDKType()
 	res, err := r.client.Journeys.CreateJourney(ctx, request)
 	if err != nil {
 		resp.Diagnostics.AddError("failure to invoke API", err.Error())
@@ -399,21 +396,15 @@ func (r *JourneyResource) Read(ctx context.Context, req resource.ReadRequest, re
 	}
 
 	id := data.JourneyID.ValueString()
-	pathParams := operations.GetJourneyPathParams{
-		ID: id,
-	}
 	orgID := new(string)
 	if !data.OrganizationID.IsUnknown() && !data.OrganizationID.IsNull() {
 		*orgID = data.OrganizationID.ValueString()
 	} else {
 		orgID = nil
 	}
-	queryParams := operations.GetJourneyQueryParams{
-		OrgID: orgID,
-	}
 	request := operations.GetJourneyRequest{
-		PathParams:  pathParams,
-		QueryParams: queryParams,
+		ID:    id,
+		OrgID: orgID,
 	}
 	res, err := r.client.Journeys.GetJourney(ctx, request)
 	if err != nil {
@@ -456,10 +447,7 @@ func (r *JourneyResource) Update(ctx context.Context, req resource.UpdateRequest
 		return
 	}
 
-	request1 := data.ToSDKType()
-	request := operations.UpdateJourneyRequest{
-		Request: request1,
-	}
+	request := *data.ToSDKType()
 	res, err := r.client.Journeys.UpdateJourney(ctx, request)
 	if err != nil {
 		resp.Diagnostics.AddError("failure to invoke API", err.Error())
@@ -502,11 +490,8 @@ func (r *JourneyResource) Delete(ctx context.Context, req resource.DeleteRequest
 	}
 
 	id := data.JourneyID.ValueString()
-	pathParams := operations.RemoveJourneyPathParams{
-		ID: id,
-	}
 	request := operations.RemoveJourneyRequest{
-		PathParams: pathParams,
+		ID: id,
 	}
 	res, err := r.client.Journeys.RemoveJourney(ctx, request)
 	if err != nil {
@@ -519,10 +504,6 @@ func (r *JourneyResource) Delete(ctx context.Context, req resource.DeleteRequest
 	}
 	if res.StatusCode != 200 {
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
-		return
-	}
-	if res.RawResponse == nil {
-		resp.Diagnostics.AddError("unexpected response from API. No response body", debugResponse(res.RawResponse))
 		return
 	}
 

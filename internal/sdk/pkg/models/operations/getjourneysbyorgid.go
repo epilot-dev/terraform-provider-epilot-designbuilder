@@ -6,13 +6,9 @@ import (
 	"net/http"
 )
 
-type GetJourneysByOrgIDPathParams struct {
+type GetJourneysByOrgIDRequest struct {
 	// Organization ID
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-}
-
-type GetJourneysByOrgIDRequest struct {
-	PathParams GetJourneysByOrgIDPathParams
 }
 
 type GetJourneysByOrgIDResponse struct {

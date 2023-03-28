@@ -34,7 +34,7 @@ func newJourneys(defaultClient, securityClient HTTPClient, serverURL, language, 
 
 // CreateJourney - createJourney
 // Create a Journey
-func (s *journeys) CreateJourney(ctx context.Context, request operations.CreateJourneyRequest) (*operations.CreateJourneyResponse, error) {
+func (s *journeys) CreateJourney(ctx context.Context, request shared.JourneyCreationRequest) (*operations.CreateJourneyResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/v1/journey/configuration"
 
@@ -88,14 +88,14 @@ func (s *journeys) CreateJourney(ctx context.Context, request operations.CreateJ
 // Get journey by id
 func (s *journeys) GetJourney(ctx context.Context, request operations.GetJourneyRequest) (*operations.GetJourneyResponse, error) {
 	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/v1/journey/configuration/{id}", request.PathParams, nil)
+	url := utils.GenerateURL(ctx, baseURL, "/v1/journey/configuration/{id}", request, nil)
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
 
-	if err := utils.PopulateQueryParams(ctx, req, request.QueryParams, nil); err != nil {
+	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
 		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
@@ -137,7 +137,7 @@ func (s *journeys) GetJourney(ctx context.Context, request operations.GetJourney
 // Get all journeys by organization id
 func (s *journeys) GetJourneysByOrgID(ctx context.Context, request operations.GetJourneysByOrgIDRequest) (*operations.GetJourneysByOrgIDResponse, error) {
 	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/v1/journey/organization/{id}", request.PathParams, nil)
+	url := utils.GenerateURL(ctx, baseURL, "/v1/journey/organization/{id}", request, nil)
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
@@ -180,7 +180,7 @@ func (s *journeys) GetJourneysByOrgID(ctx context.Context, request operations.Ge
 
 // PatchUpdateJourney - patchUpdateJourney
 // Update a Journey (partially / patch). Support for nested properties updates (e.g. "property[0].name").
-func (s *journeys) PatchUpdateJourney(ctx context.Context, request operations.PatchUpdateJourneyRequest) (*operations.PatchUpdateJourneyResponse, error) {
+func (s *journeys) PatchUpdateJourney(ctx context.Context, request map[string]interface{}) (*operations.PatchUpdateJourneyResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/v1/journey/configuration"
 
@@ -234,7 +234,7 @@ func (s *journeys) PatchUpdateJourney(ctx context.Context, request operations.Pa
 // Remove journey by id
 func (s *journeys) RemoveJourney(ctx context.Context, request operations.RemoveJourneyRequest) (*operations.RemoveJourneyResponse, error) {
 	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/v1/journey/configuration/{id}", request.PathParams, nil)
+	url := utils.GenerateURL(ctx, baseURL, "/v1/journey/configuration/{id}", request, nil)
 
 	req, err := http.NewRequestWithContext(ctx, "DELETE", url, nil)
 	if err != nil {
@@ -268,7 +268,7 @@ func (s *journeys) RemoveJourney(ctx context.Context, request operations.RemoveJ
 
 // SearchJourneys - searchJourneys
 // Search Journeys
-func (s *journeys) SearchJourneys(ctx context.Context, request operations.SearchJourneysRequest) (*operations.SearchJourneysResponse, error) {
+func (s *journeys) SearchJourneys(ctx context.Context, request shared.SearchJourneysQueryRequest) (*operations.SearchJourneysResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/v1/journey/configuration/search"
 
@@ -320,7 +320,7 @@ func (s *journeys) SearchJourneys(ctx context.Context, request operations.Search
 
 // UpdateJourney - updateJourney
 // Update a Journey
-func (s *journeys) UpdateJourney(ctx context.Context, request operations.UpdateJourneyRequest) (*operations.UpdateJourneyResponse, error) {
+func (s *journeys) UpdateJourney(ctx context.Context, request shared.JourneyCreationRequest) (*operations.UpdateJourneyResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/v1/journey/configuration"
 

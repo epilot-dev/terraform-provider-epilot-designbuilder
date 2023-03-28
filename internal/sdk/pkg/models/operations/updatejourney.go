@@ -7,11 +7,6 @@ import (
 	"net/http"
 )
 
-type UpdateJourneyRequest struct {
-	// Payload
-	Request *shared.JourneyCreationRequest `request:"mediaType=application/json"`
-}
-
 type UpdateJourneyResponse struct {
 	ContentType string
 	// Success

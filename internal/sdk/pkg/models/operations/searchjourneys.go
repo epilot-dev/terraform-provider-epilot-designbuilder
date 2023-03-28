@@ -7,11 +7,6 @@ import (
 	"net/http"
 )
 
-type SearchJourneysRequest struct {
-	// Payload
-	Request *shared.SearchJourneysQueryRequest `request:"mediaType=application/json"`
-}
-
 type SearchJourneysResponse struct {
 	ContentType string
 	// Success
