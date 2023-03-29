@@ -3,8 +3,8 @@
 package sdk
 
 import (
-	"epilotjourney/internal/sdk/pkg/models/shared"
-	"epilotjourney/internal/sdk/pkg/utils"
+	"epilot-journey/internal/sdk/pkg/models/shared"
+	"epilot-journey/internal/sdk/pkg/utils"
 	"net/http"
 	"time"
 )
@@ -74,7 +74,7 @@ func WithSecurity(security shared.Security) SDKOption {
 func New(opts ...SDKOption) *SDK {
 	sdk := &SDK{
 		_language:   "go",
-		_sdkVersion: "0.0.1",
+		_sdkVersion: "0.0.2",
 		_genVersion: "internal",
 	}
 	for _, opt := range opts {

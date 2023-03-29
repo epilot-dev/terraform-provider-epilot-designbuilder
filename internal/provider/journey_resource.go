@@ -4,11 +4,11 @@ package provider
 
 import (
 	"context"
-	"epilotjourney/internal/sdk"
+	"epilot-journey/internal/sdk"
 	"fmt"
 
-	"epilotjourney/internal/sdk/pkg/models/operations"
-	"epilotjourney/internal/validators"
+	"epilot-journey/internal/sdk/pkg/models/operations"
+	"epilot-journey/internal/validators"
 	"github.com/hashicorp/terraform-plugin-framework-validators/mapvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"

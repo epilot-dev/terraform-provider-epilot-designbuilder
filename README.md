@@ -11,7 +11,7 @@
 <!-- Start SDK Installation -->
 ## Notice of Alpha Status
 
-This is a Alpha release of the epilotjourney Terraform Provider.
+This is a Alpha release of the epilot-journey Terraform Provider.
 
 It is under active development and you may experience breaking changes. Please pin to a version if trialing in production.
 
@@ -22,14 +22,14 @@ To install this provider, copy and paste this code into your Terraform configura
 ```hcl
 terraform {
   required_providers {
-    epilotjourney = {
-      source  = "epilot/epilotjourney"
-      version = "0.0.1"
+    epilot-journey = {
+      source  = "epilot-dev/epilot-journey"
+      version = "0.0.2"
     }
   }
 }
 
-provider "epilotjourney" {
+provider "epilot-journey" {
   # Configuration options
 }
 ```

@@ -1,4 +1,4 @@
-module epilotjourney
+module epilot-journey
 
 go 1.18
 

@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"epilotjourney/internal/sdk/pkg/types"
+	"epilot-journey/internal/sdk/pkg/types"
 )
 
 func populateForm(paramName string, explode bool, objType reflect.Type, objValue reflect.Value, getFieldName func(reflect.StructField) string) url.Values {
