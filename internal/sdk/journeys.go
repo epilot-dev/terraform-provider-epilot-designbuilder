@@ -59,6 +59,7 @@ func (s *journeys) CreateJourney(ctx context.Context, request shared.JourneyCrea
 	if httpRes == nil {
 		return nil, fmt.Errorf("error sending request: no response")
 	}
+	defer httpRes.Body.Close()
 
 	contentType := httpRes.Header.Get("Content-Type")
 
@@ -107,6 +108,7 @@ func (s *journeys) GetJourney(ctx context.Context, request operations.GetJourney
 	if httpRes == nil {
 		return nil, fmt.Errorf("error sending request: no response")
 	}
+	defer httpRes.Body.Close()
 
 	contentType := httpRes.Header.Get("Content-Type")
 
@@ -151,6 +153,7 @@ func (s *journeys) GetJourneysByOrgID(ctx context.Context, request operations.Ge
 	if httpRes == nil {
 		return nil, fmt.Errorf("error sending request: no response")
 	}
+	defer httpRes.Body.Close()
 
 	contentType := httpRes.Header.Get("Content-Type")
 
@@ -202,6 +205,7 @@ func (s *journeys) PatchUpdateJourney(ctx context.Context, request map[string]in
 	if httpRes == nil {
 		return nil, fmt.Errorf("error sending request: no response")
 	}
+	defer httpRes.Body.Close()
 
 	contentType := httpRes.Header.Get("Content-Type")
 
@@ -246,6 +250,7 @@ func (s *journeys) RemoveJourney(ctx context.Context, request operations.RemoveJ
 	if httpRes == nil {
 		return nil, fmt.Errorf("error sending request: no response")
 	}
+	defer httpRes.Body.Close()
 
 	contentType := httpRes.Header.Get("Content-Type")
 
@@ -288,6 +293,7 @@ func (s *journeys) SearchJourneys(ctx context.Context, request shared.SearchJour
 	if httpRes == nil {
 		return nil, fmt.Errorf("error sending request: no response")
 	}
+	defer httpRes.Body.Close()
 
 	contentType := httpRes.Header.Get("Content-Type")
 
@@ -339,6 +345,7 @@ func (s *journeys) UpdateJourney(ctx context.Context, request shared.JourneyCrea
 	if httpRes == nil {
 		return nil, fmt.Errorf("error sending request: no response")
 	}
+	defer httpRes.Body.Close()
 
 	contentType := httpRes.Header.Get("Content-Type")
 
