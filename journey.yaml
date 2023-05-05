@@ -5,9 +5,21 @@ info:
   version: 1.0.0
 security:
 - EpilotAuth: []
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 5000 # 5 seconds
+    maxInterval: 60000 # 60 seconds
+    maxElapsedTime: 3600000 # 5 minutes
+    exponent: 1.5
+  statusCodes:
+    - 5XX
+  retryConnectionErrors: true
 paths:
   /v1/journey/organization/{id}:
     get:
+      servers:
+        - url: https://api.epilot.com
       operationId: getJourneysByOrgId
       summary: getJourneysByOrgId
       description: Get all journeys by organization id

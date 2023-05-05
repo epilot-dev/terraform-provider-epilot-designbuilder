@@ -34,7 +34,17 @@ func newJourneys(defaultClient, securityClient HTTPClient, serverURL, language, 
 
 // CreateJourney - createJourney
 // Create a Journey
-func (s *journeys) CreateJourney(ctx context.Context, request shared.JourneyCreationRequest) (*operations.CreateJourneyResponse, error) {
+func (s *journeys) CreateJourney(ctx context.Context, request shared.JourneyCreationRequest, opts ...operations.Option) (*operations.CreateJourneyResponse, error) {
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionRetries,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/v1/journey/configuration"
 
@@ -52,7 +62,28 @@ func (s *journeys) CreateJourney(ctx context.Context, request shared.JourneyCrea
 
 	client := s.securityClient
 
-	httpRes, err := client.Do(req)
+	retryConfig := o.Retries
+	if retryConfig == nil {
+		retryConfig = &utils.RetryConfig{
+			Strategy: "backoff",
+			Backoff: &utils.BackoffStrategy{
+				InitialInterval: 5000,
+				MaxInterval:     60000,
+				Exponent:        1.5,
+				MaxElapsedTime:  3600000,
+			},
+			RetryConnectionErrors: true,
+		}
+	}
+
+	httpRes, err := utils.Retry(ctx, utils.Retries{
+		Config: retryConfig,
+		StatusCodes: []string{
+			"5XX",
+		},
+	}, func() (*http.Response, error) {
+		return client.Do(req)
+	})
 	if err != nil {
 		return nil, fmt.Errorf("error sending request: %w", err)
 	}
@@ -86,9 +117,22 @@ func (s *journeys) CreateJourney(ctx context.Context, request shared.JourneyCrea
 
 // GetJourney - getJourney
 // Get journey by id
-func (s *journeys) GetJourney(ctx context.Context, request operations.GetJourneyRequest) (*operations.GetJourneyResponse, error) {
+func (s *journeys) GetJourney(ctx context.Context, request operations.GetJourneyRequest, opts ...operations.Option) (*operations.GetJourneyResponse, error) {
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionRetries,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
 	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/v1/journey/configuration/{id}", request, nil)
+	url, err := utils.GenerateURL(ctx, baseURL, "/v1/journey/configuration/{id}", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
@@ -101,7 +145,28 @@ func (s *journeys) GetJourney(ctx context.Context, request operations.GetJourney
 
 	client := s.securityClient
 
-	httpRes, err := client.Do(req)
+	retryConfig := o.Retries
+	if retryConfig == nil {
+		retryConfig = &utils.RetryConfig{
+			Strategy: "backoff",
+			Backoff: &utils.BackoffStrategy{
+				InitialInterval: 5000,
+				MaxInterval:     60000,
+				Exponent:        1.5,
+				MaxElapsedTime:  3600000,
+			},
+			RetryConnectionErrors: true,
+		}
+	}
+
+	httpRes, err := utils.Retry(ctx, utils.Retries{
+		Config: retryConfig,
+		StatusCodes: []string{
+			"5XX",
+		},
+	}, func() (*http.Response, error) {
+		return client.Do(req)
+	})
 	if err != nil {
 		return nil, fmt.Errorf("error sending request: %w", err)
 	}
@@ -135,9 +200,27 @@ func (s *journeys) GetJourney(ctx context.Context, request operations.GetJourney
 
 // GetJourneysByOrgID - getJourneysByOrgId
 // Get all journeys by organization id
-func (s *journeys) GetJourneysByOrgID(ctx context.Context, request operations.GetJourneysByOrgIDRequest) (*operations.GetJourneysByOrgIDResponse, error) {
-	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/v1/journey/organization/{id}", request, nil)
+func (s *journeys) GetJourneysByOrgID(ctx context.Context, request operations.GetJourneysByOrgIDRequest, opts ...operations.Option) (*operations.GetJourneysByOrgIDResponse, error) {
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionServerURL,
+		operations.SupportedOptionRetries,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
+	baseURL := operations.GetJourneysByOrgIDServerList[0]
+	if o.ServerURL != nil {
+		baseURL = *o.ServerURL
+	}
+
+	url, err := utils.GenerateURL(ctx, baseURL, "/v1/journey/organization/{id}", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
@@ -146,7 +229,28 @@ func (s *journeys) GetJourneysByOrgID(ctx context.Context, request operations.Ge
 
 	client := s.securityClient
 
-	httpRes, err := client.Do(req)
+	retryConfig := o.Retries
+	if retryConfig == nil {
+		retryConfig = &utils.RetryConfig{
+			Strategy: "backoff",
+			Backoff: &utils.BackoffStrategy{
+				InitialInterval: 5000,
+				MaxInterval:     60000,
+				Exponent:        1.5,
+				MaxElapsedTime:  3600000,
+			},
+			RetryConnectionErrors: true,
+		}
+	}
+
+	httpRes, err := utils.Retry(ctx, utils.Retries{
+		Config: retryConfig,
+		StatusCodes: []string{
+			"5XX",
+		},
+	}, func() (*http.Response, error) {
+		return client.Do(req)
+	})
 	if err != nil {
 		return nil, fmt.Errorf("error sending request: %w", err)
 	}
@@ -180,7 +284,17 @@ func (s *journeys) GetJourneysByOrgID(ctx context.Context, request operations.Ge
 
 // PatchUpdateJourney - patchUpdateJourney
 // Update a Journey (partially / patch). Support for nested properties updates (e.g. "property[0].name").
-func (s *journeys) PatchUpdateJourney(ctx context.Context, request map[string]interface{}) (*operations.PatchUpdateJourneyResponse, error) {
+func (s *journeys) PatchUpdateJourney(ctx context.Context, request shared.PatchUpdateJourneyRequest, opts ...operations.Option) (*operations.PatchUpdateJourneyResponse, error) {
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionRetries,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/v1/journey/configuration"
 
@@ -198,7 +312,28 @@ func (s *journeys) PatchUpdateJourney(ctx context.Context, request map[string]in
 
 	client := s.securityClient
 
-	httpRes, err := client.Do(req)
+	retryConfig := o.Retries
+	if retryConfig == nil {
+		retryConfig = &utils.RetryConfig{
+			Strategy: "backoff",
+			Backoff: &utils.BackoffStrategy{
+				InitialInterval: 5000,
+				MaxInterval:     60000,
+				Exponent:        1.5,
+				MaxElapsedTime:  3600000,
+			},
+			RetryConnectionErrors: true,
+		}
+	}
+
+	httpRes, err := utils.Retry(ctx, utils.Retries{
+		Config: retryConfig,
+		StatusCodes: []string{
+			"5XX",
+		},
+	}, func() (*http.Response, error) {
+		return client.Do(req)
+	})
 	if err != nil {
 		return nil, fmt.Errorf("error sending request: %w", err)
 	}
@@ -232,9 +367,22 @@ func (s *journeys) PatchUpdateJourney(ctx context.Context, request map[string]in
 
 // RemoveJourney - removeJourney
 // Remove journey by id
-func (s *journeys) RemoveJourney(ctx context.Context, request operations.RemoveJourneyRequest) (*operations.RemoveJourneyResponse, error) {
+func (s *journeys) RemoveJourney(ctx context.Context, request operations.RemoveJourneyRequest, opts ...operations.Option) (*operations.RemoveJourneyResponse, error) {
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionRetries,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
 	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/v1/journey/configuration/{id}", request, nil)
+	url, err := utils.GenerateURL(ctx, baseURL, "/v1/journey/configuration/{id}", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
 
 	req, err := http.NewRequestWithContext(ctx, "DELETE", url, nil)
 	if err != nil {
@@ -243,7 +391,28 @@ func (s *journeys) RemoveJourney(ctx context.Context, request operations.RemoveJ
 
 	client := s.securityClient
 
-	httpRes, err := client.Do(req)
+	retryConfig := o.Retries
+	if retryConfig == nil {
+		retryConfig = &utils.RetryConfig{
+			Strategy: "backoff",
+			Backoff: &utils.BackoffStrategy{
+				InitialInterval: 5000,
+				MaxInterval:     60000,
+				Exponent:        1.5,
+				MaxElapsedTime:  3600000,
+			},
+			RetryConnectionErrors: true,
+		}
+	}
+
+	httpRes, err := utils.Retry(ctx, utils.Retries{
+		Config: retryConfig,
+		StatusCodes: []string{
+			"5XX",
+		},
+	}, func() (*http.Response, error) {
+		return client.Do(req)
+	})
 	if err != nil {
 		return nil, fmt.Errorf("error sending request: %w", err)
 	}
@@ -268,7 +437,17 @@ func (s *journeys) RemoveJourney(ctx context.Context, request operations.RemoveJ
 
 // SearchJourneys - searchJourneys
 // Search Journeys
-func (s *journeys) SearchJourneys(ctx context.Context, request shared.SearchJourneysQueryRequest) (*operations.SearchJourneysResponse, error) {
+func (s *journeys) SearchJourneys(ctx context.Context, request shared.SearchJourneysQueryRequest, opts ...operations.Option) (*operations.SearchJourneysResponse, error) {
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionRetries,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/v1/journey/configuration/search"
 
@@ -286,7 +465,28 @@ func (s *journeys) SearchJourneys(ctx context.Context, request shared.SearchJour
 
 	client := s.securityClient
 
-	httpRes, err := client.Do(req)
+	retryConfig := o.Retries
+	if retryConfig == nil {
+		retryConfig = &utils.RetryConfig{
+			Strategy: "backoff",
+			Backoff: &utils.BackoffStrategy{
+				InitialInterval: 5000,
+				MaxInterval:     60000,
+				Exponent:        1.5,
+				MaxElapsedTime:  3600000,
+			},
+			RetryConnectionErrors: true,
+		}
+	}
+
+	httpRes, err := utils.Retry(ctx, utils.Retries{
+		Config: retryConfig,
+		StatusCodes: []string{
+			"5XX",
+		},
+	}, func() (*http.Response, error) {
+		return client.Do(req)
+	})
 	if err != nil {
 		return nil, fmt.Errorf("error sending request: %w", err)
 	}
@@ -320,7 +520,17 @@ func (s *journeys) SearchJourneys(ctx context.Context, request shared.SearchJour
 
 // UpdateJourney - updateJourney
 // Update a Journey
-func (s *journeys) UpdateJourney(ctx context.Context, request shared.JourneyCreationRequest) (*operations.UpdateJourneyResponse, error) {
+func (s *journeys) UpdateJourney(ctx context.Context, request shared.JourneyCreationRequest, opts ...operations.Option) (*operations.UpdateJourneyResponse, error) {
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionRetries,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/v1/journey/configuration"
 
@@ -338,7 +548,28 @@ func (s *journeys) UpdateJourney(ctx context.Context, request shared.JourneyCrea
 
 	client := s.securityClient
 
-	httpRes, err := client.Do(req)
+	retryConfig := o.Retries
+	if retryConfig == nil {
+		retryConfig = &utils.RetryConfig{
+			Strategy: "backoff",
+			Backoff: &utils.BackoffStrategy{
+				InitialInterval: 5000,
+				MaxInterval:     60000,
+				Exponent:        1.5,
+				MaxElapsedTime:  3600000,
+			},
+			RetryConnectionErrors: true,
+		}
+	}
+
+	httpRes, err := utils.Retry(ctx, utils.Retries{
+		Config: retryConfig,
+		StatusCodes: []string{
+			"5XX",
+		},
+	}, func() (*http.Response, error) {
+		return client.Do(req)
+	})
 	if err != nil {
 		return nil, fmt.Errorf("error sending request: %w", err)
 	}

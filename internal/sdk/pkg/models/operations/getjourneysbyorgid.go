@@ -6,6 +6,10 @@ import (
 	"net/http"
 )
 
+var GetJourneysByOrgIDServerList = []string{
+	"https://api.epilot.com",
+}
+
 type GetJourneysByOrgIDRequest struct {
 	// Organization ID
 	ID string `pathParam:"style=simple,explode=false,name=id"`

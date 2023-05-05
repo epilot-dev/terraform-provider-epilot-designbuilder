@@ -431,18 +431,7 @@ func (r *JourneyResource) Read(ctx context.Context, req resource.ReadRequest, re
 
 func (r *JourneyResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data *JourneyResourceModel
-	var item types.Object
-
-	resp.Diagnostics.Append(req.Plan.Get(ctx, &item)...)
-	if resp.Diagnostics.HasError() {
-		return
-	}
-
-	resp.Diagnostics.Append(item.As(ctx, &data, basetypes.ObjectAsOptions{
-		UnhandledNullAsEmpty:    true,
-		UnhandledUnknownAsEmpty: true,
-	})...)
-
+	merge(ctx, req, resp, &data)
 	if resp.Diagnostics.HasError() {
 		return
 	}

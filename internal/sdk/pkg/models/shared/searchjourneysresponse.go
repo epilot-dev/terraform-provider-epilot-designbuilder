@@ -21,19 +21,23 @@ const (
 	SearchJourneysResponseResultsJourneyVersionEnumWidget SearchJourneysResponseResultsJourneyVersionEnum = "Widget"
 )
 
+func (e SearchJourneysResponseResultsJourneyVersionEnum) ToPointer() *SearchJourneysResponseResultsJourneyVersionEnum {
+	return &e
+}
+
 func (e *SearchJourneysResponseResultsJourneyVersionEnum) UnmarshalJSON(data []byte) error {
-	var s string
-	if err := json.Unmarshal(data, &s); err != nil {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
-	switch s {
+	switch v {
 	case "Flex":
 		fallthrough
 	case "Widget":
-		*e = SearchJourneysResponseResultsJourneyVersionEnum(s)
+		*e = SearchJourneysResponseResultsJourneyVersionEnum(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for SearchJourneysResponseResultsJourneyVersionEnum: %s", s)
+		return fmt.Errorf("invalid value for SearchJourneysResponseResultsJourneyVersionEnum: %v", v)
 	}
 }
 

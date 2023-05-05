@@ -312,10 +312,12 @@ func (r *JourneyResourceModel) RefreshFromSDKType(resp *shared.JourneyResponse) 
 		} else {
 			r.Design.LogoURL = types.StringNull()
 		}
-		r.Design.Theme = make(map[string]types.String)
-		for key, value := range resp.Design.Theme {
-			result, _ := json.Marshal(value)
-			r.Design.Theme[key] = types.StringValue(string(result))
+		if r.Design.Theme == nil && len(resp.Design.Theme) > 0 {
+			r.Design.Theme = make(map[string]types.String)
+			for key, value := range resp.Design.Theme {
+				result, _ := json.Marshal(value)
+				r.Design.Theme[key] = types.StringValue(string(result))
+			}
 		}
 	}
 	if resp.JourneyID != nil {
@@ -421,9 +423,11 @@ func (r *JourneyResourceModel) RefreshFromSDKType(resp *shared.JourneyResponse) 
 		} else {
 			r.Settings.MappingsAutomationID = types.StringNull()
 		}
-		r.Settings.OrganizationSettings = make(map[string]types.Bool)
-		for key1, value1 := range resp.Settings.OrganizationSettings {
-			r.Settings.OrganizationSettings[key1] = types.BoolValue(value1)
+		if r.Settings.OrganizationSettings == nil && len(resp.Settings.OrganizationSettings) > 0 {
+			r.Settings.OrganizationSettings = make(map[string]types.Bool)
+			for key1, value1 := range resp.Settings.OrganizationSettings {
+				r.Settings.OrganizationSettings[key1] = types.BoolValue(value1)
+			}
 		}
 		if resp.Settings.PublicToken != nil {
 			r.Settings.PublicToken = types.StringValue(*resp.Settings.PublicToken)

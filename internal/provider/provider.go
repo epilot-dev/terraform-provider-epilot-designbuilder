@@ -40,6 +40,7 @@ func (p *EpilotJourneyProvider) Schema(ctx context.Context, req provider.SchemaR
 			"server_url": schema.StringAttribute{
 				MarkdownDescription: "Server URL (defaults to https://journey-config.sls.epilot.io)",
 				Optional:            true,
+				Required:            false,
 			},
 			"epilot_auth": schema.StringAttribute{
 				Optional:  true,

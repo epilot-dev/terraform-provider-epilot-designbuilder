@@ -26,21 +26,25 @@ const (
 	JourneyResponseRulesSourceTypeEnumBlock   JourneyResponseRulesSourceTypeEnum = "block"
 )
 
+func (e JourneyResponseRulesSourceTypeEnum) ToPointer() *JourneyResponseRulesSourceTypeEnum {
+	return &e
+}
+
 func (e *JourneyResponseRulesSourceTypeEnum) UnmarshalJSON(data []byte) error {
-	var s string
-	if err := json.Unmarshal(data, &s); err != nil {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
-	switch s {
+	switch v {
 	case "journey":
 		fallthrough
 	case "step":
 		fallthrough
 	case "block":
-		*e = JourneyResponseRulesSourceTypeEnum(s)
+		*e = JourneyResponseRulesSourceTypeEnum(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for JourneyResponseRulesSourceTypeEnum: %s", s)
+		return fmt.Errorf("invalid value for JourneyResponseRulesSourceTypeEnum: %v", v)
 	}
 }
 
@@ -51,19 +55,23 @@ const (
 	JourneyResponseRulesTypeEnumInjectWithKey JourneyResponseRulesTypeEnum = "injectWithKey"
 )
 
+func (e JourneyResponseRulesTypeEnum) ToPointer() *JourneyResponseRulesTypeEnum {
+	return &e
+}
+
 func (e *JourneyResponseRulesTypeEnum) UnmarshalJSON(data []byte) error {
-	var s string
-	if err := json.Unmarshal(data, &s); err != nil {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
-	switch s {
+	switch v {
 	case "inject":
 		fallthrough
 	case "injectWithKey":
-		*e = JourneyResponseRulesTypeEnum(s)
+		*e = JourneyResponseRulesTypeEnum(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for JourneyResponseRulesTypeEnum: %s", s)
+		return fmt.Errorf("invalid value for JourneyResponseRulesTypeEnum: %v", v)
 	}
 }
 
@@ -82,21 +90,25 @@ const (
 	JourneyResponseSettingsEmbedOptionsButtonAlignEnumRight  JourneyResponseSettingsEmbedOptionsButtonAlignEnum = "right"
 )
 
+func (e JourneyResponseSettingsEmbedOptionsButtonAlignEnum) ToPointer() *JourneyResponseSettingsEmbedOptionsButtonAlignEnum {
+	return &e
+}
+
 func (e *JourneyResponseSettingsEmbedOptionsButtonAlignEnum) UnmarshalJSON(data []byte) error {
-	var s string
-	if err := json.Unmarshal(data, &s); err != nil {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
-	switch s {
+	switch v {
 	case "left":
 		fallthrough
 	case "center":
 		fallthrough
 	case "right":
-		*e = JourneyResponseSettingsEmbedOptionsButtonAlignEnum(s)
+		*e = JourneyResponseSettingsEmbedOptionsButtonAlignEnum(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for JourneyResponseSettingsEmbedOptionsButtonAlignEnum: %s", s)
+		return fmt.Errorf("invalid value for JourneyResponseSettingsEmbedOptionsButtonAlignEnum: %v", v)
 	}
 }
 
@@ -113,21 +125,25 @@ const (
 	JourneyResponseSettingsEmbedOptionsLangEnumFr JourneyResponseSettingsEmbedOptionsLangEnum = "fr"
 )
 
+func (e JourneyResponseSettingsEmbedOptionsLangEnum) ToPointer() *JourneyResponseSettingsEmbedOptionsLangEnum {
+	return &e
+}
+
 func (e *JourneyResponseSettingsEmbedOptionsLangEnum) UnmarshalJSON(data []byte) error {
-	var s string
-	if err := json.Unmarshal(data, &s); err != nil {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
-	switch s {
+	switch v {
 	case "de":
 		fallthrough
 	case "en":
 		fallthrough
 	case "fr":
-		*e = JourneyResponseSettingsEmbedOptionsLangEnum(s)
+		*e = JourneyResponseSettingsEmbedOptionsLangEnum(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for JourneyResponseSettingsEmbedOptionsLangEnum: %s", s)
+		return fmt.Errorf("invalid value for JourneyResponseSettingsEmbedOptionsLangEnum: %v", v)
 	}
 }
 
@@ -138,19 +154,23 @@ const (
 	JourneyResponseSettingsEmbedOptionsModeEnumInline     JourneyResponseSettingsEmbedOptionsModeEnum = "inline"
 )
 
+func (e JourneyResponseSettingsEmbedOptionsModeEnum) ToPointer() *JourneyResponseSettingsEmbedOptionsModeEnum {
+	return &e
+}
+
 func (e *JourneyResponseSettingsEmbedOptionsModeEnum) UnmarshalJSON(data []byte) error {
-	var s string
-	if err := json.Unmarshal(data, &s); err != nil {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
-	switch s {
+	switch v {
 	case "full-screen":
 		fallthrough
 	case "inline":
-		*e = JourneyResponseSettingsEmbedOptionsModeEnum(s)
+		*e = JourneyResponseSettingsEmbedOptionsModeEnum(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for JourneyResponseSettingsEmbedOptionsModeEnum: %s", s)
+		return fmt.Errorf("invalid value for JourneyResponseSettingsEmbedOptionsModeEnum: %v", v)
 	}
 }
 
@@ -170,19 +190,23 @@ const (
 	JourneyResponseSettingsRuntimeEntitiesEnumOpportunity JourneyResponseSettingsRuntimeEntitiesEnum = "OPPORTUNITY"
 )
 
+func (e JourneyResponseSettingsRuntimeEntitiesEnum) ToPointer() *JourneyResponseSettingsRuntimeEntitiesEnum {
+	return &e
+}
+
 func (e *JourneyResponseSettingsRuntimeEntitiesEnum) UnmarshalJSON(data []byte) error {
-	var s string
-	if err := json.Unmarshal(data, &s); err != nil {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
-	switch s {
+	switch v {
 	case "ORDER":
 		fallthrough
 	case "OPPORTUNITY":
-		*e = JourneyResponseSettingsRuntimeEntitiesEnum(s)
+		*e = JourneyResponseSettingsRuntimeEntitiesEnum(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for JourneyResponseSettingsRuntimeEntitiesEnum: %s", s)
+		return fmt.Errorf("invalid value for JourneyResponseSettingsRuntimeEntitiesEnum: %v", v)
 	}
 }
 
