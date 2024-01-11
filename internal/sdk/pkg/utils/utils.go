@@ -3,13 +3,15 @@
 package utils
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
+	"math/big"
 	"reflect"
 	"regexp"
 	"strings"
 	"time"
+
+	"github.com/ericlagergren/decimal"
 )
 
 const (
@@ -29,12 +31,12 @@ var (
 	}
 )
 
-func UnmarshalJsonFromResponseBody(body io.Reader, out interface{}) error {
+func UnmarshalJsonFromResponseBody(body io.Reader, out interface{}, tag string) error {
 	data, err := io.ReadAll(body)
 	if err != nil {
 		return fmt.Errorf("error reading response body: %w", err)
 	}
-	if err := json.Unmarshal(data, &out); err != nil {
+	if err := UnmarshalJSON(data, out, reflect.StructTag(tag), true, false); err != nil {
 		return fmt.Errorf("error unmarshalling json response body: %w", err)
 	}
 
@@ -42,6 +44,10 @@ func UnmarshalJsonFromResponseBody(body io.Reader, out interface{}) error {
 }
 
 func ReplaceParameters(stringWithParams string, params map[string]string) string {
+	if len(params) == 0 {
+		return stringWithParams
+	}
+
 	return paramRegex.ReplaceAllStringFunc(stringWithParams, func(match string) string {
 		match = match[1 : len(match)-1]
 		return params[match]
@@ -75,7 +81,6 @@ func parseStructTag(tagKey string, field reflect.StructField) map[string]string 
 			parts = append(parts, "true")
 		case 2:
 			// key=value option
-			break
 		default:
 			// invalid option
 			continue
@@ -120,6 +125,10 @@ func valToString(val interface{}) string {
 	switch v := val.(type) {
 	case time.Time:
 		return v.Format(time.RFC3339Nano)
+	case big.Int:
+		return v.String()
+	case decimal.Big:
+		return v.String()
 	default:
 		return fmt.Sprintf("%v", v)
 	}
@@ -142,4 +151,12 @@ func populateFromGlobals(fieldType reflect.StructField, valType reflect.Value, p
 	}
 
 	return valType
+}
+
+func isNil(typ reflect.Type, val reflect.Value) bool {
+	if typ.Kind() == reflect.Ptr || typ.Kind() == reflect.Map || typ.Kind() == reflect.Slice || typ.Kind() == reflect.Interface {
+		return val.IsNil()
+	}
+
+	return false
 }

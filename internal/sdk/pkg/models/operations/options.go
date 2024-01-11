@@ -3,24 +3,38 @@
 package operations
 
 import (
-	"epilot-journey/internal/sdk/pkg/utils"
 	"errors"
+	"github.com/epilot-dev/terraform-provider-epilot-journey/internal/sdk/pkg/utils"
 )
 
 var ErrUnsupportedOption = errors.New("unsupported option")
 
 const (
-	SupportedOptionServerURL = "serverURL"
-	SupportedOptionRetries   = "retries"
+	SupportedOptionServerURL            = "serverURL"
+	SupportedOptionRetries              = "retries"
+	SupportedOptionAcceptHeaderOverride = "acceptHeaderOverride"
 )
 
+type AcceptHeaderEnum string
+
+const (
+	AcceptHeaderEnumApplicationJson  AcceptHeaderEnum = "application/json"
+	AcceptHeaderEnumWildcardWildcard AcceptHeaderEnum = "*/*"
+)
+
+func (e AcceptHeaderEnum) ToPointer() *AcceptHeaderEnum {
+	return &e
+}
+
 type Options struct {
-	ServerURL *string
-	Retries   *utils.RetryConfig
+	ServerURL            *string
+	Retries              *utils.RetryConfig
+	AcceptHeaderOverride *AcceptHeaderEnum
 }
 
 type Option func(*Options, ...string) error
 
+// WithServerURL allows providing an alternative server URL.
 func WithServerURL(serverURL string) Option {
 	return func(opts *Options, supportedOptions ...string) error {
 		if !utils.Contains(supportedOptions, SupportedOptionServerURL) {
@@ -32,6 +46,7 @@ func WithServerURL(serverURL string) Option {
 	}
 }
 
+// WithTemplatedServerURL allows providing an alternative server URL with templated parameters.
 func WithTemplatedServerURL(serverURL string, params map[string]string) Option {
 	return func(opts *Options, supportedOptions ...string) error {
 		if !utils.Contains(supportedOptions, SupportedOptionServerURL) {
@@ -47,6 +62,7 @@ func WithTemplatedServerURL(serverURL string, params map[string]string) Option {
 	}
 }
 
+// WithRetries allows customizing the default retry configuration.
 func WithRetries(config utils.RetryConfig) Option {
 	return func(opts *Options, supportedOptions ...string) error {
 		if !utils.Contains(supportedOptions, SupportedOptionRetries) {
@@ -54,6 +70,17 @@ func WithRetries(config utils.RetryConfig) Option {
 		}
 
 		opts.Retries = &config
+		return nil
+	}
+}
+
+func WithAcceptHeaderOverride(acceptHeaderOverride AcceptHeaderEnum) Option {
+	return func(opts *Options, supportedOptions ...string) error {
+		if !utils.Contains(supportedOptions, SupportedOptionAcceptHeaderOverride) {
+			return ErrUnsupportedOption
+		}
+
+		opts.AcceptHeaderOverride = &acceptHeaderOverride
 		return nil
 	}
 }

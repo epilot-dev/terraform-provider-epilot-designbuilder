@@ -3,56 +3,36 @@
 package shared
 
 import (
-	"encoding/json"
+	"github.com/epilot-dev/terraform-provider-epilot-journey/internal/sdk/pkg/utils"
 )
 
 // PatchUpdateJourneyRequest - Patch request to update a journey (journey id is required) Support for nested properties (e.g. steps[0].uischema.elements[0].products) is supported.
 type PatchUpdateJourneyRequest struct {
-	JourneyID string `json:"journeyId"`
-
-	AdditionalProperties map[string]interface{} `json:"-"`
+	AdditionalProperties interface{} `additionalProperties:"true" json:"-"`
+	JourneyID            string      `json:"journeyId"`
 }
-type _PatchUpdateJourneyRequest PatchUpdateJourneyRequest
 
-func (c *PatchUpdateJourneyRequest) UnmarshalJSON(bs []byte) error {
-	data := _PatchUpdateJourneyRequest{}
+func (p PatchUpdateJourneyRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
 
-	if err := json.Unmarshal(bs, &data); err != nil {
+func (p *PatchUpdateJourneyRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, false); err != nil {
 		return err
 	}
-	*c = PatchUpdateJourneyRequest(data)
-
-	additionalFields := make(map[string]interface{})
-
-	if err := json.Unmarshal(bs, &additionalFields); err != nil {
-		return err
-	}
-	delete(additionalFields, "journeyId")
-
-	c.AdditionalProperties = additionalFields
-
 	return nil
 }
 
-func (c PatchUpdateJourneyRequest) MarshalJSON() ([]byte, error) {
-	out := map[string]interface{}{}
-	bs, err := json.Marshal(_PatchUpdateJourneyRequest(c))
-	if err != nil {
-		return nil, err
+func (o *PatchUpdateJourneyRequest) GetAdditionalProperties() interface{} {
+	if o == nil {
+		return nil
 	}
+	return o.AdditionalProperties
+}
 
-	if err := json.Unmarshal([]byte(bs), &out); err != nil {
-		return nil, err
+func (o *PatchUpdateJourneyRequest) GetJourneyID() string {
+	if o == nil {
+		return ""
 	}
-
-	bs, err = json.Marshal(c.AdditionalProperties)
-	if err != nil {
-		return nil, err
-	}
-
-	if err := json.Unmarshal([]byte(bs), &out); err != nil {
-		return nil, err
-	}
-
-	return json.Marshal(out)
+	return o.JourneyID
 }

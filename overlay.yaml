@@ -1,0 +1,52 @@
+overlay: 1.0.0
+info:
+  title: Overlay epilot journey to make a journey resource
+  version: 0.0.1
+actions:
+  - target: $
+    update:
+      x-speakeasy-retries:
+        strategy: backoff
+        backoff:
+          initialInterval: 5000 # 5 seconds
+          maxInterval: 60000 # 60 seconds
+          maxElapsedTime: 3600000 # 5 minutes
+          exponent: 1.5
+        statusCodes:
+          - 5XX
+        retryConnectionErrors: true
+  - target: $["paths"]["/v1/journey/configuration/{id}"]["get"]
+    update:
+      x-speakeasy-entity-operation: Journey#get
+  - target: $["paths"]["/v1/journey/configuration/{id}"]["get"]["parameters"][0]
+    update:
+      x-speakeasy-match: journeyId
+  - target: $["paths"]["/v1/journey/configuration/{id}"]["get"]["responses"]["200"]["content"]["application/json"]["schema"]["$ref"]
+    update: "#/components/schemas/Journey"
+  - target: $["paths"]["/v2/journey/configuration"]["post"]
+    update:
+      x-speakeasy-entity-operation: Journey#create
+  - target: $["paths"]["/v2/journey/configuration"]["put"]
+    update:
+      x-speakeasy-entity-operation: Journey#update
+  - target: $["paths"]["/v2/journey/configuration/{id}"]["get"]["parameters"][0]
+    update:
+      x-speakeasy-match: journeyId
+  - target: $["paths"]["/v2/journey/configuration/{id}"]["delete"]
+    update:
+      x-speakeasy-entity-operation: Journey#delete
+  - target: $["paths"]["/v2/journey/configuration/{id}"]["delete"]["parameters"][0]
+    update:
+      x-speakeasy-match: journeyId
+  - target: $["components"]["schemas"]["JourneyProductsResponse"]["items"]["properties"]["feature"]
+    update:
+      items: {}
+  - target: $["components"]["schemas"]["JourneyProductsResponse"]["items"]["properties"]["product_images"]
+    update:
+      items: {}
+  - target: $["components"]["schemas"]["JourneyProductsResponse"]["items"]["properties"]["product_downloads"]
+    update:
+      items: {}
+  - target: $["components"]["schemas"]["JourneyCreationRequestV2"]
+    update:
+      x-speakeasy-entity: Journey

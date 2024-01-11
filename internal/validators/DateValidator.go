@@ -4,7 +4,7 @@ package validators
 
 import (
 	"context"
-	"epilot-journey/internal/sdk/pkg/types"
+	"github.com/epilot-dev/terraform-provider-epilot-journey/internal/sdk/pkg/types"
 	"github.com/hashicorp/terraform-plugin-framework-validators/helpers/validatordiag"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 )
@@ -28,7 +28,7 @@ func (validator DateValidator) ValidateString(ctx context.Context, req validator
 		return
 	}
 
-	if _, err := types.NewDate(req.ConfigValue.ValueString()); err != nil {
+	if _, err := types.NewDateFromString(req.ConfigValue.ValueString()); err != nil {
 		resp.Diagnostics.Append(validatordiag.InvalidAttributeTypeDiagnostic(
 			req.Path,
 			validator.MarkdownDescription(ctx),

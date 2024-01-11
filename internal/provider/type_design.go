@@ -4,7 +4,7 @@ package provider
 
 import "github.com/hashicorp/terraform-plugin-framework/types"
 
-type JourneyCreationRequestSettingsEmbedOptionsButton struct {
-	Align types.String `tfsdk:"align"`
-	Text  types.String `tfsdk:"text"`
+type Design struct {
+	LogoURL types.String            `tfsdk:"logo_url"`
+	Theme   map[string]types.String `tfsdk:"theme"`
 }

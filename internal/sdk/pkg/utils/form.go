@@ -4,21 +4,26 @@ package utils
 
 import (
 	"fmt"
+	"math/big"
 	"net/url"
 	"reflect"
 	"strings"
 	"time"
 
-	"epilot-journey/internal/sdk/pkg/types"
+	"github.com/ericlagergren/decimal"
+
+	"github.com/epilot-dev/terraform-provider-epilot-journey/internal/sdk/pkg/types"
 )
 
-func populateForm(paramName string, explode bool, objType reflect.Type, objValue reflect.Value, getFieldName func(reflect.StructField) string) url.Values {
+func populateForm(paramName string, explode bool, objType reflect.Type, objValue reflect.Value, delimiter string, getFieldName func(reflect.StructField) string) url.Values {
+
 	formValues := url.Values{}
 
+	if isNil(objType, objValue) {
+		return formValues
+	}
+
 	if objType.Kind() == reflect.Pointer {
-		if objValue.IsNil() {
-			return formValues
-		}
 		objType = objType.Elem()
 		objValue = objValue.Elem()
 	}
@@ -30,6 +35,10 @@ func populateForm(paramName string, explode bool, objType reflect.Type, objValue
 			formValues.Add(paramName, valToString(objValue.Interface()))
 		case types.Date:
 			formValues.Add(paramName, valToString(objValue.Interface()))
+		case big.Int:
+			formValues.Add(paramName, valToString(objValue.Interface()))
+		case decimal.Big:
+			formValues.Add(paramName, valToString(objValue.Interface()))
 		default:
 			var items []string
 
@@ -37,11 +46,11 @@ func populateForm(paramName string, explode bool, objType reflect.Type, objValue
 				fieldType := objType.Field(i)
 				valType := objValue.Field(i)
 
-				if valType.Kind() == reflect.Pointer {
-					if valType.IsNil() {
-						continue
-					}
+				if isNil(fieldType.Type, valType) {
+					continue
+				}
 
+				if valType.Kind() == reflect.Pointer {
 					valType = valType.Elem()
 				}
 
@@ -53,12 +62,12 @@ func populateForm(paramName string, explode bool, objType reflect.Type, objValue
 				if explode {
 					formValues.Add(fieldName, valToString(valType.Interface()))
 				} else {
-					items = append(items, fmt.Sprintf("%s,%s", fieldName, valToString(valType.Interface())))
+					items = append(items, fmt.Sprintf("%s%s%s", fieldName, delimiter, valToString(valType.Interface())))
 				}
 			}
 
 			if len(items) > 0 {
-				formValues.Add(paramName, strings.Join(items, ","))
+				formValues.Add(paramName, strings.Join(items, delimiter))
 			}
 		}
 	case reflect.Map:
@@ -69,15 +78,15 @@ func populateForm(paramName string, explode bool, objType reflect.Type, objValue
 			if explode {
 				formValues.Add(iter.Key().String(), valToString(iter.Value().Interface()))
 			} else {
-				items = append(items, fmt.Sprintf("%s,%s", iter.Key().String(), valToString(iter.Value().Interface())))
+				items = append(items, fmt.Sprintf("%s%s%s", iter.Key().String(), delimiter, valToString(iter.Value().Interface())))
 			}
 		}
 
 		if len(items) > 0 {
-			formValues.Add(paramName, strings.Join(items, ","))
+			formValues.Add(paramName, strings.Join(items, delimiter))
 		}
 	case reflect.Slice, reflect.Array:
-		values := parseFormStyleArray(explode, objValue)
+		values := parseDelimitedArray(explode, objValue, delimiter)
 		for _, v := range values {
 			formValues.Add(paramName, v)
 		}
@@ -88,7 +97,7 @@ func populateForm(paramName string, explode bool, objType reflect.Type, objValue
 	return formValues
 }
 
-func parseFormStyleArray(explode bool, objValue reflect.Value) []string {
+func parseDelimitedArray(explode bool, objValue reflect.Value, delimiter string) []string {
 	values := []string{}
 	items := []string{}
 
@@ -101,7 +110,7 @@ func parseFormStyleArray(explode bool, objValue reflect.Value) []string {
 	}
 
 	if len(items) > 0 {
-		values = append(values, strings.Join(items, ","))
+		values = append(values, strings.Join(items, delimiter))
 	}
 
 	return values

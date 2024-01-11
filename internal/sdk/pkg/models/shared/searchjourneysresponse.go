@@ -5,27 +5,35 @@ package shared
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/epilot-dev/terraform-provider-epilot-journey/internal/sdk/pkg/utils"
 	"time"
 )
 
-type SearchJourneysResponseResultsCreatedBy struct {
+type CreatedBy struct {
 	// User ID
 	ID *string `json:"id,omitempty"`
 }
 
-// SearchJourneysResponseResultsJourneyVersionEnum - Journey Version
-type SearchJourneysResponseResultsJourneyVersionEnum string
+func (o *CreatedBy) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+// JourneyVersion - Journey Version
+type JourneyVersion string
 
 const (
-	SearchJourneysResponseResultsJourneyVersionEnumFlex   SearchJourneysResponseResultsJourneyVersionEnum = "Flex"
-	SearchJourneysResponseResultsJourneyVersionEnumWidget SearchJourneysResponseResultsJourneyVersionEnum = "Widget"
+	JourneyVersionFlex   JourneyVersion = "Flex"
+	JourneyVersionWidget JourneyVersion = "Widget"
 )
 
-func (e SearchJourneysResponseResultsJourneyVersionEnum) ToPointer() *SearchJourneysResponseResultsJourneyVersionEnum {
+func (e JourneyVersion) ToPointer() *JourneyVersion {
 	return &e
 }
 
-func (e *SearchJourneysResponseResultsJourneyVersionEnum) UnmarshalJSON(data []byte) error {
+func (e *JourneyVersion) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -34,14 +42,14 @@ func (e *SearchJourneysResponseResultsJourneyVersionEnum) UnmarshalJSON(data []b
 	case "Flex":
 		fallthrough
 	case "Widget":
-		*e = SearchJourneysResponseResultsJourneyVersionEnum(v)
+		*e = JourneyVersion(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for SearchJourneysResponseResultsJourneyVersionEnum: %v", v)
+		return fmt.Errorf("invalid value for JourneyVersion: %v", v)
 	}
 }
 
-type SearchJourneysResponseResults struct {
+type Results struct {
 	CreatedAt *time.Time `json:"_created_at,omitempty"`
 	// Journey Entity ID
 	ID *string `json:"_id,omitempty"`
@@ -51,9 +59,9 @@ type SearchJourneysResponseResults struct {
 	Schema *string  `json:"_schema,omitempty"`
 	Tags   []string `json:"_tags,omitempty"`
 	// Journey Entity Title
-	Title     *string                                  `json:"_title,omitempty"`
-	UpdatedAt *time.Time                               `json:"_updated_at,omitempty"`
-	CreatedBy []SearchJourneysResponseResultsCreatedBy `json:"created_by,omitempty"`
+	Title     *string     `json:"_title,omitempty"`
+	UpdatedAt *time.Time  `json:"_updated_at,omitempty"`
+	CreatedBy []CreatedBy `json:"created_by,omitempty"`
 	// Journey Design Name
 	Design *string `json:"design,omitempty"`
 	// Journey config ID
@@ -63,15 +71,130 @@ type SearchJourneysResponseResults struct {
 	// Journey Template
 	JourneyType *string `json:"journey_type,omitempty"`
 	// Journey Version
-	JourneyVersion *SearchJourneysResponseResultsJourneyVersionEnum `json:"journey_version,omitempty"`
+	JourneyVersion *JourneyVersion `json:"journey_version,omitempty"`
 }
 
-// SearchJourneysResponse - Success
+func (r Results) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *Results) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, false); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *Results) GetCreatedAt() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.CreatedAt
+}
+
+func (o *Results) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *Results) GetOrg() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Org
+}
+
+func (o *Results) GetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Schema
+}
+
+func (o *Results) GetTags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Tags
+}
+
+func (o *Results) GetTitle() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Title
+}
+
+func (o *Results) GetUpdatedAt() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.UpdatedAt
+}
+
+func (o *Results) GetCreatedBy() []CreatedBy {
+	if o == nil {
+		return nil
+	}
+	return o.CreatedBy
+}
+
+func (o *Results) GetDesign() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Design
+}
+
+func (o *Results) GetJourneyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.JourneyID
+}
+
+func (o *Results) GetJourneyName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.JourneyName
+}
+
+func (o *Results) GetJourneyType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.JourneyType
+}
+
+func (o *Results) GetJourneyVersion() *JourneyVersion {
+	if o == nil {
+		return nil
+	}
+	return o.JourneyVersion
+}
+
 type SearchJourneysResponse struct {
 	// The total number of hits.
 	//
 	Hits *float64 `json:"hits,omitempty"`
 	// The results.
 	//
-	Results []SearchJourneysResponseResults `json:"results,omitempty"`
+	Results []Results `json:"results,omitempty"`
+}
+
+func (o *SearchJourneysResponse) GetHits() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Hits
+}
+
+func (o *SearchJourneysResponse) GetResults() []Results {
+	if o == nil {
+		return nil
+	}
+	return o.Results
 }

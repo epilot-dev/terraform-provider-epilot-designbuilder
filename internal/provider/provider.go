@@ -4,9 +4,8 @@ package provider
 
 import (
 	"context"
-	"epilot-journey/internal/sdk"
-	"epilot-journey/internal/sdk/pkg/models/shared"
-
+	"github.com/epilot-dev/terraform-provider-epilot-journey/internal/sdk"
+	"github.com/epilot-dev/terraform-provider-epilot-journey/internal/sdk/pkg/models/shared"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
@@ -36,6 +35,7 @@ func (p *EpilotJourneyProvider) Metadata(ctx context.Context, req provider.Metad
 
 func (p *EpilotJourneyProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		Description: `Journey API: API to configure journeys`,
 		Attributes: map[string]schema.Attribute{
 			"server_url": schema.StringAttribute{
 				MarkdownDescription: "Server URL (defaults to https://journey-config.sls.epilot.io)",
@@ -87,7 +87,9 @@ func (p *EpilotJourneyProvider) Resources(ctx context.Context) []func() resource
 }
 
 func (p *EpilotJourneyProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
-	return []func() datasource.DataSource{}
+	return []func() datasource.DataSource{
+		NewJourneyDataSource,
+	}
 }
 
 func New(version string) func() provider.Provider {
