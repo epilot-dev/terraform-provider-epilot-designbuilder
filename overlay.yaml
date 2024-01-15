@@ -15,14 +15,12 @@ actions:
         statusCodes:
           - 5XX
         retryConnectionErrors: true
-  - target: $["paths"]["/v1/journey/configuration/{id}"]["get"]
+  - target: $["paths"]["/v2/journey/configuration/{id}"]["get"]
     update:
       x-speakeasy-entity-operation: Journey#get
-  - target: $["paths"]["/v1/journey/configuration/{id}"]["get"]["parameters"][0]
+  - target: $["paths"]["/v2/journey/configuration/{id}"]["get"]["parameters"][0]
     update:
       x-speakeasy-match: journeyId
-  - target: $["paths"]["/v1/journey/configuration/{id}"]["get"]["responses"]["200"]["content"]["application/json"]["schema"]["$ref"]
-    update: "#/components/schemas/Journey"
   - target: $["paths"]["/v2/journey/configuration"]["post"]
     update:
       x-speakeasy-entity-operation: Journey#create
