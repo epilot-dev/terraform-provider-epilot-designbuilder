@@ -152,10 +152,6 @@ func (s *JourneysV2) GetJourneyV2(ctx context.Context, request operations.GetJou
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("user-agent", s.sdkConfiguration.UserAgent)
 
-	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
-
 	client := s.sdkConfiguration.SecurityClient
 
 	globalRetryConfig := s.sdkConfiguration.RetryConfig

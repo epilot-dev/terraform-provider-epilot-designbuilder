@@ -477,14 +477,10 @@ func (r *JourneyResource) Read(ctx context.Context, req resource.ReadRequest, re
 	}
 
 	id := data.JourneyID.ValueString()
-	var orgID *string
-	var source *string
-	request := operations.GetJourneyRequest{
-		ID:     id,
-		OrgID:  orgID,
-		Source: source,
+	request := operations.GetJourneyV2Request{
+		ID: id,
 	}
-	res, err := r.client.Journeys.GetJourney(ctx, request)
+	res, err := r.client.JourneysV2.GetJourneyV2(ctx, request)
 	if err != nil {
 		resp.Diagnostics.AddError("failure to invoke API", err.Error())
 		if res != nil && res.RawResponse != nil {

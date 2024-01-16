@@ -10,8 +10,6 @@ import (
 type GetJourneyV2Request struct {
 	// Journey ID
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// What source ID. Journey or Entity ID
-	Source *string `queryParam:"style=form,explode=true,name=source"`
 }
 
 func (o *GetJourneyV2Request) GetID() string {
@@ -19,13 +17,6 @@ func (o *GetJourneyV2Request) GetID() string {
 		return ""
 	}
 	return o.ID
-}
-
-func (o *GetJourneyV2Request) GetSource() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Source
 }
 
 type GetJourneyV2Response struct {
