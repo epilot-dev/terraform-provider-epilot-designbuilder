@@ -1,23 +1,17 @@
-resource "epilot-journey_journey" "my_journey" {
-  additional_properties = "{ \"see\": \"documentation\" }"
-  brand_id              = "...my_brand_id..."
-  created_by            = "...my_created_by..."
-  journey_id            = "...my_journey_id..."
-  name                  = "Dianne Kiehn"
-  organization_id       = "...my_organization_id..."
+resource "epilot-journey_journey" "product_journey" { // sets up the initial automation
+  name                  = "TF Journey with products & prices"
+  organization_id       = "66"
   steps = [
-    {
-      hide_next_button    = false
-      name                = "Pearl Ondricka"
-      schema              = "{ \"see\": \"documentation\" }"
-      show_step_name      = true
-      show_stepper        = true
-      show_stepper_labels = true
-      show_step_subtitle  = true
-      step_id             = "...my_step_id..."
-      sub_title           = "...my_sub_title..."
-      title               = "Ms."
-      uischema            = "{ \"see\": \"documentation\" }"
-    },
+   {
+      name= "Product Step",
+      schema= "{\"type\":\"object\",\"properties\":{\"Produkte\":{\"type\":\"object\"},\"Aktions-Buttons\":{\"type\":\"object\"},\"Warenkorb\":{\"type\":\"object\"}},\"required\":[]}",
+      stepId="Neuer Schritt",
+      hideNextButton= true,
+      uischema= "{\"type\":\"MainContentCartLayout\",\"elements\":[[{\"type\":\"ProductSelectionControl\",\"options\":{\"orgId\":\"66\",\"products\":[{\"productId\":\"${product_id}\",\"priceId\":\"${price_id}\"}]},\"scope\":\"#/properties/Produkte\"}],[],[],[]]}"
+    }
   ]
 }
+
+# create the journey - id
+# create automation without action - journeyId
+
