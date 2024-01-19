@@ -15,8 +15,6 @@ Journey DataSource
 ```terraform
 data "epilot-journey_journey" "my_journey" {
   journey_id = "509cdffe-424f-457a-95c2-9708c304ce77"
-  org_id     = "...my_org_id..."
-  source     = "...my_source..."
 }
 ```
 
@@ -26,11 +24,6 @@ data "epilot-journey_journey" "my_journey" {
 ### Required
 
 - `journey_id` (String) Journey ID
-
-### Optional
-
-- `org_id` (String) Organization ID
-- `source` (String) What source ID. Journey or Entity ID
 
 ### Read-Only
 

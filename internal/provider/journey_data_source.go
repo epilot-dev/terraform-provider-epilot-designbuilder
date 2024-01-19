@@ -38,11 +38,9 @@ type JourneyDataSourceModel struct {
 	Logics               []Logics     `tfsdk:"logics"`
 	Name                 types.String `tfsdk:"name"`
 	OrganizationID       types.String `tfsdk:"organization_id"`
-	OrgID                types.String `tfsdk:"org_id"`
 	Revisions            types.Number `tfsdk:"revisions"`
 	Rules                []Rules      `tfsdk:"rules"`
 	Settings             *Settings    `tfsdk:"settings"`
-	Source               types.String `tfsdk:"source"`
 	Steps                []Steps      `tfsdk:"steps"`
 	Version              types.Number `tfsdk:"version"`
 }
@@ -113,10 +111,6 @@ func (r *JourneyDataSource) Schema(ctx context.Context, req datasource.SchemaReq
 			},
 			"organization_id": schema.StringAttribute{
 				Computed: true,
-			},
-			"org_id": schema.StringAttribute{
-				Optional:    true,
-				Description: `Organization ID`,
 			},
 			"revisions": schema.NumberAttribute{
 				Computed: true,
@@ -224,10 +218,6 @@ func (r *JourneyDataSource) Schema(ctx context.Context, req datasource.SchemaReq
 					},
 				},
 			},
-			"source": schema.StringAttribute{
-				Optional:    true,
-				Description: `What source ID. Journey or Entity ID`,
-			},
 			"steps": schema.ListNestedAttribute{
 				Computed: true,
 				NestedObject: schema.NestedAttributeObject{
@@ -316,24 +306,10 @@ func (r *JourneyDataSource) Read(ctx context.Context, req datasource.ReadRequest
 	}
 
 	id := data.JourneyID.ValueString()
-	orgID := new(string)
-	if !data.OrgID.IsUnknown() && !data.OrgID.IsNull() {
-		*orgID = data.OrgID.ValueString()
-	} else {
-		orgID = nil
+	request := operations.GetJourneyV2Request{
+		ID: id,
 	}
-	source := new(string)
-	if !data.Source.IsUnknown() && !data.Source.IsNull() {
-		*source = data.Source.ValueString()
-	} else {
-		source = nil
-	}
-	request := operations.GetJourneyRequest{
-		ID:     id,
-		OrgID:  orgID,
-		Source: source,
-	}
-	res, err := r.client.Journeys.GetJourney(ctx, request)
+	res, err := r.client.JourneysV2.GetJourneyV2(ctx, request)
 	if err != nil {
 		resp.Diagnostics.AddError("failure to invoke API", err.Error())
 		if res != nil && res.RawResponse != nil {

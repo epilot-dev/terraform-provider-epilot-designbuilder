@@ -1,6 +1,6 @@
 module github.com/epilot-dev/terraform-provider-epilot-journey
 
-go 1.18
+go 1.20
 
 require (
 	github.com/cenkalti/backoff/v4 v4.2.0
