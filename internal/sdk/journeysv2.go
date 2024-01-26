@@ -27,7 +27,7 @@ func newJourneysV2(sdkConfig sdkConfiguration) *JourneysV2 {
 
 // CreateJourneyV2 - createJourneyV2
 // Create a Journey
-func (s *JourneysV2) CreateJourneyV2(ctx context.Context, request *shared.JourneyCreationRequestV2, opts ...operations.Option) (*operations.CreateJourneyV2Response, error) {
+func (s *JourneysV2) CreateJourneyV2(ctx context.Context, request operations.CreateJourneyV2Request, opts ...operations.Option) (*operations.CreateJourneyV2Response, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -41,7 +41,7 @@ func (s *JourneysV2) CreateJourneyV2(ctx context.Context, request *shared.Journe
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/v2/journey/configuration"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "Request", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "JourneyCreationRequestV2", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}
@@ -56,6 +56,10 @@ func (s *JourneysV2) CreateJourneyV2(ctx context.Context, request *shared.Journe
 	req.Header.Set("user-agent", s.sdkConfiguration.UserAgent)
 
 	req.Header.Set("Content-Type", reqContentType)
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
+	}
 
 	client := s.sdkConfiguration.SecurityClient
 

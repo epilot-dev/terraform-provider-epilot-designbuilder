@@ -7,11 +7,32 @@ import (
 	"net/http"
 )
 
+type CreateJourneyRequest struct {
+	// Payload
+	JourneyCreationRequest *shared.JourneyCreationRequest `request:"mediaType=application/json"`
+	// skip creating an Automation (it takes Yn format "true, yes, 1, y")
+	SkipAutomation *string `queryParam:"style=form,explode=true,name=skipAutomation"`
+}
+
+func (o *CreateJourneyRequest) GetJourneyCreationRequest() *shared.JourneyCreationRequest {
+	if o == nil {
+		return nil
+	}
+	return o.JourneyCreationRequest
+}
+
+func (o *CreateJourneyRequest) GetSkipAutomation() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SkipAutomation
+}
+
 type CreateJourneyResponse struct {
 	// HTTP response content type for this operation
 	ContentType string
 	// Success
-	JourneyResponse *shared.JourneyResponse
+	Journey *shared.Journey
 	// HTTP response status code for this operation
 	StatusCode int
 	// Raw HTTP response; suitable for custom response parsing
@@ -25,11 +46,11 @@ func (o *CreateJourneyResponse) GetContentType() string {
 	return o.ContentType
 }
 
-func (o *CreateJourneyResponse) GetJourneyResponse() *shared.JourneyResponse {
+func (o *CreateJourneyResponse) GetJourney() *shared.Journey {
 	if o == nil {
 		return nil
 	}
-	return o.JourneyResponse
+	return o.Journey
 }
 
 func (o *CreateJourneyResponse) GetStatusCode() int {

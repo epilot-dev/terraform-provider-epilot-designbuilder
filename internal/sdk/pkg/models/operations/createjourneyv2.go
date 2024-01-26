@@ -7,6 +7,27 @@ import (
 	"net/http"
 )
 
+type CreateJourneyV2Request struct {
+	// Payload
+	JourneyCreationRequestV2 *shared.JourneyCreationRequestV2 `request:"mediaType=application/json"`
+	// skip creating an Automation (it takes Yn format "true, yes, 1, y")
+	SkipAutomation *string `queryParam:"style=form,explode=true,name=skipAutomation"`
+}
+
+func (o *CreateJourneyV2Request) GetJourneyCreationRequestV2() *shared.JourneyCreationRequestV2 {
+	if o == nil {
+		return nil
+	}
+	return o.JourneyCreationRequestV2
+}
+
+func (o *CreateJourneyV2Request) GetSkipAutomation() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SkipAutomation
+}
+
 type CreateJourneyV2Response struct {
 	// HTTP response content type for this operation
 	ContentType string

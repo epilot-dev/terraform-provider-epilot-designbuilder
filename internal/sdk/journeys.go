@@ -27,7 +27,7 @@ func newJourneys(sdkConfig sdkConfiguration) *Journeys {
 
 // CreateJourney - createJourney
 // Create a Journey
-func (s *Journeys) CreateJourney(ctx context.Context, request *shared.JourneyCreationRequest, opts ...operations.Option) (*operations.CreateJourneyResponse, error) {
+func (s *Journeys) CreateJourney(ctx context.Context, request operations.CreateJourneyRequest, opts ...operations.Option) (*operations.CreateJourneyResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -41,7 +41,7 @@ func (s *Journeys) CreateJourney(ctx context.Context, request *shared.JourneyCre
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/v1/journey/configuration"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "Request", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "JourneyCreationRequest", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}
@@ -56,6 +56,10 @@ func (s *Journeys) CreateJourney(ctx context.Context, request *shared.JourneyCre
 	req.Header.Set("user-agent", s.sdkConfiguration.UserAgent)
 
 	req.Header.Set("Content-Type", reqContentType)
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
+	}
 
 	client := s.sdkConfiguration.SecurityClient
 
@@ -112,12 +116,12 @@ func (s *Journeys) CreateJourney(ctx context.Context, request *shared.JourneyCre
 	case httpRes.StatusCode == 201:
 		switch {
 		case utils.MatchContentType(contentType, `application/json`):
-			var out shared.JourneyResponse
+			var out shared.Journey
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.JourneyResponse = &out
+			res.Journey = &out
 		default:
 			return nil, sdkerrors.NewSDKError(fmt.Sprintf("unknown content-type received: %s", contentType), httpRes.StatusCode, string(rawBody), httpRes)
 		}
