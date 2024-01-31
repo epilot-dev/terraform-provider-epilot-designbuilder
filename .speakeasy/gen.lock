@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 998a101f-1cb6-4c08-9fd1-b3ee7a1cdeb4
 management:
-  docChecksum: 5c1d3810e9e3753216ebfcbf29f536f2
+  docChecksum: 7c9b11d51d08018e694e571f043f36c9
   docVersion: 0.0.1
   speakeasyVersion: internal
   generationVersion: 2.230.1
-  releaseVersion: 0.6.1
-  configChecksum: 36de04a2ad40d9d463246c0b875359d3
+  releaseVersion: 0.6.3
+  configChecksum: 923e2846def9147144227a9b6e249f66
 features:
   terraform:
     core: 3.8.1
@@ -107,4 +107,7 @@ generatedFiles:
   - internal/provider/design_resource.go
   - internal/provider/design_resource_sdk.go
   - examples/resources/epilot-designbuilder_design/resource.tf
+  - internal/provider/design_data_source.go
+  - internal/provider/design_data_source_sdk.go
+  - examples/data-sources/epilot-designbuilder_design/data-source.tf
   - .gitattributes

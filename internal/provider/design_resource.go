@@ -12,6 +12,7 @@ import (
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/validators"
 	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
+	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
@@ -21,6 +22,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"time"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -41,10 +43,13 @@ type DesignResourceModel struct {
 	Background        types.String        `tfsdk:"background"`
 	BrandID           types.String        `tfsdk:"brand_id"`
 	BrandName         types.String        `tfsdk:"brand_name"`
+	CreatedAt         types.String        `tfsdk:"created_at"`
+	CreatedBy         types.String        `tfsdk:"created_by"`
 	CustomerPortals   []types.String      `tfsdk:"customer_portals"`
 	CustomTheme       types.String        `tfsdk:"custom_theme"`
 	Design            *AddDesignResDesign `tfsdk:"design"`
 	DisplayName       types.String        `tfsdk:"display_name"`
+	Edited            types.Bool          `tfsdk:"edited"`
 	Emailaddress      types.String        `tfsdk:"emailaddress"`
 	Error             types.String        `tfsdk:"error"`
 	FileType          types.String        `tfsdk:"file_type"`
@@ -56,6 +61,7 @@ type DesignResourceModel struct {
 	FontWeightRegular types.String        `tfsdk:"font_weight_regular"`
 	Fullname          types.String        `tfsdk:"fullname"`
 	ID                types.String        `tfsdk:"id"`
+	LastModifiedAt    types.String        `tfsdk:"last_modified_at"`
 	Name              types.String        `tfsdk:"name"`
 	Navbar            types.String        `tfsdk:"navbar"`
 	Paper             types.String        `tfsdk:"paper"`
@@ -94,6 +100,23 @@ func (r *DesignResource) Schema(ctx context.Context, req resource.SchemaRequest,
 				Description: `Requires replacement if changed. `,
 			},
 			"brand_name": schema.StringAttribute{
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.RequiresReplaceIfConfigured(),
+				},
+				Optional:    true,
+				Description: `Requires replacement if changed. `,
+			},
+			"created_at": schema.StringAttribute{
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.RequiresReplaceIfConfigured(),
+				},
+				Optional:    true,
+				Description: `Creation date and time using ISO 8601 full-time format. Requires replacement if changed. `,
+				Validators: []validator.String{
+					validators.IsRFC3339(),
+				},
+			},
+			"created_by": schema.StringAttribute{
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplaceIfConfigured(),
 				},
@@ -304,6 +327,13 @@ func (r *DesignResource) Schema(ctx context.Context, req resource.SchemaRequest,
 				Optional:    true,
 				Description: `Requires replacement if changed. `,
 			},
+			"edited": schema.BoolAttribute{
+				PlanModifiers: []planmodifier.Bool{
+					boolplanmodifier.RequiresReplaceIfConfigured(),
+				},
+				Required:    true,
+				Description: `Requires replacement if changed. `,
+			},
 			"emailaddress": schema.StringAttribute{
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.RequiresReplaceIfConfigured(),
@@ -381,8 +411,18 @@ func (r *DesignResource) Schema(ctx context.Context, req resource.SchemaRequest,
 				Description: `Requires replacement if changed. `,
 			},
 			"id": schema.StringAttribute{
-				Required:    true,
+				Optional:    true,
 				Description: `Id of the design`,
+			},
+			"last_modified_at": schema.StringAttribute{
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.RequiresReplaceIfConfigured(),
+				},
+				Optional:    true,
+				Description: `Requires replacement if changed. `,
+				Validators: []validator.String{
+					validators.IsRFC3339(),
+				},
 			},
 			"name": schema.StringAttribute{
 				PlanModifiers: []planmodifier.String{
@@ -530,11 +570,36 @@ func (r *DesignResource) Create(ctx context.Context, req resource.CreateRequest,
 	} else {
 		brandName = nil
 	}
+	createdAt := new(time.Time)
+	if !data.CreatedAt.IsUnknown() && !data.CreatedAt.IsNull() {
+		*createdAt, _ = time.Parse(time.RFC3339Nano, data.CreatedAt.ValueString())
+	} else {
+		createdAt = nil
+	}
+	createdBy := new(string)
+	if !data.CreatedBy.IsUnknown() && !data.CreatedBy.IsNull() {
+		*createdBy = data.CreatedBy.ValueString()
+	} else {
+		createdBy = nil
+	}
 	customTheme := new(string)
 	if !data.CustomTheme.IsUnknown() && !data.CustomTheme.IsNull() {
 		*customTheme = data.CustomTheme.ValueString()
 	} else {
 		customTheme = nil
+	}
+	edited := data.Edited.ValueBool()
+	id := new(string)
+	if !data.ID.IsUnknown() && !data.ID.IsNull() {
+		*id = data.ID.ValueString()
+	} else {
+		id = nil
+	}
+	lastModifiedAt := new(time.Time)
+	if !data.LastModifiedAt.IsUnknown() && !data.LastModifiedAt.IsNull() {
+		*lastModifiedAt, _ = time.Parse(time.RFC3339Nano, data.LastModifiedAt.ValueString())
+	} else {
+		lastModifiedAt = nil
 	}
 	var customerPortals []interface{} = nil
 	for _, customerPortalsItem := range data.CustomerPortals {
@@ -694,7 +759,12 @@ func (r *DesignResource) Create(ctx context.Context, req resource.CreateRequest,
 	design := shared.Design{
 		BrandID:        brandID,
 		BrandName:      brandName,
+		CreatedAt:      createdAt,
+		CreatedBy:      createdBy,
 		CustomTheme:    customTheme,
+		Edited:         edited,
+		ID:             id,
+		LastModifiedAt: lastModifiedAt,
 		Style:          style,
 		StyleName:      styleName,
 		UseCustomTheme: useCustomTheme,
@@ -725,6 +795,32 @@ func (r *DesignResource) Create(ctx context.Context, req resource.CreateRequest,
 	}
 	data.RefreshFromSharedAddDesignRes(res.AddDesignRes)
 	refreshPlan(ctx, plan, &data, resp.Diagnostics)
+	designID := data.ID.ValueString()
+	request1 := operations.GetDesignRequest{
+		DesignID: designID,
+	}
+	res1, err := r.client.GetDesign(ctx, request1)
+	if err != nil {
+		resp.Diagnostics.AddError("failure to invoke API", err.Error())
+		if res1 != nil && res1.RawResponse != nil {
+			resp.Diagnostics.AddError("unexpected http request/response", debugResponse(res1.RawResponse))
+		}
+		return
+	}
+	if res1 == nil {
+		resp.Diagnostics.AddError("unexpected response from API", fmt.Sprintf("%v", res1))
+		return
+	}
+	if res1.StatusCode != 200 {
+		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res1.StatusCode), debugResponse(res1.RawResponse))
+		return
+	}
+	if res1.GetDesignRes == nil {
+		resp.Diagnostics.AddError("unexpected response from API. No response body", debugResponse(res1.RawResponse))
+		return
+	}
+	data.RefreshFromSharedGetDesignRes(res1.GetDesignRes)
+	refreshPlan(ctx, plan, &data, resp.Diagnostics)
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
@@ -748,7 +844,31 @@ func (r *DesignResource) Read(ctx context.Context, req resource.ReadRequest, res
 		return
 	}
 
-	// Not Implemented; we rely entirely on CREATE API request response
+	designID := data.ID.ValueString()
+	request := operations.GetDesignRequest{
+		DesignID: designID,
+	}
+	res, err := r.client.GetDesign(ctx, request)
+	if err != nil {
+		resp.Diagnostics.AddError("failure to invoke API", err.Error())
+		if res != nil && res.RawResponse != nil {
+			resp.Diagnostics.AddError("unexpected http request/response", debugResponse(res.RawResponse))
+		}
+		return
+	}
+	if res == nil {
+		resp.Diagnostics.AddError("unexpected response from API", fmt.Sprintf("%v", res))
+		return
+	}
+	if res.StatusCode != 200 {
+		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
+		return
+	}
+	if res.GetDesignRes == nil {
+		resp.Diagnostics.AddError("unexpected response from API. No response body", debugResponse(res.RawResponse))
+		return
+	}
+	data.RefreshFromSharedGetDesignRes(res.GetDesignRes)
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
@@ -838,5 +958,5 @@ func (r *DesignResource) Delete(ctx context.Context, req resource.DeleteRequest,
 }
 
 func (r *DesignResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resp.Diagnostics.AddError("Not Implemented", "No available import state operation is available for resource design.")
+	resp.Diagnostics.Append(resp.State.SetAttribute(ctx, path.Root("id"), req.ID)...)
 }

@@ -75,17 +75,17 @@ paths:
                 $ref: "#/components/schemas/ErrorResp"
   /v1/designs/{designId}:
     get:
-      # x-speakeasy-entity-operation: Design#get
+      x-speakeasy-entity-operation: Design#get
       operationId: getDesign
-      summary: retrieve an especific design by its id
-      description: Search for a especific design owned by user organization
+      summary: retrieve a specific design by its id
+      description: Search for a specific design owned by user organization
       tags:
         - name: APP
           description: Design-Builder
       parameters:
         - in: path
           name: designId
-          # x-speakeasy-match: id
+          x-speakeasy-match: id
           schema:
             type: string
           required: true
@@ -263,6 +263,7 @@ components:
       properties:
         design:
           allOf: 
+          - $ref: "#/components/schemas/ItemMetada"
           - $ref: "#/components/schemas/DesignItem"
           - $ref: "#/components/schemas/Custom_Style"
       required:
@@ -289,6 +290,7 @@ components:
       properties:
         design:
           allOf: 
+          - $ref: "#/components/schemas/ItemMetada"
           - $ref: "#/components/schemas/DesignItem"
           - $ref: "#/components/schemas/Custom_Style"
       required:

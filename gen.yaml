@@ -7,7 +7,7 @@ generation:
     nameResolutionDec2023: false
   telemetryEnabled: false
 terraform:
-  version: 0.6.1
+  version: 0.6.3
   author: epilot-dev
   imports:
     option: openapi

@@ -142,9 +142,9 @@ func New(opts ...SDKOption) *SDK {
 		sdkConfiguration: sdkConfiguration{
 			Language:          "go",
 			OpenAPIDocVersion: "0.0.1",
-			SDKVersion:        "0.6.1",
+			SDKVersion:        "0.6.3",
 			GenVersion:        "2.230.1",
-			UserAgent:         "speakeasy-sdk/go 0.6.1 2.230.1 0.0.1 epilot-designbuilder",
+			UserAgent:         "speakeasy-sdk/go 0.6.3 2.230.1 0.0.1 epilot-designbuilder",
 		},
 	}
 	for _, opt := range opts {
@@ -383,8 +383,8 @@ func (s *SDK) GetAllDesigns(ctx context.Context) (*operations.GetAllDesignsRespo
 	return res, nil
 }
 
-// GetDesign - retrieve an especific design by its id
-// Search for a especific design owned by user organization
+// GetDesign - retrieve a specific design by its id
+// Search for a specific design owned by user organization
 func (s *SDK) GetDesign(ctx context.Context, request operations.GetDesignRequest) (*operations.GetDesignResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url, err := utils.GenerateURL(ctx, baseURL, "/v1/designs/{designId}", request, nil)

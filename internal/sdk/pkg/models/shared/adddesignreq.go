@@ -2,6 +2,11 @@
 
 package shared
 
+import (
+	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/utils"
+	"time"
+)
+
 type Style struct {
 	Consumer   ConsumerData   `json:"consumer"`
 	Logo       *LogoData      `json:"logo,omitempty"`
@@ -73,13 +78,30 @@ func (o *User) GetUserid() *string {
 }
 
 type Design struct {
-	BrandID        *string `json:"brand_id,omitempty"`
-	BrandName      *string `json:"brand_name,omitempty"`
-	CustomTheme    *string `json:"custom_theme,omitempty"`
-	Style          Style   `json:"style"`
-	StyleName      string  `json:"style_name"`
-	UseCustomTheme *bool   `json:"use_custom_theme,omitempty"`
-	User           *User   `json:"user,omitempty"`
+	BrandID   *string `json:"brand_id,omitempty"`
+	BrandName *string `json:"brand_name,omitempty"`
+	// Creation date and time using ISO 8601 full-time format
+	CreatedAt      *time.Time `json:"created_at,omitempty"`
+	CreatedBy      *string    `json:"created_by,omitempty"`
+	CustomTheme    *string    `json:"custom_theme,omitempty"`
+	Edited         bool       `json:"edited"`
+	ID             *string    `json:"id,omitempty"`
+	LastModifiedAt *time.Time `json:"last_modified_at,omitempty"`
+	Style          Style      `json:"style"`
+	StyleName      string     `json:"style_name"`
+	UseCustomTheme *bool      `json:"use_custom_theme,omitempty"`
+	User           *User      `json:"user,omitempty"`
+}
+
+func (d Design) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *Design) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, false); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Design) GetBrandID() *string {
@@ -96,11 +118,46 @@ func (o *Design) GetBrandName() *string {
 	return o.BrandName
 }
 
+func (o *Design) GetCreatedAt() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.CreatedAt
+}
+
+func (o *Design) GetCreatedBy() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CreatedBy
+}
+
 func (o *Design) GetCustomTheme() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CustomTheme
+}
+
+func (o *Design) GetEdited() bool {
+	if o == nil {
+		return false
+	}
+	return o.Edited
+}
+
+func (o *Design) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *Design) GetLastModifiedAt() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.LastModifiedAt
 }
 
 func (o *Design) GetStyle() Style {

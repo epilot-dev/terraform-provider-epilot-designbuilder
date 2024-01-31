@@ -13,34 +13,19 @@ Design Resource
 ## Example Usage
 
 ```terraform
-terraform {
-  required_providers {
-    epilot-designbuilder = {
-      source  = "epilot-dev/epilot-designbuilder"
-      version = "0.6.1"
-    }
-  }
-}
-
-variable "custom_authorizer" {
-  type = string
-}
-
-provider "epilot-designbuilder" {
-  # Configuration options
-  custom_authorizer= var.custom_authorizer
-}
-
 resource "epilot-designbuilder_design" "my_design" {
   background = "...my_background..."
   brand_id   = "...my_brand_id..."
   brand_name = "...my_brand_name..."
+  created_at = "2021-01-30T08:30:00Z"
+  created_by = "...my_created_by..."
   customer_portals = [
     "{ \"see\": \"documentation\" }",
   ]
   custom_theme        = "...my_custom_theme..."
   display_name        = "...my_display_name..."
-  emailaddress        = "n.goel@epilot.cloud"
+  edited              = true
+  emailaddress        = "...my_emailaddress..."
   error               = "...my_error..."
   file_type           = "LOGO"
   font_family         = "...my_font_family..."
@@ -49,21 +34,22 @@ resource "epilot-designbuilder_design" "my_design" {
   font_weight_bold    = "...my_font_weight_bold..."
   font_weight_medium  = "...my_font_weight_medium..."
   font_weight_regular = "...my_font_weight_regular..."
-  fullname            = "Nishu Goel"
-  id                  = "...my_id..."
-  name                = "Nishu Goel"
+  fullname            = "...my_fullname..."
+  id                  = "9415d9b1-61f7-40b7-8bf5-bc35ca152c3d"
+  last_modified_at    = "2022-09-22T19:52:48.561Z"
+  name                = "Raul Pacocha"
   navbar              = "...my_navbar..."
   paper               = "...my_paper..."
   primary             = "...my_primary..."
   s3_object_key       = "...my_s3_object_key..."
   secondary           = "...my_secondary..."
-  style_name          = "Terraform created design"
+  style_name          = "...my_style_name..."
   url                 = "...my_url..."
   urls = [
     "{ \"see\": \"documentation\" }",
   ]
-  use_custom_theme = true
-  userid           = "82602"
+  use_custom_theme = false
+  userid           = "...my_userid..."
   widgets = [
     "{ \"see\": \"documentation\" }",
   ]
@@ -77,10 +63,10 @@ resource "epilot-designbuilder_design" "my_design" {
 
 - `background` (String) Requires replacement if changed.
 - `customer_portals` (List of String) Requires replacement if changed.
+- `edited` (Boolean) Requires replacement if changed.
 - `error` (String) Requires replacement if changed.
 - `font_id` (String) Requires replacement if changed.
 - `font_name` (String) Requires replacement if changed.
-- `id` (String) Id of the design
 - `name` (String) Requires replacement if changed.
 - `navbar` (String) Requires replacement if changed.
 - `paper` (String) Requires replacement if changed.
@@ -96,6 +82,8 @@ resource "epilot-designbuilder_design" "my_design" {
 
 - `brand_id` (String) Requires replacement if changed.
 - `brand_name` (String) Requires replacement if changed.
+- `created_at` (String) Creation date and time using ISO 8601 full-time format. Requires replacement if changed.
+- `created_by` (String) Requires replacement if changed.
 - `custom_theme` (String) Requires replacement if changed.
 - `display_name` (String) Requires replacement if changed.
 - `emailaddress` (String) Requires replacement if changed.
@@ -105,6 +93,8 @@ resource "epilot-designbuilder_design" "my_design" {
 - `font_weight_medium` (String) Requires replacement if changed.
 - `font_weight_regular` (String) Requires replacement if changed.
 - `fullname` (String) Requires replacement if changed.
+- `id` (String) Id of the design
+- `last_modified_at` (String) Requires replacement if changed.
 - `use_custom_theme` (Boolean) Requires replacement if changed.
 - `userid` (String) Requires replacement if changed.
 

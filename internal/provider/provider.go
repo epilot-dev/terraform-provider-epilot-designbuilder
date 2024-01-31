@@ -86,7 +86,9 @@ func (p *EpilotDesignbuilderProvider) Resources(ctx context.Context) []func() re
 }
 
 func (p *EpilotDesignbuilderProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
-	return []func() datasource.DataSource{}
+	return []func() datasource.DataSource{
+		NewDesignDataSource,
+	}
 }
 
 func New(version string) func() provider.Provider {
