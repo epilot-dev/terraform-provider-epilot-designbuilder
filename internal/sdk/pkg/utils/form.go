@@ -12,7 +12,7 @@ import (
 
 	"github.com/ericlagergren/decimal"
 
-	"github.com/epilot-dev/terraform-provider-epilot-journey/internal/sdk/pkg/types"
+	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/types"
 )
 
 func populateForm(paramName string, explode bool, objType reflect.Type, objValue reflect.Value, delimiter string, getFieldName func(reflect.StructField) string) url.Values {

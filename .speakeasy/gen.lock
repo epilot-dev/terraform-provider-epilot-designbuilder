@@ -1,26 +1,18 @@
 lockVersion: 2.0.0
-id: 1afd37bc-cea9-4679-ac40-35ad5de414fc
+id: 998a101f-1cb6-4c08-9fd1-b3ee7a1cdeb4
 management:
-  docChecksum: f388cd5ec679b79a0e058210f52415d1
-  docVersion: 1.0.0
+  docChecksum: 5c1d3810e9e3753216ebfcbf29f536f2
+  docVersion: 0.0.1
   speakeasyVersion: internal
   generationVersion: 2.230.1
-  releaseVersion: 0.2.5
-  configChecksum: f13c6e53770df0614f62a004e7be114c
-  repoURL: https://github.com/epilot-dev/terraform-provider-epilot-journey.git
-  repoSubDirectory: .
-  published: true
+  releaseVersion: 0.6.1
+  configChecksum: 36de04a2ad40d9d463246c0b875359d3
 features:
   terraform:
-    additionalProperties: 0.1.2
-    constsAndDefaults: 0.1.2
     core: 3.8.1
     globalSecurity: 2.81.2
     globalServerURLs: 2.82.1
-    retries: 2.81.1
 generatedFiles:
-  - internal/sdk/journeys.go
-  - internal/sdk/journeysv2.go
   - internal/sdk/sdk.go
   - examples/README.md
   - go.mod
@@ -82,46 +74,37 @@ generatedFiles:
   - main.go
   - terraform-registry-manifest.json
   - tools/tools.go
-  - internal/sdk/pkg/models/operations/createjourney.go
-  - internal/sdk/pkg/models/operations/getjourney.go
-  - internal/sdk/pkg/models/operations/getjourneyproducts.go
-  - internal/sdk/pkg/models/operations/getjourneysbyorgid.go
-  - internal/sdk/pkg/models/operations/patchupdatejourney.go
-  - internal/sdk/pkg/models/operations/removejourney.go
-  - internal/sdk/pkg/models/operations/searchjourneys.go
-  - internal/sdk/pkg/models/operations/updatejourney.go
-  - internal/sdk/pkg/models/operations/createjourneyv2.go
-  - internal/sdk/pkg/models/operations/getjourneyv2.go
-  - internal/sdk/pkg/models/operations/patchupdatejourneyv2.go
-  - internal/sdk/pkg/models/operations/removejourneyv2.go
-  - internal/sdk/pkg/models/operations/updatejourneyv2.go
-  - internal/sdk/pkg/models/shared/journey.go
-  - internal/sdk/pkg/models/shared/journeycreationrequest.go
-  - internal/sdk/pkg/models/shared/journeyproductsresponse.go
-  - internal/sdk/pkg/models/shared/getjourneysresponse.go
-  - internal/sdk/pkg/models/shared/journeyresponse.go
-  - internal/sdk/pkg/models/shared/patchupdatejourneyrequest.go
-  - internal/sdk/pkg/models/shared/searchjourneysresponse.go
-  - internal/sdk/pkg/models/shared/searchjourneysqueryrequest.go
-  - internal/sdk/pkg/models/shared/journeycreationrequestv2.go
+  - internal/sdk/pkg/models/operations/adddesign.go
+  - internal/sdk/pkg/models/operations/deletedesign.go
+  - internal/sdk/pkg/models/operations/getalldesigns.go
+  - internal/sdk/pkg/models/operations/getdesign.go
+  - internal/sdk/pkg/models/operations/updatedesign.go
+  - internal/sdk/pkg/models/shared/errorresp.go
+  - internal/sdk/pkg/models/shared/adddesignres.go
+  - internal/sdk/pkg/models/shared/typographydata.go
+  - internal/sdk/pkg/models/shared/fontdata.go
+  - internal/sdk/pkg/models/shared/palettedata.go
+  - internal/sdk/pkg/models/shared/logodata.go
+  - internal/sdk/pkg/models/shared/filedata.go
+  - internal/sdk/pkg/models/shared/consumerdata.go
+  - internal/sdk/pkg/models/shared/adddesignreq.go
+  - internal/sdk/pkg/models/shared/getalldesignsres.go
+  - internal/sdk/pkg/models/shared/getdesignres.go
+  - internal/sdk/pkg/models/shared/updatedesignreq.go
   - internal/sdk/pkg/models/shared/security.go
-  - internal/provider/type_journey_creation_request_v2_design.go
-  - internal/provider/type_logics.go
-  - internal/provider/type_rules.go
-  - internal/provider/type_journey_creation_request_v2_button.go
-  - internal/provider/type_journey_creation_request_v2_embed_options.go
-  - internal/provider/type_journey_creation_request_v2_settings.go
-  - internal/provider/type_steps.go
-  - internal/provider/type_design.go
-  - internal/provider/type_settings.go
+  - internal/provider/type_consumer_data.go
+  - internal/provider/type_file_data.go
+  - internal/provider/type_logo_data.go
+  - internal/provider/type_palette_data.go
+  - internal/provider/type_font_data.go
+  - internal/provider/type_typography_data.go
+  - internal/provider/type_add_design_res_style.go
+  - internal/provider/type_add_design_res_user.go
+  - internal/provider/type_add_design_res_design.go
   - USAGE.md
   - internal/provider/provider.go
   - examples/provider/provider.tf
-  - internal/provider/journey_resource.go
-  - internal/provider/journey_resource_sdk.go
-  - examples/resources/epilot-journey_journey/resource.tf
-  - internal/provider/journey_data_source.go
-  - internal/provider/journey_data_source_sdk.go
-  - examples/data-sources/epilot-journey_journey/data-source.tf
-  - internal/sdk/pkg/models/operations/options.go
+  - internal/provider/design_resource.go
+  - internal/provider/design_resource_sdk.go
+  - examples/resources/epilot-designbuilder_design/resource.tf
   - .gitattributes

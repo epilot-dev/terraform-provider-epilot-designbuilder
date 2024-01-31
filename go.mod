@@ -1,4 +1,4 @@
-module github.com/epilot-dev/terraform-provider-epilot-journey
+module github.com/epilot-dev/terraform-provider-epilot-designbuilder
 
 go 1.18
 

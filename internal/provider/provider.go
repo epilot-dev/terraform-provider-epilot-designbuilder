@@ -4,8 +4,8 @@ package provider
 
 import (
 	"context"
-	"github.com/epilot-dev/terraform-provider-epilot-journey/internal/sdk"
-	"github.com/epilot-dev/terraform-provider-epilot-journey/internal/sdk/pkg/models/shared"
+	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk"
+	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/models/shared"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
@@ -13,36 +13,35 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-var _ provider.Provider = &EpilotJourneyProvider{}
+var _ provider.Provider = &EpilotDesignbuilderProvider{}
 
-type EpilotJourneyProvider struct {
+type EpilotDesignbuilderProvider struct {
 	// version is set to the provider version on release, "dev" when the
 	// provider is built and ran locally, and "test" when running acceptance
 	// testing.
 	version string
 }
 
-// EpilotJourneyProviderModel describes the provider data model.
-type EpilotJourneyProviderModel struct {
-	ServerURL  types.String `tfsdk:"server_url"`
-	EpilotAuth types.String `tfsdk:"epilot_auth"`
+// EpilotDesignbuilderProviderModel describes the provider data model.
+type EpilotDesignbuilderProviderModel struct {
+	ServerURL        types.String `tfsdk:"server_url"`
+	CustomAuthorizer types.String `tfsdk:"custom_authorizer"`
 }
 
-func (p *EpilotJourneyProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
-	resp.TypeName = "epilot-journey"
+func (p *EpilotDesignbuilderProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
+	resp.TypeName = "epilot-designbuilder"
 	resp.Version = p.version
 }
 
-func (p *EpilotJourneyProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
+func (p *EpilotDesignbuilderProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: `Journey API: API to configure journeys`,
 		Attributes: map[string]schema.Attribute{
 			"server_url": schema.StringAttribute{
-				MarkdownDescription: "Server URL (defaults to https://journey-config.sls.epilot.io)",
+				MarkdownDescription: "Server URL (defaults to https://design-builder-api.sls.epilot.io)",
 				Optional:            true,
 				Required:            false,
 			},
-			"epilot_auth": schema.StringAttribute{
+			"custom_authorizer": schema.StringAttribute{
 				Optional:  true,
 				Sensitive: true,
 			},
@@ -50,8 +49,8 @@ func (p *EpilotJourneyProvider) Schema(ctx context.Context, req provider.SchemaR
 	}
 }
 
-func (p *EpilotJourneyProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
-	var data EpilotJourneyProviderModel
+func (p *EpilotDesignbuilderProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
+	var data EpilotDesignbuilderProviderModel
 
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)
 
@@ -62,12 +61,12 @@ func (p *EpilotJourneyProvider) Configure(ctx context.Context, req provider.Conf
 	ServerURL := data.ServerURL.ValueString()
 
 	if ServerURL == "" {
-		ServerURL = "https://journey-config.sls.epilot.io"
+		ServerURL = "https://design-builder-api.sls.epilot.io"
 	}
 
-	epilotAuth := data.EpilotAuth.ValueString()
+	customAuthorizer := data.CustomAuthorizer.ValueString()
 	security := shared.Security{
-		EpilotAuth: epilotAuth,
+		CustomAuthorizer: customAuthorizer,
 	}
 
 	opts := []sdk.SDKOption{
@@ -80,21 +79,19 @@ func (p *EpilotJourneyProvider) Configure(ctx context.Context, req provider.Conf
 	resp.ResourceData = client
 }
 
-func (p *EpilotJourneyProvider) Resources(ctx context.Context) []func() resource.Resource {
+func (p *EpilotDesignbuilderProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
-		NewJourneyResource,
+		NewDesignResource,
 	}
 }
 
-func (p *EpilotJourneyProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
-	return []func() datasource.DataSource{
-		NewJourneyDataSource,
-	}
+func (p *EpilotDesignbuilderProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
+	return []func() datasource.DataSource{}
 }
 
 func New(version string) func() provider.Provider {
 	return func() provider.Provider {
-		return &EpilotJourneyProvider{
+		return &EpilotDesignbuilderProvider{
 			version: version,
 		}
 	}
