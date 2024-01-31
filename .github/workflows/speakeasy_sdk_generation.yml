@@ -16,9 +16,7 @@ jobs:
     with:
       speakeasy_version: latest
       openapi_docs: |
-        - https://docs.api.epilot.io/journey-config.yaml
-      overlay_docs: |
-        - ./overlay.yaml
+        - designbuilder.yaml
       languages: |
         - terraform
       mode: pr

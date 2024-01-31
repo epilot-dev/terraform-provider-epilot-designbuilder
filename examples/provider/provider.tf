@@ -1,12 +1,12 @@
 terraform {
   required_providers {
-    epilot-journey = {
-      source  = "epilot-dev/epilot-journey"
-      version = "0.2.5"
+    epilot-designbuilder = {
+      source  = "epilot-dev/epilot-designbuilder"
+      version = "0.6.1"
     }
   }
 }
 
-provider "epilot-journey" {
+provider "epilot-designbuilder" {
   # Configuration options
 }
