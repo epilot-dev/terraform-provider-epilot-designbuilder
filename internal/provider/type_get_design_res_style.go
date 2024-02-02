@@ -2,7 +2,7 @@
 
 package provider
 
-type AddDesignResStyle struct {
+type GetDesignResStyle struct {
 	Consumer   ConsumerData   `tfsdk:"consumer"`
 	Logo       *LogoData      `tfsdk:"logo"`
 	Palette    PaletteData    `tfsdk:"palette"`

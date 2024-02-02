@@ -4,7 +4,7 @@ package provider
 
 import "github.com/hashicorp/terraform-plugin-framework/types"
 
-type AddDesignResUser struct {
+type GetDesignResUser struct {
 	Emailaddress types.String `tfsdk:"emailaddress"`
 	Fullname     types.String `tfsdk:"fullname"`
 	Name         types.String `tfsdk:"name"`

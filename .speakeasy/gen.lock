@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 998a101f-1cb6-4c08-9fd1-b3ee7a1cdeb4
 management:
-  docChecksum: 7c9b11d51d08018e694e571f043f36c9
+  docChecksum: de454b4edc723735509e3ef2f115ac6f
   docVersion: 0.0.1
   speakeasyVersion: internal
   generationVersion: 2.230.1
-  releaseVersion: 0.6.3
-  configChecksum: 923e2846def9147144227a9b6e249f66
+  releaseVersion: 0.6.5
+  configChecksum: 1bcc3cc23904e2b4b3d982580b28c5cf
 features:
   terraform:
     core: 3.8.1
@@ -98,9 +98,9 @@ generatedFiles:
   - internal/provider/type_palette_data.go
   - internal/provider/type_font_data.go
   - internal/provider/type_typography_data.go
-  - internal/provider/type_add_design_res_style.go
-  - internal/provider/type_add_design_res_user.go
-  - internal/provider/type_add_design_res_design.go
+  - internal/provider/type_get_design_res_style.go
+  - internal/provider/type_get_design_res_user.go
+  - internal/provider/type_get_design_res_design.go
   - USAGE.md
   - internal/provider/provider.go
   - examples/provider/provider.tf

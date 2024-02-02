@@ -18,6 +18,6 @@ provider "epilot-designbuilder" {
 
 
 import {
-  id = "cd289a99-408a-4ad9-bdda-924415036962"
-  to = epilot-designbuilder_design.imported_design
+  to = epilot-designbuilder_design.import_design
+  id = "8eab9ef2-8265-4f8d-9741-d388fbc2d538"
 }

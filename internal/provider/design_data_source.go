@@ -28,7 +28,7 @@ type DesignDataSource struct {
 
 // DesignDataSourceModel describes the data model.
 type DesignDataSourceModel struct {
-	Design *AddDesignResDesign `tfsdk:"design"`
+	Design *GetDesignResDesign `tfsdk:"design"`
 	ID     types.String        `tfsdk:"id"`
 }
 

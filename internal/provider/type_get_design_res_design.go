@@ -4,7 +4,7 @@ package provider
 
 import "github.com/hashicorp/terraform-plugin-framework/types"
 
-type AddDesignResDesign struct {
+type GetDesignResDesign struct {
 	BrandID        types.String      `tfsdk:"brand_id"`
 	BrandName      types.String      `tfsdk:"brand_name"`
 	CreatedAt      types.String      `tfsdk:"created_at"`
@@ -13,8 +13,8 @@ type AddDesignResDesign struct {
 	Edited         types.Bool        `tfsdk:"edited"`
 	ID             types.String      `tfsdk:"id"`
 	LastModifiedAt types.String      `tfsdk:"last_modified_at"`
-	Style          AddDesignResStyle `tfsdk:"style"`
+	Style          GetDesignResStyle `tfsdk:"style"`
 	StyleName      types.String      `tfsdk:"style_name"`
 	UseCustomTheme types.Bool        `tfsdk:"use_custom_theme"`
-	User           *AddDesignResUser `tfsdk:"user"`
+	User           *GetDesignResUser `tfsdk:"user"`
 }

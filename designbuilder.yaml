@@ -262,6 +262,7 @@ components:
       type: object
       properties:
         design:
+          x-speakeasy-entity: Design
           allOf: 
           - $ref: "#/components/schemas/ItemMetada"
           - $ref: "#/components/schemas/DesignItem"
@@ -270,9 +271,9 @@ components:
         - design
     AddDesignRes:
       type: object
-      x-speakeasy-entity: Design
       properties:
         design:
+          x-speakeasy-entity: Design
           allOf:
           - $ref: "#/components/schemas/ItemMetada"
           - $ref: "#/components/schemas/DesignItem"
@@ -302,7 +303,6 @@ components:
           type: string
         created_at: 
           type: string 
-          format: date-time
           description: Creation date and time using ISO 8601 full-time format
           example: "2021-01-30T08:30:00Z"
         created_by: 
@@ -311,7 +311,6 @@ components:
           type: boolean
         last_modified_at:  
           type: string 
-          format: date-time
     DesignItem:
       type: object
       properties:

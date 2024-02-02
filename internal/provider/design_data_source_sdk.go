@@ -6,30 +6,21 @@ import (
 	"encoding/json"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/models/shared"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"time"
 )
 
 func (r *DesignDataSourceModel) RefreshFromSharedGetDesignRes(resp *shared.GetDesignRes) {
 	if resp.Design == nil {
 		r.Design = nil
 	} else {
-		r.Design = &AddDesignResDesign{}
+		r.Design = &GetDesignResDesign{}
 		r.Design.BrandID = types.StringPointerValue(resp.Design.BrandID)
 		r.Design.BrandName = types.StringPointerValue(resp.Design.BrandName)
-		if resp.Design.CreatedAt != nil {
-			r.Design.CreatedAt = types.StringValue(resp.Design.CreatedAt.Format(time.RFC3339Nano))
-		} else {
-			r.Design.CreatedAt = types.StringNull()
-		}
+		r.Design.CreatedAt = types.StringPointerValue(resp.Design.CreatedAt)
 		r.Design.CreatedBy = types.StringPointerValue(resp.Design.CreatedBy)
 		r.Design.CustomTheme = types.StringPointerValue(resp.Design.CustomTheme)
 		r.Design.Edited = types.BoolValue(resp.Design.Edited)
 		r.Design.ID = types.StringPointerValue(resp.Design.ID)
-		if resp.Design.LastModifiedAt != nil {
-			r.Design.LastModifiedAt = types.StringValue(resp.Design.LastModifiedAt.Format(time.RFC3339Nano))
-		} else {
-			r.Design.LastModifiedAt = types.StringNull()
-		}
+		r.Design.LastModifiedAt = types.StringPointerValue(resp.Design.LastModifiedAt)
 		r.Design.Style.Consumer.CustomerPortals = nil
 		for _, customerPortalsItem := range resp.Design.Style.Consumer.CustomerPortals {
 			var customerPortals1 types.String
@@ -89,7 +80,7 @@ func (r *DesignDataSourceModel) RefreshFromSharedGetDesignRes(resp *shared.GetDe
 		if resp.Design.User == nil {
 			r.Design.User = nil
 		} else {
-			r.Design.User = &AddDesignResUser{}
+			r.Design.User = &GetDesignResUser{}
 			r.Design.User.Emailaddress = types.StringPointerValue(resp.Design.User.Emailaddress)
 			r.Design.User.Fullname = types.StringPointerValue(resp.Design.User.Fullname)
 			r.Design.User.Name = types.StringPointerValue(resp.Design.User.Name)

@@ -6,95 +6,297 @@ import (
 	"encoding/json"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/models/shared"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"time"
 )
 
-func (r *DesignResourceModel) RefreshFromSharedAddDesignRes(resp *shared.AddDesignRes) {
-	if resp.Design == nil {
-		r.Design = nil
+func (r *DesignResourceModel) ToSharedDesign() *shared.Design {
+	brandID := new(string)
+	if !r.BrandID.IsUnknown() && !r.BrandID.IsNull() {
+		*brandID = r.BrandID.ValueString()
 	} else {
-		r.Design = &AddDesignResDesign{}
-		r.Design.BrandID = types.StringPointerValue(resp.Design.BrandID)
-		r.Design.BrandName = types.StringPointerValue(resp.Design.BrandName)
-		if resp.Design.CreatedAt != nil {
-			r.Design.CreatedAt = types.StringValue(resp.Design.CreatedAt.Format(time.RFC3339Nano))
-		} else {
-			r.Design.CreatedAt = types.StringNull()
-		}
-		r.Design.CreatedBy = types.StringPointerValue(resp.Design.CreatedBy)
-		r.Design.CustomTheme = types.StringPointerValue(resp.Design.CustomTheme)
-		r.Design.Edited = types.BoolValue(resp.Design.Edited)
-		r.Design.ID = types.StringPointerValue(resp.Design.ID)
-		if resp.Design.LastModifiedAt != nil {
-			r.Design.LastModifiedAt = types.StringValue(resp.Design.LastModifiedAt.Format(time.RFC3339Nano))
-		} else {
-			r.Design.LastModifiedAt = types.StringNull()
-		}
-		r.Design.Style.Consumer.CustomerPortals = nil
-		for _, customerPortalsItem := range resp.Design.Style.Consumer.CustomerPortals {
-			var customerPortals1 types.String
-			customerPortals1Result, _ := json.Marshal(customerPortalsItem)
-			customerPortals1 = types.StringValue(string(customerPortals1Result))
-			r.Design.Style.Consumer.CustomerPortals = append(r.Design.Style.Consumer.CustomerPortals, customerPortals1)
-		}
-		r.Design.Style.Consumer.Widgets = nil
-		for _, widgetsItem := range resp.Design.Style.Consumer.Widgets {
-			var widgets1 types.String
-			widgets1Result, _ := json.Marshal(widgetsItem)
-			widgets1 = types.StringValue(string(widgets1Result))
-			r.Design.Style.Consumer.Widgets = append(r.Design.Style.Consumer.Widgets, widgets1)
-		}
-		if resp.Design.Style.Logo == nil {
-			r.Design.Style.Logo = nil
-		} else {
-			r.Design.Style.Logo = &LogoData{}
-			if resp.Design.Style.Logo.Main == nil {
-				r.Design.Style.Logo.Main = nil
+		brandID = nil
+	}
+	brandName := new(string)
+	if !r.BrandName.IsUnknown() && !r.BrandName.IsNull() {
+		*brandName = r.BrandName.ValueString()
+	} else {
+		brandName = nil
+	}
+	createdAt := new(string)
+	if !r.CreatedAt.IsUnknown() && !r.CreatedAt.IsNull() {
+		*createdAt = r.CreatedAt.ValueString()
+	} else {
+		createdAt = nil
+	}
+	createdBy := new(string)
+	if !r.CreatedBy.IsUnknown() && !r.CreatedBy.IsNull() {
+		*createdBy = r.CreatedBy.ValueString()
+	} else {
+		createdBy = nil
+	}
+	customTheme := new(string)
+	if !r.CustomTheme.IsUnknown() && !r.CustomTheme.IsNull() {
+		*customTheme = r.CustomTheme.ValueString()
+	} else {
+		customTheme = nil
+	}
+	edited := r.Edited.ValueBool()
+	id := new(string)
+	if !r.ID.IsUnknown() && !r.ID.IsNull() {
+		*id = r.ID.ValueString()
+	} else {
+		id = nil
+	}
+	lastModifiedAt := new(string)
+	if !r.LastModifiedAt.IsUnknown() && !r.LastModifiedAt.IsNull() {
+		*lastModifiedAt = r.LastModifiedAt.ValueString()
+	} else {
+		lastModifiedAt = nil
+	}
+	var customerPortals []interface{} = nil
+	for _, customerPortalsItem := range r.Style.Consumer.CustomerPortals {
+		var customerPortalsTmp interface{}
+		_ = json.Unmarshal([]byte(customerPortalsItem.ValueString()), &customerPortalsTmp)
+		customerPortals = append(customerPortals, customerPortalsTmp)
+	}
+	var widgets []interface{} = nil
+	for _, widgetsItem := range r.Style.Consumer.Widgets {
+		var widgetsTmp interface{}
+		_ = json.Unmarshal([]byte(widgetsItem.ValueString()), &widgetsTmp)
+		widgets = append(widgets, widgetsTmp)
+	}
+	consumer := shared.ConsumerData{
+		CustomerPortals: customerPortals,
+		Widgets:         widgets,
+	}
+	var logo *shared.LogoData
+	if r.Style.Logo != nil {
+		var main *shared.FileData
+		if r.Style.Logo.Main != nil {
+			displayName := new(string)
+			if !r.Style.Logo.Main.DisplayName.IsUnknown() && !r.Style.Logo.Main.DisplayName.IsNull() {
+				*displayName = r.Style.Logo.Main.DisplayName.ValueString()
 			} else {
-				r.Design.Style.Logo.Main = &FileData{}
-				r.Design.Style.Logo.Main.DisplayName = types.StringPointerValue(resp.Design.Style.Logo.Main.DisplayName)
-				if resp.Design.Style.Logo.Main.FileType != nil {
-					r.Design.Style.Logo.Main.FileType = types.StringValue(string(*resp.Design.Style.Logo.Main.FileType))
-				} else {
-					r.Design.Style.Logo.Main.FileType = types.StringNull()
-				}
-				r.Design.Style.Logo.Main.Name = types.StringValue(resp.Design.Style.Logo.Main.Name)
-				r.Design.Style.Logo.Main.S3ObjectKey = types.StringValue(resp.Design.Style.Logo.Main.S3ObjectKey)
-				r.Design.Style.Logo.Main.URL = types.StringValue(resp.Design.Style.Logo.Main.URL)
+				displayName = nil
+			}
+			fileType := new(shared.FileType)
+			if !r.Style.Logo.Main.FileType.IsUnknown() && !r.Style.Logo.Main.FileType.IsNull() {
+				*fileType = shared.FileType(r.Style.Logo.Main.FileType.ValueString())
+			} else {
+				fileType = nil
+			}
+			name := r.Style.Logo.Main.Name.ValueString()
+			s3ObjectKey := r.Style.Logo.Main.S3ObjectKey.ValueString()
+			url := r.Style.Logo.Main.URL.ValueString()
+			main = &shared.FileData{
+				DisplayName: displayName,
+				FileType:    fileType,
+				Name:        name,
+				S3ObjectKey: s3ObjectKey,
+				URL:         url,
 			}
 		}
-		r.Design.Style.Palette.Background = types.StringValue(resp.Design.Style.Palette.Background)
-		r.Design.Style.Palette.Error = types.StringValue(resp.Design.Style.Palette.Error)
-		r.Design.Style.Palette.Navbar = types.StringValue(resp.Design.Style.Palette.Navbar)
-		r.Design.Style.Palette.Paper = types.StringValue(resp.Design.Style.Palette.Paper)
-		r.Design.Style.Palette.Primary = types.StringValue(resp.Design.Style.Palette.Primary)
-		r.Design.Style.Palette.Secondary = types.StringValue(resp.Design.Style.Palette.Secondary)
-		r.Design.Style.Typography.Font.FontFamily = types.StringPointerValue(resp.Design.Style.Typography.Font.FontFamily)
-		r.Design.Style.Typography.Font.FontID = types.StringValue(resp.Design.Style.Typography.Font.FontID)
-		r.Design.Style.Typography.Font.FontName = types.StringValue(resp.Design.Style.Typography.Font.FontName)
-		r.Design.Style.Typography.Font.FontWeightBold = types.StringPointerValue(resp.Design.Style.Typography.Font.FontWeightBold)
-		r.Design.Style.Typography.Font.FontWeightMedium = types.StringPointerValue(resp.Design.Style.Typography.Font.FontWeightMedium)
-		r.Design.Style.Typography.Font.FontWeightRegular = types.StringPointerValue(resp.Design.Style.Typography.Font.FontWeightRegular)
-		r.Design.Style.Typography.Font.Urls = nil
-		for _, urlsItem := range resp.Design.Style.Typography.Font.Urls {
-			var urls1 types.String
-			urls1Result, _ := json.Marshal(urlsItem)
-			urls1 = types.StringValue(string(urls1Result))
-			r.Design.Style.Typography.Font.Urls = append(r.Design.Style.Typography.Font.Urls, urls1)
+		logo = &shared.LogoData{
+			Main: main,
 		}
-		r.Design.Style.Typography.Primary = types.StringValue(resp.Design.Style.Typography.Primary)
-		r.Design.Style.Typography.Secondary = types.StringValue(resp.Design.Style.Typography.Secondary)
-		r.Design.StyleName = types.StringValue(resp.Design.StyleName)
-		r.Design.UseCustomTheme = types.BoolPointerValue(resp.Design.UseCustomTheme)
-		if resp.Design.User == nil {
-			r.Design.User = nil
+	}
+	background := r.Style.Palette.Background.ValueString()
+	error := r.Style.Palette.Error.ValueString()
+	navbar := r.Style.Palette.Navbar.ValueString()
+	paper := r.Style.Palette.Paper.ValueString()
+	primary := r.Style.Palette.Primary.ValueString()
+	secondary := r.Style.Palette.Secondary.ValueString()
+	palette := shared.PaletteData{
+		Background: background,
+		Error:      error,
+		Navbar:     navbar,
+		Paper:      paper,
+		Primary:    primary,
+		Secondary:  secondary,
+	}
+	fontFamily := new(string)
+	if !r.Style.Typography.Font.FontFamily.IsUnknown() && !r.Style.Typography.Font.FontFamily.IsNull() {
+		*fontFamily = r.Style.Typography.Font.FontFamily.ValueString()
+	} else {
+		fontFamily = nil
+	}
+	fontID := r.Style.Typography.Font.FontID.ValueString()
+	fontName := r.Style.Typography.Font.FontName.ValueString()
+	fontWeightBold := new(string)
+	if !r.Style.Typography.Font.FontWeightBold.IsUnknown() && !r.Style.Typography.Font.FontWeightBold.IsNull() {
+		*fontWeightBold = r.Style.Typography.Font.FontWeightBold.ValueString()
+	} else {
+		fontWeightBold = nil
+	}
+	fontWeightMedium := new(string)
+	if !r.Style.Typography.Font.FontWeightMedium.IsUnknown() && !r.Style.Typography.Font.FontWeightMedium.IsNull() {
+		*fontWeightMedium = r.Style.Typography.Font.FontWeightMedium.ValueString()
+	} else {
+		fontWeightMedium = nil
+	}
+	fontWeightRegular := new(string)
+	if !r.Style.Typography.Font.FontWeightRegular.IsUnknown() && !r.Style.Typography.Font.FontWeightRegular.IsNull() {
+		*fontWeightRegular = r.Style.Typography.Font.FontWeightRegular.ValueString()
+	} else {
+		fontWeightRegular = nil
+	}
+	var urls []interface{} = nil
+	for _, urlsItem := range r.Style.Typography.Font.Urls {
+		var urlsTmp interface{}
+		_ = json.Unmarshal([]byte(urlsItem.ValueString()), &urlsTmp)
+		urls = append(urls, urlsTmp)
+	}
+	font := shared.FontData{
+		FontFamily:        fontFamily,
+		FontID:            fontID,
+		FontName:          fontName,
+		FontWeightBold:    fontWeightBold,
+		FontWeightMedium:  fontWeightMedium,
+		FontWeightRegular: fontWeightRegular,
+		Urls:              urls,
+	}
+	primary1 := r.Style.Typography.Primary.ValueString()
+	secondary1 := r.Style.Typography.Secondary.ValueString()
+	typography := shared.TypographyData{
+		Font:      font,
+		Primary:   primary1,
+		Secondary: secondary1,
+	}
+	style := shared.Style{
+		Consumer:   consumer,
+		Logo:       logo,
+		Palette:    palette,
+		Typography: typography,
+	}
+	styleName := r.StyleName.ValueString()
+	useCustomTheme := new(bool)
+	if !r.UseCustomTheme.IsUnknown() && !r.UseCustomTheme.IsNull() {
+		*useCustomTheme = r.UseCustomTheme.ValueBool()
+	} else {
+		useCustomTheme = nil
+	}
+	var user *shared.User
+	if r.User != nil {
+		emailaddress := new(string)
+		if !r.User.Emailaddress.IsUnknown() && !r.User.Emailaddress.IsNull() {
+			*emailaddress = r.User.Emailaddress.ValueString()
 		} else {
-			r.Design.User = &AddDesignResUser{}
-			r.Design.User.Emailaddress = types.StringPointerValue(resp.Design.User.Emailaddress)
-			r.Design.User.Fullname = types.StringPointerValue(resp.Design.User.Fullname)
-			r.Design.User.Name = types.StringPointerValue(resp.Design.User.Name)
-			r.Design.User.Userid = types.StringPointerValue(resp.Design.User.Userid)
+			emailaddress = nil
 		}
+		fullname := new(string)
+		if !r.User.Fullname.IsUnknown() && !r.User.Fullname.IsNull() {
+			*fullname = r.User.Fullname.ValueString()
+		} else {
+			fullname = nil
+		}
+		name1 := new(string)
+		if !r.User.Name.IsUnknown() && !r.User.Name.IsNull() {
+			*name1 = r.User.Name.ValueString()
+		} else {
+			name1 = nil
+		}
+		userid := new(string)
+		if !r.User.Userid.IsUnknown() && !r.User.Userid.IsNull() {
+			*userid = r.User.Userid.ValueString()
+		} else {
+			userid = nil
+		}
+		user = &shared.User{
+			Emailaddress: emailaddress,
+			Fullname:     fullname,
+			Name:         name1,
+			Userid:       userid,
+		}
+	}
+	out := shared.Design{
+		BrandID:        brandID,
+		BrandName:      brandName,
+		CreatedAt:      createdAt,
+		CreatedBy:      createdBy,
+		CustomTheme:    customTheme,
+		Edited:         edited,
+		ID:             id,
+		LastModifiedAt: lastModifiedAt,
+		Style:          style,
+		StyleName:      styleName,
+		UseCustomTheme: useCustomTheme,
+		User:           user,
+	}
+	return &out
+}
+
+func (r *DesignResourceModel) RefreshFromSharedAddDesignResDesign(resp *shared.AddDesignResDesign) {
+	r.BrandID = types.StringPointerValue(resp.BrandID)
+	r.BrandName = types.StringPointerValue(resp.BrandName)
+	r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
+	r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
+	r.CustomTheme = types.StringPointerValue(resp.CustomTheme)
+	r.Edited = types.BoolValue(resp.Edited)
+	r.ID = types.StringPointerValue(resp.ID)
+	r.LastModifiedAt = types.StringPointerValue(resp.LastModifiedAt)
+	r.Style.Consumer.CustomerPortals = nil
+	for _, customerPortalsItem := range resp.Style.Consumer.CustomerPortals {
+		var customerPortals1 types.String
+		customerPortals1Result, _ := json.Marshal(customerPortalsItem)
+		customerPortals1 = types.StringValue(string(customerPortals1Result))
+		r.Style.Consumer.CustomerPortals = append(r.Style.Consumer.CustomerPortals, customerPortals1)
+	}
+	r.Style.Consumer.Widgets = nil
+	for _, widgetsItem := range resp.Style.Consumer.Widgets {
+		var widgets1 types.String
+		widgets1Result, _ := json.Marshal(widgetsItem)
+		widgets1 = types.StringValue(string(widgets1Result))
+		r.Style.Consumer.Widgets = append(r.Style.Consumer.Widgets, widgets1)
+	}
+	if resp.Style.Logo == nil {
+		r.Style.Logo = nil
+	} else {
+		r.Style.Logo = &LogoData{}
+		if resp.Style.Logo.Main == nil {
+			r.Style.Logo.Main = nil
+		} else {
+			r.Style.Logo.Main = &FileData{}
+			r.Style.Logo.Main.DisplayName = types.StringPointerValue(resp.Style.Logo.Main.DisplayName)
+			if resp.Style.Logo.Main.FileType != nil {
+				r.Style.Logo.Main.FileType = types.StringValue(string(*resp.Style.Logo.Main.FileType))
+			} else {
+				r.Style.Logo.Main.FileType = types.StringNull()
+			}
+			r.Style.Logo.Main.Name = types.StringValue(resp.Style.Logo.Main.Name)
+			r.Style.Logo.Main.S3ObjectKey = types.StringValue(resp.Style.Logo.Main.S3ObjectKey)
+			r.Style.Logo.Main.URL = types.StringValue(resp.Style.Logo.Main.URL)
+		}
+	}
+	r.Style.Palette.Background = types.StringValue(resp.Style.Palette.Background)
+	r.Style.Palette.Error = types.StringValue(resp.Style.Palette.Error)
+	r.Style.Palette.Navbar = types.StringValue(resp.Style.Palette.Navbar)
+	r.Style.Palette.Paper = types.StringValue(resp.Style.Palette.Paper)
+	r.Style.Palette.Primary = types.StringValue(resp.Style.Palette.Primary)
+	r.Style.Palette.Secondary = types.StringValue(resp.Style.Palette.Secondary)
+	r.Style.Typography.Font.FontFamily = types.StringPointerValue(resp.Style.Typography.Font.FontFamily)
+	r.Style.Typography.Font.FontID = types.StringValue(resp.Style.Typography.Font.FontID)
+	r.Style.Typography.Font.FontName = types.StringValue(resp.Style.Typography.Font.FontName)
+	r.Style.Typography.Font.FontWeightBold = types.StringPointerValue(resp.Style.Typography.Font.FontWeightBold)
+	r.Style.Typography.Font.FontWeightMedium = types.StringPointerValue(resp.Style.Typography.Font.FontWeightMedium)
+	r.Style.Typography.Font.FontWeightRegular = types.StringPointerValue(resp.Style.Typography.Font.FontWeightRegular)
+	r.Style.Typography.Font.Urls = nil
+	for _, urlsItem := range resp.Style.Typography.Font.Urls {
+		var urls1 types.String
+		urls1Result, _ := json.Marshal(urlsItem)
+		urls1 = types.StringValue(string(urls1Result))
+		r.Style.Typography.Font.Urls = append(r.Style.Typography.Font.Urls, urls1)
+	}
+	r.Style.Typography.Primary = types.StringValue(resp.Style.Typography.Primary)
+	r.Style.Typography.Secondary = types.StringValue(resp.Style.Typography.Secondary)
+	r.StyleName = types.StringValue(resp.StyleName)
+	r.UseCustomTheme = types.BoolPointerValue(resp.UseCustomTheme)
+	if resp.User == nil {
+		r.User = nil
+	} else {
+		r.User = &GetDesignResUser{}
+		r.User.Emailaddress = types.StringPointerValue(resp.User.Emailaddress)
+		r.User.Fullname = types.StringPointerValue(resp.User.Fullname)
+		r.User.Name = types.StringPointerValue(resp.User.Name)
+		r.User.Userid = types.StringPointerValue(resp.User.Userid)
 	}
 }
 
@@ -102,23 +304,15 @@ func (r *DesignResourceModel) RefreshFromSharedGetDesignRes(resp *shared.GetDesi
 	if resp.Design == nil {
 		r.Design = nil
 	} else {
-		r.Design = &AddDesignResDesign{}
+		r.Design = &GetDesignResDesign{}
 		r.Design.BrandID = types.StringPointerValue(resp.Design.BrandID)
 		r.Design.BrandName = types.StringPointerValue(resp.Design.BrandName)
-		if resp.Design.CreatedAt != nil {
-			r.Design.CreatedAt = types.StringValue(resp.Design.CreatedAt.Format(time.RFC3339Nano))
-		} else {
-			r.Design.CreatedAt = types.StringNull()
-		}
+		r.Design.CreatedAt = types.StringPointerValue(resp.Design.CreatedAt)
 		r.Design.CreatedBy = types.StringPointerValue(resp.Design.CreatedBy)
 		r.Design.CustomTheme = types.StringPointerValue(resp.Design.CustomTheme)
 		r.Design.Edited = types.BoolValue(resp.Design.Edited)
 		r.Design.ID = types.StringPointerValue(resp.Design.ID)
-		if resp.Design.LastModifiedAt != nil {
-			r.Design.LastModifiedAt = types.StringValue(resp.Design.LastModifiedAt.Format(time.RFC3339Nano))
-		} else {
-			r.Design.LastModifiedAt = types.StringNull()
-		}
+		r.Design.LastModifiedAt = types.StringPointerValue(resp.Design.LastModifiedAt)
 		r.Design.Style.Consumer.CustomerPortals = nil
 		for _, customerPortalsItem := range resp.Design.Style.Consumer.CustomerPortals {
 			var customerPortals1 types.String
@@ -178,7 +372,7 @@ func (r *DesignResourceModel) RefreshFromSharedGetDesignRes(resp *shared.GetDesi
 		if resp.Design.User == nil {
 			r.Design.User = nil
 		} else {
-			r.Design.User = &AddDesignResUser{}
+			r.Design.User = &GetDesignResUser{}
 			r.Design.User.Emailaddress = types.StringPointerValue(resp.Design.User.Emailaddress)
 			r.Design.User.Fullname = types.StringPointerValue(resp.Design.User.Fullname)
 			r.Design.User.Name = types.StringPointerValue(resp.Design.User.Name)
@@ -200,9 +394,9 @@ func (r *DesignResourceModel) ToSharedUpdateDesignReq() *shared.UpdateDesignReq 
 	} else {
 		brandName = nil
 	}
-	createdAt := new(time.Time)
+	createdAt := new(string)
 	if !r.Design.CreatedAt.IsUnknown() && !r.Design.CreatedAt.IsNull() {
-		*createdAt, _ = time.Parse(time.RFC3339Nano, r.Design.CreatedAt.ValueString())
+		*createdAt = r.Design.CreatedAt.ValueString()
 	} else {
 		createdAt = nil
 	}
@@ -225,9 +419,9 @@ func (r *DesignResourceModel) ToSharedUpdateDesignReq() *shared.UpdateDesignReq 
 	} else {
 		id = nil
 	}
-	lastModifiedAt := new(time.Time)
+	lastModifiedAt := new(string)
 	if !r.Design.LastModifiedAt.IsUnknown() && !r.Design.LastModifiedAt.IsNull() {
-		*lastModifiedAt, _ = time.Parse(time.RFC3339Nano, r.Design.LastModifiedAt.ValueString())
+		*lastModifiedAt = r.Design.LastModifiedAt.ValueString()
 	} else {
 		lastModifiedAt = nil
 	}

@@ -2,11 +2,6 @@
 
 package shared
 
-import (
-	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/utils"
-	"time"
-)
-
 type Style struct {
 	Consumer   ConsumerData   `json:"consumer"`
 	Logo       *LogoData      `json:"logo,omitempty"`
@@ -81,27 +76,16 @@ type Design struct {
 	BrandID   *string `json:"brand_id,omitempty"`
 	BrandName *string `json:"brand_name,omitempty"`
 	// Creation date and time using ISO 8601 full-time format
-	CreatedAt      *time.Time `json:"created_at,omitempty"`
-	CreatedBy      *string    `json:"created_by,omitempty"`
-	CustomTheme    *string    `json:"custom_theme,omitempty"`
-	Edited         bool       `json:"edited"`
-	ID             *string    `json:"id,omitempty"`
-	LastModifiedAt *time.Time `json:"last_modified_at,omitempty"`
-	Style          Style      `json:"style"`
-	StyleName      string     `json:"style_name"`
-	UseCustomTheme *bool      `json:"use_custom_theme,omitempty"`
-	User           *User      `json:"user,omitempty"`
-}
-
-func (d Design) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(d, "", false)
-}
-
-func (d *Design) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, false); err != nil {
-		return err
-	}
-	return nil
+	CreatedAt      *string `json:"created_at,omitempty"`
+	CreatedBy      *string `json:"created_by,omitempty"`
+	CustomTheme    *string `json:"custom_theme,omitempty"`
+	Edited         bool    `json:"edited"`
+	ID             *string `json:"id,omitempty"`
+	LastModifiedAt *string `json:"last_modified_at,omitempty"`
+	Style          Style   `json:"style"`
+	StyleName      string  `json:"style_name"`
+	UseCustomTheme *bool   `json:"use_custom_theme,omitempty"`
+	User           *User   `json:"user,omitempty"`
 }
 
 func (o *Design) GetBrandID() *string {
@@ -118,7 +102,7 @@ func (o *Design) GetBrandName() *string {
 	return o.BrandName
 }
 
-func (o *Design) GetCreatedAt() *time.Time {
+func (o *Design) GetCreatedAt() *string {
 	if o == nil {
 		return nil
 	}
@@ -153,7 +137,7 @@ func (o *Design) GetID() *string {
 	return o.ID
 }
 
-func (o *Design) GetLastModifiedAt() *time.Time {
+func (o *Design) GetLastModifiedAt() *string {
 	if o == nil {
 		return nil
 	}

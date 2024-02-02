@@ -2,11 +2,6 @@
 
 package shared
 
-import (
-	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/utils"
-	"time"
-)
-
 type UpdateDesignReqStyle struct {
 	Consumer   ConsumerData   `json:"consumer"`
 	Logo       *LogoData      `json:"logo,omitempty"`
@@ -81,27 +76,16 @@ type UpdateDesignReqDesign struct {
 	BrandID   *string `json:"brand_id,omitempty"`
 	BrandName *string `json:"brand_name,omitempty"`
 	// Creation date and time using ISO 8601 full-time format
-	CreatedAt      *time.Time           `json:"created_at,omitempty"`
+	CreatedAt      *string              `json:"created_at,omitempty"`
 	CreatedBy      *string              `json:"created_by,omitempty"`
 	CustomTheme    *string              `json:"custom_theme,omitempty"`
 	Edited         bool                 `json:"edited"`
 	ID             *string              `json:"id,omitempty"`
-	LastModifiedAt *time.Time           `json:"last_modified_at,omitempty"`
+	LastModifiedAt *string              `json:"last_modified_at,omitempty"`
 	Style          UpdateDesignReqStyle `json:"style"`
 	StyleName      string               `json:"style_name"`
 	UseCustomTheme *bool                `json:"use_custom_theme,omitempty"`
 	User           *UpdateDesignReqUser `json:"user,omitempty"`
-}
-
-func (u UpdateDesignReqDesign) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpdateDesignReqDesign) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, false); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (o *UpdateDesignReqDesign) GetBrandID() *string {
@@ -118,7 +102,7 @@ func (o *UpdateDesignReqDesign) GetBrandName() *string {
 	return o.BrandName
 }
 
-func (o *UpdateDesignReqDesign) GetCreatedAt() *time.Time {
+func (o *UpdateDesignReqDesign) GetCreatedAt() *string {
 	if o == nil {
 		return nil
 	}
@@ -153,7 +137,7 @@ func (o *UpdateDesignReqDesign) GetID() *string {
 	return o.ID
 }
 
-func (o *UpdateDesignReqDesign) GetLastModifiedAt() *time.Time {
+func (o *UpdateDesignReqDesign) GetLastModifiedAt() *string {
 	if o == nil {
 		return nil
 	}
