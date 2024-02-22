@@ -1,26 +1,11 @@
-terraform {
-  required_providers {
-    epilot-designbuilder = {
-      source  = "epilot-dev/epilot-designbuilder"
-      version = "0.6.5"
-    }
-  }
-}
-
-variable "custom_authorizer" {
-  type        = string
-}
-
-provider "epilot-designbuilder" {
-  # Configuration options
-  custom_authorizer = var.custom_authorizer
-}
-
 resource "epilot-designbuilder_design" "my_design" {
   brand_id         = "...my_brand_id..."
   brand_name       = "...my_brand_name..."
+  created_at       = "2021-01-30T08:30:00Z"
+  created_by       = "...my_created_by..."
   custom_theme     = "...my_custom_theme..."
   edited           = true
+  id               = "4d59415d-9b16-41f7-8b78-bf5bc35ca152"
   last_modified_at = "...my_last_modified_at..."
   style = {
     consumer = {
@@ -64,6 +49,6 @@ resource "epilot-designbuilder_design" "my_design" {
       secondary = "...my_secondary..."
     }
   }
-  style_name       = "bla"
+  style_name       = "...my_style_name..."
   use_custom_theme = false
 }

@@ -279,6 +279,7 @@ components:
           - $ref: "#/components/schemas/DesignItem"
           - $ref: "#/components/schemas/Custom_Style"
     GetDesignRes:
+      x-speakeasy-entity: Design
       type: object
       properties:
         design:

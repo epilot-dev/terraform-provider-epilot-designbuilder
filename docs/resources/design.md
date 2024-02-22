@@ -14,45 +14,58 @@ Design Resource
 
 ```terraform
 resource "epilot-designbuilder_design" "my_design" {
-  background = "...my_background..."
-  brand_id   = "...my_brand_id..."
-  brand_name = "...my_brand_name..."
-  created_at = "2021-01-30T08:30:00Z"
-  created_by = "...my_created_by..."
-  customer_portals = [
-    "{ \"see\": \"documentation\" }",
-  ]
-  custom_theme        = "...my_custom_theme..."
-  display_name        = "...my_display_name..."
-  edited              = true
-  emailaddress        = "...my_emailaddress..."
-  error               = "...my_error..."
-  file_type           = "LOGO"
-  font_family         = "...my_font_family..."
-  font_id             = "...my_font_id..."
-  font_name           = "...my_font_name..."
-  font_weight_bold    = "...my_font_weight_bold..."
-  font_weight_medium  = "...my_font_weight_medium..."
-  font_weight_regular = "...my_font_weight_regular..."
-  fullname            = "...my_fullname..."
-  id                  = "d59415d9-b161-4f70-b78b-f5bc35ca152c"
-  last_modified_at    = "...my_last_modified_at..."
-  name                = "Betsy Conn"
-  navbar              = "...my_navbar..."
-  paper               = "...my_paper..."
-  primary             = "...my_primary..."
-  s3_object_key       = "...my_s3_object_key..."
-  secondary           = "...my_secondary..."
-  style_name          = "...my_style_name..."
-  url                 = "...my_url..."
-  urls = [
-    "{ \"see\": \"documentation\" }",
-  ]
+  brand_id         = "...my_brand_id..."
+  brand_name       = "...my_brand_name..."
+  created_at       = "2021-01-30T08:30:00Z"
+  created_by       = "...my_created_by..."
+  custom_theme     = "...my_custom_theme..."
+  edited           = true
+  id               = "4d59415d-9b16-41f7-8b78-bf5bc35ca152"
+  last_modified_at = "...my_last_modified_at..."
+  style = {
+    consumer = {
+      customer_portals = [
+        "{ \"see\": \"documentation\" }",
+      ]
+      widgets = [
+        "{ \"see\": \"documentation\" }",
+      ]
+    }
+    logo = {
+      main = {
+        display_name  = "...my_display_name..."
+        file_type     = "FONT"
+        name          = "Betsy Conn"
+        s3_object_key = "...my_s3_object_key..."
+        url           = "...my_url..."
+      }
+    }
+    palette = {
+      background = "...my_background..."
+      error      = "...my_error..."
+      navbar     = "...my_navbar..."
+      paper      = "...my_paper..."
+      primary    = "...my_primary..."
+      secondary  = "...my_secondary..."
+    }
+    typography = {
+      font = {
+        font_family         = "...my_font_family..."
+        font_id             = "...my_font_id..."
+        font_name           = "...my_font_name..."
+        font_weight_bold    = "...my_font_weight_bold..."
+        font_weight_medium  = "...my_font_weight_medium..."
+        font_weight_regular = "...my_font_weight_regular..."
+        urls = [
+          "{ \"see\": \"documentation\" }",
+        ]
+      }
+      primary   = "...my_primary..."
+      secondary = "...my_secondary..."
+    }
+  }
+  style_name       = "...my_style_name..."
   use_custom_theme = false
-  userid           = "...my_userid..."
-  widgets = [
-    "{ \"see\": \"documentation\" }",
-  ]
 }
 ```
 
@@ -61,22 +74,9 @@ resource "epilot-designbuilder_design" "my_design" {
 
 ### Required
 
-- `background` (String) Requires replacement if changed.
-- `customer_portals` (List of String) Requires replacement if changed.
 - `edited` (Boolean) Requires replacement if changed.
-- `error` (String) Requires replacement if changed.
-- `font_id` (String) Requires replacement if changed.
-- `font_name` (String) Requires replacement if changed.
-- `name` (String) Requires replacement if changed.
-- `navbar` (String) Requires replacement if changed.
-- `paper` (String) Requires replacement if changed.
-- `primary` (String) Requires replacement if changed.
-- `s3_object_key` (String) Requires replacement if changed.
-- `secondary` (String) Requires replacement if changed.
+- `style` (Attributes) Requires replacement if changed. (see [below for nested schema](#nestedatt--style))
 - `style_name` (String) Requires replacement if changed.
-- `url` (String) Requires replacement if changed.
-- `urls` (List of String) Requires replacement if changed.
-- `widgets` (List of String) Requires replacement if changed.
 
 ### Optional
 
@@ -85,22 +85,108 @@ resource "epilot-designbuilder_design" "my_design" {
 - `created_at` (String) Creation date and time using ISO 8601 full-time format. Requires replacement if changed.
 - `created_by` (String) Requires replacement if changed.
 - `custom_theme` (String) Requires replacement if changed.
-- `display_name` (String) Requires replacement if changed.
-- `emailaddress` (String) Requires replacement if changed.
-- `file_type` (String) Requires replacement if changed. ; must be one of ["LOGO", "FONT"]
-- `font_family` (String) Requires replacement if changed.
-- `font_weight_bold` (String) Requires replacement if changed.
-- `font_weight_medium` (String) Requires replacement if changed.
-- `font_weight_regular` (String) Requires replacement if changed.
-- `fullname` (String) Requires replacement if changed.
 - `id` (String) Id of the design
 - `last_modified_at` (String) Requires replacement if changed.
 - `use_custom_theme` (Boolean) Requires replacement if changed.
-- `userid` (String) Requires replacement if changed.
+- `user` (Attributes) Requires replacement if changed. (see [below for nested schema](#nestedatt--user))
 
 ### Read-Only
 
 - `design` (Attributes) (see [below for nested schema](#nestedatt--design))
+
+<a id="nestedatt--style"></a>
+### Nested Schema for `style`
+
+Required:
+
+- `consumer` (Attributes) Requires replacement if changed. (see [below for nested schema](#nestedatt--style--consumer))
+- `palette` (Attributes) Requires replacement if changed. (see [below for nested schema](#nestedatt--style--palette))
+- `typography` (Attributes) Requires replacement if changed. (see [below for nested schema](#nestedatt--style--typography))
+
+Optional:
+
+- `logo` (Attributes) Requires replacement if changed. (see [below for nested schema](#nestedatt--style--logo))
+
+<a id="nestedatt--style--consumer"></a>
+### Nested Schema for `style.consumer`
+
+Required:
+
+- `customer_portals` (List of String) Requires replacement if changed.
+- `widgets` (List of String) Requires replacement if changed.
+
+
+<a id="nestedatt--style--palette"></a>
+### Nested Schema for `style.palette`
+
+Required:
+
+- `background` (String) Requires replacement if changed.
+- `error` (String) Requires replacement if changed.
+- `navbar` (String) Requires replacement if changed.
+- `paper` (String) Requires replacement if changed.
+- `primary` (String) Requires replacement if changed.
+- `secondary` (String) Requires replacement if changed.
+
+
+<a id="nestedatt--style--typography"></a>
+### Nested Schema for `style.typography`
+
+Required:
+
+- `font` (Attributes) Requires replacement if changed. (see [below for nested schema](#nestedatt--style--typography--font))
+- `primary` (String) Requires replacement if changed.
+- `secondary` (String) Requires replacement if changed.
+
+<a id="nestedatt--style--typography--font"></a>
+### Nested Schema for `style.typography.font`
+
+Required:
+
+- `font_id` (String) Requires replacement if changed.
+- `font_name` (String) Requires replacement if changed.
+- `urls` (List of String) Requires replacement if changed.
+
+Optional:
+
+- `font_family` (String) Requires replacement if changed.
+- `font_weight_bold` (String) Requires replacement if changed.
+- `font_weight_medium` (String) Requires replacement if changed.
+- `font_weight_regular` (String) Requires replacement if changed.
+
+
+
+<a id="nestedatt--style--logo"></a>
+### Nested Schema for `style.logo`
+
+Optional:
+
+- `main` (Attributes) Requires replacement if changed. (see [below for nested schema](#nestedatt--style--logo--main))
+
+<a id="nestedatt--style--logo--main"></a>
+### Nested Schema for `style.logo.main`
+
+Optional:
+
+- `display_name` (String) Requires replacement if changed.
+- `file_type` (String) Requires replacement if changed. ; must be one of ["LOGO", "FONT"]
+- `name` (String) Requires replacement if changed. ; Not Null
+- `s3_object_key` (String) Requires replacement if changed. ; Not Null
+- `url` (String) Requires replacement if changed. ; Not Null
+
+
+
+
+<a id="nestedatt--user"></a>
+### Nested Schema for `user`
+
+Optional:
+
+- `emailaddress` (String) Requires replacement if changed.
+- `fullname` (String) Requires replacement if changed.
+- `name` (String) Requires replacement if changed.
+- `userid` (String) Requires replacement if changed.
+
 
 <a id="nestedatt--design"></a>
 ### Nested Schema for `design`

@@ -21,3 +21,7 @@ import {
   to = epilot-designbuilder_design.import_design
   id = "8eab9ef2-8265-4f8d-9741-d388fbc2d538"
 }
+
+# resource "epilot-designbuilder_design" "import_design" {
+#   # (resource arguments)
+# }
