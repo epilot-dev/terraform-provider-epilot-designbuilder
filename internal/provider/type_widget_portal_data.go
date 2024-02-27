@@ -4,7 +4,7 @@ package provider
 
 import "github.com/hashicorp/terraform-plugin-framework/types"
 
-type ConsumerData struct {
-	CustomerPortals []CustomerPortals `tfsdk:"customer_portals"`
-	Widgets         []types.String    `tfsdk:"widgets"`
+type WidgetPortalData struct {
+	ID   types.String `tfsdk:"id"`
+	Name types.String `tfsdk:"name"`
 }

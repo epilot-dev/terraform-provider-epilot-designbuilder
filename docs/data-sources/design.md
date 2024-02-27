@@ -14,7 +14,7 @@ Design DataSource
 
 ```terraform
 data "epilot-designbuilder_design" "my_design" {
-  id = "a78560ec-8ad5-4f6e-bbd6-7d648ca45664"
+  id = "041dbf71-b5a7-4a2d-9a7f-7d665aaf82b8"
 }
 ```
 
@@ -27,54 +27,76 @@ data "epilot-designbuilder_design" "my_design" {
 
 ### Read-Only
 
-- `design` (Attributes) (see [below for nested schema](#nestedatt--design))
-
-<a id="nestedatt--design"></a>
-### Nested Schema for `design`
-
-Read-Only:
-
-- `brand_id` (String)
+- `brand_id` (Attributes) (see [below for nested schema](#nestedatt--brand_id))
 - `brand_name` (String)
 - `created_at` (String) Creation date and time using ISO 8601 full-time format
 - `created_by` (String)
-- `custom_theme` (String)
+- `custom_theme` (Attributes) (see [below for nested schema](#nestedatt--custom_theme))
 - `edited` (Boolean)
-- `id` (String)
 - `last_modified_at` (String)
-- `style` (Attributes) (see [below for nested schema](#nestedatt--design--style))
+- `style` (Attributes) (see [below for nested schema](#nestedatt--style))
 - `style_name` (String)
 - `use_custom_theme` (Boolean)
-- `user` (Attributes) (see [below for nested schema](#nestedatt--design--user))
+- `user` (Attributes) (see [below for nested schema](#nestedatt--user))
 
-<a id="nestedatt--design--style"></a>
-### Nested Schema for `design.style`
-
-Read-Only:
-
-- `consumer` (Attributes) (see [below for nested schema](#nestedatt--design--style--consumer))
-- `logo` (Attributes) (see [below for nested schema](#nestedatt--design--style--logo))
-- `palette` (Attributes) (see [below for nested schema](#nestedatt--design--style--palette))
-- `typography` (Attributes) (see [below for nested schema](#nestedatt--design--style--typography))
-
-<a id="nestedatt--design--style--consumer"></a>
-### Nested Schema for `design.style.consumer`
+<a id="nestedatt--brand_id"></a>
+### Nested Schema for `brand_id`
 
 Read-Only:
 
-- `customer_portals` (List of String)
+- `number` (Number)
+- `str` (String)
+
+
+<a id="nestedatt--custom_theme"></a>
+### Nested Schema for `custom_theme`
+
+
+<a id="nestedatt--style"></a>
+### Nested Schema for `style`
+
+Read-Only:
+
+- `consumer` (Attributes) (see [below for nested schema](#nestedatt--style--consumer))
+- `logo` (Attributes) (see [below for nested schema](#nestedatt--style--logo))
+- `palette` (Attributes) (see [below for nested schema](#nestedatt--style--palette))
+- `typography` (Attributes) (see [below for nested schema](#nestedatt--style--typography))
+
+<a id="nestedatt--style--consumer"></a>
+### Nested Schema for `style.consumer`
+
+Read-Only:
+
+- `customer_portals` (Attributes List) (see [below for nested schema](#nestedatt--style--consumer--customer_portals))
 - `widgets` (List of String)
 
-
-<a id="nestedatt--design--style--logo"></a>
-### Nested Schema for `design.style.logo`
+<a id="nestedatt--style--consumer--customer_portals"></a>
+### Nested Schema for `style.consumer.customer_portals`
 
 Read-Only:
 
-- `main` (Attributes) (see [below for nested schema](#nestedatt--design--style--logo--main))
+- `widget_portal_data` (Attributes) (see [below for nested schema](#nestedatt--style--consumer--customer_portals--widget_portal_data))
 
-<a id="nestedatt--design--style--logo--main"></a>
-### Nested Schema for `design.style.logo.main`
+<a id="nestedatt--style--consumer--customer_portals--widget_portal_data"></a>
+### Nested Schema for `style.consumer.customer_portals.widget_portal_data`
+
+Read-Only:
+
+- `id` (String)
+- `name` (String)
+
+
+
+
+<a id="nestedatt--style--logo"></a>
+### Nested Schema for `style.logo`
+
+Read-Only:
+
+- `main` (Attributes) (see [below for nested schema](#nestedatt--style--logo--main))
+
+<a id="nestedatt--style--logo--main"></a>
+### Nested Schema for `style.logo.main`
 
 Read-Only:
 
@@ -86,8 +108,8 @@ Read-Only:
 
 
 
-<a id="nestedatt--design--style--palette"></a>
-### Nested Schema for `design.style.palette`
+<a id="nestedatt--style--palette"></a>
+### Nested Schema for `style.palette`
 
 Read-Only:
 
@@ -99,17 +121,17 @@ Read-Only:
 - `secondary` (String)
 
 
-<a id="nestedatt--design--style--typography"></a>
-### Nested Schema for `design.style.typography`
+<a id="nestedatt--style--typography"></a>
+### Nested Schema for `style.typography`
 
 Read-Only:
 
-- `font` (Attributes) (see [below for nested schema](#nestedatt--design--style--typography--font))
+- `font` (Attributes) (see [below for nested schema](#nestedatt--style--typography--font))
 - `primary` (String)
 - `secondary` (String)
 
-<a id="nestedatt--design--style--typography--font"></a>
-### Nested Schema for `design.style.typography.secondary`
+<a id="nestedatt--style--typography--font"></a>
+### Nested Schema for `style.typography.font`
 
 Read-Only:
 
@@ -124,8 +146,8 @@ Read-Only:
 
 
 
-<a id="nestedatt--design--user"></a>
-### Nested Schema for `design.user`
+<a id="nestedatt--user"></a>
+### Nested Schema for `user`
 
 Read-Only:
 

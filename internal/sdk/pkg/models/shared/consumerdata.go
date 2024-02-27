@@ -2,14 +2,60 @@
 
 package shared
 
-type ConsumerData struct {
-	CustomerPortals []interface{} `json:"customer_portals"`
-	Widgets         []interface{} `json:"widgets"`
+import (
+	"errors"
+	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/utils"
+)
+
+type CustomerPortalsType string
+
+const (
+	CustomerPortalsTypeWidgetPortalData CustomerPortalsType = "WidgetPortalData"
+)
+
+type CustomerPortals struct {
+	WidgetPortalData *WidgetPortalData
+
+	Type CustomerPortalsType
 }
 
-func (o *ConsumerData) GetCustomerPortals() []interface{} {
+func CreateCustomerPortalsWidgetPortalData(widgetPortalData WidgetPortalData) CustomerPortals {
+	typ := CustomerPortalsTypeWidgetPortalData
+
+	return CustomerPortals{
+		WidgetPortalData: &widgetPortalData,
+		Type:             typ,
+	}
+}
+
+func (u *CustomerPortals) UnmarshalJSON(data []byte) error {
+
+	widgetPortalData := new(WidgetPortalData)
+	if err := utils.UnmarshalJSON(data, &widgetPortalData, "", true, true); err == nil {
+		u.WidgetPortalData = widgetPortalData
+		u.Type = CustomerPortalsTypeWidgetPortalData
+		return nil
+	}
+
+	return errors.New("could not unmarshal into supported union types")
+}
+
+func (u CustomerPortals) MarshalJSON() ([]byte, error) {
+	if u.WidgetPortalData != nil {
+		return utils.MarshalJSON(u.WidgetPortalData, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type: all fields are null")
+}
+
+type ConsumerData struct {
+	CustomerPortals []CustomerPortals `json:"customer_portals"`
+	Widgets         []interface{}     `json:"widgets"`
+}
+
+func (o *ConsumerData) GetCustomerPortals() []CustomerPortals {
 	if o == nil {
-		return []interface{}{}
+		return []CustomerPortals{}
 	}
 	return o.CustomerPortals
 }

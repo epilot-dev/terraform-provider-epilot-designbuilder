@@ -1,3 +1,3 @@
 data "epilot-designbuilder_design" "my_design" {
-  id = "a78560ec-8ad5-4f6e-bbd6-7d648ca45664"
+  id = "041dbf71-b5a7-4a2d-9a7f-7d665aaf82b8"
 }

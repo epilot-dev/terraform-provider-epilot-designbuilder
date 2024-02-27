@@ -8,7 +8,12 @@ resource "epilot-designbuilder_design" "my_design" {
   style = {
     consumer = {
       customer_portals = [
-        "{ \"see\": \"documentation\" }",
+        {
+          widget_portal_data = {
+            id   = "c3d24b6a-7856-40ec-8ad5-f6efbd67d648"
+            name = "Gerard Hackett"
+          }
+        },
       ]
       widgets = [
         "{ \"see\": \"documentation\" }",
@@ -17,8 +22,8 @@ resource "epilot-designbuilder_design" "my_design" {
     logo = {
       main = {
         display_name  = "...my_display_name..."
-        file_type     = "FONT"
-        name          = "Betsy Conn"
+        file_type     = "LOGO"
+        name          = "Kara Braun"
         s3_object_key = "...my_s3_object_key..."
         url           = "...my_url..."
       }
@@ -48,5 +53,5 @@ resource "epilot-designbuilder_design" "my_design" {
     }
   }
   style_name       = "...my_style_name..."
-  use_custom_theme = false
+  use_custom_theme = true
 }

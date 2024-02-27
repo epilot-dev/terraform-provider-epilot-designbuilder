@@ -5,11 +5,6 @@ package provider
 import (
 	"context"
 	"fmt"
-	speakeasy_boolplanmodifier "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/planmodifiers/boolplanmodifier"
-	speakeasy_listplanmodifier "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/planmodifiers/listplanmodifier"
-	speakeasy_numberplanmodifier "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/planmodifiers/numberplanmodifier"
-	speakeasy_objectplanmodifier "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/planmodifiers/objectplanmodifier"
-	speakeasy_stringplanmodifier "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/planmodifiers/stringplanmodifier"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/models/operations"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/models/shared"
@@ -20,12 +15,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
@@ -46,19 +35,18 @@ type DesignResource struct {
 
 // DesignResourceModel describes the resource data model.
 type DesignResourceModel struct {
-	BrandID        *BrandID            `tfsdk:"brand_id"`
-	BrandName      types.String        `tfsdk:"brand_name"`
-	CreatedAt      types.String        `tfsdk:"created_at"`
-	CreatedBy      types.String        `tfsdk:"created_by"`
-	CustomTheme    *CustomTheme        `tfsdk:"custom_theme"`
-	Design         *GetDesignResDesign `tfsdk:"design"`
-	Edited         types.Bool          `tfsdk:"edited"`
-	ID             types.String        `tfsdk:"id"`
-	LastModifiedAt types.String        `tfsdk:"last_modified_at"`
-	Style          GetDesignResStyle   `tfsdk:"style"`
-	StyleName      types.String        `tfsdk:"style_name"`
-	UseCustomTheme types.Bool          `tfsdk:"use_custom_theme"`
-	User           *GetDesignResUser   `tfsdk:"user"`
+	BrandID        *BrandID     `tfsdk:"brand_id"`
+	BrandName      types.String `tfsdk:"brand_name"`
+	CreatedAt      types.String `tfsdk:"created_at"`
+	CreatedBy      types.String `tfsdk:"created_by"`
+	CustomTheme    *CustomTheme `tfsdk:"custom_theme"`
+	Edited         types.Bool   `tfsdk:"edited"`
+	ID             types.String `tfsdk:"id"`
+	LastModifiedAt types.String `tfsdk:"last_modified_at"`
+	Style          Style        `tfsdk:"style"`
+	StyleName      types.String `tfsdk:"style_name"`
+	UseCustomTheme types.Bool   `tfsdk:"use_custom_theme"`
+	User           *User        `tfsdk:"user"`
 }
 
 func (r *DesignResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -72,265 +60,41 @@ func (r *DesignResource) Schema(ctx context.Context, req resource.SchemaRequest,
 		Attributes: map[string]schema.Attribute{
 			"brand_id": schema.SingleNestedAttribute{
 				Computed: true,
-				PlanModifiers: []planmodifier.Object{
-					objectplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_objectplanmodifier.SuppressDiff(speakeasy_objectplanmodifier.ExplicitSuppress),
-				},
 				Optional: true,
 				Attributes: map[string]schema.Attribute{
 					"str": schema.StringAttribute{
 						Computed: true,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplaceIfConfigured(),
-							speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-						},
-						Optional:    true,
-						Description: `Requires replacement if changed. `,
+						Optional: true,
 					},
 					"number": schema.NumberAttribute{
 						Computed: true,
-						PlanModifiers: []planmodifier.Number{
-							numberplanmodifier.RequiresReplaceIfConfigured(),
-							speakeasy_numberplanmodifier.SuppressDiff(speakeasy_numberplanmodifier.ExplicitSuppress),
-						},
-						Optional:    true,
-						Description: `Requires replacement if changed. `,
+						Optional: true,
 					},
 				},
-				Description: `Requires replacement if changed. `,
 				Validators: []validator.Object{
 					validators.ExactlyOneChild(),
 				},
 			},
 			"brand_name": schema.StringAttribute{
 				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-				},
-				Optional:    true,
-				Description: `Requires replacement if changed. `,
+				Optional: true,
 			},
 			"created_at": schema.StringAttribute{
-				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-				},
+				Computed:    true,
 				Optional:    true,
-				Description: `Creation date and time using ISO 8601 full-time format. Requires replacement if changed. `,
+				Description: `Creation date and time using ISO 8601 full-time format`,
 			},
 			"created_by": schema.StringAttribute{
 				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-				},
-				Optional:    true,
-				Description: `Requires replacement if changed. `,
+				Optional: true,
 			},
 			"custom_theme": schema.SingleNestedAttribute{
-				Computed: true,
-				PlanModifiers: []planmodifier.Object{
-					objectplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_objectplanmodifier.SuppressDiff(speakeasy_objectplanmodifier.ExplicitSuppress),
-				},
-				Optional:    true,
-				Attributes:  map[string]schema.Attribute{},
-				Description: `Requires replacement if changed. `,
-			},
-			"design": schema.SingleNestedAttribute{
-				Computed: true,
-				Attributes: map[string]schema.Attribute{
-					"brand_id": schema.SingleNestedAttribute{
-						Computed: true,
-						Attributes: map[string]schema.Attribute{
-							"str": schema.StringAttribute{
-								Computed: true,
-							},
-							"number": schema.NumberAttribute{
-								Computed: true,
-							},
-						},
-						Validators: []validator.Object{
-							validators.ExactlyOneChild(),
-						},
-					},
-					"brand_name": schema.StringAttribute{
-						Computed: true,
-					},
-					"created_at": schema.StringAttribute{
-						Computed:    true,
-						Description: `Creation date and time using ISO 8601 full-time format`,
-					},
-					"created_by": schema.StringAttribute{
-						Computed: true,
-					},
-					"custom_theme": schema.SingleNestedAttribute{
-						Computed:   true,
-						Attributes: map[string]schema.Attribute{},
-					},
-					"edited": schema.BoolAttribute{
-						Computed: true,
-					},
-					"id": schema.StringAttribute{
-						Computed: true,
-					},
-					"last_modified_at": schema.StringAttribute{
-						Computed: true,
-					},
-					"style": schema.SingleNestedAttribute{
-						Computed: true,
-						Attributes: map[string]schema.Attribute{
-							"consumer": schema.SingleNestedAttribute{
-								Computed: true,
-								Attributes: map[string]schema.Attribute{
-									"customer_portals": schema.ListAttribute{
-										Computed:    true,
-										ElementType: types.StringType,
-										Validators: []validator.List{
-											listvalidator.ValueStringsAre(validators.IsValidJSON()),
-										},
-									},
-									"widgets": schema.ListAttribute{
-										Computed:    true,
-										ElementType: types.StringType,
-										Validators: []validator.List{
-											listvalidator.ValueStringsAre(validators.IsValidJSON()),
-										},
-									},
-								},
-							},
-							"logo": schema.SingleNestedAttribute{
-								Computed: true,
-								Attributes: map[string]schema.Attribute{
-									"main": schema.SingleNestedAttribute{
-										Computed: true,
-										Attributes: map[string]schema.Attribute{
-											"display_name": schema.StringAttribute{
-												Computed: true,
-											},
-											"file_type": schema.StringAttribute{
-												Computed:    true,
-												Description: `must be one of ["LOGO", "FONT"]`,
-												Validators: []validator.String{
-													stringvalidator.OneOf(
-														"LOGO",
-														"FONT",
-													),
-												},
-											},
-											"name": schema.StringAttribute{
-												Computed: true,
-											},
-											"s3_object_key": schema.StringAttribute{
-												Computed: true,
-											},
-											"url": schema.StringAttribute{
-												Computed: true,
-											},
-										},
-									},
-								},
-							},
-							"palette": schema.SingleNestedAttribute{
-								Computed: true,
-								Attributes: map[string]schema.Attribute{
-									"background": schema.StringAttribute{
-										Computed: true,
-									},
-									"error": schema.StringAttribute{
-										Computed: true,
-									},
-									"navbar": schema.StringAttribute{
-										Computed: true,
-									},
-									"paper": schema.StringAttribute{
-										Computed: true,
-									},
-									"primary": schema.StringAttribute{
-										Computed: true,
-									},
-									"secondary": schema.StringAttribute{
-										Computed: true,
-									},
-								},
-							},
-							"typography": schema.SingleNestedAttribute{
-								Computed: true,
-								Attributes: map[string]schema.Attribute{
-									"font": schema.SingleNestedAttribute{
-										Computed: true,
-										Attributes: map[string]schema.Attribute{
-											"font_family": schema.StringAttribute{
-												Computed: true,
-											},
-											"font_id": schema.StringAttribute{
-												Computed: true,
-											},
-											"font_name": schema.StringAttribute{
-												Computed: true,
-											},
-											"font_weight_bold": schema.StringAttribute{
-												Computed: true,
-											},
-											"font_weight_medium": schema.StringAttribute{
-												Computed: true,
-											},
-											"font_weight_regular": schema.StringAttribute{
-												Computed: true,
-											},
-											"urls": schema.ListAttribute{
-												Computed:    true,
-												ElementType: types.StringType,
-												Validators: []validator.List{
-													listvalidator.ValueStringsAre(validators.IsValidJSON()),
-												},
-											},
-										},
-									},
-									"primary": schema.StringAttribute{
-										Computed: true,
-									},
-									"secondary": schema.StringAttribute{
-										Computed: true,
-									},
-								},
-							},
-						},
-					},
-					"style_name": schema.StringAttribute{
-						Computed: true,
-					},
-					"use_custom_theme": schema.BoolAttribute{
-						Computed: true,
-					},
-					"user": schema.SingleNestedAttribute{
-						Computed: true,
-						Attributes: map[string]schema.Attribute{
-							"emailaddress": schema.StringAttribute{
-								Computed: true,
-							},
-							"fullname": schema.StringAttribute{
-								Computed: true,
-							},
-							"name": schema.StringAttribute{
-								Computed: true,
-							},
-							"userid": schema.StringAttribute{
-								Computed: true,
-							},
-						},
-					},
-				},
+				Computed:   true,
+				Optional:   true,
+				Attributes: map[string]schema.Attribute{},
 			},
 			"edited": schema.BoolAttribute{
-				PlanModifiers: []planmodifier.Bool{
-					boolplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_boolplanmodifier.SuppressDiff(speakeasy_boolplanmodifier.ExplicitSuppress),
-				},
-				Required:    true,
-				Description: `Requires replacement if changed. `,
+				Required: true,
 			},
 			"id": schema.StringAttribute{
 				Computed:    true,
@@ -339,87 +103,71 @@ func (r *DesignResource) Schema(ctx context.Context, req resource.SchemaRequest,
 			},
 			"last_modified_at": schema.StringAttribute{
 				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-				},
-				Optional:    true,
-				Description: `Requires replacement if changed. `,
+				Optional: true,
 			},
 			"style": schema.SingleNestedAttribute{
-				PlanModifiers: []planmodifier.Object{
-					objectplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_objectplanmodifier.SuppressDiff(speakeasy_objectplanmodifier.ExplicitSuppress),
-				},
 				Required: true,
 				Attributes: map[string]schema.Attribute{
 					"consumer": schema.SingleNestedAttribute{
-						PlanModifiers: []planmodifier.Object{
-							objectplanmodifier.RequiresReplaceIfConfigured(),
-							speakeasy_objectplanmodifier.SuppressDiff(speakeasy_objectplanmodifier.ExplicitSuppress),
-						},
 						Required: true,
 						Attributes: map[string]schema.Attribute{
-							"customer_portals": schema.ListAttribute{
-								PlanModifiers: []planmodifier.List{
-									listplanmodifier.RequiresReplaceIfConfigured(),
-									speakeasy_listplanmodifier.SuppressDiff(speakeasy_listplanmodifier.ExplicitSuppress),
-								},
-								Required:    true,
-								ElementType: types.StringType,
-								Description: `Requires replacement if changed. `,
-								Validators: []validator.List{
-									listvalidator.ValueStringsAre(validators.IsValidJSON()),
+							"customer_portals": schema.ListNestedAttribute{
+								Required: true,
+								NestedObject: schema.NestedAttributeObject{
+									Attributes: map[string]schema.Attribute{
+										"widget_portal_data": schema.SingleNestedAttribute{
+											Computed: true,
+											Optional: true,
+											Attributes: map[string]schema.Attribute{
+												"id": schema.StringAttribute{
+													Computed:    true,
+													Optional:    true,
+													Description: `Not Null`,
+													Validators: []validator.String{
+														speakeasy_stringvalidators.NotNull(),
+													},
+												},
+												"name": schema.StringAttribute{
+													Computed:    true,
+													Optional:    true,
+													Description: `Not Null`,
+													Validators: []validator.String{
+														speakeasy_stringvalidators.NotNull(),
+													},
+												},
+											},
+										},
+									},
+									Validators: []validator.Object{
+										validators.ExactlyOneChild(),
+									},
 								},
 							},
 							"widgets": schema.ListAttribute{
-								PlanModifiers: []planmodifier.List{
-									listplanmodifier.RequiresReplaceIfConfigured(),
-									speakeasy_listplanmodifier.SuppressDiff(speakeasy_listplanmodifier.ExplicitSuppress),
-								},
 								Required:    true,
 								ElementType: types.StringType,
-								Description: `Requires replacement if changed. `,
 								Validators: []validator.List{
 									listvalidator.ValueStringsAre(validators.IsValidJSON()),
 								},
 							},
 						},
-						Description: `Requires replacement if changed. `,
 					},
 					"logo": schema.SingleNestedAttribute{
 						Computed: true,
-						PlanModifiers: []planmodifier.Object{
-							objectplanmodifier.RequiresReplaceIfConfigured(),
-							speakeasy_objectplanmodifier.SuppressDiff(speakeasy_objectplanmodifier.ExplicitSuppress),
-						},
 						Optional: true,
 						Attributes: map[string]schema.Attribute{
 							"main": schema.SingleNestedAttribute{
 								Computed: true,
-								PlanModifiers: []planmodifier.Object{
-									objectplanmodifier.RequiresReplaceIfConfigured(),
-									speakeasy_objectplanmodifier.SuppressDiff(speakeasy_objectplanmodifier.ExplicitSuppress),
-								},
 								Optional: true,
 								Attributes: map[string]schema.Attribute{
 									"display_name": schema.StringAttribute{
 										Computed: true,
-										PlanModifiers: []planmodifier.String{
-											stringplanmodifier.RequiresReplaceIfConfigured(),
-											speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-										},
-										Optional:    true,
-										Description: `Requires replacement if changed. `,
+										Optional: true,
 									},
 									"file_type": schema.StringAttribute{
-										Computed: true,
-										PlanModifiers: []planmodifier.String{
-											stringplanmodifier.RequiresReplaceIfConfigured(),
-											speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-										},
+										Computed:    true,
 										Optional:    true,
-										Description: `Requires replacement if changed. ; must be one of ["LOGO", "FONT"]`,
+										Description: `must be one of ["LOGO", "FONT"]`,
 										Validators: []validator.String{
 											stringvalidator.OneOf(
 												"LOGO",
@@ -428,271 +176,131 @@ func (r *DesignResource) Schema(ctx context.Context, req resource.SchemaRequest,
 										},
 									},
 									"name": schema.StringAttribute{
-										Computed: true,
-										PlanModifiers: []planmodifier.String{
-											stringplanmodifier.RequiresReplaceIfConfigured(),
-											speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-										},
+										Computed:    true,
 										Optional:    true,
-										Description: `Requires replacement if changed. ; Not Null`,
+										Description: `Not Null`,
 										Validators: []validator.String{
 											speakeasy_stringvalidators.NotNull(),
 										},
 									},
 									"s3_object_key": schema.StringAttribute{
-										Computed: true,
-										PlanModifiers: []planmodifier.String{
-											stringplanmodifier.RequiresReplaceIfConfigured(),
-											speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-										},
+										Computed:    true,
 										Optional:    true,
-										Description: `Requires replacement if changed. ; Not Null`,
+										Description: `Not Null`,
 										Validators: []validator.String{
 											speakeasy_stringvalidators.NotNull(),
 										},
 									},
 									"url": schema.StringAttribute{
-										Computed: true,
-										PlanModifiers: []planmodifier.String{
-											stringplanmodifier.RequiresReplaceIfConfigured(),
-											speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-										},
+										Computed:    true,
 										Optional:    true,
-										Description: `Requires replacement if changed. ; Not Null`,
+										Description: `Not Null`,
 										Validators: []validator.String{
 											speakeasy_stringvalidators.NotNull(),
 										},
 									},
 								},
-								Description: `Requires replacement if changed. `,
 							},
 						},
-						Description: `Requires replacement if changed. `,
 					},
 					"palette": schema.SingleNestedAttribute{
-						PlanModifiers: []planmodifier.Object{
-							objectplanmodifier.RequiresReplaceIfConfigured(),
-							speakeasy_objectplanmodifier.SuppressDiff(speakeasy_objectplanmodifier.ExplicitSuppress),
-						},
 						Required: true,
 						Attributes: map[string]schema.Attribute{
 							"background": schema.StringAttribute{
-								PlanModifiers: []planmodifier.String{
-									stringplanmodifier.RequiresReplaceIfConfigured(),
-									speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-								},
-								Required:    true,
-								Description: `Requires replacement if changed. `,
+								Required: true,
 							},
 							"error": schema.StringAttribute{
-								PlanModifiers: []planmodifier.String{
-									stringplanmodifier.RequiresReplaceIfConfigured(),
-									speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-								},
-								Required:    true,
-								Description: `Requires replacement if changed. `,
+								Required: true,
 							},
 							"navbar": schema.StringAttribute{
-								PlanModifiers: []planmodifier.String{
-									stringplanmodifier.RequiresReplaceIfConfigured(),
-									speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-								},
-								Required:    true,
-								Description: `Requires replacement if changed. `,
+								Required: true,
 							},
 							"paper": schema.StringAttribute{
-								PlanModifiers: []planmodifier.String{
-									stringplanmodifier.RequiresReplaceIfConfigured(),
-									speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-								},
-								Required:    true,
-								Description: `Requires replacement if changed. `,
+								Required: true,
 							},
 							"primary": schema.StringAttribute{
-								PlanModifiers: []planmodifier.String{
-									stringplanmodifier.RequiresReplaceIfConfigured(),
-									speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-								},
-								Required:    true,
-								Description: `Requires replacement if changed. `,
+								Required: true,
 							},
 							"secondary": schema.StringAttribute{
-								PlanModifiers: []planmodifier.String{
-									stringplanmodifier.RequiresReplaceIfConfigured(),
-									speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-								},
-								Required:    true,
-								Description: `Requires replacement if changed. `,
+								Required: true,
 							},
 						},
-						Description: `Requires replacement if changed. `,
 					},
 					"typography": schema.SingleNestedAttribute{
-						PlanModifiers: []planmodifier.Object{
-							objectplanmodifier.RequiresReplaceIfConfigured(),
-							speakeasy_objectplanmodifier.SuppressDiff(speakeasy_objectplanmodifier.ExplicitSuppress),
-						},
 						Required: true,
 						Attributes: map[string]schema.Attribute{
 							"font": schema.SingleNestedAttribute{
-								PlanModifiers: []planmodifier.Object{
-									objectplanmodifier.RequiresReplaceIfConfigured(),
-									speakeasy_objectplanmodifier.SuppressDiff(speakeasy_objectplanmodifier.ExplicitSuppress),
-								},
 								Required: true,
 								Attributes: map[string]schema.Attribute{
 									"font_family": schema.StringAttribute{
 										Computed: true,
-										PlanModifiers: []planmodifier.String{
-											stringplanmodifier.RequiresReplaceIfConfigured(),
-											speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-										},
-										Optional:    true,
-										Description: `Requires replacement if changed. `,
+										Optional: true,
 									},
 									"font_id": schema.StringAttribute{
-										PlanModifiers: []planmodifier.String{
-											stringplanmodifier.RequiresReplaceIfConfigured(),
-											speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-										},
-										Required:    true,
-										Description: `Requires replacement if changed. `,
+										Required: true,
 									},
 									"font_name": schema.StringAttribute{
-										PlanModifiers: []planmodifier.String{
-											stringplanmodifier.RequiresReplaceIfConfigured(),
-											speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-										},
-										Required:    true,
-										Description: `Requires replacement if changed. `,
+										Required: true,
 									},
 									"font_weight_bold": schema.StringAttribute{
 										Computed: true,
-										PlanModifiers: []planmodifier.String{
-											stringplanmodifier.RequiresReplaceIfConfigured(),
-											speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-										},
-										Optional:    true,
-										Description: `Requires replacement if changed. `,
+										Optional: true,
 									},
 									"font_weight_medium": schema.StringAttribute{
 										Computed: true,
-										PlanModifiers: []planmodifier.String{
-											stringplanmodifier.RequiresReplaceIfConfigured(),
-											speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-										},
-										Optional:    true,
-										Description: `Requires replacement if changed. `,
+										Optional: true,
 									},
 									"font_weight_regular": schema.StringAttribute{
 										Computed: true,
-										PlanModifiers: []planmodifier.String{
-											stringplanmodifier.RequiresReplaceIfConfigured(),
-											speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-										},
-										Optional:    true,
-										Description: `Requires replacement if changed. `,
+										Optional: true,
 									},
 									"urls": schema.ListAttribute{
-										PlanModifiers: []planmodifier.List{
-											listplanmodifier.RequiresReplaceIfConfigured(),
-											speakeasy_listplanmodifier.SuppressDiff(speakeasy_listplanmodifier.ExplicitSuppress),
-										},
 										Required:    true,
 										ElementType: types.StringType,
-										Description: `Requires replacement if changed. `,
 										Validators: []validator.List{
 											listvalidator.ValueStringsAre(validators.IsValidJSON()),
 										},
 									},
 								},
-								Description: `Requires replacement if changed. `,
 							},
 							"primary": schema.StringAttribute{
-								PlanModifiers: []planmodifier.String{
-									stringplanmodifier.RequiresReplaceIfConfigured(),
-									speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-								},
-								Required:    true,
-								Description: `Requires replacement if changed. `,
+								Required: true,
 							},
 							"secondary": schema.StringAttribute{
-								PlanModifiers: []planmodifier.String{
-									stringplanmodifier.RequiresReplaceIfConfigured(),
-									speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-								},
-								Required:    true,
-								Description: `Requires replacement if changed. `,
+								Required: true,
 							},
 						},
-						Description: `Requires replacement if changed. `,
 					},
 				},
-				Description: `Requires replacement if changed. `,
 			},
 			"style_name": schema.StringAttribute{
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-				},
-				Required:    true,
-				Description: `Requires replacement if changed. `,
+				Required: true,
 			},
 			"use_custom_theme": schema.BoolAttribute{
 				Computed: true,
-				PlanModifiers: []planmodifier.Bool{
-					boolplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_boolplanmodifier.SuppressDiff(speakeasy_boolplanmodifier.ExplicitSuppress),
-				},
-				Optional:    true,
-				Description: `Requires replacement if changed. `,
+				Optional: true,
 			},
 			"user": schema.SingleNestedAttribute{
 				Computed: true,
-				PlanModifiers: []planmodifier.Object{
-					objectplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_objectplanmodifier.SuppressDiff(speakeasy_objectplanmodifier.ExplicitSuppress),
-				},
 				Optional: true,
 				Attributes: map[string]schema.Attribute{
 					"emailaddress": schema.StringAttribute{
 						Computed: true,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplaceIfConfigured(),
-							speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-						},
-						Optional:    true,
-						Description: `Requires replacement if changed. `,
+						Optional: true,
 					},
 					"fullname": schema.StringAttribute{
 						Computed: true,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplaceIfConfigured(),
-							speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-						},
-						Optional:    true,
-						Description: `Requires replacement if changed. `,
+						Optional: true,
 					},
 					"name": schema.StringAttribute{
 						Computed: true,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplaceIfConfigured(),
-							speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-						},
-						Optional:    true,
-						Description: `Requires replacement if changed. `,
+						Optional: true,
 					},
 					"userid": schema.StringAttribute{
 						Computed: true,
-						PlanModifiers: []planmodifier.String{
-							stringplanmodifier.RequiresReplaceIfConfigured(),
-							speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-						},
-						Optional:    true,
-						Description: `Requires replacement if changed. `,
+						Optional: true,
 					},
 				},
-				Description: `Requires replacement if changed. `,
 			},
 		},
 	}
@@ -762,32 +370,6 @@ func (r *DesignResource) Create(ctx context.Context, req resource.CreateRequest,
 	}
 	data.RefreshFromSharedAddDesignResDesign(res.AddDesignRes.Design)
 	refreshPlan(ctx, plan, &data, resp.Diagnostics)
-	designID := data.ID.ValueString()
-	request1 := operations.GetDesignRequest{
-		DesignID: designID,
-	}
-	res1, err := r.client.GetDesign(ctx, request1)
-	if err != nil {
-		resp.Diagnostics.AddError("failure to invoke API", err.Error())
-		if res1 != nil && res1.RawResponse != nil {
-			resp.Diagnostics.AddError("unexpected http request/response", debugResponse(res1.RawResponse))
-		}
-		return
-	}
-	if res1 == nil {
-		resp.Diagnostics.AddError("unexpected response from API", fmt.Sprintf("%v", res1))
-		return
-	}
-	if res1.StatusCode != 200 {
-		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res1.StatusCode), debugResponse(res1.RawResponse))
-		return
-	}
-	if res1.GetDesignRes == nil {
-		resp.Diagnostics.AddError("unexpected response from API. No response body", debugResponse(res1.RawResponse))
-		return
-	}
-	data.RefreshFromSharedGetDesignRes(res1.GetDesignRes)
-	refreshPlan(ctx, plan, &data, resp.Diagnostics)
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
@@ -835,7 +417,7 @@ func (r *DesignResource) Read(ctx context.Context, req resource.ReadRequest, res
 		resp.Diagnostics.AddError("unexpected response from API. No response body", debugResponse(res.RawResponse))
 		return
 	}
-	data.RefreshFromSharedGetDesignRes(res.GetDesignRes)
+	data.RefreshFromSharedGetDesignResDesign(res.GetDesignRes.Design)
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
@@ -855,7 +437,10 @@ func (r *DesignResource) Update(ctx context.Context, req resource.UpdateRequest,
 		return
 	}
 
-	updateDesignReq := *data.ToSharedUpdateDesignReq()
+	design := *data.ToSharedUpdateDesignReqDesign()
+	updateDesignReq := shared.UpdateDesignReq{
+		Design: design,
+	}
 	designID := data.ID.ValueString()
 	request := operations.UpdateDesignRequest{
 		UpdateDesignReq: updateDesignReq,

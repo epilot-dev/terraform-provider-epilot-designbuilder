@@ -28,8 +28,18 @@ type DesignDataSource struct {
 
 // DesignDataSourceModel describes the data model.
 type DesignDataSourceModel struct {
-	Design *GetDesignResDesign `tfsdk:"design"`
-	ID     types.String        `tfsdk:"id"`
+	BrandID        *BrandID     `tfsdk:"brand_id"`
+	BrandName      types.String `tfsdk:"brand_name"`
+	CreatedAt      types.String `tfsdk:"created_at"`
+	CreatedBy      types.String `tfsdk:"created_by"`
+	CustomTheme    *CustomTheme `tfsdk:"custom_theme"`
+	Edited         types.Bool   `tfsdk:"edited"`
+	ID             types.String `tfsdk:"id"`
+	LastModifiedAt types.String `tfsdk:"last_modified_at"`
+	Style          Style        `tfsdk:"style"`
+	StyleName      types.String `tfsdk:"style_name"`
+	UseCustomTheme types.Bool   `tfsdk:"use_custom_theme"`
+	User           *User        `tfsdk:"user"`
 }
 
 // Metadata returns the data source type name.
@@ -43,176 +53,182 @@ func (r *DesignDataSource) Schema(ctx context.Context, req datasource.SchemaRequ
 		MarkdownDescription: "Design DataSource",
 
 		Attributes: map[string]schema.Attribute{
-			"design": schema.SingleNestedAttribute{
+			"brand_id": schema.SingleNestedAttribute{
 				Computed: true,
 				Attributes: map[string]schema.Attribute{
-					"brand_id": schema.SingleNestedAttribute{
+					"str": schema.StringAttribute{
+						Computed: true,
+					},
+					"number": schema.NumberAttribute{
+						Computed: true,
+					},
+				},
+			},
+			"brand_name": schema.StringAttribute{
+				Computed: true,
+			},
+			"created_at": schema.StringAttribute{
+				Computed:    true,
+				Description: `Creation date and time using ISO 8601 full-time format`,
+			},
+			"created_by": schema.StringAttribute{
+				Computed: true,
+			},
+			"custom_theme": schema.SingleNestedAttribute{
+				Computed:   true,
+				Attributes: map[string]schema.Attribute{},
+			},
+			"edited": schema.BoolAttribute{
+				Computed: true,
+			},
+			"id": schema.StringAttribute{
+				Required:    true,
+				Description: `Id of the design`,
+			},
+			"last_modified_at": schema.StringAttribute{
+				Computed: true,
+			},
+			"style": schema.SingleNestedAttribute{
+				Computed: true,
+				Attributes: map[string]schema.Attribute{
+					"consumer": schema.SingleNestedAttribute{
 						Computed: true,
 						Attributes: map[string]schema.Attribute{
-							"str": schema.StringAttribute{
+							"customer_portals": schema.ListNestedAttribute{
 								Computed: true,
+								NestedObject: schema.NestedAttributeObject{
+									Attributes: map[string]schema.Attribute{
+										"widget_portal_data": schema.SingleNestedAttribute{
+											Computed: true,
+											Attributes: map[string]schema.Attribute{
+												"id": schema.StringAttribute{
+													Computed: true,
+												},
+												"name": schema.StringAttribute{
+													Computed: true,
+												},
+											},
+										},
+									},
+								},
 							},
-							"number": schema.NumberAttribute{
-								Computed: true,
+							"widgets": schema.ListAttribute{
+								Computed:    true,
+								ElementType: types.StringType,
 							},
 						},
 					},
-					"brand_name": schema.StringAttribute{
-						Computed: true,
-					},
-					"created_at": schema.StringAttribute{
-						Computed:    true,
-						Description: `Creation date and time using ISO 8601 full-time format`,
-					},
-					"created_by": schema.StringAttribute{
-						Computed: true,
-					},
-					"custom_theme": schema.SingleNestedAttribute{
-						Computed:   true,
-						Attributes: map[string]schema.Attribute{},
-					},
-					"edited": schema.BoolAttribute{
-						Computed: true,
-					},
-					"id": schema.StringAttribute{
-						Computed: true,
-					},
-					"last_modified_at": schema.StringAttribute{
-						Computed: true,
-					},
-					"style": schema.SingleNestedAttribute{
+					"logo": schema.SingleNestedAttribute{
 						Computed: true,
 						Attributes: map[string]schema.Attribute{
-							"consumer": schema.SingleNestedAttribute{
+							"main": schema.SingleNestedAttribute{
 								Computed: true,
 								Attributes: map[string]schema.Attribute{
-									"customer_portals": schema.ListAttribute{
+									"display_name": schema.StringAttribute{
+										Computed: true,
+									},
+									"file_type": schema.StringAttribute{
 										Computed:    true,
-										ElementType: types.StringType,
+										Description: `must be one of ["LOGO", "FONT"]`,
 									},
-									"widgets": schema.ListAttribute{
-										Computed:    true,
-										ElementType: types.StringType,
-									},
-								},
-							},
-							"logo": schema.SingleNestedAttribute{
-								Computed: true,
-								Attributes: map[string]schema.Attribute{
-									"main": schema.SingleNestedAttribute{
-										Computed: true,
-										Attributes: map[string]schema.Attribute{
-											"display_name": schema.StringAttribute{
-												Computed: true,
-											},
-											"file_type": schema.StringAttribute{
-												Computed:    true,
-												Description: `must be one of ["LOGO", "FONT"]`,
-											},
-											"name": schema.StringAttribute{
-												Computed: true,
-											},
-											"s3_object_key": schema.StringAttribute{
-												Computed: true,
-											},
-											"url": schema.StringAttribute{
-												Computed: true,
-											},
-										},
-									},
-								},
-							},
-							"palette": schema.SingleNestedAttribute{
-								Computed: true,
-								Attributes: map[string]schema.Attribute{
-									"background": schema.StringAttribute{
+									"name": schema.StringAttribute{
 										Computed: true,
 									},
-									"error": schema.StringAttribute{
+									"s3_object_key": schema.StringAttribute{
 										Computed: true,
 									},
-									"navbar": schema.StringAttribute{
-										Computed: true,
-									},
-									"paper": schema.StringAttribute{
-										Computed: true,
-									},
-									"primary": schema.StringAttribute{
-										Computed: true,
-									},
-									"secondary": schema.StringAttribute{
-										Computed: true,
-									},
-								},
-							},
-							"typography": schema.SingleNestedAttribute{
-								Computed: true,
-								Attributes: map[string]schema.Attribute{
-									"font": schema.SingleNestedAttribute{
-										Computed: true,
-										Attributes: map[string]schema.Attribute{
-											"font_family": schema.StringAttribute{
-												Computed: true,
-											},
-											"font_id": schema.StringAttribute{
-												Computed: true,
-											},
-											"font_name": schema.StringAttribute{
-												Computed: true,
-											},
-											"font_weight_bold": schema.StringAttribute{
-												Computed: true,
-											},
-											"font_weight_medium": schema.StringAttribute{
-												Computed: true,
-											},
-											"font_weight_regular": schema.StringAttribute{
-												Computed: true,
-											},
-											"urls": schema.ListAttribute{
-												Computed:    true,
-												ElementType: types.StringType,
-											},
-										},
-									},
-									"primary": schema.StringAttribute{
-										Computed: true,
-									},
-									"secondary": schema.StringAttribute{
+									"url": schema.StringAttribute{
 										Computed: true,
 									},
 								},
 							},
 						},
 					},
-					"style_name": schema.StringAttribute{
-						Computed: true,
-					},
-					"use_custom_theme": schema.BoolAttribute{
-						Computed: true,
-					},
-					"user": schema.SingleNestedAttribute{
+					"palette": schema.SingleNestedAttribute{
 						Computed: true,
 						Attributes: map[string]schema.Attribute{
-							"emailaddress": schema.StringAttribute{
+							"background": schema.StringAttribute{
 								Computed: true,
 							},
-							"fullname": schema.StringAttribute{
+							"error": schema.StringAttribute{
 								Computed: true,
 							},
-							"name": schema.StringAttribute{
+							"navbar": schema.StringAttribute{
 								Computed: true,
 							},
-							"userid": schema.StringAttribute{
+							"paper": schema.StringAttribute{
+								Computed: true,
+							},
+							"primary": schema.StringAttribute{
+								Computed: true,
+							},
+							"secondary": schema.StringAttribute{
+								Computed: true,
+							},
+						},
+					},
+					"typography": schema.SingleNestedAttribute{
+						Computed: true,
+						Attributes: map[string]schema.Attribute{
+							"font": schema.SingleNestedAttribute{
+								Computed: true,
+								Attributes: map[string]schema.Attribute{
+									"font_family": schema.StringAttribute{
+										Computed: true,
+									},
+									"font_id": schema.StringAttribute{
+										Computed: true,
+									},
+									"font_name": schema.StringAttribute{
+										Computed: true,
+									},
+									"font_weight_bold": schema.StringAttribute{
+										Computed: true,
+									},
+									"font_weight_medium": schema.StringAttribute{
+										Computed: true,
+									},
+									"font_weight_regular": schema.StringAttribute{
+										Computed: true,
+									},
+									"urls": schema.ListAttribute{
+										Computed:    true,
+										ElementType: types.StringType,
+									},
+								},
+							},
+							"primary": schema.StringAttribute{
+								Computed: true,
+							},
+							"secondary": schema.StringAttribute{
 								Computed: true,
 							},
 						},
 					},
 				},
 			},
-			"id": schema.StringAttribute{
-				Required:    true,
-				Description: `Id of the design`,
+			"style_name": schema.StringAttribute{
+				Computed: true,
+			},
+			"use_custom_theme": schema.BoolAttribute{
+				Computed: true,
+			},
+			"user": schema.SingleNestedAttribute{
+				Computed: true,
+				Attributes: map[string]schema.Attribute{
+					"emailaddress": schema.StringAttribute{
+						Computed: true,
+					},
+					"fullname": schema.StringAttribute{
+						Computed: true,
+					},
+					"name": schema.StringAttribute{
+						Computed: true,
+					},
+					"userid": schema.StringAttribute{
+						Computed: true,
+					},
+				},
 			},
 		},
 	}
@@ -280,7 +296,7 @@ func (r *DesignDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 		resp.Diagnostics.AddError("unexpected response from API. No response body", debugResponse(res.RawResponse))
 		return
 	}
-	data.RefreshFromSharedGetDesignRes(res.GetDesignRes)
+	data.RefreshFromSharedGetDesignResDesign(res.GetDesignRes.Design)
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)

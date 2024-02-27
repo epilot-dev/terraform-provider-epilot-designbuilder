@@ -279,10 +279,10 @@ components:
           - $ref: "#/components/schemas/DesignItem"
           - $ref: "#/components/schemas/Custom_Style"
     GetDesignRes:
-      x-speakeasy-entity: Design
       type: object
       properties:
         design:
+          x-speakeasy-entity: Design
           allOf:
           - $ref: "#/components/schemas/ItemMetada"
           - $ref: "#/components/schemas/DesignItem"
@@ -291,6 +291,7 @@ components:
       type: object
       properties:
         design:
+          x-speakeasy-entity: Design
           allOf: 
           - $ref: "#/components/schemas/ItemMetada"
           - $ref: "#/components/schemas/DesignItem"
@@ -397,7 +398,9 @@ components:
           items: {}
         customer_portals: 
           type: array
-          items: {}
+          items:
+            anyOf:
+            - $ref: "#/components/schemas/CustomerPortalData"
       required:
         - widgets
         - customer_portals

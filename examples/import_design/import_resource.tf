@@ -4,6 +4,10 @@ terraform {
       source  = "epilot-dev/epilot-designbuilder"
       version = "0.0.2"
     }
+    epilot-journey = {
+      source  = "epilot-dev/epilot-journey"
+      version = "0.3.0"
+    }
   }
 }
 
@@ -11,9 +15,18 @@ variable "custom_authorizer" {
   type = string
 }
 
+variable "epilot_auth" {
+  type = string
+}
+
 provider "epilot-designbuilder" {
   # Configuration options
   custom_authorizer = var.custom_authorizer
+}
+
+provider "epilot-journey" {
+  # Configuration options
+  epilot_auth = var.epilot_auth
 }
 
 
@@ -23,5 +36,9 @@ provider "epilot-designbuilder" {
 # }
 
 resource "epilot-designbuilder_design" "import_design" {
+  # (resource arguments)
+}
+
+resource "epilot-journey_journey" "import_journey" {
   # (resource arguments)
 }

@@ -14,18 +14,21 @@ Design Resource
 
 ```terraform
 resource "epilot-designbuilder_design" "my_design" {
-  brand_id         = "...my_brand_id..."
   brand_name       = "...my_brand_name..."
   created_at       = "2021-01-30T08:30:00Z"
   created_by       = "...my_created_by..."
-  custom_theme     = "...my_custom_theme..."
   edited           = true
   id               = "4d59415d-9b16-41f7-8b78-bf5bc35ca152"
   last_modified_at = "...my_last_modified_at..."
   style = {
     consumer = {
       customer_portals = [
-        "{ \"see\": \"documentation\" }",
+        {
+          widget_portal_data = {
+            id   = "c3d24b6a-7856-40ec-8ad5-f6efbd67d648"
+            name = "Gerard Hackett"
+          }
+        },
       ]
       widgets = [
         "{ \"see\": \"documentation\" }",
@@ -34,8 +37,8 @@ resource "epilot-designbuilder_design" "my_design" {
     logo = {
       main = {
         display_name  = "...my_display_name..."
-        file_type     = "FONT"
-        name          = "Betsy Conn"
+        file_type     = "LOGO"
+        name          = "Kara Braun"
         s3_object_key = "...my_s3_object_key..."
         url           = "...my_url..."
       }
@@ -65,7 +68,7 @@ resource "epilot-designbuilder_design" "my_design" {
     }
   }
   style_name       = "...my_style_name..."
-  use_custom_theme = false
+  use_custom_theme = true
 }
 ```
 
@@ -74,181 +77,65 @@ resource "epilot-designbuilder_design" "my_design" {
 
 ### Required
 
-- `edited` (Boolean) Requires replacement if changed.
-- `style` (Attributes) Requires replacement if changed. (see [below for nested schema](#nestedatt--style))
-- `style_name` (String) Requires replacement if changed.
+- `edited` (Boolean)
+- `style` (Attributes) (see [below for nested schema](#nestedatt--style))
+- `style_name` (String)
 
 ### Optional
 
-- `brand_id` (String) Requires replacement if changed.
-- `brand_name` (String) Requires replacement if changed.
-- `created_at` (String) Creation date and time using ISO 8601 full-time format. Requires replacement if changed.
-- `created_by` (String) Requires replacement if changed.
-- `custom_theme` (String) Requires replacement if changed.
+- `brand_id` (Attributes) (see [below for nested schema](#nestedatt--brand_id))
+- `brand_name` (String)
+- `created_at` (String) Creation date and time using ISO 8601 full-time format
+- `created_by` (String)
+- `custom_theme` (Attributes) (see [below for nested schema](#nestedatt--custom_theme))
 - `id` (String) Id of the design
-- `last_modified_at` (String) Requires replacement if changed.
-- `use_custom_theme` (Boolean) Requires replacement if changed.
-- `user` (Attributes) Requires replacement if changed. (see [below for nested schema](#nestedatt--user))
-
-### Read-Only
-
-- `design` (Attributes) (see [below for nested schema](#nestedatt--design))
+- `last_modified_at` (String)
+- `use_custom_theme` (Boolean)
+- `user` (Attributes) (see [below for nested schema](#nestedatt--user))
 
 <a id="nestedatt--style"></a>
 ### Nested Schema for `style`
 
 Required:
 
-- `consumer` (Attributes) Requires replacement if changed. (see [below for nested schema](#nestedatt--style--consumer))
-- `palette` (Attributes) Requires replacement if changed. (see [below for nested schema](#nestedatt--style--palette))
-- `typography` (Attributes) Requires replacement if changed. (see [below for nested schema](#nestedatt--style--typography))
+- `consumer` (Attributes) (see [below for nested schema](#nestedatt--style--consumer))
+- `palette` (Attributes) (see [below for nested schema](#nestedatt--style--palette))
+- `typography` (Attributes) (see [below for nested schema](#nestedatt--style--typography))
 
 Optional:
 
-- `logo` (Attributes) Requires replacement if changed. (see [below for nested schema](#nestedatt--style--logo))
+- `logo` (Attributes) (see [below for nested schema](#nestedatt--style--logo))
 
 <a id="nestedatt--style--consumer"></a>
 ### Nested Schema for `style.consumer`
 
 Required:
 
-- `customer_portals` (List of String) Requires replacement if changed.
-- `widgets` (List of String) Requires replacement if changed.
+- `customer_portals` (Attributes List) (see [below for nested schema](#nestedatt--style--consumer--customer_portals))
+- `widgets` (List of String)
+
+<a id="nestedatt--style--consumer--customer_portals"></a>
+### Nested Schema for `style.consumer.customer_portals`
+
+Optional:
+
+- `widget_portal_data` (Attributes) (see [below for nested schema](#nestedatt--style--consumer--customer_portals--widget_portal_data))
+
+<a id="nestedatt--style--consumer--customer_portals--widget_portal_data"></a>
+### Nested Schema for `style.consumer.customer_portals.widget_portal_data`
+
+Optional:
+
+- `id` (String) Not Null
+- `name` (String) Not Null
+
+
 
 
 <a id="nestedatt--style--palette"></a>
 ### Nested Schema for `style.palette`
 
 Required:
-
-- `background` (String) Requires replacement if changed.
-- `error` (String) Requires replacement if changed.
-- `navbar` (String) Requires replacement if changed.
-- `paper` (String) Requires replacement if changed.
-- `primary` (String) Requires replacement if changed.
-- `secondary` (String) Requires replacement if changed.
-
-
-<a id="nestedatt--style--typography"></a>
-### Nested Schema for `style.typography`
-
-Required:
-
-- `font` (Attributes) Requires replacement if changed. (see [below for nested schema](#nestedatt--style--typography--font))
-- `primary` (String) Requires replacement if changed.
-- `secondary` (String) Requires replacement if changed.
-
-<a id="nestedatt--style--typography--font"></a>
-### Nested Schema for `style.typography.font`
-
-Required:
-
-- `font_id` (String) Requires replacement if changed.
-- `font_name` (String) Requires replacement if changed.
-- `urls` (List of String) Requires replacement if changed.
-
-Optional:
-
-- `font_family` (String) Requires replacement if changed.
-- `font_weight_bold` (String) Requires replacement if changed.
-- `font_weight_medium` (String) Requires replacement if changed.
-- `font_weight_regular` (String) Requires replacement if changed.
-
-
-
-<a id="nestedatt--style--logo"></a>
-### Nested Schema for `style.logo`
-
-Optional:
-
-- `main` (Attributes) Requires replacement if changed. (see [below for nested schema](#nestedatt--style--logo--main))
-
-<a id="nestedatt--style--logo--main"></a>
-### Nested Schema for `style.logo.main`
-
-Optional:
-
-- `display_name` (String) Requires replacement if changed.
-- `file_type` (String) Requires replacement if changed. ; must be one of ["LOGO", "FONT"]
-- `name` (String) Requires replacement if changed. ; Not Null
-- `s3_object_key` (String) Requires replacement if changed. ; Not Null
-- `url` (String) Requires replacement if changed. ; Not Null
-
-
-
-
-<a id="nestedatt--user"></a>
-### Nested Schema for `user`
-
-Optional:
-
-- `emailaddress` (String) Requires replacement if changed.
-- `fullname` (String) Requires replacement if changed.
-- `name` (String) Requires replacement if changed.
-- `userid` (String) Requires replacement if changed.
-
-
-<a id="nestedatt--design"></a>
-### Nested Schema for `design`
-
-Read-Only:
-
-- `brand_id` (String)
-- `brand_name` (String)
-- `created_at` (String) Creation date and time using ISO 8601 full-time format
-- `created_by` (String)
-- `custom_theme` (String)
-- `edited` (Boolean)
-- `id` (String)
-- `last_modified_at` (String)
-- `style` (Attributes) (see [below for nested schema](#nestedatt--design--style))
-- `style_name` (String)
-- `use_custom_theme` (Boolean)
-- `user` (Attributes) (see [below for nested schema](#nestedatt--design--user))
-
-<a id="nestedatt--design--style"></a>
-### Nested Schema for `design.style`
-
-Read-Only:
-
-- `consumer` (Attributes) (see [below for nested schema](#nestedatt--design--style--consumer))
-- `logo` (Attributes) (see [below for nested schema](#nestedatt--design--style--logo))
-- `palette` (Attributes) (see [below for nested schema](#nestedatt--design--style--palette))
-- `typography` (Attributes) (see [below for nested schema](#nestedatt--design--style--typography))
-
-<a id="nestedatt--design--style--consumer"></a>
-### Nested Schema for `design.style.consumer`
-
-Read-Only:
-
-- `customer_portals` (List of String)
-- `widgets` (List of String)
-
-
-<a id="nestedatt--design--style--logo"></a>
-### Nested Schema for `design.style.logo`
-
-Read-Only:
-
-- `main` (Attributes) (see [below for nested schema](#nestedatt--design--style--logo--main))
-
-<a id="nestedatt--design--style--logo--main"></a>
-### Nested Schema for `design.style.logo.main`
-
-Read-Only:
-
-- `display_name` (String)
-- `file_type` (String) must be one of ["LOGO", "FONT"]
-- `name` (String)
-- `s3_object_key` (String)
-- `url` (String)
-
-
-
-<a id="nestedatt--design--style--palette"></a>
-### Nested Schema for `design.style.palette`
-
-Read-Only:
 
 - `background` (String)
 - `error` (String)
@@ -258,35 +145,71 @@ Read-Only:
 - `secondary` (String)
 
 
-<a id="nestedatt--design--style--typography"></a>
-### Nested Schema for `design.style.typography`
+<a id="nestedatt--style--typography"></a>
+### Nested Schema for `style.typography`
 
-Read-Only:
+Required:
 
-- `font` (Attributes) (see [below for nested schema](#nestedatt--design--style--typography--font))
+- `font` (Attributes) (see [below for nested schema](#nestedatt--style--typography--font))
 - `primary` (String)
 - `secondary` (String)
 
-<a id="nestedatt--design--style--typography--font"></a>
-### Nested Schema for `design.style.typography.secondary`
+<a id="nestedatt--style--typography--font"></a>
+### Nested Schema for `style.typography.font`
 
-Read-Only:
+Required:
 
-- `font_family` (String)
 - `font_id` (String)
 - `font_name` (String)
+- `urls` (List of String)
+
+Optional:
+
+- `font_family` (String)
 - `font_weight_bold` (String)
 - `font_weight_medium` (String)
 - `font_weight_regular` (String)
-- `urls` (List of String)
+
+
+
+<a id="nestedatt--style--logo"></a>
+### Nested Schema for `style.logo`
+
+Optional:
+
+- `main` (Attributes) (see [below for nested schema](#nestedatt--style--logo--main))
+
+<a id="nestedatt--style--logo--main"></a>
+### Nested Schema for `style.logo.main`
+
+Optional:
+
+- `display_name` (String)
+- `file_type` (String) must be one of ["LOGO", "FONT"]
+- `name` (String) Not Null
+- `s3_object_key` (String) Not Null
+- `url` (String) Not Null
 
 
 
 
-<a id="nestedatt--design--user"></a>
-### Nested Schema for `design.user`
+<a id="nestedatt--brand_id"></a>
+### Nested Schema for `brand_id`
 
-Read-Only:
+Optional:
+
+- `number` (Number)
+- `str` (String)
+
+
+<a id="nestedatt--custom_theme"></a>
+### Nested Schema for `custom_theme`
+
+
+<a id="nestedatt--user"></a>
+### Nested Schema for `user`
+
+Optional:
 
 - `emailaddress` (String)
 - `fullname` (String)

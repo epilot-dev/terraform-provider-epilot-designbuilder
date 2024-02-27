@@ -9,101 +9,104 @@ import (
 	"math/big"
 )
 
-func (r *DesignDataSourceModel) RefreshFromSharedGetDesignRes(resp *shared.GetDesignRes) {
-	if resp.Design == nil {
-		r.Design = nil
+func (r *DesignDataSourceModel) RefreshFromSharedGetDesignResDesign(resp *shared.GetDesignResDesign) {
+	if resp.BrandID == nil {
+		r.BrandID = nil
 	} else {
-		r.Design = &GetDesignResDesign{}
-		if resp.Design.BrandID == nil {
-			r.Design.BrandID = nil
-		} else {
-			r.Design.BrandID = &BrandID{}
-			if resp.Design.BrandID.Str != nil {
-				r.Design.BrandID.Str = types.StringPointerValue(resp.Design.BrandID.Str)
-			}
-			if resp.Design.BrandID.Number != nil {
-				if resp.Design.BrandID.Number != nil {
-					r.Design.BrandID.Number = types.NumberValue(big.NewFloat(float64(*resp.Design.BrandID.Number)))
-				} else {
-					r.Design.BrandID.Number = types.NumberNull()
-				}
-			}
+		r.BrandID = &BrandID{}
+		if resp.BrandID.Str != nil {
+			r.BrandID.Str = types.StringPointerValue(resp.BrandID.Str)
 		}
-		r.Design.BrandName = types.StringPointerValue(resp.Design.BrandName)
-		r.Design.CreatedAt = types.StringPointerValue(resp.Design.CreatedAt)
-		r.Design.CreatedBy = types.StringPointerValue(resp.Design.CreatedBy)
-		if resp.Design.CustomTheme == nil {
-			r.Design.CustomTheme = nil
-		} else {
-			r.Design.CustomTheme = &CustomTheme{}
-		}
-		r.Design.Edited = types.BoolValue(resp.Design.Edited)
-		r.Design.ID = types.StringPointerValue(resp.Design.ID)
-		r.Design.LastModifiedAt = types.StringPointerValue(resp.Design.LastModifiedAt)
-		r.Design.Style.Consumer.CustomerPortals = nil
-		for _, customerPortalsItem := range resp.Design.Style.Consumer.CustomerPortals {
-			var customerPortals1 types.String
-			customerPortals1Result, _ := json.Marshal(customerPortalsItem)
-			customerPortals1 = types.StringValue(string(customerPortals1Result))
-			r.Design.Style.Consumer.CustomerPortals = append(r.Design.Style.Consumer.CustomerPortals, customerPortals1)
-		}
-		r.Design.Style.Consumer.Widgets = nil
-		for _, widgetsItem := range resp.Design.Style.Consumer.Widgets {
-			var widgets1 types.String
-			widgets1Result, _ := json.Marshal(widgetsItem)
-			widgets1 = types.StringValue(string(widgets1Result))
-			r.Design.Style.Consumer.Widgets = append(r.Design.Style.Consumer.Widgets, widgets1)
-		}
-		if resp.Design.Style.Logo == nil {
-			r.Design.Style.Logo = nil
-		} else {
-			r.Design.Style.Logo = &LogoData{}
-			if resp.Design.Style.Logo.Main == nil {
-				r.Design.Style.Logo.Main = nil
+		if resp.BrandID.Number != nil {
+			if resp.BrandID.Number != nil {
+				r.BrandID.Number = types.NumberValue(big.NewFloat(float64(*resp.BrandID.Number)))
 			} else {
-				r.Design.Style.Logo.Main = &FileData{}
-				r.Design.Style.Logo.Main.DisplayName = types.StringPointerValue(resp.Design.Style.Logo.Main.DisplayName)
-				if resp.Design.Style.Logo.Main.FileType != nil {
-					r.Design.Style.Logo.Main.FileType = types.StringValue(string(*resp.Design.Style.Logo.Main.FileType))
-				} else {
-					r.Design.Style.Logo.Main.FileType = types.StringNull()
-				}
-				r.Design.Style.Logo.Main.Name = types.StringValue(resp.Design.Style.Logo.Main.Name)
-				r.Design.Style.Logo.Main.S3ObjectKey = types.StringValue(resp.Design.Style.Logo.Main.S3ObjectKey)
-				r.Design.Style.Logo.Main.URL = types.StringValue(resp.Design.Style.Logo.Main.URL)
+				r.BrandID.Number = types.NumberNull()
 			}
 		}
-		r.Design.Style.Palette.Background = types.StringValue(resp.Design.Style.Palette.Background)
-		r.Design.Style.Palette.Error = types.StringValue(resp.Design.Style.Palette.Error)
-		r.Design.Style.Palette.Navbar = types.StringValue(resp.Design.Style.Palette.Navbar)
-		r.Design.Style.Palette.Paper = types.StringValue(resp.Design.Style.Palette.Paper)
-		r.Design.Style.Palette.Primary = types.StringValue(resp.Design.Style.Palette.Primary)
-		r.Design.Style.Palette.Secondary = types.StringValue(resp.Design.Style.Palette.Secondary)
-		r.Design.Style.Typography.Font.FontFamily = types.StringPointerValue(resp.Design.Style.Typography.Font.FontFamily)
-		r.Design.Style.Typography.Font.FontID = types.StringValue(resp.Design.Style.Typography.Font.FontID)
-		r.Design.Style.Typography.Font.FontName = types.StringValue(resp.Design.Style.Typography.Font.FontName)
-		r.Design.Style.Typography.Font.FontWeightBold = types.StringPointerValue(resp.Design.Style.Typography.Font.FontWeightBold)
-		r.Design.Style.Typography.Font.FontWeightMedium = types.StringPointerValue(resp.Design.Style.Typography.Font.FontWeightMedium)
-		r.Design.Style.Typography.Font.FontWeightRegular = types.StringPointerValue(resp.Design.Style.Typography.Font.FontWeightRegular)
-		r.Design.Style.Typography.Font.Urls = nil
-		for _, urlsItem := range resp.Design.Style.Typography.Font.Urls {
-			var urls1 types.String
-			urls1Result, _ := json.Marshal(urlsItem)
-			urls1 = types.StringValue(string(urls1Result))
-			r.Design.Style.Typography.Font.Urls = append(r.Design.Style.Typography.Font.Urls, urls1)
+	}
+	r.BrandName = types.StringPointerValue(resp.BrandName)
+	r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
+	r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
+	if resp.CustomTheme == nil {
+		r.CustomTheme = nil
+	} else {
+		r.CustomTheme = &CustomTheme{}
+	}
+	r.Edited = types.BoolValue(resp.Edited)
+	r.ID = types.StringPointerValue(resp.ID)
+	r.LastModifiedAt = types.StringPointerValue(resp.LastModifiedAt)
+	if len(r.Style.Consumer.CustomerPortals) > len(resp.Style.Consumer.CustomerPortals) {
+		r.Style.Consumer.CustomerPortals = r.Style.Consumer.CustomerPortals[:len(resp.Style.Consumer.CustomerPortals)]
+	}
+	for customerPortalsCount, customerPortalsItem := range resp.Style.Consumer.CustomerPortals {
+		var customerPortals1 CustomerPortals
+		if customerPortalsItem.WidgetPortalData != nil {
+			customerPortals1.WidgetPortalData = &WidgetPortalData{}
+			customerPortals1.WidgetPortalData.ID = types.StringValue(customerPortalsItem.WidgetPortalData.ID)
+			customerPortals1.WidgetPortalData.Name = types.StringValue(customerPortalsItem.WidgetPortalData.Name)
 		}
-		r.Design.Style.Typography.Primary = types.StringValue(resp.Design.Style.Typography.Primary)
-		r.Design.Style.Typography.Secondary = types.StringValue(resp.Design.Style.Typography.Secondary)
-		r.Design.StyleName = types.StringValue(resp.Design.StyleName)
-		r.Design.UseCustomTheme = types.BoolPointerValue(resp.Design.UseCustomTheme)
-		if resp.Design.User == nil {
-			r.Design.User = nil
+		if customerPortalsCount+1 > len(r.Style.Consumer.CustomerPortals) {
+			r.Style.Consumer.CustomerPortals = append(r.Style.Consumer.CustomerPortals, customerPortals1)
 		} else {
-			r.Design.User = &GetDesignResUser{}
-			r.Design.User.Emailaddress = types.StringPointerValue(resp.Design.User.Emailaddress)
-			r.Design.User.Fullname = types.StringPointerValue(resp.Design.User.Fullname)
-			r.Design.User.Name = types.StringPointerValue(resp.Design.User.Name)
-			r.Design.User.Userid = types.StringPointerValue(resp.Design.User.Userid)
 		}
+	}
+	r.Style.Consumer.Widgets = nil
+	for _, widgetsItem := range resp.Style.Consumer.Widgets {
+		var widgets1 types.String
+		widgets1Result, _ := json.Marshal(widgetsItem)
+		widgets1 = types.StringValue(string(widgets1Result))
+		r.Style.Consumer.Widgets = append(r.Style.Consumer.Widgets, widgets1)
+	}
+	if resp.Style.Logo == nil {
+		r.Style.Logo = nil
+	} else {
+		r.Style.Logo = &LogoData{}
+		if resp.Style.Logo.Main == nil {
+			r.Style.Logo.Main = nil
+		} else {
+			r.Style.Logo.Main = &FileData{}
+			r.Style.Logo.Main.DisplayName = types.StringPointerValue(resp.Style.Logo.Main.DisplayName)
+			if resp.Style.Logo.Main.FileType != nil {
+				r.Style.Logo.Main.FileType = types.StringValue(string(*resp.Style.Logo.Main.FileType))
+			} else {
+				r.Style.Logo.Main.FileType = types.StringNull()
+			}
+			r.Style.Logo.Main.Name = types.StringValue(resp.Style.Logo.Main.Name)
+			r.Style.Logo.Main.S3ObjectKey = types.StringValue(resp.Style.Logo.Main.S3ObjectKey)
+			r.Style.Logo.Main.URL = types.StringValue(resp.Style.Logo.Main.URL)
+		}
+	}
+	r.Style.Palette.Background = types.StringValue(resp.Style.Palette.Background)
+	r.Style.Palette.Error = types.StringValue(resp.Style.Palette.Error)
+	r.Style.Palette.Navbar = types.StringValue(resp.Style.Palette.Navbar)
+	r.Style.Palette.Paper = types.StringValue(resp.Style.Palette.Paper)
+	r.Style.Palette.Primary = types.StringValue(resp.Style.Palette.Primary)
+	r.Style.Palette.Secondary = types.StringValue(resp.Style.Palette.Secondary)
+	r.Style.Typography.Font.FontFamily = types.StringPointerValue(resp.Style.Typography.Font.FontFamily)
+	r.Style.Typography.Font.FontID = types.StringValue(resp.Style.Typography.Font.FontID)
+	r.Style.Typography.Font.FontName = types.StringValue(resp.Style.Typography.Font.FontName)
+	r.Style.Typography.Font.FontWeightBold = types.StringPointerValue(resp.Style.Typography.Font.FontWeightBold)
+	r.Style.Typography.Font.FontWeightMedium = types.StringPointerValue(resp.Style.Typography.Font.FontWeightMedium)
+	r.Style.Typography.Font.FontWeightRegular = types.StringPointerValue(resp.Style.Typography.Font.FontWeightRegular)
+	r.Style.Typography.Font.Urls = nil
+	for _, urlsItem := range resp.Style.Typography.Font.Urls {
+		var urls1 types.String
+		urls1Result, _ := json.Marshal(urlsItem)
+		urls1 = types.StringValue(string(urls1Result))
+		r.Style.Typography.Font.Urls = append(r.Style.Typography.Font.Urls, urls1)
+	}
+	r.Style.Typography.Primary = types.StringValue(resp.Style.Typography.Primary)
+	r.Style.Typography.Secondary = types.StringValue(resp.Style.Typography.Secondary)
+	r.StyleName = types.StringValue(resp.StyleName)
+	r.UseCustomTheme = types.BoolPointerValue(resp.UseCustomTheme)
+	if resp.User == nil {
+		r.User = nil
+	} else {
+		r.User = &User{}
+		r.User.Emailaddress = types.StringPointerValue(resp.User.Emailaddress)
+		r.User.Fullname = types.StringPointerValue(resp.User.Fullname)
+		r.User.Name = types.StringPointerValue(resp.User.Name)
+		r.User.Userid = types.StringPointerValue(resp.User.Userid)
 	}
 }

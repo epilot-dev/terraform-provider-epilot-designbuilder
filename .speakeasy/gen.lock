@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 998a101f-1cb6-4c08-9fd1-b3ee7a1cdeb4
 management:
-  docChecksum: 768e60427d69fae99d7835102c656810
+  docChecksum: 15aad2bd0aa3c99028a9bac6e6946bd6
   docVersion: 0.0.1
   speakeasyVersion: internal
   generationVersion: 2.230.1
-  releaseVersion: 0.6.8
-  configChecksum: aac2033ce474211953e6cb0d2dad78e3
+  releaseVersion: 0.6.10
+  configChecksum: 0f0f80fdf51b5722d54559a2794be523
 features:
   terraform:
     core: 3.8.1
@@ -88,6 +88,7 @@ generatedFiles:
   - internal/sdk/pkg/models/shared/logodata.go
   - internal/sdk/pkg/models/shared/filedata.go
   - internal/sdk/pkg/models/shared/consumerdata.go
+  - internal/sdk/pkg/models/shared/widgetportaldata.go
   - internal/sdk/pkg/models/shared/adddesignreq.go
   - internal/sdk/pkg/models/shared/getalldesignsres.go
   - internal/sdk/pkg/models/shared/getdesignres.go
@@ -95,15 +96,16 @@ generatedFiles:
   - internal/sdk/pkg/models/shared/security.go
   - internal/provider/type_brand_id.go
   - internal/provider/type_custom_theme.go
+  - internal/provider/type_widget_portal_data.go
+  - internal/provider/type_customer_portals.go
   - internal/provider/type_consumer_data.go
   - internal/provider/type_file_data.go
   - internal/provider/type_logo_data.go
   - internal/provider/type_palette_data.go
   - internal/provider/type_font_data.go
   - internal/provider/type_typography_data.go
-  - internal/provider/type_get_design_res_style.go
-  - internal/provider/type_get_design_res_user.go
-  - internal/provider/type_get_design_res_design.go
+  - internal/provider/type_style.go
+  - internal/provider/type_user.go
   - USAGE.md
   - internal/provider/provider.go
   - examples/provider/provider.tf
