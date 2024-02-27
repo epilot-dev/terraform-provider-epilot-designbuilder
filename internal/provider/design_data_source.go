@@ -46,8 +46,16 @@ func (r *DesignDataSource) Schema(ctx context.Context, req datasource.SchemaRequ
 			"design": schema.SingleNestedAttribute{
 				Computed: true,
 				Attributes: map[string]schema.Attribute{
-					"brand_id": schema.StringAttribute{
+					"brand_id": schema.SingleNestedAttribute{
 						Computed: true,
+						Attributes: map[string]schema.Attribute{
+							"str": schema.StringAttribute{
+								Computed: true,
+							},
+							"number": schema.NumberAttribute{
+								Computed: true,
+							},
+						},
 					},
 					"brand_name": schema.StringAttribute{
 						Computed: true,
@@ -59,8 +67,9 @@ func (r *DesignDataSource) Schema(ctx context.Context, req datasource.SchemaRequ
 					"created_by": schema.StringAttribute{
 						Computed: true,
 					},
-					"custom_theme": schema.StringAttribute{
-						Computed: true,
+					"custom_theme": schema.SingleNestedAttribute{
+						Computed:   true,
+						Attributes: map[string]schema.Attribute{},
 					},
 					"edited": schema.BoolAttribute{
 						Computed: true,

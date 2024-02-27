@@ -6,14 +6,34 @@ import (
 	"encoding/json"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/models/shared"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"math/big"
 )
 
 func (r *DesignResourceModel) ToSharedDesign() *shared.Design {
-	brandID := new(string)
-	if !r.BrandID.IsUnknown() && !r.BrandID.IsNull() {
-		*brandID = r.BrandID.ValueString()
-	} else {
-		brandID = nil
+	var brandID *shared.BrandID
+	if r.BrandID != nil {
+		str := new(string)
+		if !r.BrandID.Str.IsUnknown() && !r.BrandID.Str.IsNull() {
+			*str = r.BrandID.Str.ValueString()
+		} else {
+			str = nil
+		}
+		if str != nil {
+			brandID = &shared.BrandID{
+				Str: str,
+			}
+		}
+		number := new(float64)
+		if !r.BrandID.Number.IsUnknown() && !r.BrandID.Number.IsNull() {
+			*number, _ = r.BrandID.Number.ValueBigFloat().Float64()
+		} else {
+			number = nil
+		}
+		if number != nil {
+			brandID = &shared.BrandID{
+				Number: number,
+			}
+		}
 	}
 	brandName := new(string)
 	if !r.BrandName.IsUnknown() && !r.BrandName.IsNull() {
@@ -33,11 +53,9 @@ func (r *DesignResourceModel) ToSharedDesign() *shared.Design {
 	} else {
 		createdBy = nil
 	}
-	customTheme := new(string)
-	if !r.CustomTheme.IsUnknown() && !r.CustomTheme.IsNull() {
-		*customTheme = r.CustomTheme.ValueString()
-	} else {
-		customTheme = nil
+	var customTheme *shared.CustomTheme
+	if r.CustomTheme != nil {
+		customTheme = &shared.CustomTheme{}
 	}
 	edited := r.Edited.ValueBool()
 	id := new(string)
@@ -225,11 +243,29 @@ func (r *DesignResourceModel) ToSharedDesign() *shared.Design {
 }
 
 func (r *DesignResourceModel) RefreshFromSharedAddDesignResDesign(resp *shared.AddDesignResDesign) {
-	r.BrandID = types.StringPointerValue(resp.BrandID)
+	if resp.BrandID == nil {
+		r.BrandID = nil
+	} else {
+		r.BrandID = &BrandID{}
+		if resp.BrandID.Str != nil {
+			r.BrandID.Str = types.StringPointerValue(resp.BrandID.Str)
+		}
+		if resp.BrandID.Number != nil {
+			if resp.BrandID.Number != nil {
+				r.BrandID.Number = types.NumberValue(big.NewFloat(float64(*resp.BrandID.Number)))
+			} else {
+				r.BrandID.Number = types.NumberNull()
+			}
+		}
+	}
 	r.BrandName = types.StringPointerValue(resp.BrandName)
 	r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
 	r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
-	r.CustomTheme = types.StringPointerValue(resp.CustomTheme)
+	if resp.CustomTheme == nil {
+		r.CustomTheme = nil
+	} else {
+		r.CustomTheme = &CustomTheme{}
+	}
 	r.Edited = types.BoolValue(resp.Edited)
 	r.ID = types.StringPointerValue(resp.ID)
 	r.LastModifiedAt = types.StringPointerValue(resp.LastModifiedAt)
@@ -305,11 +341,29 @@ func (r *DesignResourceModel) RefreshFromSharedGetDesignRes(resp *shared.GetDesi
 		r.Design = nil
 	} else {
 		r.Design = &GetDesignResDesign{}
-		r.Design.BrandID = types.StringPointerValue(resp.Design.BrandID)
+		if resp.Design.BrandID == nil {
+			r.Design.BrandID = nil
+		} else {
+			r.Design.BrandID = &BrandID{}
+			if resp.Design.BrandID.Str != nil {
+				r.Design.BrandID.Str = types.StringPointerValue(resp.Design.BrandID.Str)
+			}
+			if resp.Design.BrandID.Number != nil {
+				if resp.Design.BrandID.Number != nil {
+					r.Design.BrandID.Number = types.NumberValue(big.NewFloat(float64(*resp.Design.BrandID.Number)))
+				} else {
+					r.Design.BrandID.Number = types.NumberNull()
+				}
+			}
+		}
 		r.Design.BrandName = types.StringPointerValue(resp.Design.BrandName)
 		r.Design.CreatedAt = types.StringPointerValue(resp.Design.CreatedAt)
 		r.Design.CreatedBy = types.StringPointerValue(resp.Design.CreatedBy)
-		r.Design.CustomTheme = types.StringPointerValue(resp.Design.CustomTheme)
+		if resp.Design.CustomTheme == nil {
+			r.Design.CustomTheme = nil
+		} else {
+			r.Design.CustomTheme = &CustomTheme{}
+		}
 		r.Design.Edited = types.BoolValue(resp.Design.Edited)
 		r.Design.ID = types.StringPointerValue(resp.Design.ID)
 		r.Design.LastModifiedAt = types.StringPointerValue(resp.Design.LastModifiedAt)
@@ -382,11 +436,30 @@ func (r *DesignResourceModel) RefreshFromSharedGetDesignRes(resp *shared.GetDesi
 }
 
 func (r *DesignResourceModel) ToSharedUpdateDesignReq() *shared.UpdateDesignReq {
-	brandID := new(string)
-	if !r.Design.BrandID.IsUnknown() && !r.Design.BrandID.IsNull() {
-		*brandID = r.Design.BrandID.ValueString()
-	} else {
-		brandID = nil
+	var brandID *shared.UpdateDesignReqBrandID
+	if r.Design.BrandID != nil {
+		str := new(string)
+		if !r.Design.BrandID.Str.IsUnknown() && !r.Design.BrandID.Str.IsNull() {
+			*str = r.Design.BrandID.Str.ValueString()
+		} else {
+			str = nil
+		}
+		if str != nil {
+			brandID = &shared.UpdateDesignReqBrandID{
+				Str: str,
+			}
+		}
+		number := new(float64)
+		if !r.Design.BrandID.Number.IsUnknown() && !r.Design.BrandID.Number.IsNull() {
+			*number, _ = r.Design.BrandID.Number.ValueBigFloat().Float64()
+		} else {
+			number = nil
+		}
+		if number != nil {
+			brandID = &shared.UpdateDesignReqBrandID{
+				Number: number,
+			}
+		}
 	}
 	brandName := new(string)
 	if !r.Design.BrandName.IsUnknown() && !r.Design.BrandName.IsNull() {
@@ -406,11 +479,9 @@ func (r *DesignResourceModel) ToSharedUpdateDesignReq() *shared.UpdateDesignReq 
 	} else {
 		createdBy = nil
 	}
-	customTheme := new(string)
-	if !r.Design.CustomTheme.IsUnknown() && !r.Design.CustomTheme.IsNull() {
-		*customTheme = r.Design.CustomTheme.ValueString()
-	} else {
-		customTheme = nil
+	var customTheme *shared.UpdateDesignReqCustomTheme
+	if r.Design.CustomTheme != nil {
+		customTheme = &shared.UpdateDesignReqCustomTheme{}
 	}
 	edited := r.Design.Edited.ValueBool()
 	id := new(string)

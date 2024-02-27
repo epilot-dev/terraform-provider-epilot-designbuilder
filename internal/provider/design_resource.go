@@ -7,6 +7,7 @@ import (
 	"fmt"
 	speakeasy_boolplanmodifier "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/planmodifiers/boolplanmodifier"
 	speakeasy_listplanmodifier "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/planmodifiers/listplanmodifier"
+	speakeasy_numberplanmodifier "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/planmodifiers/numberplanmodifier"
 	speakeasy_objectplanmodifier "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/planmodifiers/objectplanmodifier"
 	speakeasy_stringplanmodifier "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/planmodifiers/stringplanmodifier"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk"
@@ -21,6 +22,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/numberplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -44,11 +46,11 @@ type DesignResource struct {
 
 // DesignResourceModel describes the resource data model.
 type DesignResourceModel struct {
-	BrandID        types.String        `tfsdk:"brand_id"`
+	BrandID        *BrandID            `tfsdk:"brand_id"`
 	BrandName      types.String        `tfsdk:"brand_name"`
 	CreatedAt      types.String        `tfsdk:"created_at"`
 	CreatedBy      types.String        `tfsdk:"created_by"`
-	CustomTheme    types.String        `tfsdk:"custom_theme"`
+	CustomTheme    *CustomTheme        `tfsdk:"custom_theme"`
 	Design         *GetDesignResDesign `tfsdk:"design"`
 	Edited         types.Bool          `tfsdk:"edited"`
 	ID             types.String        `tfsdk:"id"`
@@ -68,14 +70,37 @@ func (r *DesignResource) Schema(ctx context.Context, req resource.SchemaRequest,
 		MarkdownDescription: "Design Resource",
 
 		Attributes: map[string]schema.Attribute{
-			"brand_id": schema.StringAttribute{
+			"brand_id": schema.SingleNestedAttribute{
 				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
+				PlanModifiers: []planmodifier.Object{
+					objectplanmodifier.RequiresReplaceIfConfigured(),
+					speakeasy_objectplanmodifier.SuppressDiff(speakeasy_objectplanmodifier.ExplicitSuppress),
 				},
-				Optional:    true,
+				Optional: true,
+				Attributes: map[string]schema.Attribute{
+					"str": schema.StringAttribute{
+						Computed: true,
+						PlanModifiers: []planmodifier.String{
+							stringplanmodifier.RequiresReplaceIfConfigured(),
+							speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
+						},
+						Optional:    true,
+						Description: `Requires replacement if changed. `,
+					},
+					"number": schema.NumberAttribute{
+						Computed: true,
+						PlanModifiers: []planmodifier.Number{
+							numberplanmodifier.RequiresReplaceIfConfigured(),
+							speakeasy_numberplanmodifier.SuppressDiff(speakeasy_numberplanmodifier.ExplicitSuppress),
+						},
+						Optional:    true,
+						Description: `Requires replacement if changed. `,
+					},
+				},
 				Description: `Requires replacement if changed. `,
+				Validators: []validator.Object{
+					validators.ExactlyOneChild(),
+				},
 			},
 			"brand_name": schema.StringAttribute{
 				Computed: true,
@@ -104,20 +129,32 @@ func (r *DesignResource) Schema(ctx context.Context, req resource.SchemaRequest,
 				Optional:    true,
 				Description: `Requires replacement if changed. `,
 			},
-			"custom_theme": schema.StringAttribute{
+			"custom_theme": schema.SingleNestedAttribute{
 				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
+				PlanModifiers: []planmodifier.Object{
+					objectplanmodifier.RequiresReplaceIfConfigured(),
+					speakeasy_objectplanmodifier.SuppressDiff(speakeasy_objectplanmodifier.ExplicitSuppress),
 				},
 				Optional:    true,
+				Attributes:  map[string]schema.Attribute{},
 				Description: `Requires replacement if changed. `,
 			},
 			"design": schema.SingleNestedAttribute{
 				Computed: true,
 				Attributes: map[string]schema.Attribute{
-					"brand_id": schema.StringAttribute{
+					"brand_id": schema.SingleNestedAttribute{
 						Computed: true,
+						Attributes: map[string]schema.Attribute{
+							"str": schema.StringAttribute{
+								Computed: true,
+							},
+							"number": schema.NumberAttribute{
+								Computed: true,
+							},
+						},
+						Validators: []validator.Object{
+							validators.ExactlyOneChild(),
+						},
 					},
 					"brand_name": schema.StringAttribute{
 						Computed: true,
@@ -129,8 +166,9 @@ func (r *DesignResource) Schema(ctx context.Context, req resource.SchemaRequest,
 					"created_by": schema.StringAttribute{
 						Computed: true,
 					},
-					"custom_theme": schema.StringAttribute{
-						Computed: true,
+					"custom_theme": schema.SingleNestedAttribute{
+						Computed:   true,
+						Attributes: map[string]schema.Attribute{},
 					},
 					"edited": schema.BoolAttribute{
 						Computed: true,

@@ -2,6 +2,77 @@
 
 package shared
 
+import (
+	"errors"
+	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/utils"
+)
+
+type GetAllDesignsResBrandIDType string
+
+const (
+	GetAllDesignsResBrandIDTypeStr    GetAllDesignsResBrandIDType = "str"
+	GetAllDesignsResBrandIDTypeNumber GetAllDesignsResBrandIDType = "number"
+)
+
+type GetAllDesignsResBrandID struct {
+	Str    *string
+	Number *float64
+
+	Type GetAllDesignsResBrandIDType
+}
+
+func CreateGetAllDesignsResBrandIDStr(str string) GetAllDesignsResBrandID {
+	typ := GetAllDesignsResBrandIDTypeStr
+
+	return GetAllDesignsResBrandID{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateGetAllDesignsResBrandIDNumber(number float64) GetAllDesignsResBrandID {
+	typ := GetAllDesignsResBrandIDTypeNumber
+
+	return GetAllDesignsResBrandID{
+		Number: &number,
+		Type:   typ,
+	}
+}
+
+func (u *GetAllDesignsResBrandID) UnmarshalJSON(data []byte) error {
+
+	str := new(string)
+	if err := utils.UnmarshalJSON(data, &str, "", true, true); err == nil {
+		u.Str = str
+		u.Type = GetAllDesignsResBrandIDTypeStr
+		return nil
+	}
+
+	number := new(float64)
+	if err := utils.UnmarshalJSON(data, &number, "", true, true); err == nil {
+		u.Number = number
+		u.Type = GetAllDesignsResBrandIDTypeNumber
+		return nil
+	}
+
+	return errors.New("could not unmarshal into supported union types")
+}
+
+func (u GetAllDesignsResBrandID) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.Number != nil {
+		return utils.MarshalJSON(u.Number, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type: all fields are null")
+}
+
+type GetAllDesignsResCustomTheme struct {
+}
+
 type GetAllDesignsResStyle struct {
 	Consumer   ConsumerData   `json:"consumer"`
 	Logo       *LogoData      `json:"logo,omitempty"`
@@ -73,22 +144,22 @@ func (o *GetAllDesignsResUser) GetUserid() *string {
 }
 
 type Designs struct {
-	BrandID   *string `json:"brand_id,omitempty"`
-	BrandName *string `json:"brand_name,omitempty"`
+	BrandID   *GetAllDesignsResBrandID `json:"brand_id,omitempty"`
+	BrandName *string                  `json:"brand_name,omitempty"`
 	// Creation date and time using ISO 8601 full-time format
-	CreatedAt      *string               `json:"created_at,omitempty"`
-	CreatedBy      *string               `json:"created_by,omitempty"`
-	CustomTheme    *string               `json:"custom_theme,omitempty"`
-	Edited         bool                  `json:"edited"`
-	ID             *string               `json:"id,omitempty"`
-	LastModifiedAt *string               `json:"last_modified_at,omitempty"`
-	Style          GetAllDesignsResStyle `json:"style"`
-	StyleName      string                `json:"style_name"`
-	UseCustomTheme *bool                 `json:"use_custom_theme,omitempty"`
-	User           *GetAllDesignsResUser `json:"user,omitempty"`
+	CreatedAt      *string                      `json:"created_at,omitempty"`
+	CreatedBy      *string                      `json:"created_by,omitempty"`
+	CustomTheme    *GetAllDesignsResCustomTheme `json:"custom_theme,omitempty"`
+	Edited         bool                         `json:"edited"`
+	ID             *string                      `json:"id,omitempty"`
+	LastModifiedAt *string                      `json:"last_modified_at,omitempty"`
+	Style          GetAllDesignsResStyle        `json:"style"`
+	StyleName      string                       `json:"style_name"`
+	UseCustomTheme *bool                        `json:"use_custom_theme,omitempty"`
+	User           *GetAllDesignsResUser        `json:"user,omitempty"`
 }
 
-func (o *Designs) GetBrandID() *string {
+func (o *Designs) GetBrandID() *GetAllDesignsResBrandID {
 	if o == nil {
 		return nil
 	}
@@ -116,7 +187,7 @@ func (o *Designs) GetCreatedBy() *string {
 	return o.CreatedBy
 }
 
-func (o *Designs) GetCustomTheme() *string {
+func (o *Designs) GetCustomTheme() *GetAllDesignsResCustomTheme {
 	if o == nil {
 		return nil
 	}

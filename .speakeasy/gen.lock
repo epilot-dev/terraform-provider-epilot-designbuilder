@@ -1,17 +1,18 @@
 lockVersion: 2.0.0
 id: 998a101f-1cb6-4c08-9fd1-b3ee7a1cdeb4
 management:
-  docChecksum: f67b1c543f51ae0de55d5760fa9c3ac8
+  docChecksum: 768e60427d69fae99d7835102c656810
   docVersion: 0.0.1
   speakeasyVersion: internal
   generationVersion: 2.230.1
-  releaseVersion: 0.6.6
-  configChecksum: 136cf59b22046c022c28151c8851bd07
+  releaseVersion: 0.6.8
+  configChecksum: aac2033ce474211953e6cb0d2dad78e3
 features:
   terraform:
     core: 3.8.1
     globalSecurity: 2.81.2
     globalServerURLs: 2.82.1
+    unions: 2.81.7
 generatedFiles:
   - internal/sdk/sdk.go
   - examples/README.md
@@ -92,6 +93,8 @@ generatedFiles:
   - internal/sdk/pkg/models/shared/getdesignres.go
   - internal/sdk/pkg/models/shared/updatedesignreq.go
   - internal/sdk/pkg/models/shared/security.go
+  - internal/provider/type_brand_id.go
+  - internal/provider/type_custom_theme.go
   - internal/provider/type_consumer_data.go
   - internal/provider/type_file_data.go
   - internal/provider/type_logo_data.go

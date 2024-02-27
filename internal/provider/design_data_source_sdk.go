@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/models/shared"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"math/big"
 )
 
 func (r *DesignDataSourceModel) RefreshFromSharedGetDesignRes(resp *shared.GetDesignRes) {
@@ -13,11 +14,29 @@ func (r *DesignDataSourceModel) RefreshFromSharedGetDesignRes(resp *shared.GetDe
 		r.Design = nil
 	} else {
 		r.Design = &GetDesignResDesign{}
-		r.Design.BrandID = types.StringPointerValue(resp.Design.BrandID)
+		if resp.Design.BrandID == nil {
+			r.Design.BrandID = nil
+		} else {
+			r.Design.BrandID = &BrandID{}
+			if resp.Design.BrandID.Str != nil {
+				r.Design.BrandID.Str = types.StringPointerValue(resp.Design.BrandID.Str)
+			}
+			if resp.Design.BrandID.Number != nil {
+				if resp.Design.BrandID.Number != nil {
+					r.Design.BrandID.Number = types.NumberValue(big.NewFloat(float64(*resp.Design.BrandID.Number)))
+				} else {
+					r.Design.BrandID.Number = types.NumberNull()
+				}
+			}
+		}
 		r.Design.BrandName = types.StringPointerValue(resp.Design.BrandName)
 		r.Design.CreatedAt = types.StringPointerValue(resp.Design.CreatedAt)
 		r.Design.CreatedBy = types.StringPointerValue(resp.Design.CreatedBy)
-		r.Design.CustomTheme = types.StringPointerValue(resp.Design.CustomTheme)
+		if resp.Design.CustomTheme == nil {
+			r.Design.CustomTheme = nil
+		} else {
+			r.Design.CustomTheme = &CustomTheme{}
+		}
 		r.Design.Edited = types.BoolValue(resp.Design.Edited)
 		r.Design.ID = types.StringPointerValue(resp.Design.ID)
 		r.Design.LastModifiedAt = types.StringPointerValue(resp.Design.LastModifiedAt)

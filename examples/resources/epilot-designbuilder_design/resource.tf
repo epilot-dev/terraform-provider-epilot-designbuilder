@@ -1,9 +1,7 @@
 resource "epilot-designbuilder_design" "my_design" {
-  brand_id         = "...my_brand_id..."
   brand_name       = "...my_brand_name..."
   created_at       = "2021-01-30T08:30:00Z"
   created_by       = "...my_created_by..."
-  custom_theme     = "...my_custom_theme..."
   edited           = true
   id               = "4d59415d-9b16-41f7-8b78-bf5bc35ca152"
   last_modified_at = "...my_last_modified_at..."

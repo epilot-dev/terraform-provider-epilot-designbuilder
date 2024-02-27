@@ -316,7 +316,9 @@ components:
       type: object
       properties:
         brand_id: 
-          type: string
+          oneOf:
+          - type: string
+          - type: number
         brand_name: 
           type: string
         user: 
@@ -384,7 +386,7 @@ components:
       type: object
       properties:
         custom_theme:
-          type: string
+          type: object
         use_custom_theme:
           type: boolean
     ConsumerData:

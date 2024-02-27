@@ -5,11 +5,11 @@ package provider
 import "github.com/hashicorp/terraform-plugin-framework/types"
 
 type GetDesignResDesign struct {
-	BrandID        types.String      `tfsdk:"brand_id"`
+	BrandID        *BrandID          `tfsdk:"brand_id"`
 	BrandName      types.String      `tfsdk:"brand_name"`
 	CreatedAt      types.String      `tfsdk:"created_at"`
 	CreatedBy      types.String      `tfsdk:"created_by"`
-	CustomTheme    types.String      `tfsdk:"custom_theme"`
+	CustomTheme    *CustomTheme      `tfsdk:"custom_theme"`
 	Edited         types.Bool        `tfsdk:"edited"`
 	ID             types.String      `tfsdk:"id"`
 	LastModifiedAt types.String      `tfsdk:"last_modified_at"`
