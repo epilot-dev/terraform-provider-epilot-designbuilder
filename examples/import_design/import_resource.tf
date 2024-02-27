@@ -2,7 +2,7 @@ terraform {
   required_providers {
     epilot-designbuilder = {
       source  = "epilot-dev/epilot-designbuilder"
-      version = "0.0.1"
+      version = "0.0.2"
     }
   }
 }
@@ -17,11 +17,11 @@ provider "epilot-designbuilder" {
 }
 
 
-import {
-  to = epilot-designbuilder_design.import_design
-  id = "8eab9ef2-8265-4f8d-9741-d388fbc2d538"
-}
-
-# resource "epilot-designbuilder_design" "import_design" {
-#   # (resource arguments)
+# import {
+#   to = epilot-designbuilder_design.import_design
+#   id = "8eab9ef2-8265-4f8d-9741-d388fbc2d538"
 # }
+
+resource "epilot-designbuilder_design" "import_design" {
+  # (resource arguments)
+}
