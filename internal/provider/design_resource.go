@@ -6,9 +6,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	tfTypes "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/provider/types"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk"
-	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/models/operations"
-	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/models/shared"
+	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/models/operations"
+	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/models/shared"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/validators"
 	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
@@ -40,40 +41,40 @@ type DesignResource struct {
 
 // DesignResourceModel describes the resource data model.
 type DesignResourceModel struct {
-	Background        types.String        `tfsdk:"background"`
-	BrandID           types.String        `tfsdk:"brand_id"`
-	BrandName         types.String        `tfsdk:"brand_name"`
-	CreatedAt         types.String        `tfsdk:"created_at"`
-	CreatedBy         types.String        `tfsdk:"created_by"`
-	CustomerPortals   []types.String      `tfsdk:"customer_portals"`
-	CustomTheme       types.String        `tfsdk:"custom_theme"`
-	Design            *AddDesignResDesign `tfsdk:"design"`
-	DisplayName       types.String        `tfsdk:"display_name"`
-	Edited            types.Bool          `tfsdk:"edited"`
-	Emailaddress      types.String        `tfsdk:"emailaddress"`
-	Error             types.String        `tfsdk:"error"`
-	FileType          types.String        `tfsdk:"file_type"`
-	FontFamily        types.String        `tfsdk:"font_family"`
-	FontID            types.String        `tfsdk:"font_id"`
-	FontName          types.String        `tfsdk:"font_name"`
-	FontWeightBold    types.String        `tfsdk:"font_weight_bold"`
-	FontWeightMedium  types.String        `tfsdk:"font_weight_medium"`
-	FontWeightRegular types.String        `tfsdk:"font_weight_regular"`
-	Fullname          types.String        `tfsdk:"fullname"`
-	ID                types.String        `tfsdk:"id"`
-	LastModifiedAt    types.String        `tfsdk:"last_modified_at"`
-	Name              types.String        `tfsdk:"name"`
-	Navbar            types.String        `tfsdk:"navbar"`
-	Paper             types.String        `tfsdk:"paper"`
-	Primary           types.String        `tfsdk:"primary"`
-	S3ObjectKey       types.String        `tfsdk:"s3_object_key"`
-	Secondary         types.String        `tfsdk:"secondary"`
-	StyleName         types.String        `tfsdk:"style_name"`
-	URL               types.String        `tfsdk:"url"`
-	Urls              []types.String      `tfsdk:"urls"`
-	UseCustomTheme    types.Bool          `tfsdk:"use_custom_theme"`
-	Userid            types.String        `tfsdk:"userid"`
-	Widgets           []types.String      `tfsdk:"widgets"`
+	Background        types.String                `tfsdk:"background"`
+	BrandID           types.String                `tfsdk:"brand_id"`
+	BrandName         types.String                `tfsdk:"brand_name"`
+	CreatedAt         types.String                `tfsdk:"created_at"`
+	CreatedBy         types.String                `tfsdk:"created_by"`
+	CustomerPortals   []types.String              `tfsdk:"customer_portals"`
+	CustomTheme       types.String                `tfsdk:"custom_theme"`
+	Design            *tfTypes.AddDesignResDesign `tfsdk:"design"`
+	DisplayName       types.String                `tfsdk:"display_name"`
+	Edited            types.Bool                  `tfsdk:"edited"`
+	Emailaddress      types.String                `tfsdk:"emailaddress"`
+	Error             types.String                `tfsdk:"error"`
+	FileType          types.String                `tfsdk:"file_type"`
+	FontFamily        types.String                `tfsdk:"font_family"`
+	FontID            types.String                `tfsdk:"font_id"`
+	FontName          types.String                `tfsdk:"font_name"`
+	FontWeightBold    types.String                `tfsdk:"font_weight_bold"`
+	FontWeightMedium  types.String                `tfsdk:"font_weight_medium"`
+	FontWeightRegular types.String                `tfsdk:"font_weight_regular"`
+	Fullname          types.String                `tfsdk:"fullname"`
+	ID                types.String                `tfsdk:"id"`
+	LastModifiedAt    types.String                `tfsdk:"last_modified_at"`
+	Name              types.String                `tfsdk:"name"`
+	Navbar            types.String                `tfsdk:"navbar"`
+	Paper             types.String                `tfsdk:"paper"`
+	Primary           types.String                `tfsdk:"primary"`
+	S3ObjectKey       types.String                `tfsdk:"s3_object_key"`
+	Secondary         types.String                `tfsdk:"secondary"`
+	StyleName         types.String                `tfsdk:"style_name"`
+	URL               types.String                `tfsdk:"url"`
+	Urls              []types.String              `tfsdk:"urls"`
+	UseCustomTheme    types.Bool                  `tfsdk:"use_custom_theme"`
+	Userid            types.String                `tfsdk:"userid"`
+	Widgets           []types.String              `tfsdk:"widgets"`
 }
 
 func (r *DesignResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {

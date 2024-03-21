@@ -5,8 +5,9 @@ package provider
 import (
 	"context"
 	"fmt"
+	tfTypes "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/provider/types"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk"
-	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/models/operations"
+	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/models/operations"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -28,8 +29,8 @@ type DesignDataSource struct {
 
 // DesignDataSourceModel describes the data model.
 type DesignDataSourceModel struct {
-	Design *AddDesignResDesign `tfsdk:"design"`
-	ID     types.String        `tfsdk:"id"`
+	Design *tfTypes.AddDesignResDesign `tfsdk:"design"`
+	ID     types.String                `tfsdk:"id"`
 }
 
 // Metadata returns the data source type name.

@@ -4,7 +4,8 @@ package provider
 
 import (
 	"encoding/json"
-	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/models/shared"
+	tfTypes "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/provider/types"
+	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/models/shared"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"time"
 )
@@ -14,7 +15,7 @@ func (r *DesignResourceModel) RefreshFromSharedAddDesignRes(resp *shared.AddDesi
 		if resp.Design == nil {
 			r.Design = nil
 		} else {
-			r.Design = &AddDesignResDesign{}
+			r.Design = &tfTypes.AddDesignResDesign{}
 			r.Design.BrandID = types.StringPointerValue(resp.Design.BrandID)
 			r.Design.BrandName = types.StringPointerValue(resp.Design.BrandName)
 			if resp.Design.CreatedAt != nil {
@@ -48,11 +49,11 @@ func (r *DesignResourceModel) RefreshFromSharedAddDesignRes(resp *shared.AddDesi
 			if resp.Design.Style.Logo == nil {
 				r.Design.Style.Logo = nil
 			} else {
-				r.Design.Style.Logo = &LogoData{}
+				r.Design.Style.Logo = &tfTypes.LogoData{}
 				if resp.Design.Style.Logo.Main == nil {
 					r.Design.Style.Logo.Main = nil
 				} else {
-					r.Design.Style.Logo.Main = &FileData{}
+					r.Design.Style.Logo.Main = &tfTypes.FileData{}
 					r.Design.Style.Logo.Main.DisplayName = types.StringPointerValue(resp.Design.Style.Logo.Main.DisplayName)
 					if resp.Design.Style.Logo.Main.FileType != nil {
 						r.Design.Style.Logo.Main.FileType = types.StringValue(string(*resp.Design.Style.Logo.Main.FileType))
@@ -90,7 +91,7 @@ func (r *DesignResourceModel) RefreshFromSharedAddDesignRes(resp *shared.AddDesi
 			if resp.Design.User == nil {
 				r.Design.User = nil
 			} else {
-				r.Design.User = &AddDesignResUser{}
+				r.Design.User = &tfTypes.AddDesignResUser{}
 				r.Design.User.Emailaddress = types.StringPointerValue(resp.Design.User.Emailaddress)
 				r.Design.User.Fullname = types.StringPointerValue(resp.Design.User.Fullname)
 				r.Design.User.Name = types.StringPointerValue(resp.Design.User.Name)
@@ -105,7 +106,7 @@ func (r *DesignResourceModel) RefreshFromSharedGetDesignRes(resp *shared.GetDesi
 		if resp.Design == nil {
 			r.Design = nil
 		} else {
-			r.Design = &AddDesignResDesign{}
+			r.Design = &tfTypes.AddDesignResDesign{}
 			r.Design.BrandID = types.StringPointerValue(resp.Design.BrandID)
 			r.Design.BrandName = types.StringPointerValue(resp.Design.BrandName)
 			if resp.Design.CreatedAt != nil {
@@ -139,11 +140,11 @@ func (r *DesignResourceModel) RefreshFromSharedGetDesignRes(resp *shared.GetDesi
 			if resp.Design.Style.Logo == nil {
 				r.Design.Style.Logo = nil
 			} else {
-				r.Design.Style.Logo = &LogoData{}
+				r.Design.Style.Logo = &tfTypes.LogoData{}
 				if resp.Design.Style.Logo.Main == nil {
 					r.Design.Style.Logo.Main = nil
 				} else {
-					r.Design.Style.Logo.Main = &FileData{}
+					r.Design.Style.Logo.Main = &tfTypes.FileData{}
 					r.Design.Style.Logo.Main.DisplayName = types.StringPointerValue(resp.Design.Style.Logo.Main.DisplayName)
 					if resp.Design.Style.Logo.Main.FileType != nil {
 						r.Design.Style.Logo.Main.FileType = types.StringValue(string(*resp.Design.Style.Logo.Main.FileType))
@@ -181,7 +182,7 @@ func (r *DesignResourceModel) RefreshFromSharedGetDesignRes(resp *shared.GetDesi
 			if resp.Design.User == nil {
 				r.Design.User = nil
 			} else {
-				r.Design.User = &AddDesignResUser{}
+				r.Design.User = &tfTypes.AddDesignResUser{}
 				r.Design.User.Emailaddress = types.StringPointerValue(resp.Design.User.Emailaddress)
 				r.Design.User.Fullname = types.StringPointerValue(resp.Design.User.Fullname)
 				r.Design.User.Name = types.StringPointerValue(resp.Design.User.Name)
