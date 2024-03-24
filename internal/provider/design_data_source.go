@@ -5,8 +5,9 @@ package provider
 import (
 	"context"
 	"fmt"
+	tfTypes "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/provider/types"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk"
-	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/models/operations"
+	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/models/operations"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -28,18 +29,18 @@ type DesignDataSource struct {
 
 // DesignDataSourceModel describes the data model.
 type DesignDataSourceModel struct {
-	BrandID        *BrandID     `tfsdk:"brand_id"`
-	BrandName      types.String `tfsdk:"brand_name"`
-	CreatedAt      types.String `tfsdk:"created_at"`
-	CreatedBy      types.String `tfsdk:"created_by"`
-	CustomTheme    *CustomTheme `tfsdk:"custom_theme"`
-	Edited         types.Bool   `tfsdk:"edited"`
-	ID             types.String `tfsdk:"id"`
-	LastModifiedAt types.String `tfsdk:"last_modified_at"`
-	Style          Style        `tfsdk:"style"`
-	StyleName      types.String `tfsdk:"style_name"`
-	UseCustomTheme types.Bool   `tfsdk:"use_custom_theme"`
-	User           *User        `tfsdk:"user"`
+	BrandID        *tfTypes.BrandID     `tfsdk:"brand_id"`
+	BrandName      types.String         `tfsdk:"brand_name"`
+	CreatedAt      types.String         `tfsdk:"created_at"`
+	CreatedBy      types.String         `tfsdk:"created_by"`
+	CustomTheme    *tfTypes.CustomTheme `tfsdk:"custom_theme"`
+	Edited         types.Bool           `tfsdk:"edited"`
+	ID             types.String         `tfsdk:"id"`
+	LastModifiedAt types.String         `tfsdk:"last_modified_at"`
+	Style          tfTypes.Style        `tfsdk:"style"`
+	StyleName      types.String         `tfsdk:"style_name"`
+	UseCustomTheme types.Bool           `tfsdk:"use_custom_theme"`
+	User           *tfTypes.User        `tfsdk:"user"`
 }
 
 // Metadata returns the data source type name.
