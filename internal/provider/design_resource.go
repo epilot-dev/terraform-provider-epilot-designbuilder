@@ -5,9 +5,10 @@ package provider
 import (
 	"context"
 	"fmt"
+	tfTypes "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/provider/types"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk"
-	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/models/operations"
-	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/pkg/models/shared"
+	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/models/operations"
+	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/models/shared"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/validators"
 	speakeasy_stringvalidators "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/validators/stringvalidators"
 	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
@@ -35,18 +36,18 @@ type DesignResource struct {
 
 // DesignResourceModel describes the resource data model.
 type DesignResourceModel struct {
-	BrandID        *BrandID     `tfsdk:"brand_id"`
-	BrandName      types.String `tfsdk:"brand_name"`
-	CreatedAt      types.String `tfsdk:"created_at"`
-	CreatedBy      types.String `tfsdk:"created_by"`
-	CustomTheme    *CustomTheme `tfsdk:"custom_theme"`
-	Edited         types.Bool   `tfsdk:"edited"`
-	ID             types.String `tfsdk:"id"`
-	LastModifiedAt types.String `tfsdk:"last_modified_at"`
-	Style          Style        `tfsdk:"style"`
-	StyleName      types.String `tfsdk:"style_name"`
-	UseCustomTheme types.Bool   `tfsdk:"use_custom_theme"`
-	User           *User        `tfsdk:"user"`
+	BrandID        *tfTypes.BrandID     `tfsdk:"brand_id"`
+	BrandName      types.String         `tfsdk:"brand_name"`
+	CreatedAt      types.String         `tfsdk:"created_at"`
+	CreatedBy      types.String         `tfsdk:"created_by"`
+	CustomTheme    *tfTypes.CustomTheme `tfsdk:"custom_theme"`
+	Edited         types.Bool           `tfsdk:"edited"`
+	ID             types.String         `tfsdk:"id"`
+	LastModifiedAt types.String         `tfsdk:"last_modified_at"`
+	Style          tfTypes.Style        `tfsdk:"style"`
+	StyleName      types.String         `tfsdk:"style_name"`
+	UseCustomTheme types.Bool           `tfsdk:"use_custom_theme"`
+	User           *tfTypes.User        `tfsdk:"user"`
 }
 
 func (r *DesignResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
