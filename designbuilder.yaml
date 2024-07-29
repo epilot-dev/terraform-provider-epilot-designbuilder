@@ -247,7 +247,6 @@ components:
           type: array
           items:
             allOf:
-            - $ref: "#/components/schemas/ItemMetada"
             - $ref: "#/components/schemas/DesignItem"
             - $ref: "#/components/schemas/Custom_Style"
     GetBrandsRes:
@@ -317,9 +316,8 @@ components:
       type: object
       properties:
         brand_id: 
-          oneOf:
-          - type: string
-          - type: number
+          x-speakeasy-type-override: any
+          type: string
         brand_name: 
           type: string
         user: 
@@ -336,6 +334,7 @@ components:
         style_name: 
           type: string
         style:
+          x-speakeasy-type-override: any
           type: object
           properties:
             logo: 

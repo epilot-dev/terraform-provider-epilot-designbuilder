@@ -5,10 +5,19 @@ generation:
     optionalPropertyRendering: withExample
   fixes:
     nameResolutionDec2023: false
+    parameterOrderingFeb2024: false
+    requestResponseComponentNamesFeb2024: false
+  auth:
+    oAuth2ClientCredentialsEnabled: false
   telemetryEnabled: false
 terraform:
-  version: 0.6.10
+  version: 0.8.1
+  additionalDataSources: []
+  additionalDependencies: {}
+  additionalResources: []
+  allowUnknownFieldsInWeakUnions: false
   author: epilot-dev
+  environmentVariables: []
   imports:
     option: openapi
     paths:

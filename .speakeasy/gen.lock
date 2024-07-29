@@ -1,20 +1,54 @@
 lockVersion: 2.0.0
 id: 998a101f-1cb6-4c08-9fd1-b3ee7a1cdeb4
 management:
-  docChecksum: 15aad2bd0aa3c99028a9bac6e6946bd6
+  docChecksum: d102a9efac92f9d218a1f0f2673ec9fb
   docVersion: 0.0.1
-  speakeasyVersion: internal
-  generationVersion: 2.230.1
-  releaseVersion: 0.6.10
-  configChecksum: 0f0f80fdf51b5722d54559a2794be523
+  speakeasyVersion: 1.346.0
+  generationVersion: 2.379.3
+  releaseVersion: 0.8.1
+  configChecksum: 12809b15ea8c662005084e44d069b155
 features:
   terraform:
-    core: 3.8.1
-    globalSecurity: 2.81.2
+    additionalDependencies: 0.1.0
+    core: 3.24.3
+    globalSecurity: 2.81.6
     globalServerURLs: 2.82.1
-    unions: 2.81.7
+    typeOverrides: 2.81.1
 generatedFiles:
   - internal/sdk/sdk.go
+  - internal/sdk/models/errors/sdkerror.go
+  - internal/sdk/retry/config.go
+  - internal/sdk/types/bigint.go
+  - internal/sdk/types/date.go
+  - internal/sdk/types/datetime.go
+  - internal/sdk/types/decimal.go
+  - internal/sdk/types/pointers.go
+  - internal/sdk/internal/utils/contenttype.go
+  - internal/sdk/internal/utils/form.go
+  - internal/sdk/internal/utils/headers.go
+  - internal/sdk/internal/utils/json.go
+  - internal/sdk/internal/utils/pathparams.go
+  - internal/sdk/internal/utils/queryparams.go
+  - internal/sdk/internal/utils/requestbody.go
+  - internal/sdk/internal/utils/retries.go
+  - internal/sdk/internal/utils/security.go
+  - internal/sdk/internal/utils/utils.go
+  - internal/sdk/models/operations/adddesign.go
+  - internal/sdk/models/operations/deletedesign.go
+  - internal/sdk/models/operations/getalldesigns.go
+  - internal/sdk/models/operations/getdesign.go
+  - internal/sdk/models/operations/updatedesign.go
+  - internal/sdk/models/shared/errorresp.go
+  - internal/sdk/models/shared/adddesignres.go
+  - internal/sdk/models/shared/adddesignreq.go
+  - internal/sdk/models/shared/getalldesignsres.go
+  - internal/sdk/models/shared/getdesignres.go
+  - internal/sdk/models/shared/updatedesignreq.go
+  - internal/sdk/models/shared/security.go
+  - internal/sdk/models/operations/options.go
+  - internal/sdk/.gitattributes
+  - internal/sdk/internal/hooks/hooks.go
+  - internal/sdk/CONTRIBUTING.md
   - examples/README.md
   - go.mod
   - go.sum
@@ -43,22 +77,6 @@ generatedFiles:
   - internal/provider/reflect/slice.go
   - internal/provider/reflect/struct.go
   - internal/provider/utils.go
-  - internal/sdk/pkg/models/sdkerrors/sdkerror.go
-  - internal/sdk/pkg/types/bigint.go
-  - internal/sdk/pkg/types/date.go
-  - internal/sdk/pkg/types/datetime.go
-  - internal/sdk/pkg/types/decimal.go
-  - internal/sdk/pkg/types/pointers.go
-  - internal/sdk/pkg/utils/contenttype.go
-  - internal/sdk/pkg/utils/form.go
-  - internal/sdk/pkg/utils/headers.go
-  - internal/sdk/pkg/utils/json.go
-  - internal/sdk/pkg/utils/pathparams.go
-  - internal/sdk/pkg/utils/queryparams.go
-  - internal/sdk/pkg/utils/requestbody.go
-  - internal/sdk/pkg/utils/retries.go
-  - internal/sdk/pkg/utils/security.go
-  - internal/sdk/pkg/utils/utils.go
   - internal/validators/DateValidator.go
   - internal/validators/ExactlyOneChild.go
   - internal/validators/JSONParseValidator.go
@@ -75,40 +93,12 @@ generatedFiles:
   - main.go
   - terraform-registry-manifest.json
   - tools/tools.go
-  - internal/sdk/pkg/models/operations/adddesign.go
-  - internal/sdk/pkg/models/operations/deletedesign.go
-  - internal/sdk/pkg/models/operations/getalldesigns.go
-  - internal/sdk/pkg/models/operations/getdesign.go
-  - internal/sdk/pkg/models/operations/updatedesign.go
-  - internal/sdk/pkg/models/shared/errorresp.go
-  - internal/sdk/pkg/models/shared/adddesignres.go
-  - internal/sdk/pkg/models/shared/typographydata.go
-  - internal/sdk/pkg/models/shared/fontdata.go
-  - internal/sdk/pkg/models/shared/palettedata.go
-  - internal/sdk/pkg/models/shared/logodata.go
-  - internal/sdk/pkg/models/shared/filedata.go
-  - internal/sdk/pkg/models/shared/consumerdata.go
-  - internal/sdk/pkg/models/shared/widgetportaldata.go
-  - internal/sdk/pkg/models/shared/adddesignreq.go
-  - internal/sdk/pkg/models/shared/getalldesignsres.go
-  - internal/sdk/pkg/models/shared/getdesignres.go
-  - internal/sdk/pkg/models/shared/updatedesignreq.go
-  - internal/sdk/pkg/models/shared/security.go
-  - internal/provider/type_brand_id.go
-  - internal/provider/type_custom_theme.go
-  - internal/provider/type_widget_portal_data.go
-  - internal/provider/type_customer_portals.go
-  - internal/provider/type_consumer_data.go
-  - internal/provider/type_file_data.go
-  - internal/provider/type_logo_data.go
-  - internal/provider/type_palette_data.go
-  - internal/provider/type_font_data.go
-  - internal/provider/type_typography_data.go
-  - internal/provider/type_style.go
-  - internal/provider/type_user.go
+  - internal/provider/types/custom_theme.go
+  - internal/provider/types/user.go
   - USAGE.md
   - internal/provider/provider.go
   - examples/provider/provider.tf
+  - examples/resources/epilot-designbuilder_design/import.sh
   - internal/provider/design_resource.go
   - internal/provider/design_resource_sdk.go
   - examples/resources/epilot-designbuilder_design/resource.tf
@@ -116,3 +106,4 @@ generatedFiles:
   - internal/provider/design_data_source_sdk.go
   - examples/data-sources/epilot-designbuilder_design/data-source.tf
   - .gitattributes
+  - CONTRIBUTING.md
