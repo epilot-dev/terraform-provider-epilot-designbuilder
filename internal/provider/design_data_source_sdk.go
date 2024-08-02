@@ -21,9 +21,10 @@ func (r *DesignDataSourceModel) RefreshFromSharedGetDesignResDesign(resp *shared
 		r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
 		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
 		if resp.CustomTheme == nil {
-			r.CustomTheme = nil
+			r.CustomTheme = types.StringNull()
 		} else {
-			r.CustomTheme = &tfTypes.CustomTheme{}
+			customThemeResult, _ := json.Marshal(resp.CustomTheme)
+			r.CustomTheme = types.StringValue(string(customThemeResult))
 		}
 		r.Edited = types.BoolValue(resp.Edited)
 		r.ID = types.StringPointerValue(resp.ID)

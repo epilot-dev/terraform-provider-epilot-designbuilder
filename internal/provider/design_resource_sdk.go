@@ -32,9 +32,9 @@ func (r *DesignResourceModel) ToSharedDesign() *shared.Design {
 	} else {
 		createdBy = nil
 	}
-	var customTheme *shared.CustomTheme
-	if r.CustomTheme != nil {
-		customTheme = &shared.CustomTheme{}
+	var customTheme interface{}
+	if !r.CustomTheme.IsUnknown() && !r.CustomTheme.IsNull() {
+		_ = json.Unmarshal([]byte(r.CustomTheme.ValueString()), &customTheme)
 	}
 	edited := r.Edited.ValueBool()
 	id := new(string)
@@ -120,9 +120,10 @@ func (r *DesignResourceModel) RefreshFromSharedAddDesignResDesign(resp *shared.A
 		r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
 		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
 		if resp.CustomTheme == nil {
-			r.CustomTheme = nil
+			r.CustomTheme = types.StringNull()
 		} else {
-			r.CustomTheme = &tfTypes.CustomTheme{}
+			customThemeResult, _ := json.Marshal(resp.CustomTheme)
+			r.CustomTheme = types.StringValue(string(customThemeResult))
 		}
 		r.Edited = types.BoolValue(resp.Edited)
 		r.ID = types.StringPointerValue(resp.ID)
@@ -155,9 +156,10 @@ func (r *DesignResourceModel) RefreshFromSharedGetDesignResDesign(resp *shared.G
 		r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
 		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
 		if resp.CustomTheme == nil {
-			r.CustomTheme = nil
+			r.CustomTheme = types.StringNull()
 		} else {
-			r.CustomTheme = &tfTypes.CustomTheme{}
+			customThemeResult, _ := json.Marshal(resp.CustomTheme)
+			r.CustomTheme = types.StringValue(string(customThemeResult))
 		}
 		r.Edited = types.BoolValue(resp.Edited)
 		r.ID = types.StringPointerValue(resp.ID)
@@ -201,9 +203,9 @@ func (r *DesignResourceModel) ToSharedUpdateDesignReqDesign() *shared.UpdateDesi
 	} else {
 		createdBy = nil
 	}
-	var customTheme *shared.UpdateDesignReqCustomTheme
-	if r.CustomTheme != nil {
-		customTheme = &shared.UpdateDesignReqCustomTheme{}
+	var customTheme interface{}
+	if !r.CustomTheme.IsUnknown() && !r.CustomTheme.IsNull() {
+		_ = json.Unmarshal([]byte(r.CustomTheme.ValueString()), &customTheme)
 	}
 	edited := r.Edited.ValueBool()
 	id := new(string)

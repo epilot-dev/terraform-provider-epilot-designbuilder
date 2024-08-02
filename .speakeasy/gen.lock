@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 998a101f-1cb6-4c08-9fd1-b3ee7a1cdeb4
 management:
-  docChecksum: d102a9efac92f9d218a1f0f2673ec9fb
+  docChecksum: ba0b634f013b3a51aada11726ca60e99
   docVersion: 0.0.1
   speakeasyVersion: 1.346.0
   generationVersion: 2.379.3
-  releaseVersion: 0.8.1
-  configChecksum: 12809b15ea8c662005084e44d069b155
+  releaseVersion: 0.8.2
+  configChecksum: 276a88dd22038564ff771b452c438b1e
 features:
   terraform:
     additionalDependencies: 0.1.0
@@ -45,8 +45,10 @@ generatedFiles:
   - internal/sdk/models/shared/getdesignres.go
   - internal/sdk/models/shared/updatedesignreq.go
   - internal/sdk/models/shared/security.go
+  - internal/sdk/.gitignore
   - internal/sdk/models/operations/options.go
   - internal/sdk/.gitattributes
+  - internal/sdk/internal/hooks/registration.go
   - internal/sdk/internal/hooks/hooks.go
   - internal/sdk/CONTRIBUTING.md
   - examples/README.md
@@ -93,7 +95,6 @@ generatedFiles:
   - main.go
   - terraform-registry-manifest.json
   - tools/tools.go
-  - internal/provider/types/custom_theme.go
   - internal/provider/types/user.go
   - USAGE.md
   - internal/provider/provider.go

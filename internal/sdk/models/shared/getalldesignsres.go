@@ -2,9 +2,6 @@
 
 package shared
 
-type GetAllDesignsResCustomTheme struct {
-}
-
 type GetAllDesignsResUser struct {
 	Emailaddress *string `json:"emailaddress,omitempty"`
 	Fullname     *string `json:"fullname,omitempty"`
@@ -41,13 +38,13 @@ func (o *GetAllDesignsResUser) GetUserid() *string {
 }
 
 type Designs struct {
-	BrandID        any                          `json:"brand_id,omitempty"`
-	BrandName      *string                      `json:"brand_name,omitempty"`
-	CustomTheme    *GetAllDesignsResCustomTheme `json:"custom_theme,omitempty"`
-	Style          any                          `json:"style"`
-	StyleName      string                       `json:"style_name"`
-	UseCustomTheme *bool                        `json:"use_custom_theme,omitempty"`
-	User           *GetAllDesignsResUser        `json:"user,omitempty"`
+	BrandID        any                   `json:"brand_id,omitempty"`
+	BrandName      *string               `json:"brand_name,omitempty"`
+	CustomTheme    any                   `json:"custom_theme,omitempty"`
+	Style          any                   `json:"style"`
+	StyleName      string                `json:"style_name"`
+	UseCustomTheme *bool                 `json:"use_custom_theme,omitempty"`
+	User           *GetAllDesignsResUser `json:"user,omitempty"`
 }
 
 func (o *Designs) GetBrandID() any {
@@ -64,7 +61,7 @@ func (o *Designs) GetBrandName() *string {
 	return o.BrandName
 }
 
-func (o *Designs) GetCustomTheme() *GetAllDesignsResCustomTheme {
+func (o *Designs) GetCustomTheme() any {
 	if o == nil {
 		return nil
 	}

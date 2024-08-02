@@ -33,18 +33,18 @@ type DesignResource struct {
 
 // DesignResourceModel describes the resource data model.
 type DesignResourceModel struct {
-	BrandID        types.String         `tfsdk:"brand_id"`
-	BrandName      types.String         `tfsdk:"brand_name"`
-	CreatedAt      types.String         `tfsdk:"created_at"`
-	CreatedBy      types.String         `tfsdk:"created_by"`
-	CustomTheme    *tfTypes.CustomTheme `tfsdk:"custom_theme"`
-	Edited         types.Bool           `tfsdk:"edited"`
-	ID             types.String         `tfsdk:"id"`
-	LastModifiedAt types.String         `tfsdk:"last_modified_at"`
-	Style          types.String         `tfsdk:"style"`
-	StyleName      types.String         `tfsdk:"style_name"`
-	UseCustomTheme types.Bool           `tfsdk:"use_custom_theme"`
-	User           *tfTypes.User        `tfsdk:"user"`
+	BrandID        types.String  `tfsdk:"brand_id"`
+	BrandName      types.String  `tfsdk:"brand_name"`
+	CreatedAt      types.String  `tfsdk:"created_at"`
+	CreatedBy      types.String  `tfsdk:"created_by"`
+	CustomTheme    types.String  `tfsdk:"custom_theme"`
+	Edited         types.Bool    `tfsdk:"edited"`
+	ID             types.String  `tfsdk:"id"`
+	LastModifiedAt types.String  `tfsdk:"last_modified_at"`
+	Style          types.String  `tfsdk:"style"`
+	StyleName      types.String  `tfsdk:"style_name"`
+	UseCustomTheme types.Bool    `tfsdk:"use_custom_theme"`
+	User           *tfTypes.User `tfsdk:"user"`
 }
 
 func (r *DesignResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -76,10 +76,13 @@ func (r *DesignResource) Schema(ctx context.Context, req resource.SchemaRequest,
 				Computed: true,
 				Optional: true,
 			},
-			"custom_theme": schema.SingleNestedAttribute{
-				Computed:   true,
-				Optional:   true,
-				Attributes: map[string]schema.Attribute{},
+			"custom_theme": schema.StringAttribute{
+				Computed:    true,
+				Optional:    true,
+				Description: `Parsed as JSON.`,
+				Validators: []validator.String{
+					validators.IsValidJSON(),
+				},
 			},
 			"edited": schema.BoolAttribute{
 				Required: true,

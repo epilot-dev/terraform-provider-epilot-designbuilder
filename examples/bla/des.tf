@@ -7,7 +7,7 @@ terraform {
     }
     epilot-product = {
       source  = "epilot-dev/epilot-product"
-      version = "0.7.2"
+      version = "0.8.0"
     }
     epilot-automation = {
       source  = "epilot-dev/epilot-automation"
@@ -15,11 +15,11 @@ terraform {
     }
     epilot-entitymapping = {
       source  = "epilot-dev/epilot-entitymapping"
-      version = "1.6.7"
+      version = "1.7.1"
     }
     epilot-designbuilder = {
       source  = "epilot-dev/epilot-designbuilder"
-      version = "0.0.5"
+      version = "1.0.1"
     }
     epilot-file = {
       source  = "epilot-dev/epilot-file"
@@ -31,7 +31,7 @@ terraform {
     }
     epilot-schema = {
       source  = "epilot-dev/epilot-schema"
-      version = "4.0.3"
+      version = "4.1.0"
     }
     epilot-workflow = {
       source  = "epilot-dev/epilot-workflow"
@@ -46,39 +46,39 @@ variable "epilot_auth" {
 }
 variable "journey_api_url" {
   type    = string
-  default = "https://journey-config.dev.sls.epilot.io"
+  default = "https://journey-config.sls.epilot.io"
 }
 variable "product_api_url" {
   type    = string
-  default = "https://product.dev.sls.epilot.io"
+  default = "https://product.sls.epilot.io"
 }
 variable "automation_api_url" {
   type    = string
-  default = "https://automation.dev.sls.epilot.io"
+  default = "https://automation.sls.epilot.io"
 }
 variable "file_api_url" {
   type    = string
-  default = "https://file.dev.sls.epilot.io"
+  default = "https://file.sls.epilot.io"
 }
 variable "emailtemplate_api_url" {
   type    = string
-  default = "https://email-template.dev.sls.epilot.io"
+  default = "https://email-template.sls.epilot.io"
 }
 variable "designbuilder_api_url" {
   type    = string
-  default = "https://design-builder-api.dev.sls.epilot.io"
+  default = "https://design-builder-api.sls.epilot.io"
 }
 variable "entitymapping_api_url" {
   type    = string
-  default = "https://entity-mapping.dev.sls.epilot.io"
+  default = "https://entity-mapping.sls.epilot.io"
 }
 variable "schema_api_url" {
   type    = string
-  default = "https://entity.dev.sls.epilot.io"
+  default = "https://entity.sls.epilot.io"
 }
 variable "workflow_api_url" {
   type    = string
-  default = "https://workflows-definition.dev.sls.epilot.io"
+  default = "https://workflows-definition.sls.epilot.io"
 }
 
 # Providers configuration
@@ -118,3 +118,5 @@ provider "epilot-workflow" {
   bearer_auth = var.epilot_auth
   server_url  = var.workflow_api_url
 }
+
+resource "epilot-designbuilder_design" "mydesign" {}

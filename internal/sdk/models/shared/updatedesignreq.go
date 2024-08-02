@@ -2,9 +2,6 @@
 
 package shared
 
-type UpdateDesignReqCustomTheme struct {
-}
-
 type UpdateDesignReqUser struct {
 	Emailaddress *string `json:"emailaddress,omitempty"`
 	Fullname     *string `json:"fullname,omitempty"`
@@ -44,16 +41,16 @@ type UpdateDesignReqDesign struct {
 	BrandID   any     `json:"brand_id,omitempty"`
 	BrandName *string `json:"brand_name,omitempty"`
 	// Creation date and time using ISO 8601 full-time format
-	CreatedAt      *string                     `json:"created_at,omitempty"`
-	CreatedBy      *string                     `json:"created_by,omitempty"`
-	CustomTheme    *UpdateDesignReqCustomTheme `json:"custom_theme,omitempty"`
-	Edited         bool                        `json:"edited"`
-	ID             *string                     `json:"id,omitempty"`
-	LastModifiedAt *string                     `json:"last_modified_at,omitempty"`
-	Style          any                         `json:"style"`
-	StyleName      string                      `json:"style_name"`
-	UseCustomTheme *bool                       `json:"use_custom_theme,omitempty"`
-	User           *UpdateDesignReqUser        `json:"user,omitempty"`
+	CreatedAt      *string              `json:"created_at,omitempty"`
+	CreatedBy      *string              `json:"created_by,omitempty"`
+	CustomTheme    any                  `json:"custom_theme,omitempty"`
+	Edited         bool                 `json:"edited"`
+	ID             *string              `json:"id,omitempty"`
+	LastModifiedAt *string              `json:"last_modified_at,omitempty"`
+	Style          any                  `json:"style"`
+	StyleName      string               `json:"style_name"`
+	UseCustomTheme *bool                `json:"use_custom_theme,omitempty"`
+	User           *UpdateDesignReqUser `json:"user,omitempty"`
 }
 
 func (o *UpdateDesignReqDesign) GetBrandID() any {
@@ -84,7 +81,7 @@ func (o *UpdateDesignReqDesign) GetCreatedBy() *string {
 	return o.CreatedBy
 }
 
-func (o *UpdateDesignReqDesign) GetCustomTheme() *UpdateDesignReqCustomTheme {
+func (o *UpdateDesignReqDesign) GetCustomTheme() any {
 	if o == nil {
 		return nil
 	}

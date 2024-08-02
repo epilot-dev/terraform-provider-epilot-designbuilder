@@ -258,7 +258,6 @@ components:
             allOf:
             - $ref: "#/components/schemas/BrandItem"
     AddDesignReq:
-      type: object
       properties:
         design:
           x-speakeasy-entity: Design
@@ -386,6 +385,7 @@ components:
       type: object
       properties:
         custom_theme:
+          x-speakeasy-type-override: any
           type: object
         use_custom_theme:
           type: boolean

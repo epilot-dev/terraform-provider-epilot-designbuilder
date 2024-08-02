@@ -1,1 +1,0 @@
-terraform import epilot_designbuilder_design.my_epilot_designbuilder_design "4a062990-a6a3-11eb-9828-4f3da7d4935a"
