@@ -3,15 +3,19 @@ id: 998a101f-1cb6-4c08-9fd1-b3ee7a1cdeb4
 management:
   docChecksum: ba0b634f013b3a51aada11726ca60e99
   docVersion: 0.0.1
-  speakeasyVersion: 1.346.0
-  generationVersion: 2.379.3
-  releaseVersion: 0.8.2
-  configChecksum: 276a88dd22038564ff771b452c438b1e
+  speakeasyVersion: 1.355.0
+  generationVersion: 2.387.0
+  releaseVersion: 0.9.0
+  configChecksum: 0785f5ecc2d3b5aac64f1faf4706b573
+  repoURL: https://github.com/epilot-dev/terraform-provider-epilot-designbuilder.git
+  repoSubDirectory: .
+  published: true
 features:
   terraform:
     additionalDependencies: 0.1.0
-    core: 3.24.3
-    globalSecurity: 2.81.6
+    core: 3.24.6
+    envVarSecurityUsage: 0.1.0
+    globalSecurity: 2.81.8
     globalServerURLs: 2.82.1
     typeOverrides: 2.81.1
 generatedFiles:
@@ -48,7 +52,6 @@ generatedFiles:
   - internal/sdk/.gitignore
   - internal/sdk/models/operations/options.go
   - internal/sdk/.gitattributes
-  - internal/sdk/internal/hooks/registration.go
   - internal/sdk/internal/hooks/hooks.go
   - internal/sdk/CONTRIBUTING.md
   - examples/README.md
