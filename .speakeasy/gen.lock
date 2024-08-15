@@ -3,17 +3,17 @@ id: 998a101f-1cb6-4c08-9fd1-b3ee7a1cdeb4
 management:
   docChecksum: ba0b634f013b3a51aada11726ca60e99
   docVersion: 0.0.1
-  speakeasyVersion: 1.358.0
-  generationVersion: 2.390.6
-  releaseVersion: 0.9.0
-  configChecksum: 0785f5ecc2d3b5aac64f1faf4706b573
+  speakeasyVersion: 1.368.0
+  generationVersion: 2.399.0
+  releaseVersion: 0.9.1
+  configChecksum: d52c82f1ae68d2384d23e1effa40705f
   repoURL: https://github.com/epilot-dev/terraform-provider-epilot-designbuilder.git
   repoSubDirectory: .
   published: true
 features:
   terraform:
     additionalDependencies: 0.1.0
-    core: 3.24.6
+    core: 3.24.7
     envVarSecurityUsage: 0.1.0
     globalSecurity: 2.81.8
     globalServerURLs: 2.82.1
