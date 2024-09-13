@@ -3,17 +3,17 @@ id: 998a101f-1cb6-4c08-9fd1-b3ee7a1cdeb4
 management:
   docChecksum: ba0b634f013b3a51aada11726ca60e99
   docVersion: 0.0.1
-  speakeasyVersion: 1.392.1
-  generationVersion: 2.411.9
-  releaseVersion: 0.9.3
-  configChecksum: 2dcddd623925398a238d1b11aa7e8ace
+  speakeasyVersion: 1.396.6
+  generationVersion: 2.415.6
+  releaseVersion: 0.9.4
+  configChecksum: 50a18a755ca766fa871655226f982fae
   repoURL: https://github.com/epilot-dev/terraform-provider-epilot-designbuilder.git
   repoSubDirectory: .
   published: true
 features:
   terraform:
     additionalDependencies: 0.1.0
-    core: 3.24.9
+    core: 3.24.11
     envVarSecurityUsage: 0.1.0
     globalSecurity: 2.81.8
     globalServerURLs: 2.82.1
@@ -126,7 +126,11 @@ examples:
         path:
           designId: "4a062990-a6a3-11eb-9828-4f3da7d4935a"
   getAllDesigns:
-    speakeasy-default-get-all-designs: {}
+    speakeasy-default-get-all-designs:
+      responses:
+        "200":
+          application/json: []
+        "500": {}
   getDesign:
     "":
       parameters:
