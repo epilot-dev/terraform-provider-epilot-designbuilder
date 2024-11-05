@@ -1,0 +1,9 @@
+workflowVersion: 1.0.0
+sources:
+    my-source:
+        inputs:
+            - location: designbuilder.yaml
+targets:
+    terraform:
+        target: terraform
+        source: my-source
