@@ -1,0 +1,29 @@
+speakeasyVersion: 1.462.2
+sources:
+    my-source:
+        sourceNamespace: my-source
+        sourceRevisionDigest: sha256:f4eae929c01f0b18fa4a2d4041f932c85ab779e9cd31781b09bbe160bca8d398
+        sourceBlobDigest: sha256:0e905b51af77f61d4c39e8c2c2e973b22593ea9e31bdf64daaa9ba8584ac9ec4
+        tags:
+            - latest
+            - speakeasy-sdk-regen-1730852025
+            - 0.0.1
+targets:
+    terraform:
+        source: my-source
+        sourceNamespace: my-source
+        sourceRevisionDigest: sha256:f4eae929c01f0b18fa4a2d4041f932c85ab779e9cd31781b09bbe160bca8d398
+        sourceBlobDigest: sha256:0e905b51af77f61d4c39e8c2c2e973b22593ea9e31bdf64daaa9ba8584ac9ec4
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        my-source:
+            inputs:
+                - location: designbuilder.yaml
+            registry:
+                location: registry.speakeasyapi.dev/epilot/epilot/my-source
+    targets:
+        terraform:
+            target: terraform
+            source: my-source

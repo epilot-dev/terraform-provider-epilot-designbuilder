@@ -3,55 +3,28 @@ id: 998a101f-1cb6-4c08-9fd1-b3ee7a1cdeb4
 management:
   docChecksum: ba0b634f013b3a51aada11726ca60e99
   docVersion: 0.0.1
-  speakeasyVersion: 1.346.0
-  generationVersion: 2.379.3
-  releaseVersion: 0.8.2
-  configChecksum: 276a88dd22038564ff771b452c438b1e
+  speakeasyVersion: 1.462.2
+  generationVersion: 2.486.1
+  releaseVersion: 0.9.0
+  configChecksum: 0cb27a37e875921ab51413bed9f5cbad
+  repoURL: https://github.com/epilot-dev/terraform-provider-epilot-designbuilder.git
 features:
   terraform:
     additionalDependencies: 0.1.0
-    core: 3.24.3
-    globalSecurity: 2.81.6
+    core: 3.27.6
+    envVarSecurityUsage: 0.1.0
+    globalSecurity: 2.81.9
     globalServerURLs: 2.82.1
     typeOverrides: 2.81.1
 generatedFiles:
-  - internal/sdk/sdk.go
-  - internal/sdk/models/errors/sdkerror.go
-  - internal/sdk/retry/config.go
-  - internal/sdk/types/bigint.go
-  - internal/sdk/types/date.go
-  - internal/sdk/types/datetime.go
-  - internal/sdk/types/decimal.go
-  - internal/sdk/types/pointers.go
-  - internal/sdk/internal/utils/contenttype.go
-  - internal/sdk/internal/utils/form.go
-  - internal/sdk/internal/utils/headers.go
-  - internal/sdk/internal/utils/json.go
-  - internal/sdk/internal/utils/pathparams.go
-  - internal/sdk/internal/utils/queryparams.go
-  - internal/sdk/internal/utils/requestbody.go
-  - internal/sdk/internal/utils/retries.go
-  - internal/sdk/internal/utils/security.go
-  - internal/sdk/internal/utils/utils.go
-  - internal/sdk/models/operations/adddesign.go
-  - internal/sdk/models/operations/deletedesign.go
-  - internal/sdk/models/operations/getalldesigns.go
-  - internal/sdk/models/operations/getdesign.go
-  - internal/sdk/models/operations/updatedesign.go
-  - internal/sdk/models/shared/errorresp.go
-  - internal/sdk/models/shared/adddesignres.go
-  - internal/sdk/models/shared/adddesignreq.go
-  - internal/sdk/models/shared/getalldesignsres.go
-  - internal/sdk/models/shared/getdesignres.go
-  - internal/sdk/models/shared/updatedesignreq.go
-  - internal/sdk/models/shared/security.go
-  - internal/sdk/.gitignore
-  - internal/sdk/models/operations/options.go
-  - internal/sdk/.gitattributes
-  - internal/sdk/internal/hooks/registration.go
-  - internal/sdk/internal/hooks/hooks.go
-  - internal/sdk/CONTRIBUTING.md
+  - .gitattributes
+  - CONTRIBUTING.md
+  - USAGE.md
   - examples/README.md
+  - examples/data-sources/epilot-designbuilder_design/data-source.tf
+  - examples/provider/provider.tf
+  - examples/resources/epilot-designbuilder_design/import.sh
+  - examples/resources/epilot-designbuilder_design/resource.tf
   - go.mod
   - go.sum
   - internal/planmodifiers/boolplanmodifier/suppress_diff.go
@@ -64,6 +37,11 @@ generatedFiles:
   - internal/planmodifiers/setplanmodifier/suppress_diff.go
   - internal/planmodifiers/stringplanmodifier/suppress_diff.go
   - internal/planmodifiers/utils/state_check.go
+  - internal/provider/design_data_source.go
+  - internal/provider/design_data_source_sdk.go
+  - internal/provider/design_resource.go
+  - internal/provider/design_resource_sdk.go
+  - internal/provider/provider.go
   - internal/provider/reflect/diags.go
   - internal/provider/reflect/doc.go
   - internal/provider/reflect/generic_attr_value.go
@@ -78,7 +56,44 @@ generatedFiles:
   - internal/provider/reflect/primitive.go
   - internal/provider/reflect/slice.go
   - internal/provider/reflect/struct.go
+  - internal/provider/types/user.go
   - internal/provider/utils.go
+  - internal/sdk/.gitattributes
+  - internal/sdk/.gitignore
+  - internal/sdk/CONTRIBUTING.md
+  - internal/sdk/internal/hooks/hooks.go
+  - internal/sdk/internal/utils/contenttype.go
+  - internal/sdk/internal/utils/env.go
+  - internal/sdk/internal/utils/form.go
+  - internal/sdk/internal/utils/headers.go
+  - internal/sdk/internal/utils/json.go
+  - internal/sdk/internal/utils/pathparams.go
+  - internal/sdk/internal/utils/queryparams.go
+  - internal/sdk/internal/utils/requestbody.go
+  - internal/sdk/internal/utils/retries.go
+  - internal/sdk/internal/utils/security.go
+  - internal/sdk/internal/utils/utils.go
+  - internal/sdk/models/errors/sdkerror.go
+  - internal/sdk/models/operations/adddesign.go
+  - internal/sdk/models/operations/deletedesign.go
+  - internal/sdk/models/operations/getalldesigns.go
+  - internal/sdk/models/operations/getdesign.go
+  - internal/sdk/models/operations/options.go
+  - internal/sdk/models/operations/updatedesign.go
+  - internal/sdk/models/shared/adddesignreq.go
+  - internal/sdk/models/shared/adddesignres.go
+  - internal/sdk/models/shared/errorresp.go
+  - internal/sdk/models/shared/getalldesignsres.go
+  - internal/sdk/models/shared/getdesignres.go
+  - internal/sdk/models/shared/security.go
+  - internal/sdk/models/shared/updatedesignreq.go
+  - internal/sdk/retry/config.go
+  - internal/sdk/sdk.go
+  - internal/sdk/types/bigint.go
+  - internal/sdk/types/date.go
+  - internal/sdk/types/datetime.go
+  - internal/sdk/types/decimal.go
+  - internal/sdk/types/pointers.go
   - internal/validators/DateValidator.go
   - internal/validators/ExactlyOneChild.go
   - internal/validators/JSONParseValidator.go
@@ -95,16 +110,42 @@ generatedFiles:
   - main.go
   - terraform-registry-manifest.json
   - tools/tools.go
-  - internal/provider/types/user.go
-  - USAGE.md
-  - internal/provider/provider.go
-  - examples/provider/provider.tf
-  - examples/resources/epilot-designbuilder_design/import.sh
-  - internal/provider/design_resource.go
-  - internal/provider/design_resource_sdk.go
-  - examples/resources/epilot-designbuilder_design/resource.tf
-  - internal/provider/design_data_source.go
-  - internal/provider/design_data_source_sdk.go
-  - examples/data-sources/epilot-designbuilder_design/data-source.tf
-  - .gitattributes
-  - CONTRIBUTING.md
+examples:
+  addDesign:
+    speakeasy-default-add-design:
+      requestBody:
+        application/json: {"design": {"created_at": "2021-01-30T08:30:00Z", "edited": true, "style": "<value>", "style_name": "<value>"}}
+      responses:
+        "201":
+          application/json: {"design": {"created_at": "2021-01-30T08:30:00Z", "edited": false, "style": "<value>", "style_name": "<value>"}}
+        "400":
+          application/json: {}
+  deleteDesign:
+    "":
+      parameters:
+        path:
+          designId: "4a062990-a6a3-11eb-9828-4f3da7d4935a"
+  getAllDesigns:
+    speakeasy-default-get-all-designs:
+      responses:
+        "200":
+          application/json: [{}]
+        "500":
+          application/json: {}
+  getDesign:
+    "":
+      parameters:
+        path:
+          designId: "4a062990-a6a3-11eb-9828-4f3da7d4935a"
+      responses:
+        "200":
+          application/json: {"design": {"created_at": "2021-01-30T08:30:00Z", "edited": false, "style": "<value>", "style_name": "<value>"}}
+        "400": {}
+  updateDesign:
+    "":
+      parameters:
+        path:
+          designId: "4a062990-a6a3-11eb-9828-4f3da7d4935a"
+      requestBody:
+        application/json: {"design": {"created_at": "2021-01-30T08:30:00Z", "edited": true, "style": "<value>", "style_name": "<value>"}}
+generatedTests: {}
