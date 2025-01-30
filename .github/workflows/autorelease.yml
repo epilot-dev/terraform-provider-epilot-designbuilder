@@ -19,3 +19,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
+          skipInvalidTags: true
+          noVersionBumpBehavior: patch
