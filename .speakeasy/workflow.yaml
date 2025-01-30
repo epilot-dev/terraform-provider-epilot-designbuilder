@@ -4,6 +4,8 @@ sources:
     my-source:
         inputs:
             - location: https://docs.api.epilot.io/design-builder-api.yaml
+        overlays:
+            - location: overlay.yaml
         registry:
             location: registry.speakeasyapi.dev/epilot/epilot/my-source
 targets:
