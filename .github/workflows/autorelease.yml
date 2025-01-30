@@ -28,5 +28,6 @@ jobs:
           draft: false
           makeLatest: true
           name: ${{ steps.semver.outputs.next }}
+          tag: ${{ steps.semver.outputs.next }}
           body: Update Terraform Provider with latest API changes
           token: ${{ secrets.GITHUB_TOKEN }}
