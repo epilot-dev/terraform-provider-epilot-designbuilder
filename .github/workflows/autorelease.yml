@@ -16,8 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       
       # Semver
       - name: Get Next Version
@@ -38,6 +36,12 @@ jobs:
           tag: ${{ steps.semver.outputs.next }}
           body: Update Terraform Provider with latest API changes
           token: ${{ secrets.GITHUB_TOKEN }}
+
+
+      # Re-run checkout to load the updated release tag
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       # Goreleaser
       - uses: actions/setup-go@4d34df0c2316fe8122ab82dc22947d607c0c91f9 # v4.0.0
