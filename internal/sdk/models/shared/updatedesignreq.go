@@ -2,49 +2,6 @@
 
 package shared
 
-type UpdateDesignReqStyle struct {
-	Consumer   ConsumerData   `json:"consumer"`
-	Logo       *LogoData      `json:"logo,omitempty"`
-	Palette    PaletteData    `json:"palette"`
-	Shape      *ShapeData     `json:"shape,omitempty"`
-	Typography TypographyData `json:"typography"`
-}
-
-func (o *UpdateDesignReqStyle) GetConsumer() ConsumerData {
-	if o == nil {
-		return ConsumerData{}
-	}
-	return o.Consumer
-}
-
-func (o *UpdateDesignReqStyle) GetLogo() *LogoData {
-	if o == nil {
-		return nil
-	}
-	return o.Logo
-}
-
-func (o *UpdateDesignReqStyle) GetPalette() PaletteData {
-	if o == nil {
-		return PaletteData{}
-	}
-	return o.Palette
-}
-
-func (o *UpdateDesignReqStyle) GetShape() *ShapeData {
-	if o == nil {
-		return nil
-	}
-	return o.Shape
-}
-
-func (o *UpdateDesignReqStyle) GetTypography() TypographyData {
-	if o == nil {
-		return TypographyData{}
-	}
-	return o.Typography
-}
-
 type UpdateDesignReqUser struct {
 	Emailaddress *string `json:"emailaddress,omitempty"`
 	Fullname     *string `json:"fullname,omitempty"`
@@ -81,20 +38,20 @@ func (o *UpdateDesignReqUser) GetUserid() *string {
 }
 
 type UpdateDesignReqDesign struct {
-	BrandID        *string              `json:"brand_id,omitempty"`
+	BrandID        any                  `json:"brand_id,omitempty"`
 	BrandName      *string              `json:"brand_name,omitempty"`
 	Cashback       *string              `json:"cashback,omitempty"`
 	Coupon         *string              `json:"coupon,omitempty"`
 	CustomCSS      *string              `json:"custom_css,omitempty"`
 	CustomTheme    *string              `json:"custom_theme,omitempty"`
 	IsDefault      *bool                `json:"is_default,omitempty"`
-	Style          UpdateDesignReqStyle `json:"style"`
+	Style          any                  `json:"style"`
 	StyleName      string               `json:"style_name"`
 	UseCustomTheme *bool                `json:"use_custom_theme,omitempty"`
 	User           *UpdateDesignReqUser `json:"user,omitempty"`
 }
 
-func (o *UpdateDesignReqDesign) GetBrandID() *string {
+func (o *UpdateDesignReqDesign) GetBrandID() any {
 	if o == nil {
 		return nil
 	}
@@ -143,9 +100,9 @@ func (o *UpdateDesignReqDesign) GetIsDefault() *bool {
 	return o.IsDefault
 }
 
-func (o *UpdateDesignReqDesign) GetStyle() UpdateDesignReqStyle {
+func (o *UpdateDesignReqDesign) GetStyle() any {
 	if o == nil {
-		return UpdateDesignReqStyle{}
+		return nil
 	}
 	return o.Style
 }

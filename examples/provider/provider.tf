@@ -2,7 +2,7 @@ terraform {
   required_providers {
     epilot-designbuilder = {
       source  = "epilot-dev/epilot-designbuilder"
-      version = "0.11.1"
+      version = "0.12.0"
     }
   }
 }

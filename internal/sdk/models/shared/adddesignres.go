@@ -7,49 +7,6 @@ import (
 	"time"
 )
 
-type AddDesignResStyle struct {
-	Consumer   ConsumerData   `json:"consumer"`
-	Logo       *LogoData      `json:"logo,omitempty"`
-	Palette    PaletteData    `json:"palette"`
-	Shape      *ShapeData     `json:"shape,omitempty"`
-	Typography TypographyData `json:"typography"`
-}
-
-func (o *AddDesignResStyle) GetConsumer() ConsumerData {
-	if o == nil {
-		return ConsumerData{}
-	}
-	return o.Consumer
-}
-
-func (o *AddDesignResStyle) GetLogo() *LogoData {
-	if o == nil {
-		return nil
-	}
-	return o.Logo
-}
-
-func (o *AddDesignResStyle) GetPalette() PaletteData {
-	if o == nil {
-		return PaletteData{}
-	}
-	return o.Palette
-}
-
-func (o *AddDesignResStyle) GetShape() *ShapeData {
-	if o == nil {
-		return nil
-	}
-	return o.Shape
-}
-
-func (o *AddDesignResStyle) GetTypography() TypographyData {
-	if o == nil {
-		return TypographyData{}
-	}
-	return o.Typography
-}
-
 type AddDesignResUser struct {
 	Emailaddress *string `json:"emailaddress,omitempty"`
 	Fullname     *string `json:"fullname,omitempty"`
@@ -86,7 +43,7 @@ func (o *AddDesignResUser) GetUserid() *string {
 }
 
 type AddDesignResDesign struct {
-	BrandID   *string `json:"brand_id,omitempty"`
+	BrandID   any     `json:"brand_id,omitempty"`
 	BrandName *string `json:"brand_name,omitempty"`
 	Cashback  *string `json:"cashback,omitempty"`
 	Coupon    *string `json:"coupon,omitempty"`
@@ -99,7 +56,7 @@ type AddDesignResDesign struct {
 	ID             *string           `json:"id,omitempty"`
 	IsDefault      *bool             `json:"is_default,omitempty"`
 	LastModifiedAt *time.Time        `json:"last_modified_at,omitempty"`
-	Style          AddDesignResStyle `json:"style"`
+	Style          any               `json:"style"`
 	StyleName      string            `json:"style_name"`
 	UseCustomTheme *bool             `json:"use_custom_theme,omitempty"`
 	User           *AddDesignResUser `json:"user,omitempty"`
@@ -116,7 +73,7 @@ func (a *AddDesignResDesign) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *AddDesignResDesign) GetBrandID() *string {
+func (o *AddDesignResDesign) GetBrandID() any {
 	if o == nil {
 		return nil
 	}
@@ -200,9 +157,9 @@ func (o *AddDesignResDesign) GetLastModifiedAt() *time.Time {
 	return o.LastModifiedAt
 }
 
-func (o *AddDesignResDesign) GetStyle() AddDesignResStyle {
+func (o *AddDesignResDesign) GetStyle() any {
 	if o == nil {
-		return AddDesignResStyle{}
+		return nil
 	}
 	return o.Style
 }

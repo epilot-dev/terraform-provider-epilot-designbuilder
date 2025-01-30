@@ -17,7 +17,7 @@ terraform {
   required_providers {
     epilot-designbuilder = {
       source  = "epilot-dev/epilot-designbuilder"
-      version = "0.11.1"
+      version = "0.12.0"
     }
   }
 }
@@ -33,4 +33,4 @@ provider "epilot-designbuilder" {
 ### Optional
 
 - `custom_authorizer` (String, Sensitive)
-- `server_url` (String) Server URL (defaults to https://design-builder-api.{environment}.epilot.io)
+- `server_url` (String) Server URL (defaults to https://design-builder-api.sls.epilot.io)
