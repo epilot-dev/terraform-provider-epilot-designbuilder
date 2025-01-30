@@ -62,3 +62,11 @@ jobs:
           # GitHub sets the GITHUB_TOKEN secret automatically.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
+      - name: Trigger gitlab pipeline
+        uses: ghcr.io/appleboy/gitlab-ci-action@v1.3.0
+        with:
+          host: "https://gitlab.com"
+          token: ${{ secrets.GITLAB_PROVIDERS_TOKEN }}
+          project_id: 54648643
+          ref: providers
+
