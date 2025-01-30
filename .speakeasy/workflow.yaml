@@ -2,7 +2,7 @@ workflowVersion: 1.0.0
 sources:
     my-source:
         inputs:
-            - location: designbuilder.yaml
+            - location: https://docs.api.epilot.io/design-builder-api.yaml
 targets:
     terraform:
         target: terraform
