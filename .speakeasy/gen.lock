@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 998a101f-1cb6-4c08-9fd1-b3ee7a1cdeb4
 management:
-  docChecksum: 6dcb36d11a3cf79a647a73931910f043
+  docChecksum: 19cbeb05b1f128de9ada1b19e1a35141
   docVersion: 0.0.1
   speakeasyVersion: 1.366.0
   generationVersion: 2.396.0
-  releaseVersion: 0.13.1
-  configChecksum: 301649ce67509ec63f4a79ab0c2dee4c
+  releaseVersion: 0.13.2
+  configChecksum: 51766d5d619c70b28b60c955f0cd55ba
   repoURL: https://github.com/epilot-dev/terraform-provider-epilot-designbuilder.git
 features:
   terraform:

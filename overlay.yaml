@@ -88,5 +88,11 @@ actions:
     remove: true
   - target: $["components"]["schemas"]["ItemMetada"]["properties"]["last_modified_at"]["format"]
     remove: true
+  - target: $["components"]["schemas"]["ItemMetada"]["properties"]["created_at"]
+    update:
+      readOnly: true
+  - target: $["components"]["schemas"]["ItemMetada"]["properties"]["last_modified_at"]
+    update:
+      readOnly: true
 
     
