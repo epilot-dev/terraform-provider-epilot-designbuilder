@@ -14,24 +14,10 @@ jobs:
         with:
           # Allow goreleaser to access older tag information.
           fetch-depth: 0
-      - name: Set up Semantic Versioning
-        run: |
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
-          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
-          echo "Latest tag: $latest_tag"
-          bump_type="patch" # Default bump type
-
-          if git log $latest_tag..HEAD --oneline | grep "BREAKING CHANGE"; then
-            bump_type="major"
-          elif git log $latest_tag..HEAD --oneline | grep "feat:"; then
-            bump_type="minor"
-          fi
-
-          new_version=$(semver $latest_tag $bump_type)
-          echo "New version: $new_version"
-          echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
-      - name: Create Tag
-        run: |
-          git tag ${{ env.NEW_VERSION }}
-          git push origin ${{ env.NEW_VERSION }}
+      - name: Create tag
+        uses: K-Phoen/semver-release-action@master
+        with:
+          release_branch: main
+          release_strategy: tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
