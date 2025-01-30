@@ -4,6 +4,7 @@ package sdk
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/internal/hooks"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/internal/utils"
@@ -15,7 +16,7 @@ import (
 
 // ServerList contains the list of servers available to the SDK
 var ServerList = []string{
-	"https://design-builder-api.sls.epilot.io",
+	"https://design-builder-api.{environment}.epilot.io",
 }
 
 // HTTPClient provides an interface for suplying the SDK with a custom HTTP client
@@ -41,11 +42,15 @@ func Float32(f float32) *float32 { return &f }
 // Float64 provides a helper function to return a pointer to a float64
 func Float64(f float64) *float64 { return &f }
 
+// Pointer provides a helper function to return a pointer to a type
+func Pointer[T any](v T) *T { return &v }
+
 type sdkConfiguration struct {
 	Client            HTTPClient
 	Security          func(context.Context) (interface{}, error)
 	ServerURL         string
 	ServerIndex       int
+	ServerDefaults    []map[string]string
 	Language          string
 	OpenAPIDocVersion string
 	SDKVersion        string
@@ -61,7 +66,7 @@ func (c *sdkConfiguration) GetServerDetails() (string, map[string]string) {
 		return c.ServerURL, nil
 	}
 
-	return ServerList[c.ServerIndex], nil
+	return ServerList[c.ServerIndex], c.ServerDefaults[c.ServerIndex]
 }
 
 type SDK struct {
@@ -99,6 +104,48 @@ func WithServerIndex(serverIndex int) SDKOption {
 		}
 
 		sdk.sdkConfiguration.ServerIndex = serverIndex
+	}
+}
+
+type ServerEnvironment string
+
+const (
+	ServerEnvironmentSls        ServerEnvironment = "sls"
+	ServerEnvironmentDevSls     ServerEnvironment = "dev.sls"
+	ServerEnvironmentStagingSls ServerEnvironment = "staging.sls"
+)
+
+func (e ServerEnvironment) ToPointer() *ServerEnvironment {
+	return &e
+}
+func (e *ServerEnvironment) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sls":
+		fallthrough
+	case "dev.sls":
+		fallthrough
+	case "staging.sls":
+		*e = ServerEnvironment(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ServerEnvironment: %v", v)
+	}
+}
+
+// WithEnvironment allows setting the environment variable for url substitution
+func WithEnvironment(environment ServerEnvironment) SDKOption {
+	return func(sdk *SDK) {
+		for idx := range sdk.sdkConfiguration.ServerDefaults {
+			if _, ok := sdk.sdkConfiguration.ServerDefaults[idx]["environment"]; !ok {
+				continue
+			}
+
+			sdk.sdkConfiguration.ServerDefaults[idx]["environment"] = fmt.Sprintf("%v", environment)
+		}
 	}
 }
 
@@ -144,10 +191,15 @@ func New(opts ...SDKOption) *SDK {
 		sdkConfiguration: sdkConfiguration{
 			Language:          "go",
 			OpenAPIDocVersion: "0.0.1",
-			SDKVersion:        "0.0.1",
-			GenVersion:        "2.396.0",
-			UserAgent:         "speakeasy-sdk/go 0.0.1 2.396.0 0.0.1 github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk",
-			Hooks:             hooks.New(),
+			SDKVersion:        "0.11.0",
+			GenVersion:        "2.497.8",
+			UserAgent:         "speakeasy-sdk/terraform 0.11.0 2.497.8 0.0.1 github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk",
+			ServerDefaults: []map[string]string{
+				{
+					"environment": "sls",
+				},
+			},
+			Hooks: hooks.New(),
 		},
 	}
 	for _, opt := range opts {

@@ -38,7 +38,7 @@ func (p *EpilotDesignbuilderProvider) Schema(ctx context.Context, req provider.S
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"server_url": schema.StringAttribute{
-				MarkdownDescription: "Server URL (defaults to https://design-builder-api.sls.epilot.io)",
+				MarkdownDescription: "Server URL (defaults to https://design-builder-api.{environment}.epilot.io)",
 				Optional:            true,
 				Required:            false,
 			},
@@ -62,7 +62,7 @@ func (p *EpilotDesignbuilderProvider) Configure(ctx context.Context, req provide
 	ServerURL := data.ServerURL.ValueString()
 
 	if ServerURL == "" {
-		ServerURL = "https://design-builder-api.sls.epilot.io"
+		ServerURL = "https://design-builder-api.{environment}.epilot.io"
 	}
 
 	customAuthorizer := new(string)
@@ -75,10 +75,13 @@ func (p *EpilotDesignbuilderProvider) Configure(ctx context.Context, req provide
 		CustomAuthorizer: customAuthorizer,
 	}
 
+	httpClient := http.DefaultClient
+	httpClient.Transport = NewLoggingHTTPTransport(http.DefaultTransport)
+
 	opts := []sdk.SDKOption{
 		sdk.WithServerURL(ServerURL),
 		sdk.WithSecurity(security),
-		sdk.WithClient(http.DefaultClient),
+		sdk.WithClient(httpClient),
 	}
 	client := sdk.New(opts...)
 
@@ -87,15 +90,11 @@ func (p *EpilotDesignbuilderProvider) Configure(ctx context.Context, req provide
 }
 
 func (p *EpilotDesignbuilderProvider) Resources(ctx context.Context) []func() resource.Resource {
-	return []func() resource.Resource{
-		NewDesignResource,
-	}
+	return []func() resource.Resource{}
 }
 
 func (p *EpilotDesignbuilderProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
-	return []func() datasource.DataSource{
-		NewDesignDataSource,
-	}
+	return []func() datasource.DataSource{}
 }
 
 func New(version string) func() provider.Provider {

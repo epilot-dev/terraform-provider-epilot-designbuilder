@@ -2,6 +2,49 @@
 
 package shared
 
+type Style struct {
+	Consumer   ConsumerData   `json:"consumer"`
+	Logo       *LogoData      `json:"logo,omitempty"`
+	Palette    PaletteData    `json:"palette"`
+	Shape      *ShapeData     `json:"shape,omitempty"`
+	Typography TypographyData `json:"typography"`
+}
+
+func (o *Style) GetConsumer() ConsumerData {
+	if o == nil {
+		return ConsumerData{}
+	}
+	return o.Consumer
+}
+
+func (o *Style) GetLogo() *LogoData {
+	if o == nil {
+		return nil
+	}
+	return o.Logo
+}
+
+func (o *Style) GetPalette() PaletteData {
+	if o == nil {
+		return PaletteData{}
+	}
+	return o.Palette
+}
+
+func (o *Style) GetShape() *ShapeData {
+	if o == nil {
+		return nil
+	}
+	return o.Shape
+}
+
+func (o *Style) GetTypography() TypographyData {
+	if o == nil {
+		return TypographyData{}
+	}
+	return o.Typography
+}
+
 type User struct {
 	Emailaddress *string `json:"emailaddress,omitempty"`
 	Fullname     *string `json:"fullname,omitempty"`
@@ -38,20 +81,20 @@ func (o *User) GetUserid() *string {
 }
 
 type Design struct {
-	BrandID        any     `json:"brand_id,omitempty"`
+	BrandID        *string `json:"brand_id,omitempty"`
 	BrandName      *string `json:"brand_name,omitempty"`
 	Cashback       *string `json:"cashback,omitempty"`
 	Coupon         *string `json:"coupon,omitempty"`
 	CustomCSS      *string `json:"custom_css,omitempty"`
 	CustomTheme    *string `json:"custom_theme,omitempty"`
 	IsDefault      *bool   `json:"is_default,omitempty"`
-	Style          any     `json:"style"`
+	Style          Style   `json:"style"`
 	StyleName      string  `json:"style_name"`
 	UseCustomTheme *bool   `json:"use_custom_theme,omitempty"`
 	User           *User   `json:"user,omitempty"`
 }
 
-func (o *Design) GetBrandID() any {
+func (o *Design) GetBrandID() *string {
 	if o == nil {
 		return nil
 	}
@@ -100,9 +143,9 @@ func (o *Design) GetIsDefault() *bool {
 	return o.IsDefault
 }
 
-func (o *Design) GetStyle() any {
+func (o *Design) GetStyle() Style {
 	if o == nil {
-		return nil
+		return Style{}
 	}
 	return o.Style
 }
