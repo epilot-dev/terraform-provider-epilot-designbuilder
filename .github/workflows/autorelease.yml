@@ -1,0 +1,34 @@
+name: Autorelease
+
+# on each main branch push, bump version and publish a release
+"on":
+  push:
+    branches:
+      - main
+
+jobs:
+  autoreleaser:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Semantic Versioning
+        run: |
+          git fetch --prune --unshallow
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+          echo "Latest tag: $latest_tag"
+          bump_type="patch" # Default bump type
+
+          if git log $latest_tag..HEAD --oneline | grep "BREAKING CHANGE"; then
+            bump_type="major"
+          elif git log $latest_tag..HEAD --oneline | grep "feat:"; then
+            bump_type="minor"
+          fi
+
+          new_version=$(semver $latest_tag $bump_type)
+          echo "New version: $new_version"
+          echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
+      - name: Create Tag
+        run: |
+          git tag ${{ env.NEW_VERSION }}
+          git push origin ${{ env.NEW_VERSION }}
