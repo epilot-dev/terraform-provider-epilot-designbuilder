@@ -21,3 +21,12 @@ jobs:
           branch: main
           skipInvalidTags: true
           noVersionBumpBehavior: patch
+      - name: Create Release
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          allowUpdates: true
+          draft: false
+          makeLatest: true
+          name: ${{ steps.semver.outputs.next }}
+          body: Update Terraform Provider with latest API changes
+          token: ${{ secrets.GITHUB_TOKEN }}
