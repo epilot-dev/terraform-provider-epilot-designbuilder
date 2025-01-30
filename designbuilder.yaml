@@ -74,15 +74,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResp"
   /v1/designs/{designId}:
-    get:
-      x-speakeasy-entity-operation: Design#get
-      operationId: getDesign
-      summary: retrieve a specific design by its id
-      description: Search for a specific design owned by user organization
-      tags:
-        - name: APP
-          description: Design-Builder
-      parameters:
+  parameters:
         - in: path
           name: designId
           x-speakeasy-match: id
@@ -91,6 +83,15 @@ paths:
           required: true
           description: Id of the design
           example: 4a062990-a6a3-11eb-9828-4f3da7d4935a
+    get:
+      x-speakeasy-entity-operation: Design#get
+      operationId: getDesign
+      summary: retrieve a specific design by its id
+      description: Search for a specific design owned by user organization
+      tags:
+        - name: APP
+          description: Design-Builder
+    
       responses:
         200:
           description: Success - design loaded with success.

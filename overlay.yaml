@@ -1,0 +1,86 @@
+overlay: 1.0.0
+info:
+  title: Overlay for epilot API
+  version: 0.0.1
+actions: 
+  - target: $["servers"]
+    remove: true
+  - target: $
+    update:
+      servers:
+        - url: https://design-builder-api.sls.epilot.io
+  - target: $
+    update:
+      x-speakeasy-retries:
+        strategy: backoff
+        backoff:
+          initialInterval: 5000 # 5 seconds
+          maxInterval: 60000 # 60 seconds
+          maxElapsedTime: 3600000 # 5 minutes
+          exponent: 1.5
+        statusCodes:
+          - 5XX
+        retryConnectionErrors: true
+
+  - target: $["paths"]["/v1/designs"]["post"]
+    update:
+      x-speakeasy-entity-operation: Design#create
+
+  - target: $["paths"]["/v1/designs/{designId}"]["get"]
+    update:
+      x-speakeasy-entity-operation: Design#get
+  - target: $["paths"]["/v1/designs/{designId}"]["get"]["parameters"][0]
+    update:
+      x-speakeasy-match: id
+  - target: $["paths"]["/v1/designs/{designId}"]["put"]
+    update:
+      x-speakeasy-entity-operation: Design#update
+  - target: $["paths"]["/v1/designs/{designId}"]["put"]["parameters"][0]
+    update:
+      x-speakeasy-match: id
+  - target: $["paths"]["/v1/designs/{designId}"]["delete"]
+    update:
+      x-speakeasy-entity-operation: Design#delete
+  - target: $["paths"]["/v1/designs/{designId}"]["delete"]["parameters"][0]
+    update:
+      x-speakeasy-match: id
+
+  - target: $["components"]["schemas"]["AddDesignReq"]["properties"]["design"]
+    update:
+      x-speakeasy-entity: Design
+  - target: $["components"]["schemas"]["AddDesignRes"]["properties"]["design"]
+    update:
+      x-speakeasy-entity: Design
+  - target: $["components"]["schemas"]["GetDesignReq"]["properties"]["design"]
+    update:
+      x-speakeasy-entity: Design
+  - target: $["components"]["schemas"]["GetDesignRes"]["properties"]["design"]
+    update:
+      x-speakeasy-entity: Design
+  - target: $["components"]["schemas"]["UpdateDesignReq"]["properties"]["design"]
+    update:
+      x-speakeasy-entity: Design
+
+  - target: $["components"]["schemas"]["DesignItem"]["properties"]["brand_id"]
+    update:
+      x-speakeasy-type-override: any
+  - target: $["components"]["schemas"]["DesignItem"]["properties"]["style"]
+    update:
+      x-speakeasy-type-override: any
+
+  # - target: $["components"]["schemas"]["Custom_Style"]["properties"]["custom_theme"]
+  #   update:
+  #     x-speakeasy-type-override: any
+  - target: $["components"]["schemas"]["ConsumerData"]["properties"]["widgets"]["items"]
+    remove: true
+  - target: $["components"]["schemas"]["ConsumerData"]["properties"]["widgets"]
+    update:
+      items: {}
+
+  - target: $["components"]["schemas"]["FontData"]["properties"]["urls"]["items"]
+    remove: true
+  - target: $["components"]["schemas"]["FontData"]["properties"]["urls"]
+    update:
+      items: {}
+
+    

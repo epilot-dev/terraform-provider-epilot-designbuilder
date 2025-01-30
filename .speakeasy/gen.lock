@@ -1,20 +1,24 @@
 lockVersion: 2.0.0
 id: 998a101f-1cb6-4c08-9fd1-b3ee7a1cdeb4
 management:
-  docChecksum: ba0b634f013b3a51aada11726ca60e99
+  docChecksum: 81cffd138f28b65c2ca3ce2c2cf30a28
   docVersion: 0.0.1
-  speakeasyVersion: 1.346.0
-  generationVersion: 2.379.3
-  releaseVersion: 0.8.2
-  configChecksum: 276a88dd22038564ff771b452c438b1e
+  speakeasyVersion: 1.366.0
+  generationVersion: 2.396.0
+  releaseVersion: 0.10.0
+  configChecksum: 6b366d50e270eb8cbba89fdd74cc00af
 features:
   terraform:
     additionalDependencies: 0.1.0
-    core: 3.24.3
-    globalSecurity: 2.81.6
+    core: 3.24.6
+    deprecations: 2.81.1
+    envVarSecurityUsage: 0.1.0
+    globalSecurity: 2.81.8
     globalServerURLs: 2.82.1
+    retries: 2.81.1
     typeOverrides: 2.81.1
 generatedFiles:
+  - internal/sdk/designbuilder.go
   - internal/sdk/sdk.go
   - internal/sdk/models/errors/sdkerror.go
   - internal/sdk/retry/config.go
@@ -33,22 +37,32 @@ generatedFiles:
   - internal/sdk/internal/utils/retries.go
   - internal/sdk/internal/utils/security.go
   - internal/sdk/internal/utils/utils.go
+  - internal/sdk/models/operations/addconsumer.go
   - internal/sdk/models/operations/adddesign.go
   - internal/sdk/models/operations/deletedesign.go
   - internal/sdk/models/operations/getalldesigns.go
+  - internal/sdk/models/operations/getbrands.go
+  - internal/sdk/models/operations/getconsumerdesign.go
   - internal/sdk/models/operations/getdesign.go
+  - internal/sdk/models/operations/getfiles.go
+  - internal/sdk/models/operations/getlimit.go
+  - internal/sdk/models/operations/getthemefromdesign.go
+  - internal/sdk/models/operations/removeconsumer.go
   - internal/sdk/models/operations/updatedesign.go
   - internal/sdk/models/shared/errorresp.go
+  - internal/sdk/models/shared/addconsumerreq.go
   - internal/sdk/models/shared/adddesignres.go
   - internal/sdk/models/shared/adddesignreq.go
   - internal/sdk/models/shared/getalldesignsres.go
+  - internal/sdk/models/shared/getbrandsres.go
+  - internal/sdk/models/shared/branditem.go
   - internal/sdk/models/shared/getdesignres.go
+  - internal/sdk/models/shared/filedata.go
   - internal/sdk/models/shared/updatedesignreq.go
   - internal/sdk/models/shared/security.go
   - internal/sdk/.gitignore
   - internal/sdk/models/operations/options.go
   - internal/sdk/.gitattributes
-  - internal/sdk/internal/hooks/registration.go
   - internal/sdk/internal/hooks/hooks.go
   - internal/sdk/CONTRIBUTING.md
   - examples/README.md
