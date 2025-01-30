@@ -25,7 +25,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
           skipInvalidTags: true
-          noVersionBumpBehavior: patch
+          patchList: ci,fix,bugfix,perf,refactor,test,tests
       - name: Create Release
         uses: ncipollo/release-action@v1.12.0
         with:
