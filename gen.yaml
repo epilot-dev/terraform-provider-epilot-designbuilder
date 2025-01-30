@@ -9,9 +9,10 @@ generation:
     requestResponseComponentNamesFeb2024: false
   auth:
     oAuth2ClientCredentialsEnabled: false
+    oAuth2PasswordEnabled: false
   telemetryEnabled: false
 terraform:
-  version: 0.12.0
+  version: 0.13.0
   additionalDataSources: []
   additionalDependencies: {}
   additionalResources: []

@@ -2,18 +2,18 @@ speakeasyVersion: 1.477.2
 sources:
     my-source:
         sourceNamespace: my-source
-        sourceRevisionDigest: sha256:5d8ef578afb626f07b4fd0f3c32ec3d4aded221d182ce7f0bd5e07b109368701
-        sourceBlobDigest: sha256:3d19b915e995ee39bbc24b08299cbd94a609f24739aeba849282d037c3519c10
+        sourceRevisionDigest: sha256:662a7e163d8a31aef7774a68e86e032c01b94a11e11c5001f7a5cf2b7b1cd53c
+        sourceBlobDigest: sha256:ec33bbdc357a273611e581125547c2cefe0f3bf75e58500ae01a4a34159ceb20
         tags:
             - latest
-            - speakeasy-sdk-regen-1736900047
+            - speakeasy-sdk-regen-1738252747
             - 0.0.1
 targets:
     terraform:
         source: my-source
         sourceNamespace: my-source
-        sourceRevisionDigest: sha256:5d8ef578afb626f07b4fd0f3c32ec3d4aded221d182ce7f0bd5e07b109368701
-        sourceBlobDigest: sha256:3d19b915e995ee39bbc24b08299cbd94a609f24739aeba849282d037c3519c10
+        sourceRevisionDigest: sha256:662a7e163d8a31aef7774a68e86e032c01b94a11e11c5001f7a5cf2b7b1cd53c
+        sourceBlobDigest: sha256:ec33bbdc357a273611e581125547c2cefe0f3bf75e58500ae01a4a34159ceb20
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -21,6 +21,8 @@ workflow:
         my-source:
             inputs:
                 - location: https://docs.api.epilot.io/design-builder-api.yaml
+            overlays:
+                - location: overlay.yaml
             registry:
                 location: registry.speakeasyapi.dev/epilot/epilot/my-source
     targets:
