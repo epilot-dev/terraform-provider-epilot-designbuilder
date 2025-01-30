@@ -5,8 +5,8 @@ management:
   docVersion: 0.0.1
   speakeasyVersion: 1.477.2
   generationVersion: 2.497.8
-  releaseVersion: 0.11.0
-  configChecksum: cd042e6f056cd6f641c4ff03bab1fcc4
+  releaseVersion: 0.11.1
+  configChecksum: 24931057dd28ee5fd193d2b21681acf2
   repoURL: https://github.com/epilot-dev/terraform-provider-epilot-designbuilder.git
 features:
   terraform:
