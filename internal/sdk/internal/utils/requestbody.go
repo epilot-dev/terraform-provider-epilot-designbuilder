@@ -66,16 +66,15 @@ func serializeRequestBody(request interface{}, nullable, optional bool, requestF
 		if tag != nil {
 			// request object (non-flattened)
 			requestVal := requestValType.FieldByName(requestFieldName)
-			val := reflect.ValueOf(requestVal.Interface())
 			if isNil(requestField.Type, requestVal) {
 				if !nullable && optional {
 					return nil, "", nil
 				}
 
-				return serializeContentType(requestFieldName, tag.MediaType, val, string(requestField.Tag))
+				return serializeContentType(requestFieldName, tag.MediaType, requestVal, string(requestField.Tag))
 			}
 
-			return serializeContentType(requestFieldName, tag.MediaType, val, string(requestField.Tag))
+			return serializeContentType(requestFieldName, tag.MediaType, requestVal, string(requestField.Tag))
 		}
 	}
 
@@ -83,7 +82,7 @@ func serializeRequestBody(request interface{}, nullable, optional bool, requestF
 	return serializeContentType(requestFieldName, SerializationMethodToContentType[serializationMethod], reflect.ValueOf(request), tag)
 }
 
-func serializeContentType(fieldName string, mediaType string, val reflect.Value, tag string) (io.Reader, string, error) {
+func serializeContentType(fieldName string, mediaType string, val reflect.Value, tag string) (*bytes.Buffer, string, error) {
 	buf := &bytes.Buffer{}
 
 	if isNil(val.Type(), val) {
@@ -117,8 +116,6 @@ func serializeContentType(fieldName string, mediaType string, val reflect.Value,
 		if err := encodeFormData(fieldName, buf, val.Interface()); err != nil {
 			return nil, "", err
 		}
-	case val.Type().Implements(reflect.TypeOf((*io.Reader)(nil)).Elem()):
-		return val.Interface().(io.Reader), mediaType, nil
 	default:
 		val = reflect.Indirect(val)
 
@@ -127,8 +124,8 @@ func serializeContentType(fieldName string, mediaType string, val reflect.Value,
 			if _, err := buf.WriteString(valToString(val.Interface())); err != nil {
 				return nil, "", err
 			}
-		case reflect.TypeOf(val.Interface()) == reflect.TypeOf([]byte(nil)):
-			if _, err := buf.Write(val.Interface().([]byte)); err != nil {
+		case val.Type() == reflect.TypeOf([]byte(nil)):
+			if _, err := buf.Write(val.Bytes()); err != nil {
 				return nil, "", err
 			}
 		default:
@@ -166,7 +163,7 @@ func encodeMultipartFormData(w io.Writer, data interface{}) (string, error) {
 
 		tag := parseMultipartFormTag(field)
 		if tag.File {
-			if err := encodeMultipartFormDataFile(writer, tag.Name, fieldType, valType); err != nil {
+			if err := encodeMultipartFormDataFile(writer, fieldType, valType); err != nil {
 				writer.Close()
 				return "", err
 			}
@@ -211,13 +208,14 @@ func encodeMultipartFormData(w io.Writer, data interface{}) (string, error) {
 	return writer.FormDataContentType(), nil
 }
 
-func encodeMultipartFormDataFile(w *multipart.Writer, fieldName string, fieldType reflect.Type, valType reflect.Value) error {
+func encodeMultipartFormDataFile(w *multipart.Writer, fieldType reflect.Type, valType reflect.Value) error {
 	if fieldType.Kind() != reflect.Struct {
 		return fmt.Errorf("invalid type %s for multipart/form-data file", valType.Type())
 	}
 
+	var fieldName string
 	var fileName string
-	var reader io.Reader
+	var content []byte
 
 	for i := 0; i < fieldType.NumField(); i++ {
 		field := fieldType.Field(i)
@@ -228,18 +226,15 @@ func encodeMultipartFormDataFile(w *multipart.Writer, fieldName string, fieldTyp
 			continue
 		}
 
-		if tag.Content && val.CanInterface() {
-			if reflect.TypeOf(val.Interface()) == reflect.TypeOf([]byte(nil)) {
-				reader = bytes.NewReader(val.Interface().([]byte))
-			} else if reflect.TypeOf(val.Interface()).Implements(reflect.TypeOf((*io.Reader)(nil)).Elem()) {
-				reader = val.Interface().(io.Reader)
-			}
+		if tag.Content {
+			content = val.Bytes()
 		} else {
+			fieldName = tag.Name
 			fileName = val.String()
 		}
 	}
 
-	if fileName == "" || reader == nil {
+	if fieldName == "" || fileName == "" || content == nil {
 		return fmt.Errorf("invalid multipart/form-data file")
 	}
 
@@ -247,7 +242,7 @@ func encodeMultipartFormDataFile(w *multipart.Writer, fieldName string, fieldTyp
 	if err != nil {
 		return err
 	}
-	if _, err := io.Copy(fw, reader); err != nil {
+	if _, err := fw.Write(content); err != nil {
 		return err
 	}
 

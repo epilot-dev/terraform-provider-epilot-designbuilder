@@ -7,7 +7,6 @@ import (
 	tfTypes "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/provider/types"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/models/shared"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"time"
 )
 
 func (r *DesignResourceModel) ToSharedDesign() *shared.Design {
@@ -122,22 +121,14 @@ func (r *DesignResourceModel) RefreshFromSharedAddDesignResDesign(resp *shared.A
 		r.BrandName = types.StringPointerValue(resp.BrandName)
 		r.Cashback = types.StringPointerValue(resp.Cashback)
 		r.Coupon = types.StringPointerValue(resp.Coupon)
-		if resp.CreatedAt != nil {
-			r.CreatedAt = types.StringValue(resp.CreatedAt.Format(time.RFC3339Nano))
-		} else {
-			r.CreatedAt = types.StringNull()
-		}
+		r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
 		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
 		r.CustomCSS = types.StringPointerValue(resp.CustomCSS)
 		r.CustomTheme = types.StringPointerValue(resp.CustomTheme)
 		r.Edited = types.BoolValue(resp.Edited)
 		r.ID = types.StringPointerValue(resp.ID)
 		r.IsDefault = types.BoolPointerValue(resp.IsDefault)
-		if resp.LastModifiedAt != nil {
-			r.LastModifiedAt = types.StringValue(resp.LastModifiedAt.Format(time.RFC3339Nano))
-		} else {
-			r.LastModifiedAt = types.StringNull()
-		}
+		r.LastModifiedAt = types.StringPointerValue(resp.LastModifiedAt)
 		styleResult, _ := json.Marshal(resp.Style)
 		r.Style = types.StringValue(string(styleResult))
 		r.StyleName = types.StringValue(resp.StyleName)
@@ -165,22 +156,14 @@ func (r *DesignResourceModel) RefreshFromSharedGetDesignResDesign(resp *shared.G
 		r.BrandName = types.StringPointerValue(resp.BrandName)
 		r.Cashback = types.StringPointerValue(resp.Cashback)
 		r.Coupon = types.StringPointerValue(resp.Coupon)
-		if resp.CreatedAt != nil {
-			r.CreatedAt = types.StringValue(resp.CreatedAt.Format(time.RFC3339Nano))
-		} else {
-			r.CreatedAt = types.StringNull()
-		}
+		r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
 		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
 		r.CustomCSS = types.StringPointerValue(resp.CustomCSS)
 		r.CustomTheme = types.StringPointerValue(resp.CustomTheme)
 		r.Edited = types.BoolValue(resp.Edited)
 		r.ID = types.StringPointerValue(resp.ID)
 		r.IsDefault = types.BoolPointerValue(resp.IsDefault)
-		if resp.LastModifiedAt != nil {
-			r.LastModifiedAt = types.StringValue(resp.LastModifiedAt.Format(time.RFC3339Nano))
-		} else {
-			r.LastModifiedAt = types.StringNull()
-		}
+		r.LastModifiedAt = types.StringPointerValue(resp.LastModifiedAt)
 		styleResult, _ := json.Marshal(resp.Style)
 		r.Style = types.StringValue(string(styleResult))
 		r.StyleName = types.StringValue(resp.StyleName)

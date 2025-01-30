@@ -2,11 +2,6 @@
 
 package shared
 
-import (
-	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/internal/utils"
-	"time"
-)
-
 type GetDesignResUser struct {
 	Emailaddress *string `json:"emailaddress,omitempty"`
 	Fullname     *string `json:"fullname,omitempty"`
@@ -48,29 +43,18 @@ type GetDesignResDesign struct {
 	Cashback  *string `json:"cashback,omitempty"`
 	Coupon    *string `json:"coupon,omitempty"`
 	// Creation date and time using ISO 8601 full-time format
-	CreatedAt      *time.Time        `json:"created_at,omitempty"`
+	CreatedAt      *string           `json:"created_at,omitempty"`
 	CreatedBy      *string           `json:"created_by,omitempty"`
 	CustomCSS      *string           `json:"custom_css,omitempty"`
 	CustomTheme    *string           `json:"custom_theme,omitempty"`
 	Edited         bool              `json:"edited"`
 	ID             *string           `json:"id,omitempty"`
 	IsDefault      *bool             `json:"is_default,omitempty"`
-	LastModifiedAt *time.Time        `json:"last_modified_at,omitempty"`
+	LastModifiedAt *string           `json:"last_modified_at,omitempty"`
 	Style          any               `json:"style"`
 	StyleName      string            `json:"style_name"`
 	UseCustomTheme *bool             `json:"use_custom_theme,omitempty"`
 	User           *GetDesignResUser `json:"user,omitempty"`
-}
-
-func (g GetDesignResDesign) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(g, "", false)
-}
-
-func (g *GetDesignResDesign) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, false); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (o *GetDesignResDesign) GetBrandID() any {
@@ -101,7 +85,7 @@ func (o *GetDesignResDesign) GetCoupon() *string {
 	return o.Coupon
 }
 
-func (o *GetDesignResDesign) GetCreatedAt() *time.Time {
+func (o *GetDesignResDesign) GetCreatedAt() *string {
 	if o == nil {
 		return nil
 	}
@@ -150,7 +134,7 @@ func (o *GetDesignResDesign) GetIsDefault() *bool {
 	return o.IsDefault
 }
 
-func (o *GetDesignResDesign) GetLastModifiedAt() *time.Time {
+func (o *GetDesignResDesign) GetLastModifiedAt() *string {
 	if o == nil {
 		return nil
 	}

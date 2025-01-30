@@ -82,9 +82,6 @@ func (r *DesignResource) Schema(ctx context.Context, req resource.SchemaRequest,
 			"created_at": schema.StringAttribute{
 				Computed:    true,
 				Description: `Creation date and time using ISO 8601 full-time format`,
-				Validators: []validator.String{
-					validators.IsRFC3339(),
-				},
 			},
 			"created_by": schema.StringAttribute{
 				Computed: true,
@@ -109,9 +106,6 @@ func (r *DesignResource) Schema(ctx context.Context, req resource.SchemaRequest,
 			},
 			"last_modified_at": schema.StringAttribute{
 				Computed: true,
-				Validators: []validator.String{
-					validators.IsRFC3339(),
-				},
 			},
 			"style": schema.StringAttribute{
 				Required:    true,

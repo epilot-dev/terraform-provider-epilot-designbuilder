@@ -75,13 +75,10 @@ func (p *EpilotDesignbuilderProvider) Configure(ctx context.Context, req provide
 		CustomAuthorizer: customAuthorizer,
 	}
 
-	httpClient := http.DefaultClient
-	httpClient.Transport = NewLoggingHTTPTransport(http.DefaultTransport)
-
 	opts := []sdk.SDKOption{
 		sdk.WithServerURL(ServerURL),
 		sdk.WithSecurity(security),
-		sdk.WithClient(httpClient),
+		sdk.WithClient(http.DefaultClient),
 	}
 	client := sdk.New(opts...)
 
