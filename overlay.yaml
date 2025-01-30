@@ -83,4 +83,10 @@ actions:
     update:
       items: {}
 
+  # these aren't actually date-time
+  - target: $["components"]["schemas"]["ItemMetada"]["properties"]["created_at"]["format"]
+    remove: true
+  - target: $["components"]["schemas"]["ItemMetada"]["properties"]["last_modified_at"]["format"]
+    remove: true
+
     
