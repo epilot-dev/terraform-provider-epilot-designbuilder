@@ -14,7 +14,6 @@ Design DataSource
 
 ```terraform
 data "epilot-designbuilder_design" "my_design" {
-  design_id = "4a062990-a6a3-11eb-9828-4f3da7d4935a"
 }
 ```
 
@@ -25,12 +24,10 @@ data "epilot-designbuilder_design" "my_design" {
 
 - `brand_id` (String) Parsed as JSON.
 - `brand_name` (String)
-- `cashback` (String)
-- `coupon` (String)
-- `created_at` (String) Creation date and time using ISO 8601 full-time format
+- `created_at` (String) Creation date and time
 - `created_by` (String)
-- `custom_css` (String)
 - `custom_theme` (String)
+- `design_tokens` (Attributes) (see [below for nested schema](#nestedatt--design_tokens))
 - `edited` (Boolean)
 - `id` (String) The ID of this resource.
 - `is_default` (Boolean)
@@ -39,6 +36,16 @@ data "epilot-designbuilder_design" "my_design" {
 - `style_name` (String)
 - `use_custom_theme` (Boolean)
 - `user` (Attributes) (see [below for nested schema](#nestedatt--user))
+
+<a id="nestedatt--design_tokens"></a>
+### Nested Schema for `design_tokens`
+
+Read-Only:
+
+- `cashback` (String)
+- `coupon` (String)
+- `custom_css` (String)
+
 
 <a id="nestedatt--user"></a>
 ### Nested Schema for `user`
