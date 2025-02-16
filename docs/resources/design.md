@@ -14,17 +14,24 @@ Design Resource
 
 ```terraform
 resource "epilot-designbuilder_design" "my_design" {
-  brand_id         = "{ \"see\": \"documentation\" }"
-  brand_name       = "...my_brand_name..."
-  cashback         = "...my_cashback..."
-  coupon           = "...my_coupon..."
-  custom_css       = "...my_custom_css..."
-  custom_theme     = "...my_custom_theme..."
-  design_id        = "4a062990-a6a3-11eb-9828-4f3da7d4935a"
+  brand_id     = "{ \"see\": \"documentation\" }"
+  brand_name   = "...my_brand_name..."
+  custom_theme = "...my_custom_theme..."
+  design_tokens = {
+    cashback   = "...my_cashback..."
+    coupon     = "...my_coupon..."
+    custom_css = "...my_custom_css..."
+  }
   is_default       = true
   style            = "{ \"see\": \"documentation\" }"
   style_name       = "...my_style_name..."
-  use_custom_theme = true
+  use_custom_theme = false
+  user = {
+    emailaddress = "...my_emailaddress..."
+    fullname     = "...my_fullname..."
+    name         = "...my_name..."
+    userid       = "...my_userid..."
+  }
 }
 ```
 
@@ -40,21 +47,29 @@ resource "epilot-designbuilder_design" "my_design" {
 
 - `brand_id` (String) Parsed as JSON.
 - `brand_name` (String)
-- `cashback` (String)
-- `coupon` (String)
-- `custom_css` (String)
 - `custom_theme` (String)
+- `design_tokens` (Attributes) (see [below for nested schema](#nestedatt--design_tokens))
 - `is_default` (Boolean)
 - `use_custom_theme` (Boolean)
 - `user` (Attributes) (see [below for nested schema](#nestedatt--user))
 
 ### Read-Only
 
-- `created_at` (String) Creation date and time using ISO 8601 full-time format
+- `created_at` (String) Creation date and time
 - `created_by` (String)
 - `edited` (Boolean)
 - `id` (String) The ID of this resource.
 - `last_modified_at` (String)
+
+<a id="nestedatt--design_tokens"></a>
+### Nested Schema for `design_tokens`
+
+Optional:
+
+- `cashback` (String)
+- `coupon` (String)
+- `custom_css` (String)
+
 
 <a id="nestedatt--user"></a>
 ### Nested Schema for `user`
