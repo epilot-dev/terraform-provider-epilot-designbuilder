@@ -2,6 +2,33 @@
 
 package shared
 
+type UpdateDesignReqDesignTokens struct {
+	Cashback  *string `json:"cashback,omitempty"`
+	Coupon    *string `json:"coupon,omitempty"`
+	CustomCSS *string `json:"custom_css,omitempty"`
+}
+
+func (o *UpdateDesignReqDesignTokens) GetCashback() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Cashback
+}
+
+func (o *UpdateDesignReqDesignTokens) GetCoupon() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Coupon
+}
+
+func (o *UpdateDesignReqDesignTokens) GetCustomCSS() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomCSS
+}
+
 type UpdateDesignReqUser struct {
 	Emailaddress *string `json:"emailaddress,omitempty"`
 	Fullname     *string `json:"fullname,omitempty"`
@@ -38,17 +65,15 @@ func (o *UpdateDesignReqUser) GetUserid() *string {
 }
 
 type UpdateDesignReqDesign struct {
-	BrandID        any                  `json:"brand_id,omitempty"`
-	BrandName      *string              `json:"brand_name,omitempty"`
-	Cashback       *string              `json:"cashback,omitempty"`
-	Coupon         *string              `json:"coupon,omitempty"`
-	CustomCSS      *string              `json:"custom_css,omitempty"`
-	CustomTheme    *string              `json:"custom_theme,omitempty"`
-	IsDefault      *bool                `json:"is_default,omitempty"`
-	Style          any                  `json:"style"`
-	StyleName      string               `json:"style_name"`
-	UseCustomTheme *bool                `json:"use_custom_theme,omitempty"`
-	User           *UpdateDesignReqUser `json:"user,omitempty"`
+	BrandID        any                          `json:"brand_id,omitempty"`
+	BrandName      *string                      `json:"brand_name,omitempty"`
+	CustomTheme    any                          `json:"custom_theme,omitempty"`
+	DesignTokens   *UpdateDesignReqDesignTokens `json:"design_tokens,omitempty"`
+	IsDefault      *bool                        `json:"is_default,omitempty"`
+	Style          any                          `json:"style"`
+	StyleName      string                       `json:"style_name"`
+	UseCustomTheme *bool                        `json:"use_custom_theme,omitempty"`
+	User           *UpdateDesignReqUser         `json:"user,omitempty"`
 }
 
 func (o *UpdateDesignReqDesign) GetBrandID() any {
@@ -65,32 +90,18 @@ func (o *UpdateDesignReqDesign) GetBrandName() *string {
 	return o.BrandName
 }
 
-func (o *UpdateDesignReqDesign) GetCashback() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Cashback
-}
-
-func (o *UpdateDesignReqDesign) GetCoupon() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Coupon
-}
-
-func (o *UpdateDesignReqDesign) GetCustomCSS() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CustomCSS
-}
-
-func (o *UpdateDesignReqDesign) GetCustomTheme() *string {
+func (o *UpdateDesignReqDesign) GetCustomTheme() any {
 	if o == nil {
 		return nil
 	}
 	return o.CustomTheme
+}
+
+func (o *UpdateDesignReqDesign) GetDesignTokens() *UpdateDesignReqDesignTokens {
+	if o == nil {
+		return nil
+	}
+	return o.DesignTokens
 }
 
 func (o *UpdateDesignReqDesign) GetIsDefault() *bool {

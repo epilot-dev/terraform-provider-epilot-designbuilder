@@ -68,9 +68,9 @@ actions:
     update:
       x-speakeasy-type-override: any
 
-  # - target: $["components"]["schemas"]["Custom_Style"]["properties"]["custom_theme"]
-  #   update:
-  #     x-speakeasy-type-override: any
+  - target: $["components"]["schemas"]["Custom_Style"]["properties"]["custom_theme"]
+    update:
+      x-speakeasy-type-override: any
   - target: $["components"]["schemas"]["ConsumerData"]["properties"]["widgets"]["items"]
     remove: true
   - target: $["components"]["schemas"]["ConsumerData"]["properties"]["widgets"]

@@ -18,12 +18,22 @@ func (r *DesignDataSourceModel) RefreshFromSharedGetDesignResDesign(resp *shared
 			r.BrandID = types.StringValue(string(brandIDResult))
 		}
 		r.BrandName = types.StringPointerValue(resp.BrandName)
-		r.Cashback = types.StringPointerValue(resp.Cashback)
-		r.Coupon = types.StringPointerValue(resp.Coupon)
 		r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
 		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
-		r.CustomCSS = types.StringPointerValue(resp.CustomCSS)
-		r.CustomTheme = types.StringPointerValue(resp.CustomTheme)
+		if resp.CustomTheme == nil {
+			r.CustomTheme = types.StringNull()
+		} else {
+			customThemeResult, _ := json.Marshal(resp.CustomTheme)
+			r.CustomTheme = types.StringValue(string(customThemeResult))
+		}
+		if resp.DesignTokens == nil {
+			r.DesignTokens = nil
+		} else {
+			r.DesignTokens = &tfTypes.DesignTokens{}
+			r.DesignTokens.Cashback = types.StringPointerValue(resp.DesignTokens.Cashback)
+			r.DesignTokens.Coupon = types.StringPointerValue(resp.DesignTokens.Coupon)
+			r.DesignTokens.CustomCSS = types.StringPointerValue(resp.DesignTokens.CustomCSS)
+		}
 		r.Edited = types.BoolValue(resp.Edited)
 		r.ID = types.StringPointerValue(resp.ID)
 		r.IsDefault = types.BoolPointerValue(resp.IsDefault)

@@ -20,29 +20,35 @@ func (r *DesignResourceModel) ToSharedDesign() *shared.Design {
 	} else {
 		brandName = nil
 	}
-	cashback := new(string)
-	if !r.Cashback.IsUnknown() && !r.Cashback.IsNull() {
-		*cashback = r.Cashback.ValueString()
-	} else {
-		cashback = nil
-	}
-	coupon := new(string)
-	if !r.Coupon.IsUnknown() && !r.Coupon.IsNull() {
-		*coupon = r.Coupon.ValueString()
-	} else {
-		coupon = nil
-	}
-	customCSS := new(string)
-	if !r.CustomCSS.IsUnknown() && !r.CustomCSS.IsNull() {
-		*customCSS = r.CustomCSS.ValueString()
-	} else {
-		customCSS = nil
-	}
-	customTheme := new(string)
+	var customTheme interface{}
 	if !r.CustomTheme.IsUnknown() && !r.CustomTheme.IsNull() {
-		*customTheme = r.CustomTheme.ValueString()
-	} else {
-		customTheme = nil
+		_ = json.Unmarshal([]byte(r.CustomTheme.ValueString()), &customTheme)
+	}
+	var designTokens *shared.DesignTokens
+	if r.DesignTokens != nil {
+		cashback := new(string)
+		if !r.DesignTokens.Cashback.IsUnknown() && !r.DesignTokens.Cashback.IsNull() {
+			*cashback = r.DesignTokens.Cashback.ValueString()
+		} else {
+			cashback = nil
+		}
+		coupon := new(string)
+		if !r.DesignTokens.Coupon.IsUnknown() && !r.DesignTokens.Coupon.IsNull() {
+			*coupon = r.DesignTokens.Coupon.ValueString()
+		} else {
+			coupon = nil
+		}
+		customCSS := new(string)
+		if !r.DesignTokens.CustomCSS.IsUnknown() && !r.DesignTokens.CustomCSS.IsNull() {
+			*customCSS = r.DesignTokens.CustomCSS.ValueString()
+		} else {
+			customCSS = nil
+		}
+		designTokens = &shared.DesignTokens{
+			Cashback:  cashback,
+			Coupon:    coupon,
+			CustomCSS: customCSS,
+		}
 	}
 	isDefault := new(bool)
 	if !r.IsDefault.IsUnknown() && !r.IsDefault.IsNull() {
@@ -97,10 +103,8 @@ func (r *DesignResourceModel) ToSharedDesign() *shared.Design {
 	out := shared.Design{
 		BrandID:        brandID,
 		BrandName:      brandName,
-		Cashback:       cashback,
-		Coupon:         coupon,
-		CustomCSS:      customCSS,
 		CustomTheme:    customTheme,
+		DesignTokens:   designTokens,
 		IsDefault:      isDefault,
 		Style:          style,
 		StyleName:      styleName,
@@ -119,12 +123,22 @@ func (r *DesignResourceModel) RefreshFromSharedAddDesignResDesign(resp *shared.A
 			r.BrandID = types.StringValue(string(brandIDResult))
 		}
 		r.BrandName = types.StringPointerValue(resp.BrandName)
-		r.Cashback = types.StringPointerValue(resp.Cashback)
-		r.Coupon = types.StringPointerValue(resp.Coupon)
 		r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
 		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
-		r.CustomCSS = types.StringPointerValue(resp.CustomCSS)
-		r.CustomTheme = types.StringPointerValue(resp.CustomTheme)
+		if resp.CustomTheme == nil {
+			r.CustomTheme = types.StringNull()
+		} else {
+			customThemeResult, _ := json.Marshal(resp.CustomTheme)
+			r.CustomTheme = types.StringValue(string(customThemeResult))
+		}
+		if resp.DesignTokens == nil {
+			r.DesignTokens = nil
+		} else {
+			r.DesignTokens = &tfTypes.DesignTokens{}
+			r.DesignTokens.Cashback = types.StringPointerValue(resp.DesignTokens.Cashback)
+			r.DesignTokens.Coupon = types.StringPointerValue(resp.DesignTokens.Coupon)
+			r.DesignTokens.CustomCSS = types.StringPointerValue(resp.DesignTokens.CustomCSS)
+		}
 		r.Edited = types.BoolValue(resp.Edited)
 		r.ID = types.StringPointerValue(resp.ID)
 		r.IsDefault = types.BoolPointerValue(resp.IsDefault)
@@ -154,12 +168,22 @@ func (r *DesignResourceModel) RefreshFromSharedGetDesignResDesign(resp *shared.G
 			r.BrandID = types.StringValue(string(brandIDResult))
 		}
 		r.BrandName = types.StringPointerValue(resp.BrandName)
-		r.Cashback = types.StringPointerValue(resp.Cashback)
-		r.Coupon = types.StringPointerValue(resp.Coupon)
 		r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
 		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
-		r.CustomCSS = types.StringPointerValue(resp.CustomCSS)
-		r.CustomTheme = types.StringPointerValue(resp.CustomTheme)
+		if resp.CustomTheme == nil {
+			r.CustomTheme = types.StringNull()
+		} else {
+			customThemeResult, _ := json.Marshal(resp.CustomTheme)
+			r.CustomTheme = types.StringValue(string(customThemeResult))
+		}
+		if resp.DesignTokens == nil {
+			r.DesignTokens = nil
+		} else {
+			r.DesignTokens = &tfTypes.DesignTokens{}
+			r.DesignTokens.Cashback = types.StringPointerValue(resp.DesignTokens.Cashback)
+			r.DesignTokens.Coupon = types.StringPointerValue(resp.DesignTokens.Coupon)
+			r.DesignTokens.CustomCSS = types.StringPointerValue(resp.DesignTokens.CustomCSS)
+		}
 		r.Edited = types.BoolValue(resp.Edited)
 		r.ID = types.StringPointerValue(resp.ID)
 		r.IsDefault = types.BoolPointerValue(resp.IsDefault)
@@ -191,29 +215,35 @@ func (r *DesignResourceModel) ToSharedUpdateDesignReqDesign() *shared.UpdateDesi
 	} else {
 		brandName = nil
 	}
-	cashback := new(string)
-	if !r.Cashback.IsUnknown() && !r.Cashback.IsNull() {
-		*cashback = r.Cashback.ValueString()
-	} else {
-		cashback = nil
-	}
-	coupon := new(string)
-	if !r.Coupon.IsUnknown() && !r.Coupon.IsNull() {
-		*coupon = r.Coupon.ValueString()
-	} else {
-		coupon = nil
-	}
-	customCSS := new(string)
-	if !r.CustomCSS.IsUnknown() && !r.CustomCSS.IsNull() {
-		*customCSS = r.CustomCSS.ValueString()
-	} else {
-		customCSS = nil
-	}
-	customTheme := new(string)
+	var customTheme interface{}
 	if !r.CustomTheme.IsUnknown() && !r.CustomTheme.IsNull() {
-		*customTheme = r.CustomTheme.ValueString()
-	} else {
-		customTheme = nil
+		_ = json.Unmarshal([]byte(r.CustomTheme.ValueString()), &customTheme)
+	}
+	var designTokens *shared.UpdateDesignReqDesignTokens
+	if r.DesignTokens != nil {
+		cashback := new(string)
+		if !r.DesignTokens.Cashback.IsUnknown() && !r.DesignTokens.Cashback.IsNull() {
+			*cashback = r.DesignTokens.Cashback.ValueString()
+		} else {
+			cashback = nil
+		}
+		coupon := new(string)
+		if !r.DesignTokens.Coupon.IsUnknown() && !r.DesignTokens.Coupon.IsNull() {
+			*coupon = r.DesignTokens.Coupon.ValueString()
+		} else {
+			coupon = nil
+		}
+		customCSS := new(string)
+		if !r.DesignTokens.CustomCSS.IsUnknown() && !r.DesignTokens.CustomCSS.IsNull() {
+			*customCSS = r.DesignTokens.CustomCSS.ValueString()
+		} else {
+			customCSS = nil
+		}
+		designTokens = &shared.UpdateDesignReqDesignTokens{
+			Cashback:  cashback,
+			Coupon:    coupon,
+			CustomCSS: customCSS,
+		}
 	}
 	isDefault := new(bool)
 	if !r.IsDefault.IsUnknown() && !r.IsDefault.IsNull() {
@@ -268,10 +298,8 @@ func (r *DesignResourceModel) ToSharedUpdateDesignReqDesign() *shared.UpdateDesi
 	out := shared.UpdateDesignReqDesign{
 		BrandID:        brandID,
 		BrandName:      brandName,
-		Cashback:       cashback,
-		Coupon:         coupon,
-		CustomCSS:      customCSS,
 		CustomTheme:    customTheme,
+		DesignTokens:   designTokens,
 		IsDefault:      isDefault,
 		Style:          style,
 		StyleName:      styleName,
