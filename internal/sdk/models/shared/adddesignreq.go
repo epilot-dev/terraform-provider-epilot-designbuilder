@@ -2,6 +2,33 @@
 
 package shared
 
+type DesignTokens struct {
+	Cashback  *string `json:"cashback,omitempty"`
+	Coupon    *string `json:"coupon,omitempty"`
+	CustomCSS *string `json:"custom_css,omitempty"`
+}
+
+func (o *DesignTokens) GetCashback() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Cashback
+}
+
+func (o *DesignTokens) GetCoupon() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Coupon
+}
+
+func (o *DesignTokens) GetCustomCSS() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomCSS
+}
+
 type User struct {
 	Emailaddress *string `json:"emailaddress,omitempty"`
 	Fullname     *string `json:"fullname,omitempty"`
@@ -38,17 +65,15 @@ func (o *User) GetUserid() *string {
 }
 
 type Design struct {
-	BrandID        any     `json:"brand_id,omitempty"`
-	BrandName      *string `json:"brand_name,omitempty"`
-	Cashback       *string `json:"cashback,omitempty"`
-	Coupon         *string `json:"coupon,omitempty"`
-	CustomCSS      *string `json:"custom_css,omitempty"`
-	CustomTheme    *string `json:"custom_theme,omitempty"`
-	IsDefault      *bool   `json:"is_default,omitempty"`
-	Style          any     `json:"style"`
-	StyleName      string  `json:"style_name"`
-	UseCustomTheme *bool   `json:"use_custom_theme,omitempty"`
-	User           *User   `json:"user,omitempty"`
+	BrandID        any           `json:"brand_id,omitempty"`
+	BrandName      *string       `json:"brand_name,omitempty"`
+	CustomTheme    *string       `json:"custom_theme,omitempty"`
+	DesignTokens   *DesignTokens `json:"design_tokens,omitempty"`
+	IsDefault      *bool         `json:"is_default,omitempty"`
+	Style          any           `json:"style"`
+	StyleName      string        `json:"style_name"`
+	UseCustomTheme *bool         `json:"use_custom_theme,omitempty"`
+	User           *User         `json:"user,omitempty"`
 }
 
 func (o *Design) GetBrandID() any {
@@ -65,32 +90,18 @@ func (o *Design) GetBrandName() *string {
 	return o.BrandName
 }
 
-func (o *Design) GetCashback() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Cashback
-}
-
-func (o *Design) GetCoupon() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Coupon
-}
-
-func (o *Design) GetCustomCSS() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CustomCSS
-}
-
 func (o *Design) GetCustomTheme() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CustomTheme
+}
+
+func (o *Design) GetDesignTokens() *DesignTokens {
+	if o == nil {
+		return nil
+	}
+	return o.DesignTokens
 }
 
 func (o *Design) GetIsDefault() *bool {

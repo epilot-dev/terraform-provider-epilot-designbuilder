@@ -29,22 +29,20 @@ type DesignDataSource struct {
 
 // DesignDataSourceModel describes the data model.
 type DesignDataSourceModel struct {
-	BrandID        types.String  `tfsdk:"brand_id"`
-	BrandName      types.String  `tfsdk:"brand_name"`
-	Cashback       types.String  `tfsdk:"cashback"`
-	Coupon         types.String  `tfsdk:"coupon"`
-	CreatedAt      types.String  `tfsdk:"created_at"`
-	CreatedBy      types.String  `tfsdk:"created_by"`
-	CustomCSS      types.String  `tfsdk:"custom_css"`
-	CustomTheme    types.String  `tfsdk:"custom_theme"`
-	Edited         types.Bool    `tfsdk:"edited"`
-	ID             types.String  `tfsdk:"id"`
-	IsDefault      types.Bool    `tfsdk:"is_default"`
-	LastModifiedAt types.String  `tfsdk:"last_modified_at"`
-	Style          types.String  `tfsdk:"style"`
-	StyleName      types.String  `tfsdk:"style_name"`
-	UseCustomTheme types.Bool    `tfsdk:"use_custom_theme"`
-	User           *tfTypes.User `tfsdk:"user"`
+	BrandID        types.String          `tfsdk:"brand_id"`
+	BrandName      types.String          `tfsdk:"brand_name"`
+	CreatedAt      types.String          `tfsdk:"created_at"`
+	CreatedBy      types.String          `tfsdk:"created_by"`
+	CustomTheme    types.String          `tfsdk:"custom_theme"`
+	DesignTokens   *tfTypes.DesignTokens `tfsdk:"design_tokens"`
+	Edited         types.Bool            `tfsdk:"edited"`
+	ID             types.String          `tfsdk:"id"`
+	IsDefault      types.Bool            `tfsdk:"is_default"`
+	LastModifiedAt types.String          `tfsdk:"last_modified_at"`
+	Style          types.String          `tfsdk:"style"`
+	StyleName      types.String          `tfsdk:"style_name"`
+	UseCustomTheme types.Bool            `tfsdk:"use_custom_theme"`
+	User           *tfTypes.User         `tfsdk:"user"`
 }
 
 // Metadata returns the data source type name.
@@ -65,24 +63,29 @@ func (r *DesignDataSource) Schema(ctx context.Context, req datasource.SchemaRequ
 			"brand_name": schema.StringAttribute{
 				Computed: true,
 			},
-			"cashback": schema.StringAttribute{
-				Computed: true,
-			},
-			"coupon": schema.StringAttribute{
-				Computed: true,
-			},
 			"created_at": schema.StringAttribute{
 				Computed:    true,
-				Description: `Creation date and time using ISO 8601 full-time format`,
+				Description: `Creation date and time`,
 			},
 			"created_by": schema.StringAttribute{
 				Computed: true,
 			},
-			"custom_css": schema.StringAttribute{
-				Computed: true,
-			},
 			"custom_theme": schema.StringAttribute{
 				Computed: true,
+			},
+			"design_tokens": schema.SingleNestedAttribute{
+				Computed: true,
+				Attributes: map[string]schema.Attribute{
+					"cashback": schema.StringAttribute{
+						Computed: true,
+					},
+					"coupon": schema.StringAttribute{
+						Computed: true,
+					},
+					"custom_css": schema.StringAttribute{
+						Computed: true,
+					},
+				},
 			},
 			"edited": schema.BoolAttribute{
 				Computed: true,

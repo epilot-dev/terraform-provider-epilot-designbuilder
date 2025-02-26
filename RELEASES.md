@@ -61,3 +61,13 @@ Based on:
 - [terraform v0.13.0] .
 ### Releases
 - [Terraform v0.13.0] https://registry.terraform.io/providers/epilot-dev/epilot-designbuilder/0.13.0 - .
+
+## 2025-02-26 00:14:28
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.504.1 (2.529.2) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [terraform v0.14.0] .
+### Releases
+- [Terraform v0.14.0] https://registry.terraform.io/providers/epilot-dev/epilot-designbuilder/0.14.0 - .

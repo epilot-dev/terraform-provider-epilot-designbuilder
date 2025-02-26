@@ -2,6 +2,33 @@
 
 package shared
 
+type AddDesignResDesignTokens struct {
+	Cashback  *string `json:"cashback,omitempty"`
+	Coupon    *string `json:"coupon,omitempty"`
+	CustomCSS *string `json:"custom_css,omitempty"`
+}
+
+func (o *AddDesignResDesignTokens) GetCashback() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Cashback
+}
+
+func (o *AddDesignResDesignTokens) GetCoupon() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Coupon
+}
+
+func (o *AddDesignResDesignTokens) GetCustomCSS() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomCSS
+}
+
 type AddDesignResUser struct {
 	Emailaddress *string `json:"emailaddress,omitempty"`
 	Fullname     *string `json:"fullname,omitempty"`
@@ -40,21 +67,19 @@ func (o *AddDesignResUser) GetUserid() *string {
 type AddDesignResDesign struct {
 	BrandID   any     `json:"brand_id,omitempty"`
 	BrandName *string `json:"brand_name,omitempty"`
-	Cashback  *string `json:"cashback,omitempty"`
-	Coupon    *string `json:"coupon,omitempty"`
-	// Creation date and time using ISO 8601 full-time format
-	CreatedAt      *string           `json:"created_at,omitempty"`
-	CreatedBy      *string           `json:"created_by,omitempty"`
-	CustomCSS      *string           `json:"custom_css,omitempty"`
-	CustomTheme    *string           `json:"custom_theme,omitempty"`
-	Edited         bool              `json:"edited"`
-	ID             *string           `json:"id,omitempty"`
-	IsDefault      *bool             `json:"is_default,omitempty"`
-	LastModifiedAt *string           `json:"last_modified_at,omitempty"`
-	Style          any               `json:"style"`
-	StyleName      string            `json:"style_name"`
-	UseCustomTheme *bool             `json:"use_custom_theme,omitempty"`
-	User           *AddDesignResUser `json:"user,omitempty"`
+	// Creation date and time
+	CreatedAt      *string                   `json:"created_at,omitempty"`
+	CreatedBy      *string                   `json:"created_by,omitempty"`
+	CustomTheme    *string                   `json:"custom_theme,omitempty"`
+	DesignTokens   *AddDesignResDesignTokens `json:"design_tokens,omitempty"`
+	Edited         bool                      `json:"edited"`
+	ID             *string                   `json:"id,omitempty"`
+	IsDefault      *bool                     `json:"is_default,omitempty"`
+	LastModifiedAt *string                   `json:"last_modified_at,omitempty"`
+	Style          any                       `json:"style"`
+	StyleName      string                    `json:"style_name"`
+	UseCustomTheme *bool                     `json:"use_custom_theme,omitempty"`
+	User           *AddDesignResUser         `json:"user,omitempty"`
 }
 
 func (o *AddDesignResDesign) GetBrandID() any {
@@ -71,20 +96,6 @@ func (o *AddDesignResDesign) GetBrandName() *string {
 	return o.BrandName
 }
 
-func (o *AddDesignResDesign) GetCashback() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Cashback
-}
-
-func (o *AddDesignResDesign) GetCoupon() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Coupon
-}
-
 func (o *AddDesignResDesign) GetCreatedAt() *string {
 	if o == nil {
 		return nil
@@ -99,18 +110,18 @@ func (o *AddDesignResDesign) GetCreatedBy() *string {
 	return o.CreatedBy
 }
 
-func (o *AddDesignResDesign) GetCustomCSS() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CustomCSS
-}
-
 func (o *AddDesignResDesign) GetCustomTheme() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CustomTheme
+}
+
+func (o *AddDesignResDesign) GetDesignTokens() *AddDesignResDesignTokens {
+	if o == nil {
+		return nil
+	}
+	return o.DesignTokens
 }
 
 func (o *AddDesignResDesign) GetEdited() bool {
