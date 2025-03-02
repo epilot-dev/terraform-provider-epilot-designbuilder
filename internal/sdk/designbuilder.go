@@ -30,13 +30,6 @@ func newDesignBuilder(sdkConfig sdkConfiguration) *DesignBuilder {
 // AddConsumer - addConsumer
 // Add a consumer that uses a specific design
 func (s *DesignBuilder) AddConsumer(ctx context.Context, request operations.AddConsumerRequest, opts ...operations.Option) (*operations.AddConsumerResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "addConsumer",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -60,6 +53,13 @@ func (s *DesignBuilder) AddConsumer(ctx context.Context, request operations.AddC
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
 
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "addConsumer",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
+	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "AddConsumerReq", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
@@ -257,13 +257,6 @@ func (s *DesignBuilder) AddConsumer(ctx context.Context, request operations.AddC
 // AddDesign - addDesign
 // Create a brand new design linked to a organization, based in orgId attribute from JWT auth token
 func (s *DesignBuilder) AddDesign(ctx context.Context, request shared.AddDesignReq, opts ...operations.Option) (*operations.AddDesignResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "addDesign",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -287,6 +280,13 @@ func (s *DesignBuilder) AddDesign(ctx context.Context, request shared.AddDesignR
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
 
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "addDesign",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
+	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Request", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
@@ -503,13 +503,6 @@ func (s *DesignBuilder) AddDesign(ctx context.Context, request shared.AddDesignR
 // DeleteDesign - deleteDesign
 // Search and delete for a especific design owned by user organization
 func (s *DesignBuilder) DeleteDesign(ctx context.Context, request operations.DeleteDesignRequest, opts ...operations.Option) (*operations.DeleteDesignResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "deleteDesign",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -531,6 +524,14 @@ func (s *DesignBuilder) DeleteDesign(ctx context.Context, request operations.Del
 	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/designs/{designId}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "deleteDesign",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -722,13 +723,6 @@ func (s *DesignBuilder) DeleteDesign(ctx context.Context, request operations.Del
 // GetAllDesigns - getAllDesigns
 // Scan all designs linked to a organization, based in orgId attribute from JWT auth token
 func (s *DesignBuilder) GetAllDesigns(ctx context.Context, opts ...operations.Option) (*operations.GetAllDesignsResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "getAllDesigns",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -750,6 +744,14 @@ func (s *DesignBuilder) GetAllDesigns(ctx context.Context, opts ...operations.Op
 	opURL, err := url.JoinPath(baseURL, "/v1/designs")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "getAllDesigns",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -939,13 +941,6 @@ func (s *DesignBuilder) GetAllDesigns(ctx context.Context, opts ...operations.Op
 //
 // Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 func (s *DesignBuilder) GetBrands(ctx context.Context, opts ...operations.Option) (*operations.GetBrandsResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "getBrands",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -967,6 +962,14 @@ func (s *DesignBuilder) GetBrands(ctx context.Context, opts ...operations.Option
 	opURL, err := url.JoinPath(baseURL, "/v1/brands")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "getBrands",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -1154,13 +1157,6 @@ func (s *DesignBuilder) GetBrands(ctx context.Context, opts ...operations.Option
 // GetConsumerDesign - getConsumerDesign
 // Search for a especific design owned by user organization
 func (s *DesignBuilder) GetConsumerDesign(ctx context.Context, request operations.GetConsumerDesignRequest, opts ...operations.Option) (*operations.GetConsumerDesignResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "getConsumerDesign",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -1182,6 +1178,14 @@ func (s *DesignBuilder) GetConsumerDesign(ctx context.Context, request operation
 	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/designs/consumer/{application}/{consumerId}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "getConsumerDesign",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -1393,13 +1397,6 @@ func (s *DesignBuilder) GetConsumerDesign(ctx context.Context, request operation
 // GetDesign - getDesign
 // Search for a especific design owned by user organization
 func (s *DesignBuilder) GetDesign(ctx context.Context, request operations.GetDesignRequest, opts ...operations.Option) (*operations.GetDesignResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "getDesign",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -1421,6 +1418,14 @@ func (s *DesignBuilder) GetDesign(ctx context.Context, request operations.GetDes
 	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/designs/{designId}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "getDesign",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -1632,13 +1637,6 @@ func (s *DesignBuilder) GetDesign(ctx context.Context, request operations.GetDes
 // GetFiles - getFiles
 // List all files for the user organization bucket
 func (s *DesignBuilder) GetFiles(ctx context.Context, request operations.GetFilesRequest, opts ...operations.Option) (*operations.GetFilesResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "getFiles",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -1660,6 +1658,14 @@ func (s *DesignBuilder) GetFiles(ctx context.Context, request operations.GetFile
 	opURL, err := url.JoinPath(baseURL, "/v1/designs/files")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "getFiles",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -1876,13 +1882,6 @@ func (s *DesignBuilder) GetFiles(ctx context.Context, request operations.GetFile
 //
 // Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 func (s *DesignBuilder) GetLimit(ctx context.Context, opts ...operations.Option) (*operations.GetLimitResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "getLimit",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -1904,6 +1903,14 @@ func (s *DesignBuilder) GetLimit(ctx context.Context, opts ...operations.Option)
 	opURL, err := url.JoinPath(baseURL, "/v1/designs/limit")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "getLimit",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -2091,13 +2098,6 @@ func (s *DesignBuilder) GetLimit(ctx context.Context, opts ...operations.Option)
 // GetThemeFromDesign - getThemeFromDesign
 // Search for a especific design owned by user organization and parse them to a new or old theme
 func (s *DesignBuilder) GetThemeFromDesign(ctx context.Context, request operations.GetThemeFromDesignRequest, opts ...operations.Option) (*operations.GetThemeFromDesignResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "getThemeFromDesign",
-		OAuth2Scopes:   []string{},
-		SecuritySource: nil,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -2119,6 +2119,14 @@ func (s *DesignBuilder) GetThemeFromDesign(ctx context.Context, request operatio
 	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/designs/{designId}/parse", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "getThemeFromDesign",
+		OAuth2Scopes:   []string{},
+		SecuritySource: nil,
 	}
 
 	timeout := o.Timeout
@@ -2330,13 +2338,6 @@ func (s *DesignBuilder) GetThemeFromDesign(ctx context.Context, request operatio
 // RemoveConsumer - removeConsumer
 // Remove a consumer that uses a specific design
 func (s *DesignBuilder) RemoveConsumer(ctx context.Context, request operations.RemoveConsumerRequest, opts ...operations.Option) (*operations.RemoveConsumerResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "removeConsumer",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -2360,6 +2361,13 @@ func (s *DesignBuilder) RemoveConsumer(ctx context.Context, request operations.R
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
 
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "removeConsumer",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
+	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "AddConsumerReq", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
@@ -2557,13 +2565,6 @@ func (s *DesignBuilder) RemoveConsumer(ctx context.Context, request operations.R
 // UpdateDesign - updateDesign
 // Update a especific design owned by user organization
 func (s *DesignBuilder) UpdateDesign(ctx context.Context, request operations.UpdateDesignRequest, opts ...operations.Option) (*operations.UpdateDesignResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "updateDesign",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -2587,6 +2588,13 @@ func (s *DesignBuilder) UpdateDesign(ctx context.Context, request operations.Upd
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
 
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "updateDesign",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
+	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "UpdateDesignReq", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err

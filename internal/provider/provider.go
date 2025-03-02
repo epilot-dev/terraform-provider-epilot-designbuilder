@@ -25,8 +25,8 @@ type EpilotDesignbuilderProvider struct {
 
 // EpilotDesignbuilderProviderModel describes the provider data model.
 type EpilotDesignbuilderProviderModel struct {
-	ServerURL        types.String `tfsdk:"server_url"`
 	CustomAuthorizer types.String `tfsdk:"custom_authorizer"`
+	ServerURL        types.String `tfsdk:"server_url"`
 }
 
 func (p *EpilotDesignbuilderProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
@@ -37,14 +37,13 @@ func (p *EpilotDesignbuilderProvider) Metadata(ctx context.Context, req provider
 func (p *EpilotDesignbuilderProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
-			"server_url": schema.StringAttribute{
-				MarkdownDescription: "Server URL (defaults to https://design-builder-api.sls.epilot.io)",
-				Optional:            true,
-				Required:            false,
-			},
 			"custom_authorizer": schema.StringAttribute{
-				Sensitive: true,
 				Optional:  true,
+				Sensitive: true,
+			},
+			"server_url": schema.StringAttribute{
+				Description: `Server URL (defaults to https://design-builder-api.sls.epilot.io)`,
+				Optional:    true,
 			},
 		},
 	}
@@ -75,8 +74,13 @@ func (p *EpilotDesignbuilderProvider) Configure(ctx context.Context, req provide
 		CustomAuthorizer: customAuthorizer,
 	}
 
+	providerHTTPTransportOpts := ProviderHTTPTransportOpts{
+		SetHeaders: make(map[string]string),
+		Transport:  http.DefaultTransport,
+	}
+
 	httpClient := http.DefaultClient
-	httpClient.Transport = NewLoggingHTTPTransport(http.DefaultTransport)
+	httpClient.Transport = NewProviderHTTPTransport(providerHTTPTransportOpts)
 
 	opts := []sdk.SDKOption{
 		sdk.WithServerURL(ServerURL),
