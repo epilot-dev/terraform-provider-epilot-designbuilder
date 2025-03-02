@@ -3,18 +3,18 @@ id: 998a101f-1cb6-4c08-9fd1-b3ee7a1cdeb4
 management:
   docChecksum: 1b26e8c7c1ab65a1ba2183f905b98a1c
   docVersion: 0.0.1
-  speakeasyVersion: 1.477.0
-  generationVersion: 2.497.0
-  releaseVersion: 0.14.2
-  configChecksum: f7903441c23a0a44467352a31adb6dff
+  speakeasyVersion: 1.508.1
+  generationVersion: 2.536.0
+  releaseVersion: 0.15.0
+  configChecksum: b435e9b20386c537e6ec1fd01bfc53dd
   repoURL: https://github.com/epilot-dev/terraform-provider-epilot-designbuilder.git
 features:
   terraform:
     additionalDependencies: 0.1.0
-    core: 3.29.0
-    deprecations: 2.81.1
+    core: 3.36.0
+    deprecations: 2.82.0
     envVarSecurityUsage: 0.1.0
-    globalSecurity: 2.81.9
+    globalSecurity: 2.81.10
     globalServerURLs: 2.82.1
     retries: 2.81.2
     typeOverrides: 2.81.1
@@ -29,7 +29,9 @@ generatedFiles:
   - go.mod
   - go.sum
   - internal/planmodifiers/boolplanmodifier/suppress_diff.go
+  - internal/planmodifiers/float32planmodifier/suppress_diff.go
   - internal/planmodifiers/float64planmodifier/suppress_diff.go
+  - internal/planmodifiers/int32planmodifier/suppress_diff.go
   - internal/planmodifiers/int64planmodifier/suppress_diff.go
   - internal/planmodifiers/listplanmodifier/suppress_diff.go
   - internal/planmodifiers/mapplanmodifier/suppress_diff.go
@@ -111,7 +113,9 @@ generatedFiles:
   - internal/validators/JSONParseValidator.go
   - internal/validators/RFC3339Validator.go
   - internal/validators/boolvalidators/not_null.go
+  - internal/validators/float32validators/not_null.go
   - internal/validators/float64validators/not_null.go
+  - internal/validators/int32validators/not_null.go
   - internal/validators/int64validators/not_null.go
   - internal/validators/listvalidators/not_null.go
   - internal/validators/mapvalidators/not_null.go
