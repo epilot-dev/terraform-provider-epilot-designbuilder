@@ -14,6 +14,7 @@ import (
 
 	"github.com/ericlagergren/decimal"
 
+	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/optionalnullable"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/types"
 )
 
@@ -65,6 +66,14 @@ func populateQueryParams(queryParams interface{}, globals interface{}, values ur
 			continue
 		}
 
+		constValue := parseConstTag(fieldType)
+		if constValue != nil {
+			values.Add(qpTag.ParamName, *constValue)
+			continue
+		}
+
+		defaultValue := parseDefaultTag(fieldType)
+
 		if globals != nil {
 			var globalFound bool
 			fieldType, valType, globalFound = populateFromGlobals(fieldType, valType, queryParamTagKey, globals)
@@ -91,14 +100,14 @@ func populateQueryParams(queryParams interface{}, globals interface{}, values ur
 					}
 				}
 			case "form":
-				vals := populateFormParams(qpTag, fieldType.Type, valType, ",")
+				vals := populateFormParams(qpTag, fieldType.Type, valType, ",", defaultValue)
 				for k, v := range vals {
 					for _, vv := range v {
 						values.Add(k, vv)
 					}
 				}
 			case "pipeDelimited":
-				vals := populateFormParams(qpTag, fieldType.Type, valType, "|")
+				vals := populateFormParams(qpTag, fieldType.Type, valType, "|", defaultValue)
 				for k, v := range vals {
 					for _, vv := range v {
 						values.Add(k, vv)
@@ -149,6 +158,16 @@ func populateDeepObjectParams(tag *paramTag, objType reflect.Type, objValue refl
 
 	switch objValue.Kind() {
 	case reflect.Map:
+		// check if optionalnullable.OptionalNullable[T]
+		if nullableValue, ok := optionalnullable.AsOptionalNullable(objValue); ok {
+			// Handle optionalnullable.OptionalNullable[T] using GetUntyped method
+			if value, isSet := nullableValue.GetUntyped(); isSet && value != nil {
+				values.Add(tag.ParamName, valToString(value))
+			}
+			// If not set or explicitly null, skip adding to values
+			return values
+		}
+
 		populateDeepObjectParamsMap(values, tag.ParamName, objValue)
 	case reflect.Struct:
 		populateDeepObjectParamsStruct(values, tag.ParamName, objValue)
@@ -240,8 +259,8 @@ func populateDeepObjectParamsStruct(qsValues url.Values, priorScope string, stru
 	}
 }
 
-func populateFormParams(tag *paramTag, objType reflect.Type, objValue reflect.Value, delimiter string) url.Values {
-	return populateForm(tag.ParamName, tag.Explode, objType, objValue, delimiter, func(fieldType reflect.StructField) string {
+func populateFormParams(tag *paramTag, objType reflect.Type, objValue reflect.Value, delimiter string, defaultValue *string) url.Values {
+	return populateForm(tag.ParamName, tag.Explode, objType, objValue, delimiter, defaultValue, func(fieldType reflect.StructField) string {
 		qpTag := parseQueryParamTag(fieldType)
 		if qpTag == nil {
 			return ""

@@ -9,32 +9,31 @@ import (
 
 type RemoveConsumerRequest struct {
 	// widget id payload
-	AddConsumerReq shared.AddConsumerReq `request:"mediaType=application/json"`
+	RemoveConsumerReq shared.RemoveConsumerReq `request:"mediaType=application/json"`
 	// Type of application that uses the design
 	Application string `pathParam:"style=simple,explode=false,name=application"`
-	// Id of the design
-	DesignID string `pathParam:"style=simple,explode=false,name=designId"`
+	DesignID    string `pathParam:"style=simple,explode=false,name=designId"`
 }
 
-func (o *RemoveConsumerRequest) GetAddConsumerReq() shared.AddConsumerReq {
-	if o == nil {
-		return shared.AddConsumerReq{}
+func (r *RemoveConsumerRequest) GetRemoveConsumerReq() shared.RemoveConsumerReq {
+	if r == nil {
+		return shared.RemoveConsumerReq{}
 	}
-	return o.AddConsumerReq
+	return r.RemoveConsumerReq
 }
 
-func (o *RemoveConsumerRequest) GetApplication() string {
-	if o == nil {
+func (r *RemoveConsumerRequest) GetApplication() string {
+	if r == nil {
 		return ""
 	}
-	return o.Application
+	return r.Application
 }
 
-func (o *RemoveConsumerRequest) GetDesignID() string {
-	if o == nil {
+func (r *RemoveConsumerRequest) GetDesignID() string {
+	if r == nil {
 		return ""
 	}
-	return o.DesignID
+	return r.DesignID
 }
 
 type RemoveConsumerResponse struct {
@@ -48,30 +47,30 @@ type RemoveConsumerResponse struct {
 	RawResponse *http.Response
 }
 
-func (o *RemoveConsumerResponse) GetContentType() string {
-	if o == nil {
+func (r *RemoveConsumerResponse) GetContentType() string {
+	if r == nil {
 		return ""
 	}
-	return o.ContentType
+	return r.ContentType
 }
 
-func (o *RemoveConsumerResponse) GetErrorResp() *shared.ErrorResp {
-	if o == nil {
+func (r *RemoveConsumerResponse) GetErrorResp() *shared.ErrorResp {
+	if r == nil {
 		return nil
 	}
-	return o.ErrorResp
+	return r.ErrorResp
 }
 
-func (o *RemoveConsumerResponse) GetStatusCode() int {
-	if o == nil {
+func (r *RemoveConsumerResponse) GetStatusCode() int {
+	if r == nil {
 		return 0
 	}
-	return o.StatusCode
+	return r.StatusCode
 }
 
-func (o *RemoveConsumerResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (r *RemoveConsumerResponse) GetRawResponse() *http.Response {
+	if r == nil {
 		return nil
 	}
-	return o.RawResponse
+	return r.RawResponse
 }

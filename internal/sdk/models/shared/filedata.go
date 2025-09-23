@@ -41,37 +41,37 @@ type FileData struct {
 	URL         string    `json:"url"`
 }
 
-func (o *FileData) GetDisplayName() *string {
-	if o == nil {
+func (f *FileData) GetDisplayName() *string {
+	if f == nil {
 		return nil
 	}
-	return o.DisplayName
+	return f.DisplayName
 }
 
-func (o *FileData) GetFileType() *FileType {
-	if o == nil {
+func (f *FileData) GetFileType() *FileType {
+	if f == nil {
 		return nil
 	}
-	return o.FileType
+	return f.FileType
 }
 
-func (o *FileData) GetName() string {
-	if o == nil {
+func (f *FileData) GetName() string {
+	if f == nil {
 		return ""
 	}
-	return o.Name
+	return f.Name
 }
 
-func (o *FileData) GetS3ObjectKey() string {
-	if o == nil {
+func (f *FileData) GetS3ObjectKey() string {
+	if f == nil {
 		return ""
 	}
-	return o.S3ObjectKey
+	return f.S3ObjectKey
 }
 
-func (o *FileData) GetURL() string {
-	if o == nil {
+func (f *FileData) GetURL() string {
+	if f == nil {
 		return ""
 	}
-	return o.URL
+	return f.URL
 }

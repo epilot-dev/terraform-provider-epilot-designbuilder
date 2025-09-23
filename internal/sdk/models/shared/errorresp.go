@@ -2,13 +2,24 @@
 
 package shared
 
+type Error struct {
+}
+
 type ErrorResp struct {
+	Error   *Error  `json:"error,omitempty"`
 	Message *string `json:"message,omitempty"`
 }
 
-func (o *ErrorResp) GetMessage() *string {
-	if o == nil {
+func (e *ErrorResp) GetError() *Error {
+	if e == nil {
 		return nil
 	}
-	return o.Message
+	return e.Error
+}
+
+func (e *ErrorResp) GetMessage() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Message
 }

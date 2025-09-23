@@ -1,35 +1,36 @@
 lockVersion: 2.0.0
 id: 998a101f-1cb6-4c08-9fd1-b3ee7a1cdeb4
 management:
-  docChecksum: 1b26e8c7c1ab65a1ba2183f905b98a1c
+  docChecksum: 64c6c6e1ba31ff6b601d0063e45b6a48
   docVersion: 0.0.1
-  speakeasyVersion: 1.477.0
-  generationVersion: 2.497.0
-  releaseVersion: 0.14.2
-  configChecksum: f7903441c23a0a44467352a31adb6dff
+  speakeasyVersion: 1.622.1
+  generationVersion: 2.709.0
+  releaseVersion: 0.15.0
+  configChecksum: eb765f8d3604acc0b0a945a0315ddcca
   repoURL: https://github.com/epilot-dev/terraform-provider-epilot-designbuilder.git
 features:
   terraform:
     additionalDependencies: 0.1.0
-    core: 3.29.0
-    deprecations: 2.81.1
-    envVarSecurityUsage: 0.1.0
-    globalSecurity: 2.81.9
-    globalServerURLs: 2.82.1
-    retries: 2.81.2
+    core: 3.45.0
+    deprecations: 2.82.0
+    globalSecurity: 2.82.1
+    globalServerURLs: 2.83.0
+    retries: 2.81.4
     typeOverrides: 2.81.1
 generatedFiles:
   - .gitattributes
   - USAGE.md
-  - examples/README.md
   - examples/data-sources/epilot-designbuilder_design/data-source.tf
   - examples/provider/provider.tf
+  - examples/resources/epilot-designbuilder_design/import-by-string-id.tf
   - examples/resources/epilot-designbuilder_design/import.sh
   - examples/resources/epilot-designbuilder_design/resource.tf
   - go.mod
   - go.sum
   - internal/planmodifiers/boolplanmodifier/suppress_diff.go
+  - internal/planmodifiers/float32planmodifier/suppress_diff.go
   - internal/planmodifiers/float64planmodifier/suppress_diff.go
+  - internal/planmodifiers/int32planmodifier/suppress_diff.go
   - internal/planmodifiers/int64planmodifier/suppress_diff.go
   - internal/planmodifiers/listplanmodifier/suppress_diff.go
   - internal/planmodifiers/mapplanmodifier/suppress_diff.go
@@ -57,11 +58,16 @@ generatedFiles:
   - internal/provider/reflect/primitive.go
   - internal/provider/reflect/slice.go
   - internal/provider/reflect/struct.go
+  - internal/provider/typeconvert/date.go
+  - internal/provider/typeconvert/datetime.go
+  - internal/provider/typeconvert/int.go
   - internal/provider/types/design_tokens.go
   - internal/provider/types/user.go
   - internal/provider/utils.go
   - internal/sdk/.gitattributes
   - internal/sdk/designbuilder.go
+  - internal/sdk/docs/models/operations/option.md
+  - internal/sdk/internal/config/sdkconfiguration.go
   - internal/sdk/internal/hooks/hooks.go
   - internal/sdk/internal/utils/contenttype.go
   - internal/sdk/internal/utils/env.go
@@ -97,8 +103,12 @@ generatedFiles:
   - internal/sdk/models/shared/getalldesignsres.go
   - internal/sdk/models/shared/getbrandsres.go
   - internal/sdk/models/shared/getdesignres.go
+  - internal/sdk/models/shared/removeconsumerreq.go
   - internal/sdk/models/shared/security.go
+  - internal/sdk/models/shared/theme.go
   - internal/sdk/models/shared/updatedesignreq.go
+  - internal/sdk/optionalnullable/optionalnullable.go
+  - internal/sdk/optionalnullable/optionalnullable_test.go
   - internal/sdk/retry/config.go
   - internal/sdk/sdk.go
   - internal/sdk/types/bigint.go
@@ -111,7 +121,9 @@ generatedFiles:
   - internal/validators/JSONParseValidator.go
   - internal/validators/RFC3339Validator.go
   - internal/validators/boolvalidators/not_null.go
+  - internal/validators/float32validators/not_null.go
   - internal/validators/float64validators/not_null.go
+  - internal/validators/int32validators/not_null.go
   - internal/validators/int64validators/not_null.go
   - internal/validators/listvalidators/not_null.go
   - internal/validators/mapvalidators/not_null.go
@@ -124,34 +136,44 @@ generatedFiles:
   - tools/tools.go
 examples:
   addConsumer:
-    "":
+    speakeasy-default-add-consumer:
       parameters:
         path:
-          application: "journey"
           designId: "4a062990-a6a3-11eb-9828-4f3da7d4935a"
+          application: "journey"
       requestBody:
-        application/json: {"consumer_id": "<id>", "consumer_name": "<value>"}
+        application/json: {"consumer_id": "4a062990-a6a3-11eb-9828-4f3da7d4935a", "consumer_name": "<value>"}
+      responses:
+        "400":
+          application/json: {}
+        "500":
+          application/json: {}
   addDesign:
     speakeasy-default-add-design:
       requestBody:
-        application/json: {"design": {"style": {"consumer": {"customer_portals": [{"id": "<id>", "name": "<value>"}], "widgets": [{"id": "<id>", "name": "<value>"}, {"id": "<id>", "name": "<value>"}, {"id": "<id>", "name": "<value>"}]}, "palette": {"background": "<value>", "error": "<value>", "navbar": "<value>", "paper": "<value>", "primary": "<value>", "secondary": "<value>"}, "typography": {"font": {"font_id": "<id>", "font_name": "<value>", "urls": [{}, {}]}, "primary": "<value>", "secondary": "<value>"}}, "style_name": "<value>"}}
+        application/json: {"design": {"style": "<value>", "style_name": "<value>"}}
       responses:
         "201":
-          application/json: {"design": {"created_at": "2021-01-30T08:30:00Z", "edited": true, "style": {"consumer": {"customer_portals": [{"id": "<id>", "name": "<value>"}, {"id": "<id>", "name": "<value>"}, {"id": "<id>", "name": "<value>"}], "widgets": [{"id": "<id>", "name": "<value>"}, {"id": "<id>", "name": "<value>"}]}, "palette": {"background": "<value>", "error": "<value>", "navbar": "<value>", "paper": "<value>", "primary": "<value>", "secondary": "<value>"}, "typography": {"font": {"font_id": "<id>", "font_name": "<value>", "urls": [{}]}, "primary": "<value>", "secondary": "<value>"}}, "style_name": "<value>"}}
+          application/json: {"design": {"created_at": "2021-01-30T08:30:00Z", "edited": true, "style": "<value>", "style_name": "<value>"}}
         "400":
           application/json: {}
         "500":
           application/json: {}
   deleteDesign:
-    "":
+    speakeasy-default-delete-design:
       parameters:
         path:
           designId: "4a062990-a6a3-11eb-9828-4f3da7d4935a"
+      responses:
+        "400":
+          application/json: {}
+        "500":
+          application/json: {}
   getAllDesigns:
     speakeasy-default-get-all-designs:
       responses:
         "200":
-          application/json: [{"designs": [{"created_at": "2021-01-30T08:30:00Z", "edited": true, "style": {"consumer": {"customer_portals": [{"id": "<id>", "name": "<value>"}], "widgets": []}, "palette": {"background": "<value>", "error": "<value>", "navbar": "<value>", "paper": "<value>", "primary": "<value>", "secondary": "<value>"}, "typography": {"font": {"font_id": "<id>", "font_name": "<value>", "urls": [{}]}, "primary": "<value>", "secondary": "<value>"}}, "style_name": "<value>"}]}]
+          application/json: {"designs": [{"created_at": "2021-01-30T08:30:00Z", "edited": true, "style": "<value>", "style_name": "<value>"}]}
         "500":
           application/json: {}
   getBrands:
@@ -162,64 +184,88 @@ examples:
         "500":
           application/json: {}
   getConsumerDesign:
-    "":
+    speakeasy-default-get-consumer-design:
       parameters:
         path:
-          application: "journey"
           consumerId: "4a062990-a6a3-11eb-9828-4f3da7d4935a"
+          application: "journey"
       responses:
         "200":
-          application/json: {"design": {"created_at": "2021-01-30T08:30:00Z", "edited": false, "style": {"consumer": {"customer_portals": [{"id": "<id>", "name": "<value>"}, {"id": "<id>", "name": "<value>"}], "widgets": [{"id": "<id>", "name": "<value>"}, {"id": "<id>", "name": "<value>"}]}, "palette": {"background": "<value>", "error": "<value>", "navbar": "<value>", "paper": "<value>", "primary": "<value>", "secondary": "<value>"}, "typography": {"font": {"font_id": "<id>", "font_name": "<value>", "urls": []}, "primary": "<value>", "secondary": "<value>"}}, "style_name": "<value>"}}
-        "400": {}
-        "500": {}
+          application/json: {"design": {"created_at": "2021-01-30T08:30:00Z", "edited": false, "style": "<value>", "style_name": "<value>"}}
+        "400":
+          application/json: {}
+        "500":
+          application/json: {}
   getDesign:
-    "":
+    speakeasy-default-get-design:
       parameters:
         path:
           designId: "4a062990-a6a3-11eb-9828-4f3da7d4935a"
       responses:
         "200":
-          application/json: {"design": {"created_at": "2021-01-30T08:30:00Z", "edited": false, "style": {"consumer": {"customer_portals": [{"id": "<id>", "name": "<value>"}, {"id": "<id>", "name": "<value>"}, {"id": "<id>", "name": "<value>"}], "widgets": [{"id": "<id>", "name": "<value>"}, {"id": "<id>", "name": "<value>"}]}, "palette": {"background": "<value>", "error": "<value>", "navbar": "<value>", "paper": "<value>", "primary": "<value>", "secondary": "<value>"}, "typography": {"font": {"font_id": "<id>", "font_name": "<value>", "urls": []}, "primary": "<value>", "secondary": "<value>"}}, "style_name": "<value>"}}
-        "400": {}
-        "500": {}
+          application/json: {"design": {"created_at": "2021-01-30T08:30:00Z", "edited": false, "style": "<value>", "style_name": "<value>"}}
+        "400":
+          application/json: {}
+        "500":
+          application/json: {}
   getFiles:
-    "":
+    speakeasy-default-get-files:
       parameters:
         query:
           type: "LOGO"
       responses:
         "200":
-          application/json: [{"name": "<value>", "s3_object_key": "<value>", "url": "https://nifty-squid.info"}, {"name": "<value>", "s3_object_key": "<value>", "url": "https://next-cinema.name/"}]
-        "400": {}
-        "500": {}
+          application/json: [{"name": "<value>", "s3_object_key": "<value>", "url": "https://colorful-obligation.name"}]
+        "400":
+          application/json: {}
+        "500":
+          application/json: {}
   getLimit:
     speakeasy-default-get-limit:
       responses:
         "200":
-          application/json: 8111.85
+          application/json: 8443.97
         "500":
           application/json: {}
   getThemeFromDesign:
-    "":
+    speakeasy-default-get-theme-from-design:
       parameters:
         path:
           designId: "4a062990-a6a3-11eb-9828-4f3da7d4935a"
         query:
           theme: "NEW"
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {}
+        "500":
+          application/json: {}
   removeConsumer:
-    "":
+    speakeasy-default-remove-consumer:
       parameters:
         path:
+          designId: "4a062990-a6a3-11eb-9828-4f3da7d4935a"
           application: "journey"
-          designId: "4a062990-a6a3-11eb-9828-4f3da7d4935a"
       requestBody:
-        application/json: {"consumer_id": "<id>", "consumer_name": "<value>"}
+        application/json: {"consumer_id": "4a062990-a6a3-11eb-9828-4f3da7d4935a"}
+      responses:
+        "400":
+          application/json: {}
+        "500":
+          application/json: {}
   updateDesign:
-    "":
+    speakeasy-default-update-design:
       parameters:
         path:
           designId: "4a062990-a6a3-11eb-9828-4f3da7d4935a"
       requestBody:
-        application/json: {"design": {"style": {"consumer": {"customer_portals": [{"id": "<id>", "name": "<value>"}], "widgets": [{"id": "<id>", "name": "<value>"}]}, "palette": {"background": "<value>", "error": "<value>", "navbar": "<value>", "paper": "<value>", "primary": "<value>", "secondary": "<value>"}, "typography": {"font": {"font_id": "<id>", "font_name": "<value>", "urls": []}, "primary": "<value>", "secondary": "<value>"}}, "style_name": "<value>"}}
-examplesVersion: 1.0.0
+        application/json: {"design": {"style": "<value>", "style_name": "<value>"}}
+      responses:
+        "400":
+          application/json: {}
+        "500":
+          application/json: {}
+examplesVersion: 1.0.2
 generatedTests: {}
+releaseNotes: "## Terraform SDK Changes Detected:\n* `SDK.design-builder.addDesign()`: \n  *  `request.design` **Changed** **Breaking** :warning:\n  *  `response` **Changed** **Breaking** :warning:\n* `SDK.design-builder.getAllDesigns()`:  `response` **Changed** **Breaking** :warning:\n* `SDK.design-builder.getConsumerDesign()`:  `response` **Changed** **Breaking** :warning:\n* `SDK.design-builder.getDesign()`:  `response` **Changed** **Breaking** :warning:\n* `SDK.design-builder.removeConsumer()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.error` **Added**\n* `SDK.design-builder.updateDesign()`: \n  *  `request.UpdateDesignReq.design` **Changed** **Breaking** :warning:\n  *  `response.error` **Added**\n* `SDK.design-builder.addConsumer()`:  `response.error` **Added**\n* `SDK.design-builder.deleteDesign()`:  `response.error` **Added**\n* `SDK.design-builder.getBrands()`:  `response.error` **Added**\n* `SDK.design-builder.getFiles()`:  `response.error` **Added**\n* `SDK.design-builder.getLimit()`:  `response.error` **Added**\n* `SDK.design-builder.getThemeFromDesign()`: \n  *  `request.theme` **Changed**\n  *  `response.error` **Added**\n"

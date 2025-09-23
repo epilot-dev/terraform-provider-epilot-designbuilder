@@ -8,25 +8,25 @@ type GetAllDesignsResDesignTokens struct {
 	CustomCSS *string `json:"custom_css,omitempty"`
 }
 
-func (o *GetAllDesignsResDesignTokens) GetCashback() *string {
-	if o == nil {
+func (g *GetAllDesignsResDesignTokens) GetCashback() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Cashback
+	return g.Cashback
 }
 
-func (o *GetAllDesignsResDesignTokens) GetCoupon() *string {
-	if o == nil {
+func (g *GetAllDesignsResDesignTokens) GetCoupon() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Coupon
+	return g.Coupon
 }
 
-func (o *GetAllDesignsResDesignTokens) GetCustomCSS() *string {
-	if o == nil {
+func (g *GetAllDesignsResDesignTokens) GetCustomCSS() *string {
+	if g == nil {
 		return nil
 	}
-	return o.CustomCSS
+	return g.CustomCSS
 }
 
 type GetAllDesignsResUser struct {
@@ -36,32 +36,32 @@ type GetAllDesignsResUser struct {
 	Userid       *string `json:"userid,omitempty"`
 }
 
-func (o *GetAllDesignsResUser) GetEmailaddress() *string {
-	if o == nil {
+func (g *GetAllDesignsResUser) GetEmailaddress() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Emailaddress
+	return g.Emailaddress
 }
 
-func (o *GetAllDesignsResUser) GetFullname() *string {
-	if o == nil {
+func (g *GetAllDesignsResUser) GetFullname() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Fullname
+	return g.Fullname
 }
 
-func (o *GetAllDesignsResUser) GetName() *string {
-	if o == nil {
+func (g *GetAllDesignsResUser) GetName() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Name
+	return g.Name
 }
 
-func (o *GetAllDesignsResUser) GetUserid() *string {
-	if o == nil {
+func (g *GetAllDesignsResUser) GetUserid() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Userid
+	return g.Userid
 }
 
 type Designs struct {
@@ -82,111 +82,111 @@ type Designs struct {
 	User           *GetAllDesignsResUser         `json:"user,omitempty"`
 }
 
-func (o *Designs) GetBrandID() any {
-	if o == nil {
+func (d *Designs) GetBrandID() any {
+	if d == nil {
 		return nil
 	}
-	return o.BrandID
+	return d.BrandID
 }
 
-func (o *Designs) GetBrandName() *string {
-	if o == nil {
+func (d *Designs) GetBrandName() *string {
+	if d == nil {
 		return nil
 	}
-	return o.BrandName
+	return d.BrandName
 }
 
-func (o *Designs) GetCreatedAt() *string {
-	if o == nil {
+func (d *Designs) GetCreatedAt() *string {
+	if d == nil {
 		return nil
 	}
-	return o.CreatedAt
+	return d.CreatedAt
 }
 
-func (o *Designs) GetCreatedBy() *string {
-	if o == nil {
+func (d *Designs) GetCreatedBy() *string {
+	if d == nil {
 		return nil
 	}
-	return o.CreatedBy
+	return d.CreatedBy
 }
 
-func (o *Designs) GetCustomTheme() any {
-	if o == nil {
+func (d *Designs) GetCustomTheme() any {
+	if d == nil {
 		return nil
 	}
-	return o.CustomTheme
+	return d.CustomTheme
 }
 
-func (o *Designs) GetDesignTokens() *GetAllDesignsResDesignTokens {
-	if o == nil {
+func (d *Designs) GetDesignTokens() *GetAllDesignsResDesignTokens {
+	if d == nil {
 		return nil
 	}
-	return o.DesignTokens
+	return d.DesignTokens
 }
 
-func (o *Designs) GetEdited() bool {
-	if o == nil {
+func (d *Designs) GetEdited() bool {
+	if d == nil {
 		return false
 	}
-	return o.Edited
+	return d.Edited
 }
 
-func (o *Designs) GetID() *string {
-	if o == nil {
+func (d *Designs) GetID() *string {
+	if d == nil {
 		return nil
 	}
-	return o.ID
+	return d.ID
 }
 
-func (o *Designs) GetIsDefault() *bool {
-	if o == nil {
+func (d *Designs) GetIsDefault() *bool {
+	if d == nil {
 		return nil
 	}
-	return o.IsDefault
+	return d.IsDefault
 }
 
-func (o *Designs) GetLastModifiedAt() *string {
-	if o == nil {
+func (d *Designs) GetLastModifiedAt() *string {
+	if d == nil {
 		return nil
 	}
-	return o.LastModifiedAt
+	return d.LastModifiedAt
 }
 
-func (o *Designs) GetStyle() any {
-	if o == nil {
+func (d *Designs) GetStyle() any {
+	if d == nil {
 		return nil
 	}
-	return o.Style
+	return d.Style
 }
 
-func (o *Designs) GetStyleName() string {
-	if o == nil {
+func (d *Designs) GetStyleName() string {
+	if d == nil {
 		return ""
 	}
-	return o.StyleName
+	return d.StyleName
 }
 
-func (o *Designs) GetUseCustomTheme() *bool {
-	if o == nil {
+func (d *Designs) GetUseCustomTheme() *bool {
+	if d == nil {
 		return nil
 	}
-	return o.UseCustomTheme
+	return d.UseCustomTheme
 }
 
-func (o *Designs) GetUser() *GetAllDesignsResUser {
-	if o == nil {
+func (d *Designs) GetUser() *GetAllDesignsResUser {
+	if d == nil {
 		return nil
 	}
-	return o.User
+	return d.User
 }
 
 type GetAllDesignsRes struct {
 	Designs []Designs `json:"designs,omitempty"`
 }
 
-func (o *GetAllDesignsRes) GetDesigns() []Designs {
-	if o == nil {
+func (g *GetAllDesignsRes) GetDesigns() []Designs {
+	if g == nil {
 		return nil
 	}
-	return o.Designs
+	return g.Designs
 }

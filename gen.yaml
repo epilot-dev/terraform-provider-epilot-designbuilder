@@ -3,21 +3,34 @@ generation:
   sdkClassName: SDK
   usageSnippets:
     optionalPropertyRendering: withExample
+    sdkInitStyle: constructor
   fixes:
-    nameResolutionDec2023: false
+    nameResolutionFeb2025: false
     parameterOrderingFeb2024: false
     requestResponseComponentNamesFeb2024: false
+    securityFeb2025: false
+    sharedErrorComponentsApr2025: false
   auth:
     oAuth2ClientCredentialsEnabled: false
     oAuth2PasswordEnabled: false
+    hoistGlobalSecurity: true
+  tests:
+    generateTests: true
+    generateNewTests: false
+    skipResponseBodyAssertions: false
   telemetryEnabled: false
 terraform:
-  version: 0.14.2
+  version: 0.15.0
   additionalDataSources: []
   additionalDependencies: {}
+  additionalEphemeralResources: []
+  additionalProviderAttributes:
+    httpHeaders: ""
+    tlsSkipVerify: ""
   additionalResources: []
   allowUnknownFieldsInWeakUnions: false
   author: epilot-dev
+  baseErrorName: SDKBaseError
   defaultErrorName: SDKError
   enableTypeDeduplication: true
   environmentVariables: []

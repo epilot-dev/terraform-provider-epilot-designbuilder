@@ -41,11 +41,11 @@ type GetFilesRequest struct {
 	Type *Type `queryParam:"style=form,explode=true,name=type"`
 }
 
-func (o *GetFilesRequest) GetType() *Type {
-	if o == nil {
+func (g *GetFilesRequest) GetType() *Type {
+	if g == nil {
 		return nil
 	}
-	return o.Type
+	return g.Type
 }
 
 type GetFilesResponse struct {
@@ -61,37 +61,37 @@ type GetFilesResponse struct {
 	RawResponse *http.Response
 }
 
-func (o *GetFilesResponse) GetContentType() string {
-	if o == nil {
+func (g *GetFilesResponse) GetContentType() string {
+	if g == nil {
 		return ""
 	}
-	return o.ContentType
+	return g.ContentType
 }
 
-func (o *GetFilesResponse) GetErrorResp() *shared.ErrorResp {
-	if o == nil {
+func (g *GetFilesResponse) GetErrorResp() *shared.ErrorResp {
+	if g == nil {
 		return nil
 	}
-	return o.ErrorResp
+	return g.ErrorResp
 }
 
-func (o *GetFilesResponse) GetGetFilesRes() []shared.FileData {
-	if o == nil {
+func (g *GetFilesResponse) GetGetFilesRes() []shared.FileData {
+	if g == nil {
 		return nil
 	}
-	return o.GetFilesRes
+	return g.GetFilesRes
 }
 
-func (o *GetFilesResponse) GetStatusCode() int {
-	if o == nil {
+func (g *GetFilesResponse) GetStatusCode() int {
+	if g == nil {
 		return 0
 	}
-	return o.StatusCode
+	return g.StatusCode
 }
 
-func (o *GetFilesResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (g *GetFilesResponse) GetRawResponse() *http.Response {
+	if g == nil {
 		return nil
 	}
-	return o.RawResponse
+	return g.RawResponse
 }

@@ -7,7 +7,7 @@ import (
 	"fmt"
 	tfTypes "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/provider/types"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk"
-	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/models/operations"
+	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -24,22 +24,23 @@ func NewDesignDataSource() datasource.DataSource {
 
 // DesignDataSource is the data source implementation.
 type DesignDataSource struct {
+	// Provider configured SDK client.
 	client *sdk.SDK
 }
 
 // DesignDataSourceModel describes the data model.
 type DesignDataSourceModel struct {
-	BrandID        types.String          `tfsdk:"brand_id"`
+	BrandID        jsontypes.Normalized  `tfsdk:"brand_id"`
 	BrandName      types.String          `tfsdk:"brand_name"`
 	CreatedAt      types.String          `tfsdk:"created_at"`
 	CreatedBy      types.String          `tfsdk:"created_by"`
-	CustomTheme    types.String          `tfsdk:"custom_theme"`
+	CustomTheme    jsontypes.Normalized  `tfsdk:"custom_theme"`
 	DesignTokens   *tfTypes.DesignTokens `tfsdk:"design_tokens"`
 	Edited         types.Bool            `tfsdk:"edited"`
 	ID             types.String          `tfsdk:"id"`
 	IsDefault      types.Bool            `tfsdk:"is_default"`
 	LastModifiedAt types.String          `tfsdk:"last_modified_at"`
-	Style          types.String          `tfsdk:"style"`
+	Style          jsontypes.Normalized  `tfsdk:"style"`
 	StyleName      types.String          `tfsdk:"style_name"`
 	UseCustomTheme types.Bool            `tfsdk:"use_custom_theme"`
 	User           *tfTypes.User         `tfsdk:"user"`
@@ -57,6 +58,7 @@ func (r *DesignDataSource) Schema(ctx context.Context, req datasource.SchemaRequ
 
 		Attributes: map[string]schema.Attribute{
 			"brand_id": schema.StringAttribute{
+				CustomType:  jsontypes.NormalizedType{},
 				Computed:    true,
 				Description: `Parsed as JSON.`,
 			},
@@ -71,6 +73,7 @@ func (r *DesignDataSource) Schema(ctx context.Context, req datasource.SchemaRequ
 				Computed: true,
 			},
 			"custom_theme": schema.StringAttribute{
+				CustomType:  jsontypes.NormalizedType{},
 				Computed:    true,
 				Description: `Parsed as JSON.`,
 			},
@@ -101,6 +104,7 @@ func (r *DesignDataSource) Schema(ctx context.Context, req datasource.SchemaRequ
 				Computed: true,
 			},
 			"style": schema.StringAttribute{
+				CustomType:  jsontypes.NormalizedType{},
 				Computed:    true,
 				Description: `Parsed as JSON.`,
 			},
@@ -169,13 +173,13 @@ func (r *DesignDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 		return
 	}
 
-	var designID string
-	designID = data.ID.ValueString()
+	request, requestDiags := data.ToOperationsGetDesignRequest(ctx)
+	resp.Diagnostics.Append(requestDiags...)
 
-	request := operations.GetDesignRequest{
-		DesignID: designID,
+	if resp.Diagnostics.HasError() {
+		return
 	}
-	res, err := r.client.DesignBuilder.GetDesign(ctx, request)
+	res, err := r.client.DesignBuilder.GetDesign(ctx, *request)
 	if err != nil {
 		resp.Diagnostics.AddError("failure to invoke API", err.Error())
 		if res != nil && res.RawResponse != nil {
@@ -187,10 +191,6 @@ func (r *DesignDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 		resp.Diagnostics.AddError("unexpected response from API", fmt.Sprintf("%v", res))
 		return
 	}
-	if res.StatusCode == 404 {
-		resp.State.RemoveResource(ctx)
-		return
-	}
 	if res.StatusCode != 200 {
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
@@ -199,7 +199,11 @@ func (r *DesignDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res.RawResponse))
 		return
 	}
-	data.RefreshFromSharedGetDesignResDesign(res.GetDesignRes.Design)
+	resp.Diagnostics.Append(data.RefreshFromSharedGetDesignResDesign(ctx, res.GetDesignRes.Design)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)

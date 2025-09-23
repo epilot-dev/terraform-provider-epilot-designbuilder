@@ -3,28 +3,29 @@
 package shared
 
 type AddConsumerReq struct {
+	// Id of the design
 	ConsumerID   string  `json:"consumer_id"`
 	ConsumerName string  `json:"consumer_name"`
 	ShouldDelete *string `json:"should_delete,omitempty"`
 }
 
-func (o *AddConsumerReq) GetConsumerID() string {
-	if o == nil {
+func (a *AddConsumerReq) GetConsumerID() string {
+	if a == nil {
 		return ""
 	}
-	return o.ConsumerID
+	return a.ConsumerID
 }
 
-func (o *AddConsumerReq) GetConsumerName() string {
-	if o == nil {
+func (a *AddConsumerReq) GetConsumerName() string {
+	if a == nil {
 		return ""
 	}
-	return o.ConsumerName
+	return a.ConsumerName
 }
 
-func (o *AddConsumerReq) GetShouldDelete() *string {
-	if o == nil {
+func (a *AddConsumerReq) GetShouldDelete() *string {
+	if a == nil {
 		return nil
 	}
-	return o.ShouldDelete
+	return a.ShouldDelete
 }
