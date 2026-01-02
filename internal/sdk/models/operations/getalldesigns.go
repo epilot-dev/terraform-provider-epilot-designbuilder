@@ -12,45 +12,45 @@ type GetAllDesignsResponse struct {
 	ContentType string
 	// Other errors
 	ErrorResp *shared.ErrorResp
+	// Success - designs loaded with success. Empty array if org has no designs.
+	GetAllDesignsRes *shared.GetAllDesignsRes
 	// HTTP response status code for this operation
 	StatusCode int
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
-	// Success - designs loaded with success. Empty array if org has no designs.
-	Classes []shared.GetAllDesignsRes
 }
 
-func (o *GetAllDesignsResponse) GetContentType() string {
-	if o == nil {
+func (g *GetAllDesignsResponse) GetContentType() string {
+	if g == nil {
 		return ""
 	}
-	return o.ContentType
+	return g.ContentType
 }
 
-func (o *GetAllDesignsResponse) GetErrorResp() *shared.ErrorResp {
-	if o == nil {
+func (g *GetAllDesignsResponse) GetErrorResp() *shared.ErrorResp {
+	if g == nil {
 		return nil
 	}
-	return o.ErrorResp
+	return g.ErrorResp
 }
 
-func (o *GetAllDesignsResponse) GetStatusCode() int {
-	if o == nil {
+func (g *GetAllDesignsResponse) GetGetAllDesignsRes() *shared.GetAllDesignsRes {
+	if g == nil {
+		return nil
+	}
+	return g.GetAllDesignsRes
+}
+
+func (g *GetAllDesignsResponse) GetStatusCode() int {
+	if g == nil {
 		return 0
 	}
-	return o.StatusCode
+	return g.StatusCode
 }
 
-func (o *GetAllDesignsResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (g *GetAllDesignsResponse) GetRawResponse() *http.Response {
+	if g == nil {
 		return nil
 	}
-	return o.RawResponse
-}
-
-func (o *GetAllDesignsResponse) GetClasses() []shared.GetAllDesignsRes {
-	if o == nil {
-		return nil
-	}
-	return o.Classes
+	return g.RawResponse
 }

@@ -10,22 +10,21 @@ import (
 type UpdateDesignRequest struct {
 	// Design payload
 	UpdateDesignReq shared.UpdateDesignReq `request:"mediaType=application/json"`
-	// Id of the design
-	DesignID string `pathParam:"style=simple,explode=false,name=designId"`
+	DesignID        string                 `pathParam:"style=simple,explode=false,name=designId"`
 }
 
-func (o *UpdateDesignRequest) GetUpdateDesignReq() shared.UpdateDesignReq {
-	if o == nil {
+func (u *UpdateDesignRequest) GetUpdateDesignReq() shared.UpdateDesignReq {
+	if u == nil {
 		return shared.UpdateDesignReq{}
 	}
-	return o.UpdateDesignReq
+	return u.UpdateDesignReq
 }
 
-func (o *UpdateDesignRequest) GetDesignID() string {
-	if o == nil {
+func (u *UpdateDesignRequest) GetDesignID() string {
+	if u == nil {
 		return ""
 	}
-	return o.DesignID
+	return u.DesignID
 }
 
 type UpdateDesignResponse struct {
@@ -39,30 +38,30 @@ type UpdateDesignResponse struct {
 	RawResponse *http.Response
 }
 
-func (o *UpdateDesignResponse) GetContentType() string {
-	if o == nil {
+func (u *UpdateDesignResponse) GetContentType() string {
+	if u == nil {
 		return ""
 	}
-	return o.ContentType
+	return u.ContentType
 }
 
-func (o *UpdateDesignResponse) GetErrorResp() *shared.ErrorResp {
-	if o == nil {
+func (u *UpdateDesignResponse) GetErrorResp() *shared.ErrorResp {
+	if u == nil {
 		return nil
 	}
-	return o.ErrorResp
+	return u.ErrorResp
 }
 
-func (o *UpdateDesignResponse) GetStatusCode() int {
-	if o == nil {
+func (u *UpdateDesignResponse) GetStatusCode() int {
+	if u == nil {
 		return 0
 	}
-	return o.StatusCode
+	return u.StatusCode
 }
 
-func (o *UpdateDesignResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (u *UpdateDesignResponse) GetRawResponse() *http.Response {
+	if u == nil {
 		return nil
 	}
-	return o.RawResponse
+	return u.RawResponse
 }

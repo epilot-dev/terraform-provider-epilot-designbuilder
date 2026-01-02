@@ -6,9 +6,9 @@ type GetBrandsRes struct {
 	Brands []BrandItem `json:"brands,omitempty"`
 }
 
-func (o *GetBrandsRes) GetBrands() []BrandItem {
-	if o == nil {
+func (g *GetBrandsRes) GetBrands() []BrandItem {
+	if g == nil {
 		return nil
 	}
-	return o.Brands
+	return g.Brands
 }

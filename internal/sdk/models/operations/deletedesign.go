@@ -8,15 +8,14 @@ import (
 )
 
 type DeleteDesignRequest struct {
-	// Id of the design
 	DesignID string `pathParam:"style=simple,explode=false,name=designId"`
 }
 
-func (o *DeleteDesignRequest) GetDesignID() string {
-	if o == nil {
+func (d *DeleteDesignRequest) GetDesignID() string {
+	if d == nil {
 		return ""
 	}
-	return o.DesignID
+	return d.DesignID
 }
 
 type DeleteDesignResponse struct {
@@ -30,30 +29,30 @@ type DeleteDesignResponse struct {
 	RawResponse *http.Response
 }
 
-func (o *DeleteDesignResponse) GetContentType() string {
-	if o == nil {
+func (d *DeleteDesignResponse) GetContentType() string {
+	if d == nil {
 		return ""
 	}
-	return o.ContentType
+	return d.ContentType
 }
 
-func (o *DeleteDesignResponse) GetErrorResp() *shared.ErrorResp {
-	if o == nil {
+func (d *DeleteDesignResponse) GetErrorResp() *shared.ErrorResp {
+	if d == nil {
 		return nil
 	}
-	return o.ErrorResp
+	return d.ErrorResp
 }
 
-func (o *DeleteDesignResponse) GetStatusCode() int {
-	if o == nil {
+func (d *DeleteDesignResponse) GetStatusCode() int {
+	if d == nil {
 		return 0
 	}
-	return o.StatusCode
+	return d.StatusCode
 }
 
-func (o *DeleteDesignResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (d *DeleteDesignResponse) GetRawResponse() *http.Response {
+	if d == nil {
 		return nil
 	}
-	return o.RawResponse
+	return d.RawResponse
 }

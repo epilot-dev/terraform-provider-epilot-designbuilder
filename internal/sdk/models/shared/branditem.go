@@ -14,65 +14,65 @@ type BrandItem struct {
 	UpdatedDate    *string `json:"updated_date,omitempty"`
 }
 
-func (o *BrandItem) GetCreatedBy() *string {
-	if o == nil {
+func (b *BrandItem) GetCreatedBy() *string {
+	if b == nil {
 		return nil
 	}
-	return o.CreatedBy
+	return b.CreatedBy
 }
 
-func (o *BrandItem) GetCreatedDate() *string {
-	if o == nil {
+func (b *BrandItem) GetCreatedDate() *string {
+	if b == nil {
 		return nil
 	}
-	return o.CreatedDate
+	return b.CreatedDate
 }
 
-func (o *BrandItem) GetID() string {
-	if o == nil {
+func (b *BrandItem) GetID() string {
+	if b == nil {
 		return ""
 	}
-	return o.ID
+	return b.ID
 }
 
-func (o *BrandItem) GetMainBrand() *string {
-	if o == nil {
+func (b *BrandItem) GetMainBrand() *string {
+	if b == nil {
 		return nil
 	}
-	return o.MainBrand
+	return b.MainBrand
 }
 
-func (o *BrandItem) GetName() string {
-	if o == nil {
+func (b *BrandItem) GetName() string {
+	if b == nil {
 		return ""
 	}
-	return o.Name
+	return b.Name
 }
 
-func (o *BrandItem) GetOrganizationID() *string {
-	if o == nil {
+func (b *BrandItem) GetOrganizationID() *string {
+	if b == nil {
 		return nil
 	}
-	return o.OrganizationID
+	return b.OrganizationID
 }
 
-func (o *BrandItem) GetStatus() *string {
-	if o == nil {
+func (b *BrandItem) GetStatus() *string {
+	if b == nil {
 		return nil
 	}
-	return o.Status
+	return b.Status
 }
 
-func (o *BrandItem) GetUpdatedBy() *string {
-	if o == nil {
+func (b *BrandItem) GetUpdatedBy() *string {
+	if b == nil {
 		return nil
 	}
-	return o.UpdatedBy
+	return b.UpdatedBy
 }
 
-func (o *BrandItem) GetUpdatedDate() *string {
-	if o == nil {
+func (b *BrandItem) GetUpdatedDate() *string {
+	if b == nil {
 		return nil
 	}
-	return o.UpdatedDate
+	return b.UpdatedDate
 }
