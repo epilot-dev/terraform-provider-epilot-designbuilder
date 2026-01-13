@@ -3,13 +3,211 @@
 package provider
 
 import (
+	"context"
 	"encoding/json"
 	tfTypes "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/provider/types"
+	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/models/operations"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/models/shared"
+	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-func (r *DesignResourceModel) ToSharedDesign() *shared.Design {
+func (r *DesignResourceModel) RefreshFromSharedAddDesignRes(ctx context.Context, resp *shared.AddDesignRes) diag.Diagnostics {
+	var diags diag.Diagnostics
+
+	if resp != nil {
+		diags.Append(r.RefreshFromSharedAddDesignResDesign(ctx, resp.Design)...)
+
+		if diags.HasError() {
+			return diags
+		}
+
+	}
+
+	return diags
+}
+
+func (r *DesignResourceModel) RefreshFromSharedAddDesignResDesign(ctx context.Context, resp *shared.AddDesignResDesign) diag.Diagnostics {
+	var diags diag.Diagnostics
+
+	if resp != nil {
+		if resp.BrandID == nil {
+			r.BrandID = jsontypes.NewNormalizedNull()
+		} else {
+			brandIDResult, _ := json.Marshal(resp.BrandID)
+			r.BrandID = jsontypes.NewNormalizedValue(string(brandIDResult))
+		}
+		r.BrandName = types.StringPointerValue(resp.BrandName)
+		r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
+		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
+		if resp.CustomTheme == nil {
+			r.CustomTheme = jsontypes.NewNormalizedNull()
+		} else {
+			customThemeResult, _ := json.Marshal(resp.CustomTheme)
+			r.CustomTheme = jsontypes.NewNormalizedValue(string(customThemeResult))
+		}
+		if resp.DesignTokens == nil {
+			r.DesignTokens = nil
+		} else {
+			r.DesignTokens = &tfTypes.DesignTokens{}
+			r.DesignTokens.Cashback = types.StringPointerValue(resp.DesignTokens.Cashback)
+			r.DesignTokens.Coupon = types.StringPointerValue(resp.DesignTokens.Coupon)
+			r.DesignTokens.CustomCSS = types.StringPointerValue(resp.DesignTokens.CustomCSS)
+		}
+		r.Edited = types.BoolValue(resp.Edited)
+		r.ID = types.StringPointerValue(resp.ID)
+		r.IsDefault = types.BoolPointerValue(resp.IsDefault)
+		r.LastModifiedAt = types.StringPointerValue(resp.LastModifiedAt)
+		styleResult, _ := json.Marshal(resp.Style)
+		r.Style = jsontypes.NewNormalizedValue(string(styleResult))
+		r.StyleName = types.StringValue(resp.StyleName)
+		r.UseCustomTheme = types.BoolPointerValue(resp.UseCustomTheme)
+		if resp.User == nil {
+			r.User = nil
+		} else {
+			r.User = &tfTypes.User{}
+			r.User.Emailaddress = types.StringPointerValue(resp.User.Emailaddress)
+			r.User.Fullname = types.StringPointerValue(resp.User.Fullname)
+			r.User.Name = types.StringPointerValue(resp.User.Name)
+			r.User.Userid = types.StringPointerValue(resp.User.Userid)
+		}
+	}
+
+	return diags
+}
+
+func (r *DesignResourceModel) RefreshFromSharedGetDesignRes(ctx context.Context, resp *shared.GetDesignRes) diag.Diagnostics {
+	var diags diag.Diagnostics
+
+	if resp != nil {
+		diags.Append(r.RefreshFromSharedGetDesignResDesign(ctx, resp.Design)...)
+
+		if diags.HasError() {
+			return diags
+		}
+
+	}
+
+	return diags
+}
+
+func (r *DesignResourceModel) RefreshFromSharedGetDesignResDesign(ctx context.Context, resp *shared.GetDesignResDesign) diag.Diagnostics {
+	var diags diag.Diagnostics
+
+	if resp != nil {
+		if resp.BrandID == nil {
+			r.BrandID = jsontypes.NewNormalizedNull()
+		} else {
+			brandIDResult, _ := json.Marshal(resp.BrandID)
+			r.BrandID = jsontypes.NewNormalizedValue(string(brandIDResult))
+		}
+		r.BrandName = types.StringPointerValue(resp.BrandName)
+		r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
+		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
+		if resp.CustomTheme == nil {
+			r.CustomTheme = jsontypes.NewNormalizedNull()
+		} else {
+			customThemeResult, _ := json.Marshal(resp.CustomTheme)
+			r.CustomTheme = jsontypes.NewNormalizedValue(string(customThemeResult))
+		}
+		if resp.DesignTokens == nil {
+			r.DesignTokens = nil
+		} else {
+			r.DesignTokens = &tfTypes.DesignTokens{}
+			r.DesignTokens.Cashback = types.StringPointerValue(resp.DesignTokens.Cashback)
+			r.DesignTokens.Coupon = types.StringPointerValue(resp.DesignTokens.Coupon)
+			r.DesignTokens.CustomCSS = types.StringPointerValue(resp.DesignTokens.CustomCSS)
+		}
+		r.Edited = types.BoolValue(resp.Edited)
+		r.ID = types.StringPointerValue(resp.ID)
+		r.IsDefault = types.BoolPointerValue(resp.IsDefault)
+		r.LastModifiedAt = types.StringPointerValue(resp.LastModifiedAt)
+		styleResult, _ := json.Marshal(resp.Style)
+		r.Style = jsontypes.NewNormalizedValue(string(styleResult))
+		r.StyleName = types.StringValue(resp.StyleName)
+		r.UseCustomTheme = types.BoolPointerValue(resp.UseCustomTheme)
+		if resp.User == nil {
+			r.User = nil
+		} else {
+			r.User = &tfTypes.User{}
+			r.User.Emailaddress = types.StringPointerValue(resp.User.Emailaddress)
+			r.User.Fullname = types.StringPointerValue(resp.User.Fullname)
+			r.User.Name = types.StringPointerValue(resp.User.Name)
+			r.User.Userid = types.StringPointerValue(resp.User.Userid)
+		}
+	}
+
+	return diags
+}
+
+func (r *DesignResourceModel) ToOperationsDeleteDesignRequest(ctx context.Context) (*operations.DeleteDesignRequest, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	var designID string
+	designID = r.ID.ValueString()
+
+	out := operations.DeleteDesignRequest{
+		DesignID: designID,
+	}
+
+	return &out, diags
+}
+
+func (r *DesignResourceModel) ToOperationsGetDesignRequest(ctx context.Context) (*operations.GetDesignRequest, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	var designID string
+	designID = r.ID.ValueString()
+
+	out := operations.GetDesignRequest{
+		DesignID: designID,
+	}
+
+	return &out, diags
+}
+
+func (r *DesignResourceModel) ToOperationsUpdateDesignRequest(ctx context.Context) (*operations.UpdateDesignRequest, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	updateDesignReq, updateDesignReqDiags := r.ToSharedUpdateDesignReq(ctx)
+	diags.Append(updateDesignReqDiags...)
+
+	if diags.HasError() {
+		return nil, diags
+	}
+
+	var designID string
+	designID = r.ID.ValueString()
+
+	out := operations.UpdateDesignRequest{
+		UpdateDesignReq: *updateDesignReq,
+		DesignID:        designID,
+	}
+
+	return &out, diags
+}
+
+func (r *DesignResourceModel) ToSharedAddDesignReq(ctx context.Context) (*shared.AddDesignReq, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	design, designDiags := r.ToSharedDesign(ctx)
+	diags.Append(designDiags...)
+
+	if diags.HasError() {
+		return nil, diags
+	}
+
+	out := shared.AddDesignReq{
+		Design: *design,
+	}
+
+	return &out, diags
+}
+
+func (r *DesignResourceModel) ToSharedDesign(ctx context.Context) (*shared.Design, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
 	var brandID interface{}
 	if !r.BrandID.IsUnknown() && !r.BrandID.IsNull() {
 		_ = json.Unmarshal([]byte(r.BrandID.ValueString()), &brandID)
@@ -111,100 +309,30 @@ func (r *DesignResourceModel) ToSharedDesign() *shared.Design {
 		UseCustomTheme: useCustomTheme,
 		User:           user,
 	}
-	return &out
+
+	return &out, diags
 }
 
-func (r *DesignResourceModel) RefreshFromSharedAddDesignResDesign(resp *shared.AddDesignResDesign) {
-	if resp != nil {
-		if resp.BrandID == nil {
-			r.BrandID = types.StringNull()
-		} else {
-			brandIDResult, _ := json.Marshal(resp.BrandID)
-			r.BrandID = types.StringValue(string(brandIDResult))
-		}
-		r.BrandName = types.StringPointerValue(resp.BrandName)
-		r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
-		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
-		if resp.CustomTheme == nil {
-			r.CustomTheme = types.StringNull()
-		} else {
-			customThemeResult, _ := json.Marshal(resp.CustomTheme)
-			r.CustomTheme = types.StringValue(string(customThemeResult))
-		}
-		if resp.DesignTokens == nil {
-			r.DesignTokens = nil
-		} else {
-			r.DesignTokens = &tfTypes.DesignTokens{}
-			r.DesignTokens.Cashback = types.StringPointerValue(resp.DesignTokens.Cashback)
-			r.DesignTokens.Coupon = types.StringPointerValue(resp.DesignTokens.Coupon)
-			r.DesignTokens.CustomCSS = types.StringPointerValue(resp.DesignTokens.CustomCSS)
-		}
-		r.Edited = types.BoolValue(resp.Edited)
-		r.ID = types.StringPointerValue(resp.ID)
-		r.IsDefault = types.BoolPointerValue(resp.IsDefault)
-		r.LastModifiedAt = types.StringPointerValue(resp.LastModifiedAt)
-		styleResult, _ := json.Marshal(resp.Style)
-		r.Style = types.StringValue(string(styleResult))
-		r.StyleName = types.StringValue(resp.StyleName)
-		r.UseCustomTheme = types.BoolPointerValue(resp.UseCustomTheme)
-		if resp.User == nil {
-			r.User = nil
-		} else {
-			r.User = &tfTypes.User{}
-			r.User.Emailaddress = types.StringPointerValue(resp.User.Emailaddress)
-			r.User.Fullname = types.StringPointerValue(resp.User.Fullname)
-			r.User.Name = types.StringPointerValue(resp.User.Name)
-			r.User.Userid = types.StringPointerValue(resp.User.Userid)
-		}
+func (r *DesignResourceModel) ToSharedUpdateDesignReq(ctx context.Context) (*shared.UpdateDesignReq, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	design, designDiags := r.ToSharedUpdateDesignReqDesign(ctx)
+	diags.Append(designDiags...)
+
+	if diags.HasError() {
+		return nil, diags
 	}
-}
 
-func (r *DesignResourceModel) RefreshFromSharedGetDesignResDesign(resp *shared.GetDesignResDesign) {
-	if resp != nil {
-		if resp.BrandID == nil {
-			r.BrandID = types.StringNull()
-		} else {
-			brandIDResult, _ := json.Marshal(resp.BrandID)
-			r.BrandID = types.StringValue(string(brandIDResult))
-		}
-		r.BrandName = types.StringPointerValue(resp.BrandName)
-		r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
-		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
-		if resp.CustomTheme == nil {
-			r.CustomTheme = types.StringNull()
-		} else {
-			customThemeResult, _ := json.Marshal(resp.CustomTheme)
-			r.CustomTheme = types.StringValue(string(customThemeResult))
-		}
-		if resp.DesignTokens == nil {
-			r.DesignTokens = nil
-		} else {
-			r.DesignTokens = &tfTypes.DesignTokens{}
-			r.DesignTokens.Cashback = types.StringPointerValue(resp.DesignTokens.Cashback)
-			r.DesignTokens.Coupon = types.StringPointerValue(resp.DesignTokens.Coupon)
-			r.DesignTokens.CustomCSS = types.StringPointerValue(resp.DesignTokens.CustomCSS)
-		}
-		r.Edited = types.BoolValue(resp.Edited)
-		r.ID = types.StringPointerValue(resp.ID)
-		r.IsDefault = types.BoolPointerValue(resp.IsDefault)
-		r.LastModifiedAt = types.StringPointerValue(resp.LastModifiedAt)
-		styleResult, _ := json.Marshal(resp.Style)
-		r.Style = types.StringValue(string(styleResult))
-		r.StyleName = types.StringValue(resp.StyleName)
-		r.UseCustomTheme = types.BoolPointerValue(resp.UseCustomTheme)
-		if resp.User == nil {
-			r.User = nil
-		} else {
-			r.User = &tfTypes.User{}
-			r.User.Emailaddress = types.StringPointerValue(resp.User.Emailaddress)
-			r.User.Fullname = types.StringPointerValue(resp.User.Fullname)
-			r.User.Name = types.StringPointerValue(resp.User.Name)
-			r.User.Userid = types.StringPointerValue(resp.User.Userid)
-		}
+	out := shared.UpdateDesignReq{
+		Design: *design,
 	}
+
+	return &out, diags
 }
 
-func (r *DesignResourceModel) ToSharedUpdateDesignReqDesign() *shared.UpdateDesignReqDesign {
+func (r *DesignResourceModel) ToSharedUpdateDesignReqDesign(ctx context.Context) (*shared.UpdateDesignReqDesign, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
 	var brandID interface{}
 	if !r.BrandID.IsUnknown() && !r.BrandID.IsNull() {
 		_ = json.Unmarshal([]byte(r.BrandID.ValueString()), &brandID)
@@ -306,5 +434,6 @@ func (r *DesignResourceModel) ToSharedUpdateDesignReqDesign() *shared.UpdateDesi
 		UseCustomTheme: useCustomTheme,
 		User:           user,
 	}
-	return &out
+
+	return &out, diags
 }

@@ -7,13 +7,10 @@ import (
 	"fmt"
 	tfTypes "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/provider/types"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk"
-	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/models/operations"
-	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/models/shared"
-	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/validators"
+	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
@@ -28,22 +25,23 @@ func NewDesignResource() resource.Resource {
 
 // DesignResource defines the resource implementation.
 type DesignResource struct {
+	// Provider configured SDK client.
 	client *sdk.SDK
 }
 
 // DesignResourceModel describes the resource data model.
 type DesignResourceModel struct {
-	BrandID        types.String          `tfsdk:"brand_id"`
+	BrandID        jsontypes.Normalized  `tfsdk:"brand_id"`
 	BrandName      types.String          `tfsdk:"brand_name"`
 	CreatedAt      types.String          `tfsdk:"created_at"`
 	CreatedBy      types.String          `tfsdk:"created_by"`
-	CustomTheme    types.String          `tfsdk:"custom_theme"`
+	CustomTheme    jsontypes.Normalized  `tfsdk:"custom_theme"`
 	DesignTokens   *tfTypes.DesignTokens `tfsdk:"design_tokens"`
 	Edited         types.Bool            `tfsdk:"edited"`
 	ID             types.String          `tfsdk:"id"`
 	IsDefault      types.Bool            `tfsdk:"is_default"`
 	LastModifiedAt types.String          `tfsdk:"last_modified_at"`
-	Style          types.String          `tfsdk:"style"`
+	Style          jsontypes.Normalized  `tfsdk:"style"`
 	StyleName      types.String          `tfsdk:"style_name"`
 	UseCustomTheme types.Bool            `tfsdk:"use_custom_theme"`
 	User           *tfTypes.User         `tfsdk:"user"`
@@ -58,12 +56,10 @@ func (r *DesignResource) Schema(ctx context.Context, req resource.SchemaRequest,
 		MarkdownDescription: "Design Resource",
 		Attributes: map[string]schema.Attribute{
 			"brand_id": schema.StringAttribute{
+				CustomType:  jsontypes.NormalizedType{},
 				Computed:    true,
 				Optional:    true,
 				Description: `Parsed as JSON.`,
-				Validators: []validator.String{
-					validators.IsValidJSON(),
-				},
 			},
 			"brand_name": schema.StringAttribute{
 				Computed: true,
@@ -77,12 +73,10 @@ func (r *DesignResource) Schema(ctx context.Context, req resource.SchemaRequest,
 				Computed: true,
 			},
 			"custom_theme": schema.StringAttribute{
+				CustomType:  jsontypes.NormalizedType{},
 				Computed:    true,
 				Optional:    true,
 				Description: `Parsed as JSON.`,
-				Validators: []validator.String{
-					validators.IsValidJSON(),
-				},
 			},
 			"design_tokens": schema.SingleNestedAttribute{
 				Computed: true,
@@ -116,11 +110,9 @@ func (r *DesignResource) Schema(ctx context.Context, req resource.SchemaRequest,
 				Computed: true,
 			},
 			"style": schema.StringAttribute{
+				CustomType:  jsontypes.NormalizedType{},
 				Required:    true,
 				Description: `Parsed as JSON.`,
-				Validators: []validator.String{
-					validators.IsValidJSON(),
-				},
 			},
 			"style_name": schema.StringAttribute{
 				Required: true,
@@ -193,11 +185,13 @@ func (r *DesignResource) Create(ctx context.Context, req resource.CreateRequest,
 		return
 	}
 
-	design := *data.ToSharedDesign()
-	request := shared.AddDesignReq{
-		Design: design,
+	request, requestDiags := data.ToSharedAddDesignReq(ctx)
+	resp.Diagnostics.Append(requestDiags...)
+
+	if resp.Diagnostics.HasError() {
+		return
 	}
-	res, err := r.client.DesignBuilder.AddDesign(ctx, request)
+	res, err := r.client.DesignBuilder.AddDesign(ctx, *request)
 	if err != nil {
 		resp.Diagnostics.AddError("failure to invoke API", err.Error())
 		if res != nil && res.RawResponse != nil {
@@ -213,12 +207,21 @@ func (r *DesignResource) Create(ctx context.Context, req resource.CreateRequest,
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}
-	if !(res.AddDesignRes != nil && res.AddDesignRes.Design != nil) {
+	if !(res.AddDesignRes != nil) {
 		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res.RawResponse))
 		return
 	}
-	data.RefreshFromSharedAddDesignResDesign(res.AddDesignRes.Design)
-	refreshPlan(ctx, plan, &data, resp.Diagnostics)
+	resp.Diagnostics.Append(data.RefreshFromSharedAddDesignRes(ctx, res.AddDesignRes)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	resp.Diagnostics.Append(refreshPlan(ctx, plan, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
@@ -242,13 +245,13 @@ func (r *DesignResource) Read(ctx context.Context, req resource.ReadRequest, res
 		return
 	}
 
-	var designID string
-	designID = data.ID.ValueString()
+	request, requestDiags := data.ToOperationsGetDesignRequest(ctx)
+	resp.Diagnostics.Append(requestDiags...)
 
-	request := operations.GetDesignRequest{
-		DesignID: designID,
+	if resp.Diagnostics.HasError() {
+		return
 	}
-	res, err := r.client.DesignBuilder.GetDesign(ctx, request)
+	res, err := r.client.DesignBuilder.GetDesign(ctx, *request)
 	if err != nil {
 		resp.Diagnostics.AddError("failure to invoke API", err.Error())
 		if res != nil && res.RawResponse != nil {
@@ -268,11 +271,15 @@ func (r *DesignResource) Read(ctx context.Context, req resource.ReadRequest, res
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}
-	if !(res.GetDesignRes != nil && res.GetDesignRes.Design != nil) {
+	if !(res.GetDesignRes != nil) {
 		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res.RawResponse))
 		return
 	}
-	data.RefreshFromSharedGetDesignResDesign(res.GetDesignRes.Design)
+	resp.Diagnostics.Append(data.RefreshFromSharedGetDesignRes(ctx, res.GetDesignRes)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
@@ -292,18 +299,13 @@ func (r *DesignResource) Update(ctx context.Context, req resource.UpdateRequest,
 		return
 	}
 
-	design := *data.ToSharedUpdateDesignReqDesign()
-	updateDesignReq := shared.UpdateDesignReq{
-		Design: design,
-	}
-	var designID string
-	designID = data.ID.ValueString()
+	request, requestDiags := data.ToOperationsUpdateDesignRequest(ctx)
+	resp.Diagnostics.Append(requestDiags...)
 
-	request := operations.UpdateDesignRequest{
-		UpdateDesignReq: updateDesignReq,
-		DesignID:        designID,
+	if resp.Diagnostics.HasError() {
+		return
 	}
-	res, err := r.client.DesignBuilder.UpdateDesign(ctx, request)
+	res, err := r.client.DesignBuilder.UpdateDesign(ctx, *request)
 	if err != nil {
 		resp.Diagnostics.AddError("failure to invoke API", err.Error())
 		if res != nil && res.RawResponse != nil {
@@ -319,7 +321,12 @@ func (r *DesignResource) Update(ctx context.Context, req resource.UpdateRequest,
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}
-	refreshPlan(ctx, plan, &data, resp.Diagnostics)
+
+	resp.Diagnostics.Append(refreshPlan(ctx, plan, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
@@ -343,13 +350,13 @@ func (r *DesignResource) Delete(ctx context.Context, req resource.DeleteRequest,
 		return
 	}
 
-	var designID string
-	designID = data.ID.ValueString()
+	request, requestDiags := data.ToOperationsDeleteDesignRequest(ctx)
+	resp.Diagnostics.Append(requestDiags...)
 
-	request := operations.DeleteDesignRequest{
-		DesignID: designID,
+	if resp.Diagnostics.HasError() {
+		return
 	}
-	res, err := r.client.DesignBuilder.DeleteDesign(ctx, request)
+	res, err := r.client.DesignBuilder.DeleteDesign(ctx, *request)
 	if err != nil {
 		resp.Diagnostics.AddError("failure to invoke API", err.Error())
 		if res != nil && res.RawResponse != nil {
@@ -361,7 +368,10 @@ func (r *DesignResource) Delete(ctx context.Context, req resource.DeleteRequest,
 		resp.Diagnostics.AddError("unexpected response from API", fmt.Sprintf("%v", res))
 		return
 	}
-	if res.StatusCode != 204 {
+	switch res.StatusCode {
+	case 204, 404:
+		break
+	default:
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}

@@ -20,37 +20,37 @@ type GetLimitResponse struct {
 	Number *float64
 }
 
-func (o *GetLimitResponse) GetContentType() string {
-	if o == nil {
+func (g *GetLimitResponse) GetContentType() string {
+	if g == nil {
 		return ""
 	}
-	return o.ContentType
+	return g.ContentType
 }
 
-func (o *GetLimitResponse) GetErrorResp() *shared.ErrorResp {
-	if o == nil {
+func (g *GetLimitResponse) GetErrorResp() *shared.ErrorResp {
+	if g == nil {
 		return nil
 	}
-	return o.ErrorResp
+	return g.ErrorResp
 }
 
-func (o *GetLimitResponse) GetStatusCode() int {
-	if o == nil {
+func (g *GetLimitResponse) GetStatusCode() int {
+	if g == nil {
 		return 0
 	}
-	return o.StatusCode
+	return g.StatusCode
 }
 
-func (o *GetLimitResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (g *GetLimitResponse) GetRawResponse() *http.Response {
+	if g == nil {
 		return nil
 	}
-	return o.RawResponse
+	return g.RawResponse
 }
 
-func (o *GetLimitResponse) GetNumber() *float64 {
-	if o == nil {
+func (g *GetLimitResponse) GetNumber() *float64 {
+	if g == nil {
 		return nil
 	}
-	return o.Number
+	return g.Number
 }

@@ -6,9 +6,9 @@ type Security struct {
 	CustomAuthorizer *string `security:"scheme,type=http,subtype=bearer,name=Authorization"`
 }
 
-func (o *Security) GetCustomAuthorizer() *string {
-	if o == nil {
+func (s *Security) GetCustomAuthorizer() *string {
+	if s == nil {
 		return nil
 	}
-	return o.CustomAuthorizer
+	return s.CustomAuthorizer
 }

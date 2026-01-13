@@ -20,37 +20,37 @@ type GetBrandsResponse struct {
 	Classes []shared.GetBrandsRes
 }
 
-func (o *GetBrandsResponse) GetContentType() string {
-	if o == nil {
+func (g *GetBrandsResponse) GetContentType() string {
+	if g == nil {
 		return ""
 	}
-	return o.ContentType
+	return g.ContentType
 }
 
-func (o *GetBrandsResponse) GetErrorResp() *shared.ErrorResp {
-	if o == nil {
+func (g *GetBrandsResponse) GetErrorResp() *shared.ErrorResp {
+	if g == nil {
 		return nil
 	}
-	return o.ErrorResp
+	return g.ErrorResp
 }
 
-func (o *GetBrandsResponse) GetStatusCode() int {
-	if o == nil {
+func (g *GetBrandsResponse) GetStatusCode() int {
+	if g == nil {
 		return 0
 	}
-	return o.StatusCode
+	return g.StatusCode
 }
 
-func (o *GetBrandsResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (g *GetBrandsResponse) GetRawResponse() *http.Response {
+	if g == nil {
 		return nil
 	}
-	return o.RawResponse
+	return g.RawResponse
 }
 
-func (o *GetBrandsResponse) GetClasses() []shared.GetBrandsRes {
-	if o == nil {
+func (g *GetBrandsResponse) GetClasses() []shared.GetBrandsRes {
+	if g == nil {
 		return nil
 	}
-	return o.Classes
+	return g.Classes
 }
