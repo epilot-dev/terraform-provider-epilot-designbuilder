@@ -8,15 +8,14 @@ import (
 )
 
 type GetDesignRequest struct {
-	// Id of the design
 	DesignID string `pathParam:"style=simple,explode=false,name=designId"`
 }
 
-func (o *GetDesignRequest) GetDesignID() string {
-	if o == nil {
+func (g *GetDesignRequest) GetDesignID() string {
+	if g == nil {
 		return ""
 	}
-	return o.DesignID
+	return g.DesignID
 }
 
 type GetDesignResponse struct {
@@ -32,37 +31,37 @@ type GetDesignResponse struct {
 	RawResponse *http.Response
 }
 
-func (o *GetDesignResponse) GetContentType() string {
-	if o == nil {
+func (g *GetDesignResponse) GetContentType() string {
+	if g == nil {
 		return ""
 	}
-	return o.ContentType
+	return g.ContentType
 }
 
-func (o *GetDesignResponse) GetErrorResp() *shared.ErrorResp {
-	if o == nil {
+func (g *GetDesignResponse) GetErrorResp() *shared.ErrorResp {
+	if g == nil {
 		return nil
 	}
-	return o.ErrorResp
+	return g.ErrorResp
 }
 
-func (o *GetDesignResponse) GetGetDesignRes() *shared.GetDesignRes {
-	if o == nil {
+func (g *GetDesignResponse) GetGetDesignRes() *shared.GetDesignRes {
+	if g == nil {
 		return nil
 	}
-	return o.GetDesignRes
+	return g.GetDesignRes
 }
 
-func (o *GetDesignResponse) GetStatusCode() int {
-	if o == nil {
+func (g *GetDesignResponse) GetStatusCode() int {
+	if g == nil {
 		return 0
 	}
-	return o.StatusCode
+	return g.StatusCode
 }
 
-func (o *GetDesignResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (g *GetDesignResponse) GetRawResponse() *http.Response {
+	if g == nil {
 		return nil
 	}
-	return o.RawResponse
+	return g.RawResponse
 }

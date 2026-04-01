@@ -18,13 +18,13 @@ terraform {
   required_providers {
     epilot-designbuilder = {
       source  = "epilot-dev/epilot-designbuilder"
-      version = "0.14.2"
+      version = "0.15.0"
     }
   }
 }
 
 provider "epilot-designbuilder" {
-  # Configuration options
+  server_url = "..." # Optional
 }
 ```
 <!-- End Installation [installation] -->
@@ -71,12 +71,25 @@ provider_installation {
 ```
 <!-- End Testing the provider locally [usage] -->
 
+<!-- Start Authentication [security] -->
+## Authentication
+
+This provider supports authentication configuration via provider configuration.
+
+Available configuration:
+
+| Provider Attribute | Description |
+|---|---|
+| `custom_authorizer` | HTTP Bearer. |
+<!-- End Authentication [security] -->
+
 <!-- Start Available Resources and Data Sources [operations] -->
 ## Available Resources and Data Sources
 
-### Resources
+### Managed Resources
 
 * [epilot-designbuilder_design](docs/resources/design.md)
+
 ### Data Sources
 
 * [epilot-designbuilder_design](docs/data-sources/design.md)
@@ -93,6 +106,7 @@ provider_installation {
 <!-- $toc-max-depth=2 -->
   * [Installation](#installation)
   * [Testing the provider locally](#testing-the-provider-locally)
+  * [Authentication](#authentication)
   * [Available Resources and Data Sources](#available-resources-and-data-sources)
 
 <!-- End Table of Contents [toc] -->

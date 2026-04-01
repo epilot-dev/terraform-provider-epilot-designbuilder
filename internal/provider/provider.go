@@ -6,7 +6,11 @@ import (
 	"context"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/models/shared"
+	"github.com/hashicorp/terraform-plugin-framework/action"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
+	"github.com/hashicorp/terraform-plugin-framework/ephemeral"
+	"github.com/hashicorp/terraform-plugin-framework/function"
+	"github.com/hashicorp/terraform-plugin-framework/list"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -14,7 +18,10 @@ import (
 	"net/http"
 )
 
-var _ provider.Provider = &EpilotDesignbuilderProvider{}
+var _ provider.Provider = (*EpilotDesignbuilderProvider)(nil)
+var _ provider.ProviderWithActions = (*EpilotDesignbuilderProvider)(nil)
+var _ provider.ProviderWithEphemeralResources = (*EpilotDesignbuilderProvider)(nil)
+var _ provider.ProviderWithFunctions = (*EpilotDesignbuilderProvider)(nil)
 
 type EpilotDesignbuilderProvider struct {
 	// version is set to the provider version on release, "dev" when the
@@ -25,8 +32,8 @@ type EpilotDesignbuilderProvider struct {
 
 // EpilotDesignbuilderProviderModel describes the provider data model.
 type EpilotDesignbuilderProviderModel struct {
-	ServerURL        types.String `tfsdk:"server_url"`
 	CustomAuthorizer types.String `tfsdk:"custom_authorizer"`
+	ServerURL        types.String `tfsdk:"server_url"`
 }
 
 func (p *EpilotDesignbuilderProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
@@ -37,14 +44,14 @@ func (p *EpilotDesignbuilderProvider) Metadata(ctx context.Context, req provider
 func (p *EpilotDesignbuilderProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
-			"server_url": schema.StringAttribute{
-				MarkdownDescription: "Server URL (defaults to https://design-builder-api.sls.epilot.io)",
-				Optional:            true,
-				Required:            false,
-			},
 			"custom_authorizer": schema.StringAttribute{
-				Sensitive: true,
-				Optional:  true,
+				MarkdownDescription: `HTTP Bearer.`,
+				Optional:            true,
+				Sensitive:           true,
+			},
+			"server_url": schema.StringAttribute{
+				Description: `Server URL (defaults to https://design-builder-api.sls.epilot.io)`,
+				Optional:    true,
 			},
 		},
 	}
@@ -59,34 +66,46 @@ func (p *EpilotDesignbuilderProvider) Configure(ctx context.Context, req provide
 		return
 	}
 
-	ServerURL := data.ServerURL.ValueString()
+	serverUrl := data.ServerURL.ValueString()
 
-	if ServerURL == "" {
-		ServerURL = "https://design-builder-api.sls.epilot.io"
+	if serverUrl == "" {
+		serverUrl = "https://design-builder-api.sls.epilot.io"
 	}
 
-	customAuthorizer := new(string)
-	if !data.CustomAuthorizer.IsUnknown() && !data.CustomAuthorizer.IsNull() {
-		*customAuthorizer = data.CustomAuthorizer.ValueString()
-	} else {
-		customAuthorizer = nil
+	security := shared.Security{}
+
+	if !data.CustomAuthorizer.IsUnknown() {
+		security.CustomAuthorizer = data.CustomAuthorizer.ValueStringPointer()
 	}
-	security := shared.Security{
-		CustomAuthorizer: customAuthorizer,
+
+	providerHTTPTransportOpts := ProviderHTTPTransportOpts{
+		SetHeaders: make(map[string]string),
+		Transport:  http.DefaultTransport,
 	}
 
 	httpClient := http.DefaultClient
-	httpClient.Transport = NewLoggingHTTPTransport(http.DefaultTransport)
+	httpClient.Transport = NewProviderHTTPTransport(providerHTTPTransportOpts)
 
 	opts := []sdk.SDKOption{
-		sdk.WithServerURL(ServerURL),
+		sdk.WithServerURL(serverUrl),
 		sdk.WithSecurity(security),
 		sdk.WithClient(httpClient),
 	}
-	client := sdk.New(opts...)
 
+	client := sdk.New(opts...)
+	resp.ActionData = client
 	resp.DataSourceData = client
+	resp.EphemeralResourceData = client
+	resp.ListResourceData = client
 	resp.ResourceData = client
+}
+
+func (p *EpilotDesignbuilderProvider) Functions(_ context.Context) []func() function.Function {
+	return []func() function.Function{}
+}
+
+func (p *EpilotDesignbuilderProvider) Actions(_ context.Context) []func() action.Action {
+	return []func() action.Action{}
 }
 
 func (p *EpilotDesignbuilderProvider) Resources(ctx context.Context) []func() resource.Resource {
@@ -99,6 +118,14 @@ func (p *EpilotDesignbuilderProvider) DataSources(ctx context.Context) []func() 
 	return []func() datasource.DataSource{
 		NewDesignDataSource,
 	}
+}
+
+func (p *EpilotDesignbuilderProvider) EphemeralResources(ctx context.Context) []func() ephemeral.EphemeralResource {
+	return []func() ephemeral.EphemeralResource{}
+}
+
+func (p *EpilotDesignbuilderProvider) ListResources(ctx context.Context) []func() list.ListResource {
+	return []func() list.ListResource{}
 }
 
 func New(version string) func() provider.Provider {

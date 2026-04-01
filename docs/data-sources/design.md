@@ -14,6 +14,7 @@ Design DataSource
 
 ```terraform
 data "epilot-designbuilder_design" "my_design" {
+  id = "...my_id..."
 }
 ```
 
@@ -32,6 +33,7 @@ data "epilot-designbuilder_design" "my_design" {
 - `id` (String) The ID of this resource.
 - `is_default` (Boolean)
 - `last_modified_at` (String)
+- `manifest` (List of String) The manifest IDs associated with this design
 - `style` (String) Parsed as JSON.
 - `style_name` (String)
 - `use_custom_theme` (Boolean)

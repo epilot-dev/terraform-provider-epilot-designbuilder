@@ -8,25 +8,25 @@ type UpdateDesignReqDesignTokens struct {
 	CustomCSS *string `json:"custom_css,omitempty"`
 }
 
-func (o *UpdateDesignReqDesignTokens) GetCashback() *string {
-	if o == nil {
+func (u *UpdateDesignReqDesignTokens) GetCashback() *string {
+	if u == nil {
 		return nil
 	}
-	return o.Cashback
+	return u.Cashback
 }
 
-func (o *UpdateDesignReqDesignTokens) GetCoupon() *string {
-	if o == nil {
+func (u *UpdateDesignReqDesignTokens) GetCoupon() *string {
+	if u == nil {
 		return nil
 	}
-	return o.Coupon
+	return u.Coupon
 }
 
-func (o *UpdateDesignReqDesignTokens) GetCustomCSS() *string {
-	if o == nil {
+func (u *UpdateDesignReqDesignTokens) GetCustomCSS() *string {
+	if u == nil {
 		return nil
 	}
-	return o.CustomCSS
+	return u.CustomCSS
 }
 
 type UpdateDesignReqUser struct {
@@ -36,35 +36,37 @@ type UpdateDesignReqUser struct {
 	Userid       *string `json:"userid,omitempty"`
 }
 
-func (o *UpdateDesignReqUser) GetEmailaddress() *string {
-	if o == nil {
+func (u *UpdateDesignReqUser) GetEmailaddress() *string {
+	if u == nil {
 		return nil
 	}
-	return o.Emailaddress
+	return u.Emailaddress
 }
 
-func (o *UpdateDesignReqUser) GetFullname() *string {
-	if o == nil {
+func (u *UpdateDesignReqUser) GetFullname() *string {
+	if u == nil {
 		return nil
 	}
-	return o.Fullname
+	return u.Fullname
 }
 
-func (o *UpdateDesignReqUser) GetName() *string {
-	if o == nil {
+func (u *UpdateDesignReqUser) GetName() *string {
+	if u == nil {
 		return nil
 	}
-	return o.Name
+	return u.Name
 }
 
-func (o *UpdateDesignReqUser) GetUserid() *string {
-	if o == nil {
+func (u *UpdateDesignReqUser) GetUserid() *string {
+	if u == nil {
 		return nil
 	}
-	return o.Userid
+	return u.Userid
 }
 
 type UpdateDesignReqDesign struct {
+	// The manifest IDs associated with this design
+	Manifest       []string                     `json:"_manifest,omitempty"`
 	BrandID        any                          `json:"brand_id,omitempty"`
 	BrandName      *string                      `json:"brand_name,omitempty"`
 	CustomTheme    any                          `json:"custom_theme,omitempty"`
@@ -76,76 +78,83 @@ type UpdateDesignReqDesign struct {
 	User           *UpdateDesignReqUser         `json:"user,omitempty"`
 }
 
-func (o *UpdateDesignReqDesign) GetBrandID() any {
-	if o == nil {
+func (u *UpdateDesignReqDesign) GetManifest() []string {
+	if u == nil {
 		return nil
 	}
-	return o.BrandID
+	return u.Manifest
 }
 
-func (o *UpdateDesignReqDesign) GetBrandName() *string {
-	if o == nil {
+func (u *UpdateDesignReqDesign) GetBrandID() any {
+	if u == nil {
 		return nil
 	}
-	return o.BrandName
+	return u.BrandID
 }
 
-func (o *UpdateDesignReqDesign) GetCustomTheme() any {
-	if o == nil {
+func (u *UpdateDesignReqDesign) GetBrandName() *string {
+	if u == nil {
 		return nil
 	}
-	return o.CustomTheme
+	return u.BrandName
 }
 
-func (o *UpdateDesignReqDesign) GetDesignTokens() *UpdateDesignReqDesignTokens {
-	if o == nil {
+func (u *UpdateDesignReqDesign) GetCustomTheme() any {
+	if u == nil {
 		return nil
 	}
-	return o.DesignTokens
+	return u.CustomTheme
 }
 
-func (o *UpdateDesignReqDesign) GetIsDefault() *bool {
-	if o == nil {
+func (u *UpdateDesignReqDesign) GetDesignTokens() *UpdateDesignReqDesignTokens {
+	if u == nil {
 		return nil
 	}
-	return o.IsDefault
+	return u.DesignTokens
 }
 
-func (o *UpdateDesignReqDesign) GetStyle() any {
-	if o == nil {
+func (u *UpdateDesignReqDesign) GetIsDefault() *bool {
+	if u == nil {
 		return nil
 	}
-	return o.Style
+	return u.IsDefault
 }
 
-func (o *UpdateDesignReqDesign) GetStyleName() string {
-	if o == nil {
+func (u *UpdateDesignReqDesign) GetStyle() any {
+	if u == nil {
+		return nil
+	}
+	return u.Style
+}
+
+func (u *UpdateDesignReqDesign) GetStyleName() string {
+	if u == nil {
 		return ""
 	}
-	return o.StyleName
+	return u.StyleName
 }
 
-func (o *UpdateDesignReqDesign) GetUseCustomTheme() *bool {
-	if o == nil {
+func (u *UpdateDesignReqDesign) GetUseCustomTheme() *bool {
+	if u == nil {
 		return nil
 	}
-	return o.UseCustomTheme
+	return u.UseCustomTheme
 }
 
-func (o *UpdateDesignReqDesign) GetUser() *UpdateDesignReqUser {
-	if o == nil {
+func (u *UpdateDesignReqDesign) GetUser() *UpdateDesignReqUser {
+	if u == nil {
 		return nil
 	}
-	return o.User
+	return u.User
 }
 
 type UpdateDesignReq struct {
 	Design UpdateDesignReqDesign `json:"design"`
 }
 
-func (o *UpdateDesignReq) GetDesign() UpdateDesignReqDesign {
-	if o == nil {
+func (u *UpdateDesignReq) GetDesign() UpdateDesignReqDesign {
+	if u == nil {
 		return UpdateDesignReqDesign{}
 	}
-	return o.Design
+	return u.Design
 }

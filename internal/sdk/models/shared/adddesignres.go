@@ -8,25 +8,25 @@ type AddDesignResDesignTokens struct {
 	CustomCSS *string `json:"custom_css,omitempty"`
 }
 
-func (o *AddDesignResDesignTokens) GetCashback() *string {
-	if o == nil {
+func (a *AddDesignResDesignTokens) GetCashback() *string {
+	if a == nil {
 		return nil
 	}
-	return o.Cashback
+	return a.Cashback
 }
 
-func (o *AddDesignResDesignTokens) GetCoupon() *string {
-	if o == nil {
+func (a *AddDesignResDesignTokens) GetCoupon() *string {
+	if a == nil {
 		return nil
 	}
-	return o.Coupon
+	return a.Coupon
 }
 
-func (o *AddDesignResDesignTokens) GetCustomCSS() *string {
-	if o == nil {
+func (a *AddDesignResDesignTokens) GetCustomCSS() *string {
+	if a == nil {
 		return nil
 	}
-	return o.CustomCSS
+	return a.CustomCSS
 }
 
 type AddDesignResUser struct {
@@ -36,37 +36,39 @@ type AddDesignResUser struct {
 	Userid       *string `json:"userid,omitempty"`
 }
 
-func (o *AddDesignResUser) GetEmailaddress() *string {
-	if o == nil {
+func (a *AddDesignResUser) GetEmailaddress() *string {
+	if a == nil {
 		return nil
 	}
-	return o.Emailaddress
+	return a.Emailaddress
 }
 
-func (o *AddDesignResUser) GetFullname() *string {
-	if o == nil {
+func (a *AddDesignResUser) GetFullname() *string {
+	if a == nil {
 		return nil
 	}
-	return o.Fullname
+	return a.Fullname
 }
 
-func (o *AddDesignResUser) GetName() *string {
-	if o == nil {
+func (a *AddDesignResUser) GetName() *string {
+	if a == nil {
 		return nil
 	}
-	return o.Name
+	return a.Name
 }
 
-func (o *AddDesignResUser) GetUserid() *string {
-	if o == nil {
+func (a *AddDesignResUser) GetUserid() *string {
+	if a == nil {
 		return nil
 	}
-	return o.Userid
+	return a.Userid
 }
 
 type AddDesignResDesign struct {
-	BrandID   any     `json:"brand_id,omitempty"`
-	BrandName *string `json:"brand_name,omitempty"`
+	// The manifest IDs associated with this design
+	Manifest  []string `json:"_manifest,omitempty"`
+	BrandID   any      `json:"brand_id,omitempty"`
+	BrandName *string  `json:"brand_name,omitempty"`
 	// Creation date and time
 	CreatedAt      *string                   `json:"created_at,omitempty"`
 	CreatedBy      *string                   `json:"created_by,omitempty"`
@@ -82,111 +84,118 @@ type AddDesignResDesign struct {
 	User           *AddDesignResUser         `json:"user,omitempty"`
 }
 
-func (o *AddDesignResDesign) GetBrandID() any {
-	if o == nil {
+func (a *AddDesignResDesign) GetManifest() []string {
+	if a == nil {
 		return nil
 	}
-	return o.BrandID
+	return a.Manifest
 }
 
-func (o *AddDesignResDesign) GetBrandName() *string {
-	if o == nil {
+func (a *AddDesignResDesign) GetBrandID() any {
+	if a == nil {
 		return nil
 	}
-	return o.BrandName
+	return a.BrandID
 }
 
-func (o *AddDesignResDesign) GetCreatedAt() *string {
-	if o == nil {
+func (a *AddDesignResDesign) GetBrandName() *string {
+	if a == nil {
 		return nil
 	}
-	return o.CreatedAt
+	return a.BrandName
 }
 
-func (o *AddDesignResDesign) GetCreatedBy() *string {
-	if o == nil {
+func (a *AddDesignResDesign) GetCreatedAt() *string {
+	if a == nil {
 		return nil
 	}
-	return o.CreatedBy
+	return a.CreatedAt
 }
 
-func (o *AddDesignResDesign) GetCustomTheme() any {
-	if o == nil {
+func (a *AddDesignResDesign) GetCreatedBy() *string {
+	if a == nil {
 		return nil
 	}
-	return o.CustomTheme
+	return a.CreatedBy
 }
 
-func (o *AddDesignResDesign) GetDesignTokens() *AddDesignResDesignTokens {
-	if o == nil {
+func (a *AddDesignResDesign) GetCustomTheme() any {
+	if a == nil {
 		return nil
 	}
-	return o.DesignTokens
+	return a.CustomTheme
 }
 
-func (o *AddDesignResDesign) GetEdited() bool {
-	if o == nil {
+func (a *AddDesignResDesign) GetDesignTokens() *AddDesignResDesignTokens {
+	if a == nil {
+		return nil
+	}
+	return a.DesignTokens
+}
+
+func (a *AddDesignResDesign) GetEdited() bool {
+	if a == nil {
 		return false
 	}
-	return o.Edited
+	return a.Edited
 }
 
-func (o *AddDesignResDesign) GetID() *string {
-	if o == nil {
+func (a *AddDesignResDesign) GetID() *string {
+	if a == nil {
 		return nil
 	}
-	return o.ID
+	return a.ID
 }
 
-func (o *AddDesignResDesign) GetIsDefault() *bool {
-	if o == nil {
+func (a *AddDesignResDesign) GetIsDefault() *bool {
+	if a == nil {
 		return nil
 	}
-	return o.IsDefault
+	return a.IsDefault
 }
 
-func (o *AddDesignResDesign) GetLastModifiedAt() *string {
-	if o == nil {
+func (a *AddDesignResDesign) GetLastModifiedAt() *string {
+	if a == nil {
 		return nil
 	}
-	return o.LastModifiedAt
+	return a.LastModifiedAt
 }
 
-func (o *AddDesignResDesign) GetStyle() any {
-	if o == nil {
+func (a *AddDesignResDesign) GetStyle() any {
+	if a == nil {
 		return nil
 	}
-	return o.Style
+	return a.Style
 }
 
-func (o *AddDesignResDesign) GetStyleName() string {
-	if o == nil {
+func (a *AddDesignResDesign) GetStyleName() string {
+	if a == nil {
 		return ""
 	}
-	return o.StyleName
+	return a.StyleName
 }
 
-func (o *AddDesignResDesign) GetUseCustomTheme() *bool {
-	if o == nil {
+func (a *AddDesignResDesign) GetUseCustomTheme() *bool {
+	if a == nil {
 		return nil
 	}
-	return o.UseCustomTheme
+	return a.UseCustomTheme
 }
 
-func (o *AddDesignResDesign) GetUser() *AddDesignResUser {
-	if o == nil {
+func (a *AddDesignResDesign) GetUser() *AddDesignResUser {
+	if a == nil {
 		return nil
 	}
-	return o.User
+	return a.User
 }
 
 type AddDesignRes struct {
 	Design *AddDesignResDesign `json:"design,omitempty"`
 }
 
-func (o *AddDesignRes) GetDesign() *AddDesignResDesign {
-	if o == nil {
+func (a *AddDesignRes) GetDesign() *AddDesignResDesign {
+	if a == nil {
 		return nil
 	}
-	return o.Design
+	return a.Design
 }

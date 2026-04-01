@@ -12,29 +12,28 @@ type AddConsumerRequest struct {
 	AddConsumerReq shared.AddConsumerReq `request:"mediaType=application/json"`
 	// Type of application that uses the design
 	Application string `pathParam:"style=simple,explode=false,name=application"`
-	// Id of the design
-	DesignID string `pathParam:"style=simple,explode=false,name=designId"`
+	DesignID    string `pathParam:"style=simple,explode=false,name=designId"`
 }
 
-func (o *AddConsumerRequest) GetAddConsumerReq() shared.AddConsumerReq {
-	if o == nil {
+func (a *AddConsumerRequest) GetAddConsumerReq() shared.AddConsumerReq {
+	if a == nil {
 		return shared.AddConsumerReq{}
 	}
-	return o.AddConsumerReq
+	return a.AddConsumerReq
 }
 
-func (o *AddConsumerRequest) GetApplication() string {
-	if o == nil {
+func (a *AddConsumerRequest) GetApplication() string {
+	if a == nil {
 		return ""
 	}
-	return o.Application
+	return a.Application
 }
 
-func (o *AddConsumerRequest) GetDesignID() string {
-	if o == nil {
+func (a *AddConsumerRequest) GetDesignID() string {
+	if a == nil {
 		return ""
 	}
-	return o.DesignID
+	return a.DesignID
 }
 
 type AddConsumerResponse struct {
@@ -48,30 +47,30 @@ type AddConsumerResponse struct {
 	RawResponse *http.Response
 }
 
-func (o *AddConsumerResponse) GetContentType() string {
-	if o == nil {
+func (a *AddConsumerResponse) GetContentType() string {
+	if a == nil {
 		return ""
 	}
-	return o.ContentType
+	return a.ContentType
 }
 
-func (o *AddConsumerResponse) GetErrorResp() *shared.ErrorResp {
-	if o == nil {
+func (a *AddConsumerResponse) GetErrorResp() *shared.ErrorResp {
+	if a == nil {
 		return nil
 	}
-	return o.ErrorResp
+	return a.ErrorResp
 }
 
-func (o *AddConsumerResponse) GetStatusCode() int {
-	if o == nil {
+func (a *AddConsumerResponse) GetStatusCode() int {
+	if a == nil {
 		return 0
 	}
-	return o.StatusCode
+	return a.StatusCode
 }
 
-func (o *AddConsumerResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (a *AddConsumerResponse) GetRawResponse() *http.Response {
+	if a == nil {
 		return nil
 	}
-	return o.RawResponse
+	return a.RawResponse
 }

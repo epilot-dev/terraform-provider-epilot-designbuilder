@@ -8,24 +8,22 @@ import (
 )
 
 type GetConsumerDesignRequest struct {
-	// Type of application that uses the design
 	Application string `pathParam:"style=simple,explode=false,name=application"`
-	// Id of the design
-	ConsumerID string `pathParam:"style=simple,explode=false,name=consumerId"`
+	ConsumerID  string `pathParam:"style=simple,explode=false,name=consumerId"`
 }
 
-func (o *GetConsumerDesignRequest) GetApplication() string {
-	if o == nil {
+func (g *GetConsumerDesignRequest) GetApplication() string {
+	if g == nil {
 		return ""
 	}
-	return o.Application
+	return g.Application
 }
 
-func (o *GetConsumerDesignRequest) GetConsumerID() string {
-	if o == nil {
+func (g *GetConsumerDesignRequest) GetConsumerID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ConsumerID
+	return g.ConsumerID
 }
 
 type GetConsumerDesignResponse struct {
@@ -41,37 +39,37 @@ type GetConsumerDesignResponse struct {
 	RawResponse *http.Response
 }
 
-func (o *GetConsumerDesignResponse) GetContentType() string {
-	if o == nil {
+func (g *GetConsumerDesignResponse) GetContentType() string {
+	if g == nil {
 		return ""
 	}
-	return o.ContentType
+	return g.ContentType
 }
 
-func (o *GetConsumerDesignResponse) GetErrorResp() *shared.ErrorResp {
-	if o == nil {
+func (g *GetConsumerDesignResponse) GetErrorResp() *shared.ErrorResp {
+	if g == nil {
 		return nil
 	}
-	return o.ErrorResp
+	return g.ErrorResp
 }
 
-func (o *GetConsumerDesignResponse) GetGetDesignRes() *shared.GetDesignRes {
-	if o == nil {
+func (g *GetConsumerDesignResponse) GetGetDesignRes() *shared.GetDesignRes {
+	if g == nil {
 		return nil
 	}
-	return o.GetDesignRes
+	return g.GetDesignRes
 }
 
-func (o *GetConsumerDesignResponse) GetStatusCode() int {
-	if o == nil {
+func (g *GetConsumerDesignResponse) GetStatusCode() int {
+	if g == nil {
 		return 0
 	}
-	return o.StatusCode
+	return g.StatusCode
 }
 
-func (o *GetConsumerDesignResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (g *GetConsumerDesignResponse) GetRawResponse() *http.Response {
+	if g == nil {
 		return nil
 	}
-	return o.RawResponse
+	return g.RawResponse
 }

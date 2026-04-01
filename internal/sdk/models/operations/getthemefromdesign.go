@@ -3,67 +3,37 @@
 package operations
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/models/shared"
 	"net/http"
 )
 
-// Theme - Type of theme to be parsed and returned
-type Theme string
-
-const (
-	ThemeNew Theme = "NEW"
-	ThemeOld Theme = "OLD"
-)
-
-func (e Theme) ToPointer() *Theme {
-	return &e
-}
-func (e *Theme) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "NEW":
-		fallthrough
-	case "OLD":
-		*e = Theme(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for Theme: %v", v)
-	}
-}
-
 type GetThemeFromDesignRequest struct {
-	// Id of the design
 	DesignID string `pathParam:"style=simple,explode=false,name=designId"`
 	// Organization id of the user
 	OrgID *string `queryParam:"style=form,explode=true,name=orgId"`
 	// Type of theme to be parsed and returned
-	Theme Theme `queryParam:"style=form,explode=true,name=theme"`
+	Theme shared.Theme `queryParam:"style=form,explode=true,name=theme"`
 }
 
-func (o *GetThemeFromDesignRequest) GetDesignID() string {
-	if o == nil {
+func (g *GetThemeFromDesignRequest) GetDesignID() string {
+	if g == nil {
 		return ""
 	}
-	return o.DesignID
+	return g.DesignID
 }
 
-func (o *GetThemeFromDesignRequest) GetOrgID() *string {
-	if o == nil {
+func (g *GetThemeFromDesignRequest) GetOrgID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.OrgID
+	return g.OrgID
 }
 
-func (o *GetThemeFromDesignRequest) GetTheme() Theme {
-	if o == nil {
-		return Theme("")
+func (g *GetThemeFromDesignRequest) GetTheme() shared.Theme {
+	if g == nil {
+		return shared.Theme("")
 	}
-	return o.Theme
+	return g.Theme
 }
 
 // GetThemeFromDesignResponseBody - Success - design parsed with success.
@@ -83,37 +53,37 @@ type GetThemeFromDesignResponse struct {
 	Object *GetThemeFromDesignResponseBody
 }
 
-func (o *GetThemeFromDesignResponse) GetContentType() string {
-	if o == nil {
+func (g *GetThemeFromDesignResponse) GetContentType() string {
+	if g == nil {
 		return ""
 	}
-	return o.ContentType
+	return g.ContentType
 }
 
-func (o *GetThemeFromDesignResponse) GetErrorResp() *shared.ErrorResp {
-	if o == nil {
+func (g *GetThemeFromDesignResponse) GetErrorResp() *shared.ErrorResp {
+	if g == nil {
 		return nil
 	}
-	return o.ErrorResp
+	return g.ErrorResp
 }
 
-func (o *GetThemeFromDesignResponse) GetStatusCode() int {
-	if o == nil {
+func (g *GetThemeFromDesignResponse) GetStatusCode() int {
+	if g == nil {
 		return 0
 	}
-	return o.StatusCode
+	return g.StatusCode
 }
 
-func (o *GetThemeFromDesignResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (g *GetThemeFromDesignResponse) GetRawResponse() *http.Response {
+	if g == nil {
 		return nil
 	}
-	return o.RawResponse
+	return g.RawResponse
 }
 
-func (o *GetThemeFromDesignResponse) GetObject() *GetThemeFromDesignResponseBody {
-	if o == nil {
+func (g *GetThemeFromDesignResponse) GetObject() *GetThemeFromDesignResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

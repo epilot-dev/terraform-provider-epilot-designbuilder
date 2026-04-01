@@ -8,25 +8,25 @@ type DesignTokens struct {
 	CustomCSS *string `json:"custom_css,omitempty"`
 }
 
-func (o *DesignTokens) GetCashback() *string {
-	if o == nil {
+func (d *DesignTokens) GetCashback() *string {
+	if d == nil {
 		return nil
 	}
-	return o.Cashback
+	return d.Cashback
 }
 
-func (o *DesignTokens) GetCoupon() *string {
-	if o == nil {
+func (d *DesignTokens) GetCoupon() *string {
+	if d == nil {
 		return nil
 	}
-	return o.Coupon
+	return d.Coupon
 }
 
-func (o *DesignTokens) GetCustomCSS() *string {
-	if o == nil {
+func (d *DesignTokens) GetCustomCSS() *string {
+	if d == nil {
 		return nil
 	}
-	return o.CustomCSS
+	return d.CustomCSS
 }
 
 type User struct {
@@ -36,35 +36,37 @@ type User struct {
 	Userid       *string `json:"userid,omitempty"`
 }
 
-func (o *User) GetEmailaddress() *string {
-	if o == nil {
+func (u *User) GetEmailaddress() *string {
+	if u == nil {
 		return nil
 	}
-	return o.Emailaddress
+	return u.Emailaddress
 }
 
-func (o *User) GetFullname() *string {
-	if o == nil {
+func (u *User) GetFullname() *string {
+	if u == nil {
 		return nil
 	}
-	return o.Fullname
+	return u.Fullname
 }
 
-func (o *User) GetName() *string {
-	if o == nil {
+func (u *User) GetName() *string {
+	if u == nil {
 		return nil
 	}
-	return o.Name
+	return u.Name
 }
 
-func (o *User) GetUserid() *string {
-	if o == nil {
+func (u *User) GetUserid() *string {
+	if u == nil {
 		return nil
 	}
-	return o.Userid
+	return u.Userid
 }
 
 type Design struct {
+	// The manifest IDs associated with this design
+	Manifest       []string      `json:"_manifest,omitempty"`
 	BrandID        any           `json:"brand_id,omitempty"`
 	BrandName      *string       `json:"brand_name,omitempty"`
 	CustomTheme    any           `json:"custom_theme,omitempty"`
@@ -76,76 +78,83 @@ type Design struct {
 	User           *User         `json:"user,omitempty"`
 }
 
-func (o *Design) GetBrandID() any {
-	if o == nil {
+func (d *Design) GetManifest() []string {
+	if d == nil {
 		return nil
 	}
-	return o.BrandID
+	return d.Manifest
 }
 
-func (o *Design) GetBrandName() *string {
-	if o == nil {
+func (d *Design) GetBrandID() any {
+	if d == nil {
 		return nil
 	}
-	return o.BrandName
+	return d.BrandID
 }
 
-func (o *Design) GetCustomTheme() any {
-	if o == nil {
+func (d *Design) GetBrandName() *string {
+	if d == nil {
 		return nil
 	}
-	return o.CustomTheme
+	return d.BrandName
 }
 
-func (o *Design) GetDesignTokens() *DesignTokens {
-	if o == nil {
+func (d *Design) GetCustomTheme() any {
+	if d == nil {
 		return nil
 	}
-	return o.DesignTokens
+	return d.CustomTheme
 }
 
-func (o *Design) GetIsDefault() *bool {
-	if o == nil {
+func (d *Design) GetDesignTokens() *DesignTokens {
+	if d == nil {
 		return nil
 	}
-	return o.IsDefault
+	return d.DesignTokens
 }
 
-func (o *Design) GetStyle() any {
-	if o == nil {
+func (d *Design) GetIsDefault() *bool {
+	if d == nil {
 		return nil
 	}
-	return o.Style
+	return d.IsDefault
 }
 
-func (o *Design) GetStyleName() string {
-	if o == nil {
+func (d *Design) GetStyle() any {
+	if d == nil {
+		return nil
+	}
+	return d.Style
+}
+
+func (d *Design) GetStyleName() string {
+	if d == nil {
 		return ""
 	}
-	return o.StyleName
+	return d.StyleName
 }
 
-func (o *Design) GetUseCustomTheme() *bool {
-	if o == nil {
+func (d *Design) GetUseCustomTheme() *bool {
+	if d == nil {
 		return nil
 	}
-	return o.UseCustomTheme
+	return d.UseCustomTheme
 }
 
-func (o *Design) GetUser() *User {
-	if o == nil {
+func (d *Design) GetUser() *User {
+	if d == nil {
 		return nil
 	}
-	return o.User
+	return d.User
 }
 
 type AddDesignReq struct {
 	Design Design `json:"design"`
 }
 
-func (o *AddDesignReq) GetDesign() Design {
-	if o == nil {
+func (a *AddDesignReq) GetDesign() Design {
+	if a == nil {
 		return Design{}
 	}
-	return o.Design
+	return a.Design
 }

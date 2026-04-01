@@ -3,28 +3,53 @@
 package provider
 
 import (
+	"context"
 	"encoding/json"
 	tfTypes "github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/provider/types"
+	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/models/operations"
 	"github.com/epilot-dev/terraform-provider-epilot-designbuilder/internal/sdk/models/shared"
+	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-func (r *DesignDataSourceModel) RefreshFromSharedGetDesignResDesign(resp *shared.GetDesignResDesign) {
+func (r *DesignDataSourceModel) RefreshFromSharedGetDesignRes(ctx context.Context, resp *shared.GetDesignRes) diag.Diagnostics {
+	var diags diag.Diagnostics
+
 	if resp != nil {
+		diags.Append(r.RefreshFromSharedGetDesignResDesign(ctx, resp.Design)...)
+
+		if diags.HasError() {
+			return diags
+		}
+
+	}
+
+	return diags
+}
+
+func (r *DesignDataSourceModel) RefreshFromSharedGetDesignResDesign(ctx context.Context, resp *shared.GetDesignResDesign) diag.Diagnostics {
+	var diags diag.Diagnostics
+
+	if resp != nil {
+		r.Manifest = make([]types.String, 0, len(resp.Manifest))
+		for _, v := range resp.Manifest {
+			r.Manifest = append(r.Manifest, types.StringValue(v))
+		}
 		if resp.BrandID == nil {
-			r.BrandID = types.StringNull()
+			r.BrandID = jsontypes.NewNormalizedNull()
 		} else {
 			brandIDResult, _ := json.Marshal(resp.BrandID)
-			r.BrandID = types.StringValue(string(brandIDResult))
+			r.BrandID = jsontypes.NewNormalizedValue(string(brandIDResult))
 		}
 		r.BrandName = types.StringPointerValue(resp.BrandName)
 		r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
 		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
 		if resp.CustomTheme == nil {
-			r.CustomTheme = types.StringNull()
+			r.CustomTheme = jsontypes.NewNormalizedNull()
 		} else {
 			customThemeResult, _ := json.Marshal(resp.CustomTheme)
-			r.CustomTheme = types.StringValue(string(customThemeResult))
+			r.CustomTheme = jsontypes.NewNormalizedValue(string(customThemeResult))
 		}
 		if resp.DesignTokens == nil {
 			r.DesignTokens = nil
@@ -39,7 +64,7 @@ func (r *DesignDataSourceModel) RefreshFromSharedGetDesignResDesign(resp *shared
 		r.IsDefault = types.BoolPointerValue(resp.IsDefault)
 		r.LastModifiedAt = types.StringPointerValue(resp.LastModifiedAt)
 		styleResult, _ := json.Marshal(resp.Style)
-		r.Style = types.StringValue(string(styleResult))
+		r.Style = jsontypes.NewNormalizedValue(string(styleResult))
 		r.StyleName = types.StringValue(resp.StyleName)
 		r.UseCustomTheme = types.BoolPointerValue(resp.UseCustomTheme)
 		if resp.User == nil {
@@ -52,4 +77,19 @@ func (r *DesignDataSourceModel) RefreshFromSharedGetDesignResDesign(resp *shared
 			r.User.Userid = types.StringPointerValue(resp.User.Userid)
 		}
 	}
+
+	return diags
+}
+
+func (r *DesignDataSourceModel) ToOperationsGetDesignRequest(ctx context.Context) (*operations.GetDesignRequest, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	var designID string
+	designID = r.ID.ValueString()
+
+	out := operations.GetDesignRequest{
+		DesignID: designID,
+	}
+
+	return &out, diags
 }

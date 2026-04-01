@@ -22,7 +22,10 @@ resource "epilot-designbuilder_design" "my_design" {
     coupon     = "...my_coupon..."
     custom_css = "...my_custom_css..."
   }
-  is_default       = true
+  is_default = true
+  manifest = [
+    "..."
+  ]
   style            = "{ \"see\": \"documentation\" }"
   style_name       = "...my_style_name..."
   use_custom_theme = false
@@ -50,6 +53,7 @@ resource "epilot-designbuilder_design" "my_design" {
 - `custom_theme` (String) Parsed as JSON.
 - `design_tokens` (Attributes) (see [below for nested schema](#nestedatt--design_tokens))
 - `is_default` (Boolean)
+- `manifest` (List of String) The manifest IDs associated with this design
 - `use_custom_theme` (Boolean)
 - `user` (Attributes) (see [below for nested schema](#nestedatt--user))
 
@@ -85,6 +89,17 @@ Optional:
 
 Import is supported using the following syntax:
 
+In Terraform v1.5.0 and later, the [`import` block](https://developer.hashicorp.com/terraform/language/import) can be used with the `id` attribute, for example:
+
+```terraform
+import {
+  to = epilot-designbuilder_design.my_epilot-designbuilder_design
+  id = "..."
+}
+```
+
+The [`terraform import` command](https://developer.hashicorp.com/terraform/cli/commands/import) can be used, for example:
+
 ```shell
-terraform import epilot-designbuilder_design.my_epilot-designbuilder_design ""
+terraform import epilot-designbuilder_design.my_epilot-designbuilder_design "..."
 ```

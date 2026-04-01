@@ -7,7 +7,10 @@ resource "epilot-designbuilder_design" "my_design" {
     coupon     = "...my_coupon..."
     custom_css = "...my_custom_css..."
   }
-  is_default       = true
+  is_default = true
+  manifest = [
+    "..."
+  ]
   style            = "{ \"see\": \"documentation\" }"
   style_name       = "...my_style_name..."
   use_custom_theme = false

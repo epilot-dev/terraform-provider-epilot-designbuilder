@@ -20,37 +20,37 @@ type AddDesignResponse struct {
 	RawResponse *http.Response
 }
 
-func (o *AddDesignResponse) GetAddDesignRes() *shared.AddDesignRes {
-	if o == nil {
+func (a *AddDesignResponse) GetAddDesignRes() *shared.AddDesignRes {
+	if a == nil {
 		return nil
 	}
-	return o.AddDesignRes
+	return a.AddDesignRes
 }
 
-func (o *AddDesignResponse) GetContentType() string {
-	if o == nil {
+func (a *AddDesignResponse) GetContentType() string {
+	if a == nil {
 		return ""
 	}
-	return o.ContentType
+	return a.ContentType
 }
 
-func (o *AddDesignResponse) GetErrorResp() *shared.ErrorResp {
-	if o == nil {
+func (a *AddDesignResponse) GetErrorResp() *shared.ErrorResp {
+	if a == nil {
 		return nil
 	}
-	return o.ErrorResp
+	return a.ErrorResp
 }
 
-func (o *AddDesignResponse) GetStatusCode() int {
-	if o == nil {
+func (a *AddDesignResponse) GetStatusCode() int {
+	if a == nil {
 		return 0
 	}
-	return o.StatusCode
+	return a.StatusCode
 }
 
-func (o *AddDesignResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (a *AddDesignResponse) GetRawResponse() *http.Response {
+	if a == nil {
 		return nil
 	}
-	return o.RawResponse
+	return a.RawResponse
 }
