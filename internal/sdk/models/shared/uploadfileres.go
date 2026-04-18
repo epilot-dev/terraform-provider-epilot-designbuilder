@@ -10,8 +10,9 @@ import (
 type UploadFileResFileType string
 
 const (
-	UploadFileResFileTypeLogo UploadFileResFileType = "LOGO"
-	UploadFileResFileTypeFont UploadFileResFileType = "FONT"
+	UploadFileResFileTypeLogo  UploadFileResFileType = "LOGO"
+	UploadFileResFileTypeFont  UploadFileResFileType = "FONT"
+	UploadFileResFileTypeImage UploadFileResFileType = "IMAGE"
 )
 
 func (e UploadFileResFileType) ToPointer() *UploadFileResFileType {
@@ -26,6 +27,8 @@ func (e *UploadFileResFileType) UnmarshalJSON(data []byte) error {
 	case "LOGO":
 		fallthrough
 	case "FONT":
+		fallthrough
+	case "IMAGE":
 		*e = UploadFileResFileType(v)
 		return nil
 	default:

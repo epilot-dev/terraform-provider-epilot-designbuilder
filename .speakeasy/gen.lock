@@ -1,21 +1,22 @@
 lockVersion: 2.0.0
 id: 998a101f-1cb6-4c08-9fd1-b3ee7a1cdeb4
 management:
-  docChecksum: 3cf22be8203ff125a7525720f82223e2
-  docVersion: 0.0.2
-  speakeasyVersion: 1.761.0
-  generationVersion: 2.879.1
-  releaseVersion: 0.15.0
-  configChecksum: cd920cc67f9b52a794c585242b154947
+  docChecksum: 690ea215bfd7ac92731192f0db551438
+  docVersion: 0.0.3
+  speakeasyVersion: 1.761.8
+  generationVersion: 2.881.2
+  releaseVersion: 0.15.1
+  configChecksum: f0477638b384e111d5d77977669e6a2b
   repoURL: https://github.com/epilot-dev/terraform-provider-epilot-designbuilder.git
+  installationURL: https://github.com/epilot-dev/terraform-provider-epilot-designbuilder
 persistentEdits:
-  generation_id: 4e92601f-6dc0-4ef2-9481-ebc12c8da6a3
-  pristine_commit_hash: 852bb07951ef01d6c72a8b4c001ef0121fcb80f9
-  pristine_tree_hash: 51f2f82334b8f003cfdff2de9e155ad7f7b4393e
+  generation_id: 13aa00db-9abf-4015-85a8-58adf34844c7
+  pristine_commit_hash: 70d64f28f064c3b4746c2e0056cd04e4e8f9d0a7
+  pristine_tree_hash: 72debe7a264d3660656f70ac8b697dea7bcfef8b
 features:
   terraform:
     additionalDependencies: 0.1.0
-    core: 3.47.2
+    core: 3.47.3
     deprecations: 2.82.0
     globalSecurity: 2.82.3
     globalServerURLs: 2.83.2
@@ -36,8 +37,8 @@ trackedFiles:
     pristine_git_object: eef190e43acc0be5bac8319dc4d62a65442b913f
   examples/provider/provider.tf:
     id: 954e955c0240
-    last_write_checksum: sha1:9e4a569b99727ad52c629695a9fe9c4b074ea672
-    pristine_git_object: e62189c6e92bd65ae383f44cc48959cc24653f04
+    last_write_checksum: sha1:2a4774a111c960d2bbd78b0dd887048bc59c3b86
+    pristine_git_object: 81f939553ca7f80649ed7ebb7c800c56b5c3c033
   examples/resources/epilot-designbuilder_design/import-by-string-id.tf:
     id: "853554071428"
     last_write_checksum: sha1:4f9cf2e82ace940fd7f4bcaf8e9b2aa1e63f26f8
@@ -48,12 +49,12 @@ trackedFiles:
     pristine_git_object: 916e0d989d2949fa95c4fa727a02bdcd7986b6dc
   examples/resources/epilot-designbuilder_design/resource.tf:
     id: cff5dadc8901
-    last_write_checksum: sha1:dcc70d42cde101fd7709810e8ff413e9b032a2a6
-    pristine_git_object: cbfba4a3b4ac83e08a486eebcaeaa104b28a56b0
+    last_write_checksum: sha1:3e314e62385e004ed709df9d1e01aeb009525857
+    pristine_git_object: b044d8ee38d7354092b24ba1c2e5b09ee46d46a8
   go.mod:
     id: c47645c391ad
-    last_write_checksum: sha1:a6b2fe8e7e3d53d6858ce6b9d658941301ab90f5
-    pristine_git_object: 4ad03d54624db6b0ce72afa59fffeb2cd77cd213
+    last_write_checksum: sha1:e4f3d7a6425ae55e5424c14f384c8d1594020855
+    pristine_git_object: ad971710b7b5f4fe6569c4062d2101fdfde7c566
   internal/planmodifiers/boolplanmodifier/suppress_diff.go:
     id: 3cf85b98963e
     last_write_checksum: sha1:b85207cab140498181910cb8d505aef46d37898a
@@ -196,20 +197,20 @@ trackedFiles:
     pristine_git_object: 0ea64fbeb1fd7709d7241a8e06d34bfe9d0323d3
   internal/provider/design_data_source.go:
     id: 4a8ebfc3c671
-    last_write_checksum: sha1:8bc476988cb423a910a5fb2bbaefeb8cb86b82c9
-    pristine_git_object: 272e277a7855de439d235ce264c1699d3ae32028
+    last_write_checksum: sha1:2018f6a1a22788ac2adadd6147cf7757e66cf153
+    pristine_git_object: 706b828a10ee73f8211efb5905db59dff6aef311
   internal/provider/design_data_source_sdk.go:
     id: 33bb40e45a9d
-    last_write_checksum: sha1:82e5cd4dd69552edcd2ac1db4b01f5f250981755
-    pristine_git_object: ad438019e9dbb14c485b4083587894a328a36311
+    last_write_checksum: sha1:c6cb1ec7c83723fedce18965fd644ddcbf3e5fed
+    pristine_git_object: 00ad262d04858ebcc947c271a9d99a6a34def395
   internal/provider/design_resource.go:
     id: 877530140ad8
-    last_write_checksum: sha1:2aeeb504953d1db73e17a4b8f8b4d6cd658c0320
-    pristine_git_object: d7163163b7df3d0a873b36ac583743231b309b6d
+    last_write_checksum: sha1:ca66b664d0630cb839becc21d5f37e90b8fc6399
+    pristine_git_object: e09d5942dc16b018360b831bdb6d26a14570f89d
   internal/provider/design_resource_sdk.go:
     id: 006033ec6a04
-    last_write_checksum: sha1:6db0cfde8b818cda480e8e582aa102a218a8e2aa
-    pristine_git_object: 37fa81dc9bd2445116c4c18c0e3a1dde02fef328
+    last_write_checksum: sha1:073f82411876f8d4abbca54c55167426e6c4a343
+    pristine_git_object: f2b722129a2fbf2b446327185765c7ee7cbcf6a4
   internal/provider/provider.go:
     id: 1e7e86841cf3
     last_write_checksum: sha1:50ba004e9b96e04d5f8d21babb7c33bc20805731
@@ -284,8 +285,8 @@ trackedFiles:
     pristine_git_object: 54763e7a7555fae6d8bf51c4590220ff610202aa
   internal/provider/types/design_tokens.go:
     id: a1b10f787597
-    last_write_checksum: sha1:3bf91039c9097cd79faec835f4f223bbbb662719
-    pristine_git_object: 787b9e806d0b99b15d7d55742cc00673e4e5f4ce
+    last_write_checksum: sha1:e7dc9baf4db78b4a0937e140e9a9678ecce90adb
+    pristine_git_object: 9b059ab86b3cc5424ba99358821fac5078c080b2
   internal/provider/types/user.go:
     id: 76bcb6fc77f1
     last_write_checksum: sha1:0a95aa1f4d0125e519bbe79d72c2181c7e5f4dd6
@@ -400,8 +401,8 @@ trackedFiles:
     pristine_git_object: 2dcb9aed3bbe2fa9fdd02917009780fcf1de138d
   internal/sdk/models/operations/getfiles.go:
     id: bc11e4667b7d
-    last_write_checksum: sha1:4949dc17a6290097e2e70a3d8995d7b6ba8a43e2
-    pristine_git_object: 58cbaf887cee132cdf1dbfbd280c506657f67c77
+    last_write_checksum: sha1:823aae7e2eb51ed94529911e7baffb47d92ffe2c
+    pristine_git_object: 8ce0f9b6f7d5ffbea0ec80bd33435c6f851a6f58
   internal/sdk/models/operations/getlimit.go:
     id: 04ab7a0b1fdf
     last_write_checksum: sha1:59c973420477a69b6fcb0448fd0cb3351ccd3dbc
@@ -432,12 +433,12 @@ trackedFiles:
     pristine_git_object: 7aa50bef2490befe9d4d36bb69edf45153abcc4c
   internal/sdk/models/shared/adddesignreq.go:
     id: 25377e0b9f24
-    last_write_checksum: sha1:b200626afa6013a791b4a97a9eed1f2adb5e9cdf
-    pristine_git_object: c459ac9f2e7f45e4ac5a90abced323984307a3f2
+    last_write_checksum: sha1:856e0a87ea345a4a664c1ce883201c2aea954b16
+    pristine_git_object: bcc89ea20fabe00e26156be8584668fc50e0d7f8
   internal/sdk/models/shared/adddesignres.go:
     id: 1f022e678fef
-    last_write_checksum: sha1:9838e91643321c802f5796beab3d1332f5b7285d
-    pristine_git_object: ed2e16369b08617e954a742bcaad5a78bb1c2a26
+    last_write_checksum: sha1:bf705abf0c25fe0ededcc5ef7ef529d01953fa25
+    pristine_git_object: 15aadb73370490372700f61bfa7279b4b8705263
   internal/sdk/models/shared/branditem.go:
     id: 1f45c71175fa
     last_write_checksum: sha1:8019afed0cbc4fc39cf563674b3d73572bca316c
@@ -448,20 +449,20 @@ trackedFiles:
     pristine_git_object: 574d2cec39c320b129d29a008070d03bd24c858d
   internal/sdk/models/shared/filedata.go:
     id: 50ff698eb421
-    last_write_checksum: sha1:8adaa3e4e581d1d10d5968727cf1ce858ee33c44
-    pristine_git_object: 124e1da9448d22e063b42ceda0da3c1b20ca3513
+    last_write_checksum: sha1:775234a0a371655153528729f24d4dce9a411476
+    pristine_git_object: 6397d1fff260e8094f965f3b6f6f56811db93139
   internal/sdk/models/shared/getalldesignsres.go:
     id: 4ee6eb215461
-    last_write_checksum: sha1:44b4fa883a2b9c9c3310dc030d6c45986fc47c5c
-    pristine_git_object: fdbeee91d9158cc641b5b2127332032c0488af8a
+    last_write_checksum: sha1:ce20d7a483a6d76ffe77f1b40c2bd65876615ace
+    pristine_git_object: a8bda8b212193aef78b66b42f7277bc4b77a4ce4
   internal/sdk/models/shared/getbrandsres.go:
     id: b329276d32be
     last_write_checksum: sha1:5e8382da6d7bfa933dddf2447f065b6d6ab55b15
     pristine_git_object: e31eb4fa725aa6ae4c4980123b2902cb960891db
   internal/sdk/models/shared/getdesignres.go:
     id: 1263504d6b89
-    last_write_checksum: sha1:80d374f967fe87b809d52e9403a23580a5b49afb
-    pristine_git_object: b92f67d502f70c4482bd8ffb3eb439fe9f4f7256
+    last_write_checksum: sha1:bf3007fbd4292cc16f4632c65f86dc6ba78c0f0b
+    pristine_git_object: ba38d2d66474f87a3fcf9849954017d3b8d6fba5
   internal/sdk/models/shared/removeconsumerreq.go:
     id: 92a1edcefb24
     last_write_checksum: sha1:981f62d15c5199f5b89f19e590468cee1a41a8b3
@@ -476,16 +477,16 @@ trackedFiles:
     pristine_git_object: 0db176055f1896d4e4349de3124570d9ff4f8a84
   internal/sdk/models/shared/updatedesignreq.go:
     id: c354b0d2da43
-    last_write_checksum: sha1:af00a4e1bf5340dbb815bb87c76aefe559108a91
-    pristine_git_object: 0351ff33300d732dc8831f51614908132723788b
+    last_write_checksum: sha1:47436df777e2366aaac1b7a1f4c13021649ab16b
+    pristine_git_object: 4f0ac656de528c71dd4c2cafa6c6e91b94db61c3
   internal/sdk/models/shared/uploadfilereq.go:
     id: 71b6777944a5
-    last_write_checksum: sha1:5b0ffc35b309b8085f06b4c90abedcc65efaf76a
-    pristine_git_object: 8a60fe47c7d6e78f8a92a541c447578230e50357
+    last_write_checksum: sha1:76ab85b6edf7bd42967d24c2ea60adacc4275a66
+    pristine_git_object: 72241168800872d6ab445e3f53aa9c0bcb49591b
   internal/sdk/models/shared/uploadfileres.go:
     id: 91755fc5f797
-    last_write_checksum: sha1:ce423996915d5e1e0de024d822e713671b785a8b
-    pristine_git_object: 6423dd2a2e8bf0151095481420b7145142bcca60
+    last_write_checksum: sha1:4ba32b86a6a971bd5b390c14931b7282fdd53834
+    pristine_git_object: 539f5fd06716da49716f5fc83a0d68f7676a1092
   internal/sdk/optionalnullable/optionalnullable.go:
     id: 4b83aa3f3df3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -500,8 +501,8 @@ trackedFiles:
     pristine_git_object: 5b3dc7c122d8ab08905485342d7474f8f163888d
   internal/sdk/sdk.go:
     id: 02d7190ee502
-    last_write_checksum: sha1:7e802f2644082341ecce14e48d840f0fe809a753
-    pristine_git_object: 15938b82161befa3f0b187d7f62d036c5f64a547
+    last_write_checksum: sha1:417079de0bc6c624d37485cedaa051748bd242ec
+    pristine_git_object: 88dacd608a1b06b9c603a633ad173c02f1c7a293
   internal/sdk/types/bigint.go:
     id: fc530b70337e
     last_write_checksum: sha1:49b004005d0461fb04b846eca062b070b0360b31
@@ -735,6 +736,7 @@ examples:
           application/json: {}
 examplesVersion: 1.0.2
 generatedTests: {}
+releaseNotes: "## Terraform SDK Changes:\n* `SDK.design-builder.getDesign()`:  `response` **Changed** (Breaking ⚠️)\n* `SDK.design-builder.addDesign()`: \n  *  `request.design` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n* `SDK.design-builder.getAllDesigns()`:  `response` **Changed** (Breaking ⚠️)\n* `SDK.design-builder.getConsumerDesign()`:  `response` **Changed** (Breaking ⚠️)\n* `SDK.design-builder.getFiles()`: \n  *  `request.type` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n* `SDK.design-builder.removeConsumer()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.error` **Added**\n* `SDK.design-builder.updateDesign()`: \n  *  `request.UpdateDesignReq.design` **Changed** (Breaking ⚠️)\n  *  `response.error` **Added**\n* `SDK.design-builder.uploadFile()`: \n  *  `request.file_type` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n* `SDK.design-builder.deleteDesign()`:  `response.error` **Added**\n* `SDK.design-builder.getBrands()`:  `response.error` **Added**\n* `SDK.design-builder.addConsumer()`:  `response.error` **Added**\n* `SDK.design-builder.getLimit()`:  `response.error` **Added**\n* `SDK.design-builder.getThemeFromDesign()`: \n  *  `request.theme` **Changed**\n  *  `response.error` **Added**\n"
 generatedFiles:
   - .gitattributes
   - USAGE.md

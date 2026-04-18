@@ -81,8 +81,104 @@ func (r *DesignDataSource) Schema(ctx context.Context, req datasource.SchemaRequ
 			"design_tokens": schema.SingleNestedAttribute{
 				Computed: true,
 				Attributes: map[string]schema.Attribute{
+					"accent_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Accent color, defaults to primary`,
+					},
+					"button_border_radius": schema.Float64Attribute{
+						Computed:    true,
+						Description: `Button border radius in pixels`,
+					},
+					"button_ghost_bg": schema.StringAttribute{
+						Computed:    true,
+						Description: `Ghost button background color`,
+					},
+					"button_ghost_hover_bg": schema.StringAttribute{
+						Computed:    true,
+						Description: `Ghost button hover background color`,
+					},
+					"button_ghost_hover_text": schema.StringAttribute{
+						Computed:    true,
+						Description: `Ghost button hover text color`,
+					},
+					"button_ghost_text": schema.StringAttribute{
+						Computed:    true,
+						Description: `Ghost button text color`,
+					},
+					"button_height": schema.Float64Attribute{
+						Computed:    true,
+						Description: `Button height in pixels`,
+					},
+					"button_outlined_border": schema.StringAttribute{
+						Computed:    true,
+						Description: `Outlined button border color`,
+					},
+					"button_outlined_hover_bg": schema.StringAttribute{
+						Computed:    true,
+						Description: `Outlined button hover background color`,
+					},
+					"button_outlined_hover_text": schema.StringAttribute{
+						Computed:    true,
+						Description: `Outlined button hover text color`,
+					},
+					"button_outlined_text": schema.StringAttribute{
+						Computed:    true,
+						Description: `Outlined button text color`,
+					},
+					"button_primary_bg": schema.StringAttribute{
+						Computed:    true,
+						Description: `Primary button background color or gradient`,
+					},
+					"button_primary_hover_bg": schema.StringAttribute{
+						Computed:    true,
+						Description: `Primary button hover background color or gradient`,
+					},
+					"button_primary_hover_text": schema.StringAttribute{
+						Computed:    true,
+						Description: `Primary button hover text color`,
+					},
+					"button_primary_text": schema.StringAttribute{
+						Computed:    true,
+						Description: `Primary button text color`,
+					},
+					"card_background": schema.StringAttribute{
+						Computed:    true,
+						Description: `Card background color`,
+					},
+					"card_border_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Card border color for outlined variant`,
+					},
+					"card_variant": schema.StringAttribute{
+						Computed:    true,
+						Description: `Card visual variant`,
+					},
 					"cashback": schema.StringAttribute{
 						Computed: true,
+					},
+					"checkbox_label_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Checkbox label text color`,
+					},
+					"checkbox_unchecked_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Checkbox unchecked border color`,
+					},
+					"chip_background": schema.StringAttribute{
+						Computed:    true,
+						Description: `Chip background color`,
+					},
+					"chip_hover_background": schema.StringAttribute{
+						Computed:    true,
+						Description: `Chip hover background color`,
+					},
+					"chip_hover_text_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Chip hover text color`,
+					},
+					"chip_text_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Chip text color`,
 					},
 					"coupon": schema.StringAttribute{
 						Computed: true,
@@ -90,7 +186,140 @@ func (r *DesignDataSource) Schema(ctx context.Context, req datasource.SchemaRequ
 					"custom_css": schema.StringAttribute{
 						Computed: true,
 					},
+					"datepicker_border_radius": schema.Float64Attribute{
+						Computed:    true,
+						Description: `Date picker border radius in pixels`,
+					},
+					"datepicker_selected_bg": schema.StringAttribute{
+						Computed:    true,
+						Description: `Date picker selected date background color`,
+					},
+					"datepicker_selected_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Date picker selected date text color`,
+					},
+					"divider_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Divider line color`,
+					},
+					"dropdown_hover_bg": schema.StringAttribute{
+						Computed:    true,
+						Description: `Dropdown option hover background color`,
+					},
+					"dropdown_hover_text": schema.StringAttribute{
+						Computed:    true,
+						Description: `Dropdown option hover text color`,
+					},
+					"dropdown_selected_bg": schema.StringAttribute{
+						Computed:    true,
+						Description: `Dropdown option selected background color`,
+					},
+					"dropdown_selected_text": schema.StringAttribute{
+						Computed:    true,
+						Description: `Dropdown option selected text color`,
+					},
+					"font_size_scale": schema.StringAttribute{
+						Computed:    true,
+						Description: `Font size scale factor`,
+					},
+					"input_background": schema.StringAttribute{
+						Computed:    true,
+						Description: `Input field background color`,
+					},
+					"input_border_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Input field border color`,
+					},
+					"input_border_radius": schema.Float64Attribute{
+						Computed:    true,
+						Description: `Input field border radius in pixels`,
+					},
+					"input_height": schema.Float64Attribute{
+						Computed:    true,
+						Description: `Input field height in pixels`,
+					},
+					"input_label_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Input field label color`,
+					},
+					"input_text_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Input field text color`,
+					},
+					"input_variant": schema.StringAttribute{
+						Computed:    true,
+						Description: `Input field variant style`,
+					},
+					"link_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Link text color`,
+					},
+					"link_hover_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Link hover text color`,
+					},
+					"logo_size": schema.Float64Attribute{
+						Computed:    true,
+						Description: `Logo size in pixels`,
+					},
+					"outline_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Global outline/focus color`,
+					},
+					"radio_label_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Radio button label text color`,
+					},
+					"radio_unchecked_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Radio button unchecked border color`,
+					},
+					"summary_card_background": schema.StringAttribute{
+						Computed:    true,
+						Description: `Summary card background color`,
+					},
+					"switch_border_radius": schema.Float64Attribute{
+						Computed:    true,
+						Description: `Switch border radius in pixels`,
+					},
+					"switch_unchecked_bg": schema.StringAttribute{
+						Computed:    true,
+						Description: `Switch unchecked track background color`,
+					},
+					"switch_unchecked_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Switch unchecked thumb color`,
+					},
+					"toggle_border_color": schema.StringAttribute{
+						Computed:    true,
+						Description: `Toggle group wrapper border color`,
+					},
+					"toggle_hover_bg": schema.StringAttribute{
+						Computed:    true,
+						Description: `Toggle button hover background color`,
+					},
+					"toggle_hover_text": schema.StringAttribute{
+						Computed:    true,
+						Description: `Toggle button hover text color`,
+					},
+					"toggle_selected_bg": schema.StringAttribute{
+						Computed:    true,
+						Description: `Toggle button selected background color`,
+					},
+					"toggle_selected_text": schema.StringAttribute{
+						Computed:    true,
+						Description: `Toggle button selected text color`,
+					},
+					"topbar_height": schema.Float64Attribute{
+						Computed:    true,
+						Description: `Topbar minimum height in pixels`,
+					},
+					"topbar_logo_alignment": schema.StringAttribute{
+						Computed:    true,
+						Description: `Logo/content alignment in the top bar`,
+					},
 				},
+				Description: `Design tokens for journey customization`,
 			},
 			"edited": schema.BoolAttribute{
 				Computed: true,
