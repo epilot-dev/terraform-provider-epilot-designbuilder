@@ -18,9 +18,66 @@ resource "epilot-designbuilder_design" "my_design" {
   brand_name   = "...my_brand_name..."
   custom_theme = "{ \"see\": \"documentation\" }"
   design_tokens = {
-    cashback   = "...my_cashback..."
-    coupon     = "...my_coupon..."
-    custom_css = "...my_custom_css..."
+    accent_color               = "...my_accent_color..."
+    button_border_radius       = 7.98
+    button_ghost_bg            = "...my_button_ghost_bg..."
+    button_ghost_hover_bg      = "...my_button_ghost_hover_bg..."
+    button_ghost_hover_text    = "...my_button_ghost_hover_text..."
+    button_ghost_text          = "...my_button_ghost_text..."
+    button_height              = 2.73
+    button_outlined_border     = "...my_button_outlined_border..."
+    button_outlined_hover_bg   = "...my_button_outlined_hover_bg..."
+    button_outlined_hover_text = "...my_button_outlined_hover_text..."
+    button_outlined_text       = "...my_button_outlined_text..."
+    button_primary_bg          = "...my_button_primary_bg..."
+    button_primary_hover_bg    = "...my_button_primary_hover_bg..."
+    button_primary_hover_text  = "...my_button_primary_hover_text..."
+    button_primary_text        = "...my_button_primary_text..."
+    card_background            = "...my_card_background..."
+    card_border_color          = "...my_card_border_color..."
+    card_variant               = "outlined"
+    cashback                   = "...my_cashback..."
+    checkbox_label_color       = "...my_checkbox_label_color..."
+    checkbox_unchecked_color   = "...my_checkbox_unchecked_color..."
+    chip_background            = "...my_chip_background..."
+    chip_hover_background      = "...my_chip_hover_background..."
+    chip_hover_text_color      = "...my_chip_hover_text_color..."
+    chip_text_color            = "...my_chip_text_color..."
+    coupon                     = "...my_coupon..."
+    custom_css                 = "...my_custom_css..."
+    datepicker_border_radius   = 2.43
+    datepicker_selected_bg     = "...my_datepicker_selected_bg..."
+    datepicker_selected_color  = "...my_datepicker_selected_color..."
+    divider_color              = "...my_divider_color..."
+    dropdown_hover_bg          = "...my_dropdown_hover_bg..."
+    dropdown_hover_text        = "...my_dropdown_hover_text..."
+    dropdown_selected_bg       = "...my_dropdown_selected_bg..."
+    dropdown_selected_text     = "...my_dropdown_selected_text..."
+    font_size_scale            = "lg"
+    input_background           = "...my_input_background..."
+    input_border_color         = "...my_input_border_color..."
+    input_border_radius        = 8.41
+    input_height               = 6.13
+    input_label_color          = "...my_input_label_color..."
+    input_text_color           = "...my_input_text_color..."
+    input_variant              = "underlined"
+    link_color                 = "...my_link_color..."
+    link_hover_color           = "...my_link_hover_color..."
+    logo_size                  = 5.4
+    outline_color              = "...my_outline_color..."
+    radio_label_color          = "...my_radio_label_color..."
+    radio_unchecked_color      = "...my_radio_unchecked_color..."
+    summary_card_background    = "...my_summary_card_background..."
+    switch_border_radius       = 4.63
+    switch_unchecked_bg        = "...my_switch_unchecked_bg..."
+    switch_unchecked_color     = "...my_switch_unchecked_color..."
+    toggle_border_color        = "...my_toggle_border_color..."
+    toggle_hover_bg            = "...my_toggle_hover_bg..."
+    toggle_hover_text          = "...my_toggle_hover_text..."
+    toggle_selected_bg         = "...my_toggle_selected_bg..."
+    toggle_selected_text       = "...my_toggle_selected_text..."
+    topbar_height              = 8.63
+    topbar_logo_alignment      = "flex-end"
   }
   is_default = true
   manifest = [
@@ -51,7 +108,7 @@ resource "epilot-designbuilder_design" "my_design" {
 - `brand_id` (String) Parsed as JSON.
 - `brand_name` (String)
 - `custom_theme` (String) Parsed as JSON.
-- `design_tokens` (Attributes) (see [below for nested schema](#nestedatt--design_tokens))
+- `design_tokens` (Attributes) Design tokens for journey customization (see [below for nested schema](#nestedatt--design_tokens))
 - `is_default` (Boolean)
 - `manifest` (List of String) The manifest IDs associated with this design
 - `use_custom_theme` (Boolean)
@@ -70,9 +127,66 @@ resource "epilot-designbuilder_design" "my_design" {
 
 Optional:
 
+- `accent_color` (String) Accent color, defaults to primary
+- `button_border_radius` (Number) Button border radius in pixels
+- `button_ghost_bg` (String) Ghost button background color
+- `button_ghost_hover_bg` (String) Ghost button hover background color
+- `button_ghost_hover_text` (String) Ghost button hover text color
+- `button_ghost_text` (String) Ghost button text color
+- `button_height` (Number) Button height in pixels
+- `button_outlined_border` (String) Outlined button border color
+- `button_outlined_hover_bg` (String) Outlined button hover background color
+- `button_outlined_hover_text` (String) Outlined button hover text color
+- `button_outlined_text` (String) Outlined button text color
+- `button_primary_bg` (String) Primary button background color or gradient
+- `button_primary_hover_bg` (String) Primary button hover background color or gradient
+- `button_primary_hover_text` (String) Primary button hover text color
+- `button_primary_text` (String) Primary button text color
+- `card_background` (String) Card background color
+- `card_border_color` (String) Card border color for outlined variant
+- `card_variant` (String) Card visual variant. must be one of ["shadow", "outlined"]
 - `cashback` (String)
+- `checkbox_label_color` (String) Checkbox label text color
+- `checkbox_unchecked_color` (String) Checkbox unchecked border color
+- `chip_background` (String) Chip background color
+- `chip_hover_background` (String) Chip hover background color
+- `chip_hover_text_color` (String) Chip hover text color
+- `chip_text_color` (String) Chip text color
 - `coupon` (String)
 - `custom_css` (String)
+- `datepicker_border_radius` (Number) Date picker border radius in pixels
+- `datepicker_selected_bg` (String) Date picker selected date background color
+- `datepicker_selected_color` (String) Date picker selected date text color
+- `divider_color` (String) Divider line color
+- `dropdown_hover_bg` (String) Dropdown option hover background color
+- `dropdown_hover_text` (String) Dropdown option hover text color
+- `dropdown_selected_bg` (String) Dropdown option selected background color
+- `dropdown_selected_text` (String) Dropdown option selected text color
+- `font_size_scale` (String) Font size scale factor. must be one of ["xs", "sm", "md", "lg", "xl"]
+- `input_background` (String) Input field background color
+- `input_border_color` (String) Input field border color
+- `input_border_radius` (Number) Input field border radius in pixels
+- `input_height` (Number) Input field height in pixels
+- `input_label_color` (String) Input field label color
+- `input_text_color` (String) Input field text color
+- `input_variant` (String) Input field variant style. must be one of ["outlined", "filled", "underlined"]
+- `link_color` (String) Link text color
+- `link_hover_color` (String) Link hover text color
+- `logo_size` (Number) Logo size in pixels
+- `outline_color` (String) Global outline/focus color
+- `radio_label_color` (String) Radio button label text color
+- `radio_unchecked_color` (String) Radio button unchecked border color
+- `summary_card_background` (String) Summary card background color
+- `switch_border_radius` (Number) Switch border radius in pixels
+- `switch_unchecked_bg` (String) Switch unchecked track background color
+- `switch_unchecked_color` (String) Switch unchecked thumb color
+- `toggle_border_color` (String) Toggle group wrapper border color
+- `toggle_hover_bg` (String) Toggle button hover background color
+- `toggle_hover_text` (String) Toggle button hover text color
+- `toggle_selected_bg` (String) Toggle button selected background color
+- `toggle_selected_text` (String) Toggle button selected text color
+- `topbar_height` (Number) Topbar minimum height in pixels
+- `topbar_logo_alignment` (String) Logo/content alignment in the top bar. must be one of ["flex-start", "center", "flex-end"]
 
 
 <a id="nestedatt--user"></a>

@@ -55,9 +55,82 @@ func (r *DesignDataSourceModel) RefreshFromSharedGetDesignResDesign(ctx context.
 			r.DesignTokens = nil
 		} else {
 			r.DesignTokens = &tfTypes.DesignTokens{}
+			r.DesignTokens.AccentColor = types.StringPointerValue(resp.DesignTokens.AccentColor)
+			r.DesignTokens.ButtonBorderRadius = types.Float64PointerValue(resp.DesignTokens.ButtonBorderRadius)
+			r.DesignTokens.ButtonGhostBg = types.StringPointerValue(resp.DesignTokens.ButtonGhostBg)
+			r.DesignTokens.ButtonGhostHoverBg = types.StringPointerValue(resp.DesignTokens.ButtonGhostHoverBg)
+			r.DesignTokens.ButtonGhostHoverText = types.StringPointerValue(resp.DesignTokens.ButtonGhostHoverText)
+			r.DesignTokens.ButtonGhostText = types.StringPointerValue(resp.DesignTokens.ButtonGhostText)
+			r.DesignTokens.ButtonHeight = types.Float64PointerValue(resp.DesignTokens.ButtonHeight)
+			r.DesignTokens.ButtonOutlinedBorder = types.StringPointerValue(resp.DesignTokens.ButtonOutlinedBorder)
+			r.DesignTokens.ButtonOutlinedHoverBg = types.StringPointerValue(resp.DesignTokens.ButtonOutlinedHoverBg)
+			r.DesignTokens.ButtonOutlinedHoverText = types.StringPointerValue(resp.DesignTokens.ButtonOutlinedHoverText)
+			r.DesignTokens.ButtonOutlinedText = types.StringPointerValue(resp.DesignTokens.ButtonOutlinedText)
+			r.DesignTokens.ButtonPrimaryBg = types.StringPointerValue(resp.DesignTokens.ButtonPrimaryBg)
+			r.DesignTokens.ButtonPrimaryHoverBg = types.StringPointerValue(resp.DesignTokens.ButtonPrimaryHoverBg)
+			r.DesignTokens.ButtonPrimaryHoverText = types.StringPointerValue(resp.DesignTokens.ButtonPrimaryHoverText)
+			r.DesignTokens.ButtonPrimaryText = types.StringPointerValue(resp.DesignTokens.ButtonPrimaryText)
+			r.DesignTokens.CardBackground = types.StringPointerValue(resp.DesignTokens.CardBackground)
+			r.DesignTokens.CardBorderColor = types.StringPointerValue(resp.DesignTokens.CardBorderColor)
+			if resp.DesignTokens.CardVariant != nil {
+				r.DesignTokens.CardVariant = types.StringValue(string(*resp.DesignTokens.CardVariant))
+			} else {
+				r.DesignTokens.CardVariant = types.StringNull()
+			}
 			r.DesignTokens.Cashback = types.StringPointerValue(resp.DesignTokens.Cashback)
+			r.DesignTokens.CheckboxLabelColor = types.StringPointerValue(resp.DesignTokens.CheckboxLabelColor)
+			r.DesignTokens.CheckboxUncheckedColor = types.StringPointerValue(resp.DesignTokens.CheckboxUncheckedColor)
+			r.DesignTokens.ChipBackground = types.StringPointerValue(resp.DesignTokens.ChipBackground)
+			r.DesignTokens.ChipHoverBackground = types.StringPointerValue(resp.DesignTokens.ChipHoverBackground)
+			r.DesignTokens.ChipHoverTextColor = types.StringPointerValue(resp.DesignTokens.ChipHoverTextColor)
+			r.DesignTokens.ChipTextColor = types.StringPointerValue(resp.DesignTokens.ChipTextColor)
 			r.DesignTokens.Coupon = types.StringPointerValue(resp.DesignTokens.Coupon)
 			r.DesignTokens.CustomCSS = types.StringPointerValue(resp.DesignTokens.CustomCSS)
+			r.DesignTokens.DatepickerBorderRadius = types.Float64PointerValue(resp.DesignTokens.DatepickerBorderRadius)
+			r.DesignTokens.DatepickerSelectedBg = types.StringPointerValue(resp.DesignTokens.DatepickerSelectedBg)
+			r.DesignTokens.DatepickerSelectedColor = types.StringPointerValue(resp.DesignTokens.DatepickerSelectedColor)
+			r.DesignTokens.DividerColor = types.StringPointerValue(resp.DesignTokens.DividerColor)
+			r.DesignTokens.DropdownHoverBg = types.StringPointerValue(resp.DesignTokens.DropdownHoverBg)
+			r.DesignTokens.DropdownHoverText = types.StringPointerValue(resp.DesignTokens.DropdownHoverText)
+			r.DesignTokens.DropdownSelectedBg = types.StringPointerValue(resp.DesignTokens.DropdownSelectedBg)
+			r.DesignTokens.DropdownSelectedText = types.StringPointerValue(resp.DesignTokens.DropdownSelectedText)
+			if resp.DesignTokens.FontSizeScale != nil {
+				r.DesignTokens.FontSizeScale = types.StringValue(string(*resp.DesignTokens.FontSizeScale))
+			} else {
+				r.DesignTokens.FontSizeScale = types.StringNull()
+			}
+			r.DesignTokens.InputBackground = types.StringPointerValue(resp.DesignTokens.InputBackground)
+			r.DesignTokens.InputBorderColor = types.StringPointerValue(resp.DesignTokens.InputBorderColor)
+			r.DesignTokens.InputBorderRadius = types.Float64PointerValue(resp.DesignTokens.InputBorderRadius)
+			r.DesignTokens.InputHeight = types.Float64PointerValue(resp.DesignTokens.InputHeight)
+			r.DesignTokens.InputLabelColor = types.StringPointerValue(resp.DesignTokens.InputLabelColor)
+			r.DesignTokens.InputTextColor = types.StringPointerValue(resp.DesignTokens.InputTextColor)
+			if resp.DesignTokens.InputVariant != nil {
+				r.DesignTokens.InputVariant = types.StringValue(string(*resp.DesignTokens.InputVariant))
+			} else {
+				r.DesignTokens.InputVariant = types.StringNull()
+			}
+			r.DesignTokens.LinkColor = types.StringPointerValue(resp.DesignTokens.LinkColor)
+			r.DesignTokens.LinkHoverColor = types.StringPointerValue(resp.DesignTokens.LinkHoverColor)
+			r.DesignTokens.LogoSize = types.Float64PointerValue(resp.DesignTokens.LogoSize)
+			r.DesignTokens.OutlineColor = types.StringPointerValue(resp.DesignTokens.OutlineColor)
+			r.DesignTokens.RadioLabelColor = types.StringPointerValue(resp.DesignTokens.RadioLabelColor)
+			r.DesignTokens.RadioUncheckedColor = types.StringPointerValue(resp.DesignTokens.RadioUncheckedColor)
+			r.DesignTokens.SummaryCardBackground = types.StringPointerValue(resp.DesignTokens.SummaryCardBackground)
+			r.DesignTokens.SwitchBorderRadius = types.Float64PointerValue(resp.DesignTokens.SwitchBorderRadius)
+			r.DesignTokens.SwitchUncheckedBg = types.StringPointerValue(resp.DesignTokens.SwitchUncheckedBg)
+			r.DesignTokens.SwitchUncheckedColor = types.StringPointerValue(resp.DesignTokens.SwitchUncheckedColor)
+			r.DesignTokens.ToggleBorderColor = types.StringPointerValue(resp.DesignTokens.ToggleBorderColor)
+			r.DesignTokens.ToggleHoverBg = types.StringPointerValue(resp.DesignTokens.ToggleHoverBg)
+			r.DesignTokens.ToggleHoverText = types.StringPointerValue(resp.DesignTokens.ToggleHoverText)
+			r.DesignTokens.ToggleSelectedBg = types.StringPointerValue(resp.DesignTokens.ToggleSelectedBg)
+			r.DesignTokens.ToggleSelectedText = types.StringPointerValue(resp.DesignTokens.ToggleSelectedText)
+			r.DesignTokens.TopbarHeight = types.Float64PointerValue(resp.DesignTokens.TopbarHeight)
+			if resp.DesignTokens.TopbarLogoAlignment != nil {
+				r.DesignTokens.TopbarLogoAlignment = types.StringValue(string(*resp.DesignTokens.TopbarLogoAlignment))
+			} else {
+				r.DesignTokens.TopbarLogoAlignment = types.StringNull()
+			}
 		}
 		r.Edited = types.BoolValue(resp.Edited)
 		r.ID = types.StringPointerValue(resp.ID)
