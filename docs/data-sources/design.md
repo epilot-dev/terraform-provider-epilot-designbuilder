@@ -28,7 +28,7 @@ data "epilot-designbuilder_design" "my_design" {
 - `created_at` (String) Creation date and time
 - `created_by` (String)
 - `custom_theme` (String) Parsed as JSON.
-- `design_tokens` (Attributes) (see [below for nested schema](#nestedatt--design_tokens))
+- `design_tokens` (Attributes) Design tokens for journey customization (see [below for nested schema](#nestedatt--design_tokens))
 - `edited` (Boolean)
 - `id` (String) The ID of this resource.
 - `is_default` (Boolean)
@@ -44,9 +44,66 @@ data "epilot-designbuilder_design" "my_design" {
 
 Read-Only:
 
+- `accent_color` (String) Accent color, defaults to primary
+- `button_border_radius` (Number) Button border radius in pixels
+- `button_ghost_bg` (String) Ghost button background color
+- `button_ghost_hover_bg` (String) Ghost button hover background color
+- `button_ghost_hover_text` (String) Ghost button hover text color
+- `button_ghost_text` (String) Ghost button text color
+- `button_height` (Number) Button height in pixels
+- `button_outlined_border` (String) Outlined button border color
+- `button_outlined_hover_bg` (String) Outlined button hover background color
+- `button_outlined_hover_text` (String) Outlined button hover text color
+- `button_outlined_text` (String) Outlined button text color
+- `button_primary_bg` (String) Primary button background color or gradient
+- `button_primary_hover_bg` (String) Primary button hover background color or gradient
+- `button_primary_hover_text` (String) Primary button hover text color
+- `button_primary_text` (String) Primary button text color
+- `card_background` (String) Card background color
+- `card_border_color` (String) Card border color for outlined variant
+- `card_variant` (String) Card visual variant
 - `cashback` (String)
+- `checkbox_label_color` (String) Checkbox label text color
+- `checkbox_unchecked_color` (String) Checkbox unchecked border color
+- `chip_background` (String) Chip background color
+- `chip_hover_background` (String) Chip hover background color
+- `chip_hover_text_color` (String) Chip hover text color
+- `chip_text_color` (String) Chip text color
 - `coupon` (String)
 - `custom_css` (String)
+- `datepicker_border_radius` (Number) Date picker border radius in pixels
+- `datepicker_selected_bg` (String) Date picker selected date background color
+- `datepicker_selected_color` (String) Date picker selected date text color
+- `divider_color` (String) Divider line color
+- `dropdown_hover_bg` (String) Dropdown option hover background color
+- `dropdown_hover_text` (String) Dropdown option hover text color
+- `dropdown_selected_bg` (String) Dropdown option selected background color
+- `dropdown_selected_text` (String) Dropdown option selected text color
+- `font_size_scale` (String) Font size scale factor
+- `input_background` (String) Input field background color
+- `input_border_color` (String) Input field border color
+- `input_border_radius` (Number) Input field border radius in pixels
+- `input_height` (Number) Input field height in pixels
+- `input_label_color` (String) Input field label color
+- `input_text_color` (String) Input field text color
+- `input_variant` (String) Input field variant style
+- `link_color` (String) Link text color
+- `link_hover_color` (String) Link hover text color
+- `logo_size` (Number) Logo size in pixels
+- `outline_color` (String) Global outline/focus color
+- `radio_label_color` (String) Radio button label text color
+- `radio_unchecked_color` (String) Radio button unchecked border color
+- `summary_card_background` (String) Summary card background color
+- `switch_border_radius` (Number) Switch border radius in pixels
+- `switch_unchecked_bg` (String) Switch unchecked track background color
+- `switch_unchecked_color` (String) Switch unchecked thumb color
+- `toggle_border_color` (String) Toggle group wrapper border color
+- `toggle_hover_bg` (String) Toggle button hover background color
+- `toggle_hover_text` (String) Toggle button hover text color
+- `toggle_selected_bg` (String) Toggle button selected background color
+- `toggle_selected_text` (String) Toggle button selected text color
+- `topbar_height` (Number) Topbar minimum height in pixels
+- `topbar_logo_alignment` (String) Logo/content alignment in the top bar
 
 
 <a id="nestedatt--user"></a>
