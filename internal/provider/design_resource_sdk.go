@@ -55,9 +55,82 @@ func (r *DesignResourceModel) RefreshFromSharedAddDesignResDesign(ctx context.Co
 			r.DesignTokens = nil
 		} else {
 			r.DesignTokens = &tfTypes.DesignTokens{}
+			r.DesignTokens.AccentColor = types.StringPointerValue(resp.DesignTokens.AccentColor)
+			r.DesignTokens.ButtonBorderRadius = types.Float64PointerValue(resp.DesignTokens.ButtonBorderRadius)
+			r.DesignTokens.ButtonGhostBg = types.StringPointerValue(resp.DesignTokens.ButtonGhostBg)
+			r.DesignTokens.ButtonGhostHoverBg = types.StringPointerValue(resp.DesignTokens.ButtonGhostHoverBg)
+			r.DesignTokens.ButtonGhostHoverText = types.StringPointerValue(resp.DesignTokens.ButtonGhostHoverText)
+			r.DesignTokens.ButtonGhostText = types.StringPointerValue(resp.DesignTokens.ButtonGhostText)
+			r.DesignTokens.ButtonHeight = types.Float64PointerValue(resp.DesignTokens.ButtonHeight)
+			r.DesignTokens.ButtonOutlinedBorder = types.StringPointerValue(resp.DesignTokens.ButtonOutlinedBorder)
+			r.DesignTokens.ButtonOutlinedHoverBg = types.StringPointerValue(resp.DesignTokens.ButtonOutlinedHoverBg)
+			r.DesignTokens.ButtonOutlinedHoverText = types.StringPointerValue(resp.DesignTokens.ButtonOutlinedHoverText)
+			r.DesignTokens.ButtonOutlinedText = types.StringPointerValue(resp.DesignTokens.ButtonOutlinedText)
+			r.DesignTokens.ButtonPrimaryBg = types.StringPointerValue(resp.DesignTokens.ButtonPrimaryBg)
+			r.DesignTokens.ButtonPrimaryHoverBg = types.StringPointerValue(resp.DesignTokens.ButtonPrimaryHoverBg)
+			r.DesignTokens.ButtonPrimaryHoverText = types.StringPointerValue(resp.DesignTokens.ButtonPrimaryHoverText)
+			r.DesignTokens.ButtonPrimaryText = types.StringPointerValue(resp.DesignTokens.ButtonPrimaryText)
+			r.DesignTokens.CardBackground = types.StringPointerValue(resp.DesignTokens.CardBackground)
+			r.DesignTokens.CardBorderColor = types.StringPointerValue(resp.DesignTokens.CardBorderColor)
+			if resp.DesignTokens.CardVariant != nil {
+				r.DesignTokens.CardVariant = types.StringValue(string(*resp.DesignTokens.CardVariant))
+			} else {
+				r.DesignTokens.CardVariant = types.StringNull()
+			}
 			r.DesignTokens.Cashback = types.StringPointerValue(resp.DesignTokens.Cashback)
+			r.DesignTokens.CheckboxLabelColor = types.StringPointerValue(resp.DesignTokens.CheckboxLabelColor)
+			r.DesignTokens.CheckboxUncheckedColor = types.StringPointerValue(resp.DesignTokens.CheckboxUncheckedColor)
+			r.DesignTokens.ChipBackground = types.StringPointerValue(resp.DesignTokens.ChipBackground)
+			r.DesignTokens.ChipHoverBackground = types.StringPointerValue(resp.DesignTokens.ChipHoverBackground)
+			r.DesignTokens.ChipHoverTextColor = types.StringPointerValue(resp.DesignTokens.ChipHoverTextColor)
+			r.DesignTokens.ChipTextColor = types.StringPointerValue(resp.DesignTokens.ChipTextColor)
 			r.DesignTokens.Coupon = types.StringPointerValue(resp.DesignTokens.Coupon)
 			r.DesignTokens.CustomCSS = types.StringPointerValue(resp.DesignTokens.CustomCSS)
+			r.DesignTokens.DatepickerBorderRadius = types.Float64PointerValue(resp.DesignTokens.DatepickerBorderRadius)
+			r.DesignTokens.DatepickerSelectedBg = types.StringPointerValue(resp.DesignTokens.DatepickerSelectedBg)
+			r.DesignTokens.DatepickerSelectedColor = types.StringPointerValue(resp.DesignTokens.DatepickerSelectedColor)
+			r.DesignTokens.DividerColor = types.StringPointerValue(resp.DesignTokens.DividerColor)
+			r.DesignTokens.DropdownHoverBg = types.StringPointerValue(resp.DesignTokens.DropdownHoverBg)
+			r.DesignTokens.DropdownHoverText = types.StringPointerValue(resp.DesignTokens.DropdownHoverText)
+			r.DesignTokens.DropdownSelectedBg = types.StringPointerValue(resp.DesignTokens.DropdownSelectedBg)
+			r.DesignTokens.DropdownSelectedText = types.StringPointerValue(resp.DesignTokens.DropdownSelectedText)
+			if resp.DesignTokens.FontSizeScale != nil {
+				r.DesignTokens.FontSizeScale = types.StringValue(string(*resp.DesignTokens.FontSizeScale))
+			} else {
+				r.DesignTokens.FontSizeScale = types.StringNull()
+			}
+			r.DesignTokens.InputBackground = types.StringPointerValue(resp.DesignTokens.InputBackground)
+			r.DesignTokens.InputBorderColor = types.StringPointerValue(resp.DesignTokens.InputBorderColor)
+			r.DesignTokens.InputBorderRadius = types.Float64PointerValue(resp.DesignTokens.InputBorderRadius)
+			r.DesignTokens.InputHeight = types.Float64PointerValue(resp.DesignTokens.InputHeight)
+			r.DesignTokens.InputLabelColor = types.StringPointerValue(resp.DesignTokens.InputLabelColor)
+			r.DesignTokens.InputTextColor = types.StringPointerValue(resp.DesignTokens.InputTextColor)
+			if resp.DesignTokens.InputVariant != nil {
+				r.DesignTokens.InputVariant = types.StringValue(string(*resp.DesignTokens.InputVariant))
+			} else {
+				r.DesignTokens.InputVariant = types.StringNull()
+			}
+			r.DesignTokens.LinkColor = types.StringPointerValue(resp.DesignTokens.LinkColor)
+			r.DesignTokens.LinkHoverColor = types.StringPointerValue(resp.DesignTokens.LinkHoverColor)
+			r.DesignTokens.LogoSize = types.Float64PointerValue(resp.DesignTokens.LogoSize)
+			r.DesignTokens.OutlineColor = types.StringPointerValue(resp.DesignTokens.OutlineColor)
+			r.DesignTokens.RadioLabelColor = types.StringPointerValue(resp.DesignTokens.RadioLabelColor)
+			r.DesignTokens.RadioUncheckedColor = types.StringPointerValue(resp.DesignTokens.RadioUncheckedColor)
+			r.DesignTokens.SummaryCardBackground = types.StringPointerValue(resp.DesignTokens.SummaryCardBackground)
+			r.DesignTokens.SwitchBorderRadius = types.Float64PointerValue(resp.DesignTokens.SwitchBorderRadius)
+			r.DesignTokens.SwitchUncheckedBg = types.StringPointerValue(resp.DesignTokens.SwitchUncheckedBg)
+			r.DesignTokens.SwitchUncheckedColor = types.StringPointerValue(resp.DesignTokens.SwitchUncheckedColor)
+			r.DesignTokens.ToggleBorderColor = types.StringPointerValue(resp.DesignTokens.ToggleBorderColor)
+			r.DesignTokens.ToggleHoverBg = types.StringPointerValue(resp.DesignTokens.ToggleHoverBg)
+			r.DesignTokens.ToggleHoverText = types.StringPointerValue(resp.DesignTokens.ToggleHoverText)
+			r.DesignTokens.ToggleSelectedBg = types.StringPointerValue(resp.DesignTokens.ToggleSelectedBg)
+			r.DesignTokens.ToggleSelectedText = types.StringPointerValue(resp.DesignTokens.ToggleSelectedText)
+			r.DesignTokens.TopbarHeight = types.Float64PointerValue(resp.DesignTokens.TopbarHeight)
+			if resp.DesignTokens.TopbarLogoAlignment != nil {
+				r.DesignTokens.TopbarLogoAlignment = types.StringValue(string(*resp.DesignTokens.TopbarLogoAlignment))
+			} else {
+				r.DesignTokens.TopbarLogoAlignment = types.StringNull()
+			}
 		}
 		r.Edited = types.BoolValue(resp.Edited)
 		r.ID = types.StringPointerValue(resp.ID)
@@ -123,9 +196,82 @@ func (r *DesignResourceModel) RefreshFromSharedGetDesignResDesign(ctx context.Co
 			r.DesignTokens = nil
 		} else {
 			r.DesignTokens = &tfTypes.DesignTokens{}
+			r.DesignTokens.AccentColor = types.StringPointerValue(resp.DesignTokens.AccentColor)
+			r.DesignTokens.ButtonBorderRadius = types.Float64PointerValue(resp.DesignTokens.ButtonBorderRadius)
+			r.DesignTokens.ButtonGhostBg = types.StringPointerValue(resp.DesignTokens.ButtonGhostBg)
+			r.DesignTokens.ButtonGhostHoverBg = types.StringPointerValue(resp.DesignTokens.ButtonGhostHoverBg)
+			r.DesignTokens.ButtonGhostHoverText = types.StringPointerValue(resp.DesignTokens.ButtonGhostHoverText)
+			r.DesignTokens.ButtonGhostText = types.StringPointerValue(resp.DesignTokens.ButtonGhostText)
+			r.DesignTokens.ButtonHeight = types.Float64PointerValue(resp.DesignTokens.ButtonHeight)
+			r.DesignTokens.ButtonOutlinedBorder = types.StringPointerValue(resp.DesignTokens.ButtonOutlinedBorder)
+			r.DesignTokens.ButtonOutlinedHoverBg = types.StringPointerValue(resp.DesignTokens.ButtonOutlinedHoverBg)
+			r.DesignTokens.ButtonOutlinedHoverText = types.StringPointerValue(resp.DesignTokens.ButtonOutlinedHoverText)
+			r.DesignTokens.ButtonOutlinedText = types.StringPointerValue(resp.DesignTokens.ButtonOutlinedText)
+			r.DesignTokens.ButtonPrimaryBg = types.StringPointerValue(resp.DesignTokens.ButtonPrimaryBg)
+			r.DesignTokens.ButtonPrimaryHoverBg = types.StringPointerValue(resp.DesignTokens.ButtonPrimaryHoverBg)
+			r.DesignTokens.ButtonPrimaryHoverText = types.StringPointerValue(resp.DesignTokens.ButtonPrimaryHoverText)
+			r.DesignTokens.ButtonPrimaryText = types.StringPointerValue(resp.DesignTokens.ButtonPrimaryText)
+			r.DesignTokens.CardBackground = types.StringPointerValue(resp.DesignTokens.CardBackground)
+			r.DesignTokens.CardBorderColor = types.StringPointerValue(resp.DesignTokens.CardBorderColor)
+			if resp.DesignTokens.CardVariant != nil {
+				r.DesignTokens.CardVariant = types.StringValue(string(*resp.DesignTokens.CardVariant))
+			} else {
+				r.DesignTokens.CardVariant = types.StringNull()
+			}
 			r.DesignTokens.Cashback = types.StringPointerValue(resp.DesignTokens.Cashback)
+			r.DesignTokens.CheckboxLabelColor = types.StringPointerValue(resp.DesignTokens.CheckboxLabelColor)
+			r.DesignTokens.CheckboxUncheckedColor = types.StringPointerValue(resp.DesignTokens.CheckboxUncheckedColor)
+			r.DesignTokens.ChipBackground = types.StringPointerValue(resp.DesignTokens.ChipBackground)
+			r.DesignTokens.ChipHoverBackground = types.StringPointerValue(resp.DesignTokens.ChipHoverBackground)
+			r.DesignTokens.ChipHoverTextColor = types.StringPointerValue(resp.DesignTokens.ChipHoverTextColor)
+			r.DesignTokens.ChipTextColor = types.StringPointerValue(resp.DesignTokens.ChipTextColor)
 			r.DesignTokens.Coupon = types.StringPointerValue(resp.DesignTokens.Coupon)
 			r.DesignTokens.CustomCSS = types.StringPointerValue(resp.DesignTokens.CustomCSS)
+			r.DesignTokens.DatepickerBorderRadius = types.Float64PointerValue(resp.DesignTokens.DatepickerBorderRadius)
+			r.DesignTokens.DatepickerSelectedBg = types.StringPointerValue(resp.DesignTokens.DatepickerSelectedBg)
+			r.DesignTokens.DatepickerSelectedColor = types.StringPointerValue(resp.DesignTokens.DatepickerSelectedColor)
+			r.DesignTokens.DividerColor = types.StringPointerValue(resp.DesignTokens.DividerColor)
+			r.DesignTokens.DropdownHoverBg = types.StringPointerValue(resp.DesignTokens.DropdownHoverBg)
+			r.DesignTokens.DropdownHoverText = types.StringPointerValue(resp.DesignTokens.DropdownHoverText)
+			r.DesignTokens.DropdownSelectedBg = types.StringPointerValue(resp.DesignTokens.DropdownSelectedBg)
+			r.DesignTokens.DropdownSelectedText = types.StringPointerValue(resp.DesignTokens.DropdownSelectedText)
+			if resp.DesignTokens.FontSizeScale != nil {
+				r.DesignTokens.FontSizeScale = types.StringValue(string(*resp.DesignTokens.FontSizeScale))
+			} else {
+				r.DesignTokens.FontSizeScale = types.StringNull()
+			}
+			r.DesignTokens.InputBackground = types.StringPointerValue(resp.DesignTokens.InputBackground)
+			r.DesignTokens.InputBorderColor = types.StringPointerValue(resp.DesignTokens.InputBorderColor)
+			r.DesignTokens.InputBorderRadius = types.Float64PointerValue(resp.DesignTokens.InputBorderRadius)
+			r.DesignTokens.InputHeight = types.Float64PointerValue(resp.DesignTokens.InputHeight)
+			r.DesignTokens.InputLabelColor = types.StringPointerValue(resp.DesignTokens.InputLabelColor)
+			r.DesignTokens.InputTextColor = types.StringPointerValue(resp.DesignTokens.InputTextColor)
+			if resp.DesignTokens.InputVariant != nil {
+				r.DesignTokens.InputVariant = types.StringValue(string(*resp.DesignTokens.InputVariant))
+			} else {
+				r.DesignTokens.InputVariant = types.StringNull()
+			}
+			r.DesignTokens.LinkColor = types.StringPointerValue(resp.DesignTokens.LinkColor)
+			r.DesignTokens.LinkHoverColor = types.StringPointerValue(resp.DesignTokens.LinkHoverColor)
+			r.DesignTokens.LogoSize = types.Float64PointerValue(resp.DesignTokens.LogoSize)
+			r.DesignTokens.OutlineColor = types.StringPointerValue(resp.DesignTokens.OutlineColor)
+			r.DesignTokens.RadioLabelColor = types.StringPointerValue(resp.DesignTokens.RadioLabelColor)
+			r.DesignTokens.RadioUncheckedColor = types.StringPointerValue(resp.DesignTokens.RadioUncheckedColor)
+			r.DesignTokens.SummaryCardBackground = types.StringPointerValue(resp.DesignTokens.SummaryCardBackground)
+			r.DesignTokens.SwitchBorderRadius = types.Float64PointerValue(resp.DesignTokens.SwitchBorderRadius)
+			r.DesignTokens.SwitchUncheckedBg = types.StringPointerValue(resp.DesignTokens.SwitchUncheckedBg)
+			r.DesignTokens.SwitchUncheckedColor = types.StringPointerValue(resp.DesignTokens.SwitchUncheckedColor)
+			r.DesignTokens.ToggleBorderColor = types.StringPointerValue(resp.DesignTokens.ToggleBorderColor)
+			r.DesignTokens.ToggleHoverBg = types.StringPointerValue(resp.DesignTokens.ToggleHoverBg)
+			r.DesignTokens.ToggleHoverText = types.StringPointerValue(resp.DesignTokens.ToggleHoverText)
+			r.DesignTokens.ToggleSelectedBg = types.StringPointerValue(resp.DesignTokens.ToggleSelectedBg)
+			r.DesignTokens.ToggleSelectedText = types.StringPointerValue(resp.DesignTokens.ToggleSelectedText)
+			r.DesignTokens.TopbarHeight = types.Float64PointerValue(resp.DesignTokens.TopbarHeight)
+			if resp.DesignTokens.TopbarLogoAlignment != nil {
+				r.DesignTokens.TopbarLogoAlignment = types.StringValue(string(*resp.DesignTokens.TopbarLogoAlignment))
+			} else {
+				r.DesignTokens.TopbarLogoAlignment = types.StringNull()
+			}
 		}
 		r.Edited = types.BoolValue(resp.Edited)
 		r.ID = types.StringPointerValue(resp.ID)
@@ -236,11 +382,155 @@ func (r *DesignResourceModel) ToSharedDesign(ctx context.Context) (*shared.Desig
 	}
 	var designTokens *shared.DesignTokens
 	if r.DesignTokens != nil {
+		accentColor := new(string)
+		if !r.DesignTokens.AccentColor.IsUnknown() && !r.DesignTokens.AccentColor.IsNull() {
+			*accentColor = r.DesignTokens.AccentColor.ValueString()
+		} else {
+			accentColor = nil
+		}
+		buttonBorderRadius := new(float64)
+		if !r.DesignTokens.ButtonBorderRadius.IsUnknown() && !r.DesignTokens.ButtonBorderRadius.IsNull() {
+			*buttonBorderRadius = r.DesignTokens.ButtonBorderRadius.ValueFloat64()
+		} else {
+			buttonBorderRadius = nil
+		}
+		buttonGhostBg := new(string)
+		if !r.DesignTokens.ButtonGhostBg.IsUnknown() && !r.DesignTokens.ButtonGhostBg.IsNull() {
+			*buttonGhostBg = r.DesignTokens.ButtonGhostBg.ValueString()
+		} else {
+			buttonGhostBg = nil
+		}
+		buttonGhostHoverBg := new(string)
+		if !r.DesignTokens.ButtonGhostHoverBg.IsUnknown() && !r.DesignTokens.ButtonGhostHoverBg.IsNull() {
+			*buttonGhostHoverBg = r.DesignTokens.ButtonGhostHoverBg.ValueString()
+		} else {
+			buttonGhostHoverBg = nil
+		}
+		buttonGhostHoverText := new(string)
+		if !r.DesignTokens.ButtonGhostHoverText.IsUnknown() && !r.DesignTokens.ButtonGhostHoverText.IsNull() {
+			*buttonGhostHoverText = r.DesignTokens.ButtonGhostHoverText.ValueString()
+		} else {
+			buttonGhostHoverText = nil
+		}
+		buttonGhostText := new(string)
+		if !r.DesignTokens.ButtonGhostText.IsUnknown() && !r.DesignTokens.ButtonGhostText.IsNull() {
+			*buttonGhostText = r.DesignTokens.ButtonGhostText.ValueString()
+		} else {
+			buttonGhostText = nil
+		}
+		buttonHeight := new(float64)
+		if !r.DesignTokens.ButtonHeight.IsUnknown() && !r.DesignTokens.ButtonHeight.IsNull() {
+			*buttonHeight = r.DesignTokens.ButtonHeight.ValueFloat64()
+		} else {
+			buttonHeight = nil
+		}
+		buttonOutlinedBorder := new(string)
+		if !r.DesignTokens.ButtonOutlinedBorder.IsUnknown() && !r.DesignTokens.ButtonOutlinedBorder.IsNull() {
+			*buttonOutlinedBorder = r.DesignTokens.ButtonOutlinedBorder.ValueString()
+		} else {
+			buttonOutlinedBorder = nil
+		}
+		buttonOutlinedHoverBg := new(string)
+		if !r.DesignTokens.ButtonOutlinedHoverBg.IsUnknown() && !r.DesignTokens.ButtonOutlinedHoverBg.IsNull() {
+			*buttonOutlinedHoverBg = r.DesignTokens.ButtonOutlinedHoverBg.ValueString()
+		} else {
+			buttonOutlinedHoverBg = nil
+		}
+		buttonOutlinedHoverText := new(string)
+		if !r.DesignTokens.ButtonOutlinedHoverText.IsUnknown() && !r.DesignTokens.ButtonOutlinedHoverText.IsNull() {
+			*buttonOutlinedHoverText = r.DesignTokens.ButtonOutlinedHoverText.ValueString()
+		} else {
+			buttonOutlinedHoverText = nil
+		}
+		buttonOutlinedText := new(string)
+		if !r.DesignTokens.ButtonOutlinedText.IsUnknown() && !r.DesignTokens.ButtonOutlinedText.IsNull() {
+			*buttonOutlinedText = r.DesignTokens.ButtonOutlinedText.ValueString()
+		} else {
+			buttonOutlinedText = nil
+		}
+		buttonPrimaryBg := new(string)
+		if !r.DesignTokens.ButtonPrimaryBg.IsUnknown() && !r.DesignTokens.ButtonPrimaryBg.IsNull() {
+			*buttonPrimaryBg = r.DesignTokens.ButtonPrimaryBg.ValueString()
+		} else {
+			buttonPrimaryBg = nil
+		}
+		buttonPrimaryHoverBg := new(string)
+		if !r.DesignTokens.ButtonPrimaryHoverBg.IsUnknown() && !r.DesignTokens.ButtonPrimaryHoverBg.IsNull() {
+			*buttonPrimaryHoverBg = r.DesignTokens.ButtonPrimaryHoverBg.ValueString()
+		} else {
+			buttonPrimaryHoverBg = nil
+		}
+		buttonPrimaryHoverText := new(string)
+		if !r.DesignTokens.ButtonPrimaryHoverText.IsUnknown() && !r.DesignTokens.ButtonPrimaryHoverText.IsNull() {
+			*buttonPrimaryHoverText = r.DesignTokens.ButtonPrimaryHoverText.ValueString()
+		} else {
+			buttonPrimaryHoverText = nil
+		}
+		buttonPrimaryText := new(string)
+		if !r.DesignTokens.ButtonPrimaryText.IsUnknown() && !r.DesignTokens.ButtonPrimaryText.IsNull() {
+			*buttonPrimaryText = r.DesignTokens.ButtonPrimaryText.ValueString()
+		} else {
+			buttonPrimaryText = nil
+		}
+		cardBackground := new(string)
+		if !r.DesignTokens.CardBackground.IsUnknown() && !r.DesignTokens.CardBackground.IsNull() {
+			*cardBackground = r.DesignTokens.CardBackground.ValueString()
+		} else {
+			cardBackground = nil
+		}
+		cardBorderColor := new(string)
+		if !r.DesignTokens.CardBorderColor.IsUnknown() && !r.DesignTokens.CardBorderColor.IsNull() {
+			*cardBorderColor = r.DesignTokens.CardBorderColor.ValueString()
+		} else {
+			cardBorderColor = nil
+		}
+		cardVariant := new(shared.CardVariant)
+		if !r.DesignTokens.CardVariant.IsUnknown() && !r.DesignTokens.CardVariant.IsNull() {
+			*cardVariant = shared.CardVariant(r.DesignTokens.CardVariant.ValueString())
+		} else {
+			cardVariant = nil
+		}
 		cashback := new(string)
 		if !r.DesignTokens.Cashback.IsUnknown() && !r.DesignTokens.Cashback.IsNull() {
 			*cashback = r.DesignTokens.Cashback.ValueString()
 		} else {
 			cashback = nil
+		}
+		checkboxLabelColor := new(string)
+		if !r.DesignTokens.CheckboxLabelColor.IsUnknown() && !r.DesignTokens.CheckboxLabelColor.IsNull() {
+			*checkboxLabelColor = r.DesignTokens.CheckboxLabelColor.ValueString()
+		} else {
+			checkboxLabelColor = nil
+		}
+		checkboxUncheckedColor := new(string)
+		if !r.DesignTokens.CheckboxUncheckedColor.IsUnknown() && !r.DesignTokens.CheckboxUncheckedColor.IsNull() {
+			*checkboxUncheckedColor = r.DesignTokens.CheckboxUncheckedColor.ValueString()
+		} else {
+			checkboxUncheckedColor = nil
+		}
+		chipBackground := new(string)
+		if !r.DesignTokens.ChipBackground.IsUnknown() && !r.DesignTokens.ChipBackground.IsNull() {
+			*chipBackground = r.DesignTokens.ChipBackground.ValueString()
+		} else {
+			chipBackground = nil
+		}
+		chipHoverBackground := new(string)
+		if !r.DesignTokens.ChipHoverBackground.IsUnknown() && !r.DesignTokens.ChipHoverBackground.IsNull() {
+			*chipHoverBackground = r.DesignTokens.ChipHoverBackground.ValueString()
+		} else {
+			chipHoverBackground = nil
+		}
+		chipHoverTextColor := new(string)
+		if !r.DesignTokens.ChipHoverTextColor.IsUnknown() && !r.DesignTokens.ChipHoverTextColor.IsNull() {
+			*chipHoverTextColor = r.DesignTokens.ChipHoverTextColor.ValueString()
+		} else {
+			chipHoverTextColor = nil
+		}
+		chipTextColor := new(string)
+		if !r.DesignTokens.ChipTextColor.IsUnknown() && !r.DesignTokens.ChipTextColor.IsNull() {
+			*chipTextColor = r.DesignTokens.ChipTextColor.ValueString()
+		} else {
+			chipTextColor = nil
 		}
 		coupon := new(string)
 		if !r.DesignTokens.Coupon.IsUnknown() && !r.DesignTokens.Coupon.IsNull() {
@@ -254,10 +544,265 @@ func (r *DesignResourceModel) ToSharedDesign(ctx context.Context) (*shared.Desig
 		} else {
 			customCSS = nil
 		}
+		datepickerBorderRadius := new(float64)
+		if !r.DesignTokens.DatepickerBorderRadius.IsUnknown() && !r.DesignTokens.DatepickerBorderRadius.IsNull() {
+			*datepickerBorderRadius = r.DesignTokens.DatepickerBorderRadius.ValueFloat64()
+		} else {
+			datepickerBorderRadius = nil
+		}
+		datepickerSelectedBg := new(string)
+		if !r.DesignTokens.DatepickerSelectedBg.IsUnknown() && !r.DesignTokens.DatepickerSelectedBg.IsNull() {
+			*datepickerSelectedBg = r.DesignTokens.DatepickerSelectedBg.ValueString()
+		} else {
+			datepickerSelectedBg = nil
+		}
+		datepickerSelectedColor := new(string)
+		if !r.DesignTokens.DatepickerSelectedColor.IsUnknown() && !r.DesignTokens.DatepickerSelectedColor.IsNull() {
+			*datepickerSelectedColor = r.DesignTokens.DatepickerSelectedColor.ValueString()
+		} else {
+			datepickerSelectedColor = nil
+		}
+		dividerColor := new(string)
+		if !r.DesignTokens.DividerColor.IsUnknown() && !r.DesignTokens.DividerColor.IsNull() {
+			*dividerColor = r.DesignTokens.DividerColor.ValueString()
+		} else {
+			dividerColor = nil
+		}
+		dropdownHoverBg := new(string)
+		if !r.DesignTokens.DropdownHoverBg.IsUnknown() && !r.DesignTokens.DropdownHoverBg.IsNull() {
+			*dropdownHoverBg = r.DesignTokens.DropdownHoverBg.ValueString()
+		} else {
+			dropdownHoverBg = nil
+		}
+		dropdownHoverText := new(string)
+		if !r.DesignTokens.DropdownHoverText.IsUnknown() && !r.DesignTokens.DropdownHoverText.IsNull() {
+			*dropdownHoverText = r.DesignTokens.DropdownHoverText.ValueString()
+		} else {
+			dropdownHoverText = nil
+		}
+		dropdownSelectedBg := new(string)
+		if !r.DesignTokens.DropdownSelectedBg.IsUnknown() && !r.DesignTokens.DropdownSelectedBg.IsNull() {
+			*dropdownSelectedBg = r.DesignTokens.DropdownSelectedBg.ValueString()
+		} else {
+			dropdownSelectedBg = nil
+		}
+		dropdownSelectedText := new(string)
+		if !r.DesignTokens.DropdownSelectedText.IsUnknown() && !r.DesignTokens.DropdownSelectedText.IsNull() {
+			*dropdownSelectedText = r.DesignTokens.DropdownSelectedText.ValueString()
+		} else {
+			dropdownSelectedText = nil
+		}
+		fontSizeScale := new(shared.FontSizeScale)
+		if !r.DesignTokens.FontSizeScale.IsUnknown() && !r.DesignTokens.FontSizeScale.IsNull() {
+			*fontSizeScale = shared.FontSizeScale(r.DesignTokens.FontSizeScale.ValueString())
+		} else {
+			fontSizeScale = nil
+		}
+		inputBackground := new(string)
+		if !r.DesignTokens.InputBackground.IsUnknown() && !r.DesignTokens.InputBackground.IsNull() {
+			*inputBackground = r.DesignTokens.InputBackground.ValueString()
+		} else {
+			inputBackground = nil
+		}
+		inputBorderColor := new(string)
+		if !r.DesignTokens.InputBorderColor.IsUnknown() && !r.DesignTokens.InputBorderColor.IsNull() {
+			*inputBorderColor = r.DesignTokens.InputBorderColor.ValueString()
+		} else {
+			inputBorderColor = nil
+		}
+		inputBorderRadius := new(float64)
+		if !r.DesignTokens.InputBorderRadius.IsUnknown() && !r.DesignTokens.InputBorderRadius.IsNull() {
+			*inputBorderRadius = r.DesignTokens.InputBorderRadius.ValueFloat64()
+		} else {
+			inputBorderRadius = nil
+		}
+		inputHeight := new(float64)
+		if !r.DesignTokens.InputHeight.IsUnknown() && !r.DesignTokens.InputHeight.IsNull() {
+			*inputHeight = r.DesignTokens.InputHeight.ValueFloat64()
+		} else {
+			inputHeight = nil
+		}
+		inputLabelColor := new(string)
+		if !r.DesignTokens.InputLabelColor.IsUnknown() && !r.DesignTokens.InputLabelColor.IsNull() {
+			*inputLabelColor = r.DesignTokens.InputLabelColor.ValueString()
+		} else {
+			inputLabelColor = nil
+		}
+		inputTextColor := new(string)
+		if !r.DesignTokens.InputTextColor.IsUnknown() && !r.DesignTokens.InputTextColor.IsNull() {
+			*inputTextColor = r.DesignTokens.InputTextColor.ValueString()
+		} else {
+			inputTextColor = nil
+		}
+		inputVariant := new(shared.InputVariant)
+		if !r.DesignTokens.InputVariant.IsUnknown() && !r.DesignTokens.InputVariant.IsNull() {
+			*inputVariant = shared.InputVariant(r.DesignTokens.InputVariant.ValueString())
+		} else {
+			inputVariant = nil
+		}
+		linkColor := new(string)
+		if !r.DesignTokens.LinkColor.IsUnknown() && !r.DesignTokens.LinkColor.IsNull() {
+			*linkColor = r.DesignTokens.LinkColor.ValueString()
+		} else {
+			linkColor = nil
+		}
+		linkHoverColor := new(string)
+		if !r.DesignTokens.LinkHoverColor.IsUnknown() && !r.DesignTokens.LinkHoverColor.IsNull() {
+			*linkHoverColor = r.DesignTokens.LinkHoverColor.ValueString()
+		} else {
+			linkHoverColor = nil
+		}
+		logoSize := new(float64)
+		if !r.DesignTokens.LogoSize.IsUnknown() && !r.DesignTokens.LogoSize.IsNull() {
+			*logoSize = r.DesignTokens.LogoSize.ValueFloat64()
+		} else {
+			logoSize = nil
+		}
+		outlineColor := new(string)
+		if !r.DesignTokens.OutlineColor.IsUnknown() && !r.DesignTokens.OutlineColor.IsNull() {
+			*outlineColor = r.DesignTokens.OutlineColor.ValueString()
+		} else {
+			outlineColor = nil
+		}
+		radioLabelColor := new(string)
+		if !r.DesignTokens.RadioLabelColor.IsUnknown() && !r.DesignTokens.RadioLabelColor.IsNull() {
+			*radioLabelColor = r.DesignTokens.RadioLabelColor.ValueString()
+		} else {
+			radioLabelColor = nil
+		}
+		radioUncheckedColor := new(string)
+		if !r.DesignTokens.RadioUncheckedColor.IsUnknown() && !r.DesignTokens.RadioUncheckedColor.IsNull() {
+			*radioUncheckedColor = r.DesignTokens.RadioUncheckedColor.ValueString()
+		} else {
+			radioUncheckedColor = nil
+		}
+		summaryCardBackground := new(string)
+		if !r.DesignTokens.SummaryCardBackground.IsUnknown() && !r.DesignTokens.SummaryCardBackground.IsNull() {
+			*summaryCardBackground = r.DesignTokens.SummaryCardBackground.ValueString()
+		} else {
+			summaryCardBackground = nil
+		}
+		switchBorderRadius := new(float64)
+		if !r.DesignTokens.SwitchBorderRadius.IsUnknown() && !r.DesignTokens.SwitchBorderRadius.IsNull() {
+			*switchBorderRadius = r.DesignTokens.SwitchBorderRadius.ValueFloat64()
+		} else {
+			switchBorderRadius = nil
+		}
+		switchUncheckedBg := new(string)
+		if !r.DesignTokens.SwitchUncheckedBg.IsUnknown() && !r.DesignTokens.SwitchUncheckedBg.IsNull() {
+			*switchUncheckedBg = r.DesignTokens.SwitchUncheckedBg.ValueString()
+		} else {
+			switchUncheckedBg = nil
+		}
+		switchUncheckedColor := new(string)
+		if !r.DesignTokens.SwitchUncheckedColor.IsUnknown() && !r.DesignTokens.SwitchUncheckedColor.IsNull() {
+			*switchUncheckedColor = r.DesignTokens.SwitchUncheckedColor.ValueString()
+		} else {
+			switchUncheckedColor = nil
+		}
+		toggleBorderColor := new(string)
+		if !r.DesignTokens.ToggleBorderColor.IsUnknown() && !r.DesignTokens.ToggleBorderColor.IsNull() {
+			*toggleBorderColor = r.DesignTokens.ToggleBorderColor.ValueString()
+		} else {
+			toggleBorderColor = nil
+		}
+		toggleHoverBg := new(string)
+		if !r.DesignTokens.ToggleHoverBg.IsUnknown() && !r.DesignTokens.ToggleHoverBg.IsNull() {
+			*toggleHoverBg = r.DesignTokens.ToggleHoverBg.ValueString()
+		} else {
+			toggleHoverBg = nil
+		}
+		toggleHoverText := new(string)
+		if !r.DesignTokens.ToggleHoverText.IsUnknown() && !r.DesignTokens.ToggleHoverText.IsNull() {
+			*toggleHoverText = r.DesignTokens.ToggleHoverText.ValueString()
+		} else {
+			toggleHoverText = nil
+		}
+		toggleSelectedBg := new(string)
+		if !r.DesignTokens.ToggleSelectedBg.IsUnknown() && !r.DesignTokens.ToggleSelectedBg.IsNull() {
+			*toggleSelectedBg = r.DesignTokens.ToggleSelectedBg.ValueString()
+		} else {
+			toggleSelectedBg = nil
+		}
+		toggleSelectedText := new(string)
+		if !r.DesignTokens.ToggleSelectedText.IsUnknown() && !r.DesignTokens.ToggleSelectedText.IsNull() {
+			*toggleSelectedText = r.DesignTokens.ToggleSelectedText.ValueString()
+		} else {
+			toggleSelectedText = nil
+		}
+		topbarHeight := new(float64)
+		if !r.DesignTokens.TopbarHeight.IsUnknown() && !r.DesignTokens.TopbarHeight.IsNull() {
+			*topbarHeight = r.DesignTokens.TopbarHeight.ValueFloat64()
+		} else {
+			topbarHeight = nil
+		}
+		topbarLogoAlignment := new(shared.TopbarLogoAlignment)
+		if !r.DesignTokens.TopbarLogoAlignment.IsUnknown() && !r.DesignTokens.TopbarLogoAlignment.IsNull() {
+			*topbarLogoAlignment = shared.TopbarLogoAlignment(r.DesignTokens.TopbarLogoAlignment.ValueString())
+		} else {
+			topbarLogoAlignment = nil
+		}
 		designTokens = &shared.DesignTokens{
-			Cashback:  cashback,
-			Coupon:    coupon,
-			CustomCSS: customCSS,
+			AccentColor:             accentColor,
+			ButtonBorderRadius:      buttonBorderRadius,
+			ButtonGhostBg:           buttonGhostBg,
+			ButtonGhostHoverBg:      buttonGhostHoverBg,
+			ButtonGhostHoverText:    buttonGhostHoverText,
+			ButtonGhostText:         buttonGhostText,
+			ButtonHeight:            buttonHeight,
+			ButtonOutlinedBorder:    buttonOutlinedBorder,
+			ButtonOutlinedHoverBg:   buttonOutlinedHoverBg,
+			ButtonOutlinedHoverText: buttonOutlinedHoverText,
+			ButtonOutlinedText:      buttonOutlinedText,
+			ButtonPrimaryBg:         buttonPrimaryBg,
+			ButtonPrimaryHoverBg:    buttonPrimaryHoverBg,
+			ButtonPrimaryHoverText:  buttonPrimaryHoverText,
+			ButtonPrimaryText:       buttonPrimaryText,
+			CardBackground:          cardBackground,
+			CardBorderColor:         cardBorderColor,
+			CardVariant:             cardVariant,
+			Cashback:                cashback,
+			CheckboxLabelColor:      checkboxLabelColor,
+			CheckboxUncheckedColor:  checkboxUncheckedColor,
+			ChipBackground:          chipBackground,
+			ChipHoverBackground:     chipHoverBackground,
+			ChipHoverTextColor:      chipHoverTextColor,
+			ChipTextColor:           chipTextColor,
+			Coupon:                  coupon,
+			CustomCSS:               customCSS,
+			DatepickerBorderRadius:  datepickerBorderRadius,
+			DatepickerSelectedBg:    datepickerSelectedBg,
+			DatepickerSelectedColor: datepickerSelectedColor,
+			DividerColor:            dividerColor,
+			DropdownHoverBg:         dropdownHoverBg,
+			DropdownHoverText:       dropdownHoverText,
+			DropdownSelectedBg:      dropdownSelectedBg,
+			DropdownSelectedText:    dropdownSelectedText,
+			FontSizeScale:           fontSizeScale,
+			InputBackground:         inputBackground,
+			InputBorderColor:        inputBorderColor,
+			InputBorderRadius:       inputBorderRadius,
+			InputHeight:             inputHeight,
+			InputLabelColor:         inputLabelColor,
+			InputTextColor:          inputTextColor,
+			InputVariant:            inputVariant,
+			LinkColor:               linkColor,
+			LinkHoverColor:          linkHoverColor,
+			LogoSize:                logoSize,
+			OutlineColor:            outlineColor,
+			RadioLabelColor:         radioLabelColor,
+			RadioUncheckedColor:     radioUncheckedColor,
+			SummaryCardBackground:   summaryCardBackground,
+			SwitchBorderRadius:      switchBorderRadius,
+			SwitchUncheckedBg:       switchUncheckedBg,
+			SwitchUncheckedColor:    switchUncheckedColor,
+			ToggleBorderColor:       toggleBorderColor,
+			ToggleHoverBg:           toggleHoverBg,
+			ToggleHoverText:         toggleHoverText,
+			ToggleSelectedBg:        toggleSelectedBg,
+			ToggleSelectedText:      toggleSelectedText,
+			TopbarHeight:            topbarHeight,
+			TopbarLogoAlignment:     topbarLogoAlignment,
 		}
 	}
 	isDefault := new(bool)
@@ -366,11 +911,155 @@ func (r *DesignResourceModel) ToSharedUpdateDesignReqDesign(ctx context.Context)
 	}
 	var designTokens *shared.UpdateDesignReqDesignTokens
 	if r.DesignTokens != nil {
+		accentColor := new(string)
+		if !r.DesignTokens.AccentColor.IsUnknown() && !r.DesignTokens.AccentColor.IsNull() {
+			*accentColor = r.DesignTokens.AccentColor.ValueString()
+		} else {
+			accentColor = nil
+		}
+		buttonBorderRadius := new(float64)
+		if !r.DesignTokens.ButtonBorderRadius.IsUnknown() && !r.DesignTokens.ButtonBorderRadius.IsNull() {
+			*buttonBorderRadius = r.DesignTokens.ButtonBorderRadius.ValueFloat64()
+		} else {
+			buttonBorderRadius = nil
+		}
+		buttonGhostBg := new(string)
+		if !r.DesignTokens.ButtonGhostBg.IsUnknown() && !r.DesignTokens.ButtonGhostBg.IsNull() {
+			*buttonGhostBg = r.DesignTokens.ButtonGhostBg.ValueString()
+		} else {
+			buttonGhostBg = nil
+		}
+		buttonGhostHoverBg := new(string)
+		if !r.DesignTokens.ButtonGhostHoverBg.IsUnknown() && !r.DesignTokens.ButtonGhostHoverBg.IsNull() {
+			*buttonGhostHoverBg = r.DesignTokens.ButtonGhostHoverBg.ValueString()
+		} else {
+			buttonGhostHoverBg = nil
+		}
+		buttonGhostHoverText := new(string)
+		if !r.DesignTokens.ButtonGhostHoverText.IsUnknown() && !r.DesignTokens.ButtonGhostHoverText.IsNull() {
+			*buttonGhostHoverText = r.DesignTokens.ButtonGhostHoverText.ValueString()
+		} else {
+			buttonGhostHoverText = nil
+		}
+		buttonGhostText := new(string)
+		if !r.DesignTokens.ButtonGhostText.IsUnknown() && !r.DesignTokens.ButtonGhostText.IsNull() {
+			*buttonGhostText = r.DesignTokens.ButtonGhostText.ValueString()
+		} else {
+			buttonGhostText = nil
+		}
+		buttonHeight := new(float64)
+		if !r.DesignTokens.ButtonHeight.IsUnknown() && !r.DesignTokens.ButtonHeight.IsNull() {
+			*buttonHeight = r.DesignTokens.ButtonHeight.ValueFloat64()
+		} else {
+			buttonHeight = nil
+		}
+		buttonOutlinedBorder := new(string)
+		if !r.DesignTokens.ButtonOutlinedBorder.IsUnknown() && !r.DesignTokens.ButtonOutlinedBorder.IsNull() {
+			*buttonOutlinedBorder = r.DesignTokens.ButtonOutlinedBorder.ValueString()
+		} else {
+			buttonOutlinedBorder = nil
+		}
+		buttonOutlinedHoverBg := new(string)
+		if !r.DesignTokens.ButtonOutlinedHoverBg.IsUnknown() && !r.DesignTokens.ButtonOutlinedHoverBg.IsNull() {
+			*buttonOutlinedHoverBg = r.DesignTokens.ButtonOutlinedHoverBg.ValueString()
+		} else {
+			buttonOutlinedHoverBg = nil
+		}
+		buttonOutlinedHoverText := new(string)
+		if !r.DesignTokens.ButtonOutlinedHoverText.IsUnknown() && !r.DesignTokens.ButtonOutlinedHoverText.IsNull() {
+			*buttonOutlinedHoverText = r.DesignTokens.ButtonOutlinedHoverText.ValueString()
+		} else {
+			buttonOutlinedHoverText = nil
+		}
+		buttonOutlinedText := new(string)
+		if !r.DesignTokens.ButtonOutlinedText.IsUnknown() && !r.DesignTokens.ButtonOutlinedText.IsNull() {
+			*buttonOutlinedText = r.DesignTokens.ButtonOutlinedText.ValueString()
+		} else {
+			buttonOutlinedText = nil
+		}
+		buttonPrimaryBg := new(string)
+		if !r.DesignTokens.ButtonPrimaryBg.IsUnknown() && !r.DesignTokens.ButtonPrimaryBg.IsNull() {
+			*buttonPrimaryBg = r.DesignTokens.ButtonPrimaryBg.ValueString()
+		} else {
+			buttonPrimaryBg = nil
+		}
+		buttonPrimaryHoverBg := new(string)
+		if !r.DesignTokens.ButtonPrimaryHoverBg.IsUnknown() && !r.DesignTokens.ButtonPrimaryHoverBg.IsNull() {
+			*buttonPrimaryHoverBg = r.DesignTokens.ButtonPrimaryHoverBg.ValueString()
+		} else {
+			buttonPrimaryHoverBg = nil
+		}
+		buttonPrimaryHoverText := new(string)
+		if !r.DesignTokens.ButtonPrimaryHoverText.IsUnknown() && !r.DesignTokens.ButtonPrimaryHoverText.IsNull() {
+			*buttonPrimaryHoverText = r.DesignTokens.ButtonPrimaryHoverText.ValueString()
+		} else {
+			buttonPrimaryHoverText = nil
+		}
+		buttonPrimaryText := new(string)
+		if !r.DesignTokens.ButtonPrimaryText.IsUnknown() && !r.DesignTokens.ButtonPrimaryText.IsNull() {
+			*buttonPrimaryText = r.DesignTokens.ButtonPrimaryText.ValueString()
+		} else {
+			buttonPrimaryText = nil
+		}
+		cardBackground := new(string)
+		if !r.DesignTokens.CardBackground.IsUnknown() && !r.DesignTokens.CardBackground.IsNull() {
+			*cardBackground = r.DesignTokens.CardBackground.ValueString()
+		} else {
+			cardBackground = nil
+		}
+		cardBorderColor := new(string)
+		if !r.DesignTokens.CardBorderColor.IsUnknown() && !r.DesignTokens.CardBorderColor.IsNull() {
+			*cardBorderColor = r.DesignTokens.CardBorderColor.ValueString()
+		} else {
+			cardBorderColor = nil
+		}
+		cardVariant := new(shared.UpdateDesignReqCardVariant)
+		if !r.DesignTokens.CardVariant.IsUnknown() && !r.DesignTokens.CardVariant.IsNull() {
+			*cardVariant = shared.UpdateDesignReqCardVariant(r.DesignTokens.CardVariant.ValueString())
+		} else {
+			cardVariant = nil
+		}
 		cashback := new(string)
 		if !r.DesignTokens.Cashback.IsUnknown() && !r.DesignTokens.Cashback.IsNull() {
 			*cashback = r.DesignTokens.Cashback.ValueString()
 		} else {
 			cashback = nil
+		}
+		checkboxLabelColor := new(string)
+		if !r.DesignTokens.CheckboxLabelColor.IsUnknown() && !r.DesignTokens.CheckboxLabelColor.IsNull() {
+			*checkboxLabelColor = r.DesignTokens.CheckboxLabelColor.ValueString()
+		} else {
+			checkboxLabelColor = nil
+		}
+		checkboxUncheckedColor := new(string)
+		if !r.DesignTokens.CheckboxUncheckedColor.IsUnknown() && !r.DesignTokens.CheckboxUncheckedColor.IsNull() {
+			*checkboxUncheckedColor = r.DesignTokens.CheckboxUncheckedColor.ValueString()
+		} else {
+			checkboxUncheckedColor = nil
+		}
+		chipBackground := new(string)
+		if !r.DesignTokens.ChipBackground.IsUnknown() && !r.DesignTokens.ChipBackground.IsNull() {
+			*chipBackground = r.DesignTokens.ChipBackground.ValueString()
+		} else {
+			chipBackground = nil
+		}
+		chipHoverBackground := new(string)
+		if !r.DesignTokens.ChipHoverBackground.IsUnknown() && !r.DesignTokens.ChipHoverBackground.IsNull() {
+			*chipHoverBackground = r.DesignTokens.ChipHoverBackground.ValueString()
+		} else {
+			chipHoverBackground = nil
+		}
+		chipHoverTextColor := new(string)
+		if !r.DesignTokens.ChipHoverTextColor.IsUnknown() && !r.DesignTokens.ChipHoverTextColor.IsNull() {
+			*chipHoverTextColor = r.DesignTokens.ChipHoverTextColor.ValueString()
+		} else {
+			chipHoverTextColor = nil
+		}
+		chipTextColor := new(string)
+		if !r.DesignTokens.ChipTextColor.IsUnknown() && !r.DesignTokens.ChipTextColor.IsNull() {
+			*chipTextColor = r.DesignTokens.ChipTextColor.ValueString()
+		} else {
+			chipTextColor = nil
 		}
 		coupon := new(string)
 		if !r.DesignTokens.Coupon.IsUnknown() && !r.DesignTokens.Coupon.IsNull() {
@@ -384,10 +1073,265 @@ func (r *DesignResourceModel) ToSharedUpdateDesignReqDesign(ctx context.Context)
 		} else {
 			customCSS = nil
 		}
+		datepickerBorderRadius := new(float64)
+		if !r.DesignTokens.DatepickerBorderRadius.IsUnknown() && !r.DesignTokens.DatepickerBorderRadius.IsNull() {
+			*datepickerBorderRadius = r.DesignTokens.DatepickerBorderRadius.ValueFloat64()
+		} else {
+			datepickerBorderRadius = nil
+		}
+		datepickerSelectedBg := new(string)
+		if !r.DesignTokens.DatepickerSelectedBg.IsUnknown() && !r.DesignTokens.DatepickerSelectedBg.IsNull() {
+			*datepickerSelectedBg = r.DesignTokens.DatepickerSelectedBg.ValueString()
+		} else {
+			datepickerSelectedBg = nil
+		}
+		datepickerSelectedColor := new(string)
+		if !r.DesignTokens.DatepickerSelectedColor.IsUnknown() && !r.DesignTokens.DatepickerSelectedColor.IsNull() {
+			*datepickerSelectedColor = r.DesignTokens.DatepickerSelectedColor.ValueString()
+		} else {
+			datepickerSelectedColor = nil
+		}
+		dividerColor := new(string)
+		if !r.DesignTokens.DividerColor.IsUnknown() && !r.DesignTokens.DividerColor.IsNull() {
+			*dividerColor = r.DesignTokens.DividerColor.ValueString()
+		} else {
+			dividerColor = nil
+		}
+		dropdownHoverBg := new(string)
+		if !r.DesignTokens.DropdownHoverBg.IsUnknown() && !r.DesignTokens.DropdownHoverBg.IsNull() {
+			*dropdownHoverBg = r.DesignTokens.DropdownHoverBg.ValueString()
+		} else {
+			dropdownHoverBg = nil
+		}
+		dropdownHoverText := new(string)
+		if !r.DesignTokens.DropdownHoverText.IsUnknown() && !r.DesignTokens.DropdownHoverText.IsNull() {
+			*dropdownHoverText = r.DesignTokens.DropdownHoverText.ValueString()
+		} else {
+			dropdownHoverText = nil
+		}
+		dropdownSelectedBg := new(string)
+		if !r.DesignTokens.DropdownSelectedBg.IsUnknown() && !r.DesignTokens.DropdownSelectedBg.IsNull() {
+			*dropdownSelectedBg = r.DesignTokens.DropdownSelectedBg.ValueString()
+		} else {
+			dropdownSelectedBg = nil
+		}
+		dropdownSelectedText := new(string)
+		if !r.DesignTokens.DropdownSelectedText.IsUnknown() && !r.DesignTokens.DropdownSelectedText.IsNull() {
+			*dropdownSelectedText = r.DesignTokens.DropdownSelectedText.ValueString()
+		} else {
+			dropdownSelectedText = nil
+		}
+		fontSizeScale := new(shared.UpdateDesignReqFontSizeScale)
+		if !r.DesignTokens.FontSizeScale.IsUnknown() && !r.DesignTokens.FontSizeScale.IsNull() {
+			*fontSizeScale = shared.UpdateDesignReqFontSizeScale(r.DesignTokens.FontSizeScale.ValueString())
+		} else {
+			fontSizeScale = nil
+		}
+		inputBackground := new(string)
+		if !r.DesignTokens.InputBackground.IsUnknown() && !r.DesignTokens.InputBackground.IsNull() {
+			*inputBackground = r.DesignTokens.InputBackground.ValueString()
+		} else {
+			inputBackground = nil
+		}
+		inputBorderColor := new(string)
+		if !r.DesignTokens.InputBorderColor.IsUnknown() && !r.DesignTokens.InputBorderColor.IsNull() {
+			*inputBorderColor = r.DesignTokens.InputBorderColor.ValueString()
+		} else {
+			inputBorderColor = nil
+		}
+		inputBorderRadius := new(float64)
+		if !r.DesignTokens.InputBorderRadius.IsUnknown() && !r.DesignTokens.InputBorderRadius.IsNull() {
+			*inputBorderRadius = r.DesignTokens.InputBorderRadius.ValueFloat64()
+		} else {
+			inputBorderRadius = nil
+		}
+		inputHeight := new(float64)
+		if !r.DesignTokens.InputHeight.IsUnknown() && !r.DesignTokens.InputHeight.IsNull() {
+			*inputHeight = r.DesignTokens.InputHeight.ValueFloat64()
+		} else {
+			inputHeight = nil
+		}
+		inputLabelColor := new(string)
+		if !r.DesignTokens.InputLabelColor.IsUnknown() && !r.DesignTokens.InputLabelColor.IsNull() {
+			*inputLabelColor = r.DesignTokens.InputLabelColor.ValueString()
+		} else {
+			inputLabelColor = nil
+		}
+		inputTextColor := new(string)
+		if !r.DesignTokens.InputTextColor.IsUnknown() && !r.DesignTokens.InputTextColor.IsNull() {
+			*inputTextColor = r.DesignTokens.InputTextColor.ValueString()
+		} else {
+			inputTextColor = nil
+		}
+		inputVariant := new(shared.UpdateDesignReqInputVariant)
+		if !r.DesignTokens.InputVariant.IsUnknown() && !r.DesignTokens.InputVariant.IsNull() {
+			*inputVariant = shared.UpdateDesignReqInputVariant(r.DesignTokens.InputVariant.ValueString())
+		} else {
+			inputVariant = nil
+		}
+		linkColor := new(string)
+		if !r.DesignTokens.LinkColor.IsUnknown() && !r.DesignTokens.LinkColor.IsNull() {
+			*linkColor = r.DesignTokens.LinkColor.ValueString()
+		} else {
+			linkColor = nil
+		}
+		linkHoverColor := new(string)
+		if !r.DesignTokens.LinkHoverColor.IsUnknown() && !r.DesignTokens.LinkHoverColor.IsNull() {
+			*linkHoverColor = r.DesignTokens.LinkHoverColor.ValueString()
+		} else {
+			linkHoverColor = nil
+		}
+		logoSize := new(float64)
+		if !r.DesignTokens.LogoSize.IsUnknown() && !r.DesignTokens.LogoSize.IsNull() {
+			*logoSize = r.DesignTokens.LogoSize.ValueFloat64()
+		} else {
+			logoSize = nil
+		}
+		outlineColor := new(string)
+		if !r.DesignTokens.OutlineColor.IsUnknown() && !r.DesignTokens.OutlineColor.IsNull() {
+			*outlineColor = r.DesignTokens.OutlineColor.ValueString()
+		} else {
+			outlineColor = nil
+		}
+		radioLabelColor := new(string)
+		if !r.DesignTokens.RadioLabelColor.IsUnknown() && !r.DesignTokens.RadioLabelColor.IsNull() {
+			*radioLabelColor = r.DesignTokens.RadioLabelColor.ValueString()
+		} else {
+			radioLabelColor = nil
+		}
+		radioUncheckedColor := new(string)
+		if !r.DesignTokens.RadioUncheckedColor.IsUnknown() && !r.DesignTokens.RadioUncheckedColor.IsNull() {
+			*radioUncheckedColor = r.DesignTokens.RadioUncheckedColor.ValueString()
+		} else {
+			radioUncheckedColor = nil
+		}
+		summaryCardBackground := new(string)
+		if !r.DesignTokens.SummaryCardBackground.IsUnknown() && !r.DesignTokens.SummaryCardBackground.IsNull() {
+			*summaryCardBackground = r.DesignTokens.SummaryCardBackground.ValueString()
+		} else {
+			summaryCardBackground = nil
+		}
+		switchBorderRadius := new(float64)
+		if !r.DesignTokens.SwitchBorderRadius.IsUnknown() && !r.DesignTokens.SwitchBorderRadius.IsNull() {
+			*switchBorderRadius = r.DesignTokens.SwitchBorderRadius.ValueFloat64()
+		} else {
+			switchBorderRadius = nil
+		}
+		switchUncheckedBg := new(string)
+		if !r.DesignTokens.SwitchUncheckedBg.IsUnknown() && !r.DesignTokens.SwitchUncheckedBg.IsNull() {
+			*switchUncheckedBg = r.DesignTokens.SwitchUncheckedBg.ValueString()
+		} else {
+			switchUncheckedBg = nil
+		}
+		switchUncheckedColor := new(string)
+		if !r.DesignTokens.SwitchUncheckedColor.IsUnknown() && !r.DesignTokens.SwitchUncheckedColor.IsNull() {
+			*switchUncheckedColor = r.DesignTokens.SwitchUncheckedColor.ValueString()
+		} else {
+			switchUncheckedColor = nil
+		}
+		toggleBorderColor := new(string)
+		if !r.DesignTokens.ToggleBorderColor.IsUnknown() && !r.DesignTokens.ToggleBorderColor.IsNull() {
+			*toggleBorderColor = r.DesignTokens.ToggleBorderColor.ValueString()
+		} else {
+			toggleBorderColor = nil
+		}
+		toggleHoverBg := new(string)
+		if !r.DesignTokens.ToggleHoverBg.IsUnknown() && !r.DesignTokens.ToggleHoverBg.IsNull() {
+			*toggleHoverBg = r.DesignTokens.ToggleHoverBg.ValueString()
+		} else {
+			toggleHoverBg = nil
+		}
+		toggleHoverText := new(string)
+		if !r.DesignTokens.ToggleHoverText.IsUnknown() && !r.DesignTokens.ToggleHoverText.IsNull() {
+			*toggleHoverText = r.DesignTokens.ToggleHoverText.ValueString()
+		} else {
+			toggleHoverText = nil
+		}
+		toggleSelectedBg := new(string)
+		if !r.DesignTokens.ToggleSelectedBg.IsUnknown() && !r.DesignTokens.ToggleSelectedBg.IsNull() {
+			*toggleSelectedBg = r.DesignTokens.ToggleSelectedBg.ValueString()
+		} else {
+			toggleSelectedBg = nil
+		}
+		toggleSelectedText := new(string)
+		if !r.DesignTokens.ToggleSelectedText.IsUnknown() && !r.DesignTokens.ToggleSelectedText.IsNull() {
+			*toggleSelectedText = r.DesignTokens.ToggleSelectedText.ValueString()
+		} else {
+			toggleSelectedText = nil
+		}
+		topbarHeight := new(float64)
+		if !r.DesignTokens.TopbarHeight.IsUnknown() && !r.DesignTokens.TopbarHeight.IsNull() {
+			*topbarHeight = r.DesignTokens.TopbarHeight.ValueFloat64()
+		} else {
+			topbarHeight = nil
+		}
+		topbarLogoAlignment := new(shared.UpdateDesignReqTopbarLogoAlignment)
+		if !r.DesignTokens.TopbarLogoAlignment.IsUnknown() && !r.DesignTokens.TopbarLogoAlignment.IsNull() {
+			*topbarLogoAlignment = shared.UpdateDesignReqTopbarLogoAlignment(r.DesignTokens.TopbarLogoAlignment.ValueString())
+		} else {
+			topbarLogoAlignment = nil
+		}
 		designTokens = &shared.UpdateDesignReqDesignTokens{
-			Cashback:  cashback,
-			Coupon:    coupon,
-			CustomCSS: customCSS,
+			AccentColor:             accentColor,
+			ButtonBorderRadius:      buttonBorderRadius,
+			ButtonGhostBg:           buttonGhostBg,
+			ButtonGhostHoverBg:      buttonGhostHoverBg,
+			ButtonGhostHoverText:    buttonGhostHoverText,
+			ButtonGhostText:         buttonGhostText,
+			ButtonHeight:            buttonHeight,
+			ButtonOutlinedBorder:    buttonOutlinedBorder,
+			ButtonOutlinedHoverBg:   buttonOutlinedHoverBg,
+			ButtonOutlinedHoverText: buttonOutlinedHoverText,
+			ButtonOutlinedText:      buttonOutlinedText,
+			ButtonPrimaryBg:         buttonPrimaryBg,
+			ButtonPrimaryHoverBg:    buttonPrimaryHoverBg,
+			ButtonPrimaryHoverText:  buttonPrimaryHoverText,
+			ButtonPrimaryText:       buttonPrimaryText,
+			CardBackground:          cardBackground,
+			CardBorderColor:         cardBorderColor,
+			CardVariant:             cardVariant,
+			Cashback:                cashback,
+			CheckboxLabelColor:      checkboxLabelColor,
+			CheckboxUncheckedColor:  checkboxUncheckedColor,
+			ChipBackground:          chipBackground,
+			ChipHoverBackground:     chipHoverBackground,
+			ChipHoverTextColor:      chipHoverTextColor,
+			ChipTextColor:           chipTextColor,
+			Coupon:                  coupon,
+			CustomCSS:               customCSS,
+			DatepickerBorderRadius:  datepickerBorderRadius,
+			DatepickerSelectedBg:    datepickerSelectedBg,
+			DatepickerSelectedColor: datepickerSelectedColor,
+			DividerColor:            dividerColor,
+			DropdownHoverBg:         dropdownHoverBg,
+			DropdownHoverText:       dropdownHoverText,
+			DropdownSelectedBg:      dropdownSelectedBg,
+			DropdownSelectedText:    dropdownSelectedText,
+			FontSizeScale:           fontSizeScale,
+			InputBackground:         inputBackground,
+			InputBorderColor:        inputBorderColor,
+			InputBorderRadius:       inputBorderRadius,
+			InputHeight:             inputHeight,
+			InputLabelColor:         inputLabelColor,
+			InputTextColor:          inputTextColor,
+			InputVariant:            inputVariant,
+			LinkColor:               linkColor,
+			LinkHoverColor:          linkHoverColor,
+			LogoSize:                logoSize,
+			OutlineColor:            outlineColor,
+			RadioLabelColor:         radioLabelColor,
+			RadioUncheckedColor:     radioUncheckedColor,
+			SummaryCardBackground:   summaryCardBackground,
+			SwitchBorderRadius:      switchBorderRadius,
+			SwitchUncheckedBg:       switchUncheckedBg,
+			SwitchUncheckedColor:    switchUncheckedColor,
+			ToggleBorderColor:       toggleBorderColor,
+			ToggleHoverBg:           toggleHoverBg,
+			ToggleHoverText:         toggleHoverText,
+			ToggleSelectedBg:        toggleSelectedBg,
+			ToggleSelectedText:      toggleSelectedText,
+			TopbarHeight:            topbarHeight,
+			TopbarLogoAlignment:     topbarLogoAlignment,
 		}
 	}
 	isDefault := new(bool)

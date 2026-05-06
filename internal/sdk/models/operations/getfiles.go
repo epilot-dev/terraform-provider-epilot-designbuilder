@@ -13,8 +13,9 @@ import (
 type Type string
 
 const (
-	TypeLogo Type = "LOGO"
-	TypeFont Type = "FONT"
+	TypeLogo  Type = "LOGO"
+	TypeFont  Type = "FONT"
+	TypeImage Type = "IMAGE"
 )
 
 func (e Type) ToPointer() *Type {
@@ -29,6 +30,8 @@ func (e *Type) UnmarshalJSON(data []byte) error {
 	case "LOGO":
 		fallthrough
 	case "FONT":
+		fallthrough
+	case "IMAGE":
 		*e = Type(v)
 		return nil
 	default:
