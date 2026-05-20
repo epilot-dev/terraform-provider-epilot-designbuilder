@@ -10,8 +10,9 @@ import (
 type FileType string
 
 const (
-	FileTypeLogo FileType = "LOGO"
-	FileTypeFont FileType = "FONT"
+	FileTypeLogo  FileType = "LOGO"
+	FileTypeFont  FileType = "FONT"
+	FileTypeImage FileType = "IMAGE"
 )
 
 func (e FileType) ToPointer() *FileType {
@@ -26,6 +27,8 @@ func (e *FileType) UnmarshalJSON(data []byte) error {
 	case "LOGO":
 		fallthrough
 	case "FONT":
+		fallthrough
+	case "IMAGE":
 		*e = FileType(v)
 		return nil
 	default:
