@@ -27,7 +27,7 @@ generation:
     skipResponseBodyAssertions: false
   telemetryEnabled: false
 terraform:
-  version: 0.15.0
+  version: 0.15.1
   additionalActions: []
   additionalDataSources: []
   additionalDependencies: {}
@@ -64,6 +64,7 @@ terraform:
   outputModelSuffix: output
   packageName: epilot-designbuilder
   preApplyUnionDiscriminators: false
+  providerTypeNameOverride: ""
   respectRequiredFields: false
   respectTitlesForPrimitiveUnionMembers: false
   unionStrategy: populated-fields

@@ -2316,12 +2316,12 @@ func (s *DesignBuilder) GetThemeFromDesign(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out operations.GetThemeFromDesignResponseBody
+			var out shared.ParseThemeFromDesignResp
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.ParseThemeFromDesignResp = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

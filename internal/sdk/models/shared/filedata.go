@@ -10,8 +10,9 @@ import (
 type FileType string
 
 const (
-	FileTypeLogo FileType = "LOGO"
-	FileTypeFont FileType = "FONT"
+	FileTypeLogo  FileType = "LOGO"
+	FileTypeFont  FileType = "FONT"
+	FileTypeImage FileType = "IMAGE"
 )
 
 func (e FileType) ToPointer() *FileType {
@@ -26,6 +27,8 @@ func (e *FileType) UnmarshalJSON(data []byte) error {
 	case "LOGO":
 		fallthrough
 	case "FONT":
+		fallthrough
+	case "IMAGE":
 		*e = FileType(v)
 		return nil
 	default:
@@ -34,7 +37,9 @@ func (e *FileType) UnmarshalJSON(data []byte) error {
 }
 
 type FileData struct {
-	DisplayName *string   `json:"display_name,omitempty"`
+	DisplayName *string `json:"display_name,omitempty"`
+	// ID of the source file entity in the epilot file-entity system. Set when the file was picked from the File Manager (rather than uploaded directly to the design-builder bucket). Consumers resolve the live `public_url` via this reference. The org id is derived from the journey's owning org at render time (same convention as journey image blocks), so blueprint cross-org installs work without any extra remapping.
+	FileID      *string   `json:"file_id,omitempty"`
 	FileType    *FileType `json:"file_type,omitempty"`
 	Name        string    `json:"name"`
 	S3ObjectKey string    `json:"s3_object_key"`
@@ -46,6 +51,13 @@ func (f *FileData) GetDisplayName() *string {
 		return nil
 	}
 	return f.DisplayName
+}
+
+func (f *FileData) GetFileID() *string {
+	if f == nil {
+		return nil
+	}
+	return f.FileID
 }
 
 func (f *FileData) GetFileType() *FileType {
