@@ -2,10 +2,379 @@
 
 package shared
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// GetDesignResCardVariant - Card visual variant
+type GetDesignResCardVariant string
+
+const (
+	GetDesignResCardVariantShadow   GetDesignResCardVariant = "shadow"
+	GetDesignResCardVariantOutlined GetDesignResCardVariant = "outlined"
+)
+
+func (e GetDesignResCardVariant) ToPointer() *GetDesignResCardVariant {
+	return &e
+}
+func (e *GetDesignResCardVariant) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "shadow":
+		fallthrough
+	case "outlined":
+		*e = GetDesignResCardVariant(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetDesignResCardVariant: %v", v)
+	}
+}
+
+// GetDesignResFontSizeScale - Font size scale factor
+type GetDesignResFontSizeScale string
+
+const (
+	GetDesignResFontSizeScaleXs GetDesignResFontSizeScale = "xs"
+	GetDesignResFontSizeScaleSm GetDesignResFontSizeScale = "sm"
+	GetDesignResFontSizeScaleMd GetDesignResFontSizeScale = "md"
+	GetDesignResFontSizeScaleLg GetDesignResFontSizeScale = "lg"
+	GetDesignResFontSizeScaleXl GetDesignResFontSizeScale = "xl"
+)
+
+func (e GetDesignResFontSizeScale) ToPointer() *GetDesignResFontSizeScale {
+	return &e
+}
+func (e *GetDesignResFontSizeScale) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "xs":
+		fallthrough
+	case "sm":
+		fallthrough
+	case "md":
+		fallthrough
+	case "lg":
+		fallthrough
+	case "xl":
+		*e = GetDesignResFontSizeScale(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetDesignResFontSizeScale: %v", v)
+	}
+}
+
+// GetDesignResInputVariant - Input field variant style
+type GetDesignResInputVariant string
+
+const (
+	GetDesignResInputVariantOutlined   GetDesignResInputVariant = "outlined"
+	GetDesignResInputVariantFilled     GetDesignResInputVariant = "filled"
+	GetDesignResInputVariantUnderlined GetDesignResInputVariant = "underlined"
+)
+
+func (e GetDesignResInputVariant) ToPointer() *GetDesignResInputVariant {
+	return &e
+}
+func (e *GetDesignResInputVariant) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "outlined":
+		fallthrough
+	case "filled":
+		fallthrough
+	case "underlined":
+		*e = GetDesignResInputVariant(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetDesignResInputVariant: %v", v)
+	}
+}
+
+// GetDesignResTopbarLogoAlignment - Logo/content alignment in the top bar
+type GetDesignResTopbarLogoAlignment string
+
+const (
+	GetDesignResTopbarLogoAlignmentFlexStart GetDesignResTopbarLogoAlignment = "flex-start"
+	GetDesignResTopbarLogoAlignmentCenter    GetDesignResTopbarLogoAlignment = "center"
+	GetDesignResTopbarLogoAlignmentFlexEnd   GetDesignResTopbarLogoAlignment = "flex-end"
+)
+
+func (e GetDesignResTopbarLogoAlignment) ToPointer() *GetDesignResTopbarLogoAlignment {
+	return &e
+}
+func (e *GetDesignResTopbarLogoAlignment) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "flex-start":
+		fallthrough
+	case "center":
+		fallthrough
+	case "flex-end":
+		*e = GetDesignResTopbarLogoAlignment(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetDesignResTopbarLogoAlignment: %v", v)
+	}
+}
+
+// GetDesignResDesignTokens - Design tokens for journey customization
 type GetDesignResDesignTokens struct {
-	Cashback  *string `json:"cashback,omitempty"`
-	Coupon    *string `json:"coupon,omitempty"`
-	CustomCSS *string `json:"custom_css,omitempty"`
+	// Accent color, defaults to primary
+	AccentColor *string `json:"accent_color,omitempty"`
+	// Button border radius in pixels
+	ButtonBorderRadius *float64 `json:"button_border_radius,omitempty"`
+	// Ghost button background color
+	ButtonGhostBg *string `json:"button_ghost_bg,omitempty"`
+	// Ghost button hover background color
+	ButtonGhostHoverBg *string `json:"button_ghost_hover_bg,omitempty"`
+	// Ghost button hover text color
+	ButtonGhostHoverText *string `json:"button_ghost_hover_text,omitempty"`
+	// Ghost button text color
+	ButtonGhostText *string `json:"button_ghost_text,omitempty"`
+	// Button height in pixels
+	ButtonHeight *float64 `json:"button_height,omitempty"`
+	// Outlined button border color
+	ButtonOutlinedBorder *string `json:"button_outlined_border,omitempty"`
+	// Outlined button hover background color
+	ButtonOutlinedHoverBg *string `json:"button_outlined_hover_bg,omitempty"`
+	// Outlined button hover text color
+	ButtonOutlinedHoverText *string `json:"button_outlined_hover_text,omitempty"`
+	// Outlined button text color
+	ButtonOutlinedText *string `json:"button_outlined_text,omitempty"`
+	// Primary button background color or gradient
+	ButtonPrimaryBg *string `json:"button_primary_bg,omitempty"`
+	// Primary button hover background color or gradient
+	ButtonPrimaryHoverBg *string `json:"button_primary_hover_bg,omitempty"`
+	// Primary button hover text color
+	ButtonPrimaryHoverText *string `json:"button_primary_hover_text,omitempty"`
+	// Primary button text color
+	ButtonPrimaryText *string `json:"button_primary_text,omitempty"`
+	// Card background color
+	CardBackground *string `json:"card_background,omitempty"`
+	// Card border color for outlined variant
+	CardBorderColor *string `json:"card_border_color,omitempty"`
+	// Card visual variant
+	CardVariant *GetDesignResCardVariant `json:"card_variant,omitempty"`
+	Cashback    *string                  `json:"cashback,omitempty"`
+	// Checkbox label text color
+	CheckboxLabelColor *string `json:"checkbox_label_color,omitempty"`
+	// Checkbox unchecked border color
+	CheckboxUncheckedColor *string `json:"checkbox_unchecked_color,omitempty"`
+	// Chip background color
+	ChipBackground *string `json:"chip_background,omitempty"`
+	// Chip hover background color
+	ChipHoverBackground *string `json:"chip_hover_background,omitempty"`
+	// Chip hover text color
+	ChipHoverTextColor *string `json:"chip_hover_text_color,omitempty"`
+	// Chip text color
+	ChipTextColor *string `json:"chip_text_color,omitempty"`
+	Coupon        *string `json:"coupon,omitempty"`
+	CustomCSS     *string `json:"custom_css,omitempty"`
+	// Date picker border radius in pixels
+	DatepickerBorderRadius *float64 `json:"datepicker_border_radius,omitempty"`
+	// Date picker selected date background color
+	DatepickerSelectedBg *string `json:"datepicker_selected_bg,omitempty"`
+	// Date picker selected date text color
+	DatepickerSelectedColor *string `json:"datepicker_selected_color,omitempty"`
+	// Divider line color
+	DividerColor *string `json:"divider_color,omitempty"`
+	// Dropdown option hover background color
+	DropdownHoverBg *string `json:"dropdown_hover_bg,omitempty"`
+	// Dropdown option hover text color
+	DropdownHoverText *string `json:"dropdown_hover_text,omitempty"`
+	// Dropdown option selected background color
+	DropdownSelectedBg *string `json:"dropdown_selected_bg,omitempty"`
+	// Dropdown option selected text color
+	DropdownSelectedText *string `json:"dropdown_selected_text,omitempty"`
+	// Font size scale factor
+	FontSizeScale *GetDesignResFontSizeScale `json:"font_size_scale,omitempty"`
+	// Input field background color
+	InputBackground *string `json:"input_background,omitempty"`
+	// Input field border color
+	InputBorderColor *string `json:"input_border_color,omitempty"`
+	// Input field border radius in pixels
+	InputBorderRadius *float64 `json:"input_border_radius,omitempty"`
+	// Input field height in pixels
+	InputHeight *float64 `json:"input_height,omitempty"`
+	// Input field label color
+	InputLabelColor *string `json:"input_label_color,omitempty"`
+	// Input field text color
+	InputTextColor *string `json:"input_text_color,omitempty"`
+	// Input field variant style
+	InputVariant *GetDesignResInputVariant `json:"input_variant,omitempty"`
+	// Link text color
+	LinkColor *string `json:"link_color,omitempty"`
+	// Link hover text color
+	LinkHoverColor *string `json:"link_hover_color,omitempty"`
+	// Logo size in pixels
+	LogoSize *float64 `json:"logo_size,omitempty"`
+	// Global outline/focus color
+	OutlineColor *string `json:"outline_color,omitempty"`
+	// Radio button label text color
+	RadioLabelColor *string `json:"radio_label_color,omitempty"`
+	// Radio button unchecked border color
+	RadioUncheckedColor *string `json:"radio_unchecked_color,omitempty"`
+	// Summary card background color
+	SummaryCardBackground *string `json:"summary_card_background,omitempty"`
+	// Switch border radius in pixels
+	SwitchBorderRadius *float64 `json:"switch_border_radius,omitempty"`
+	// Switch unchecked track background color
+	SwitchUncheckedBg *string `json:"switch_unchecked_bg,omitempty"`
+	// Switch unchecked thumb color
+	SwitchUncheckedColor *string `json:"switch_unchecked_color,omitempty"`
+	// Toggle group wrapper border color
+	ToggleBorderColor *string `json:"toggle_border_color,omitempty"`
+	// Toggle button hover background color
+	ToggleHoverBg *string `json:"toggle_hover_bg,omitempty"`
+	// Toggle button hover text color
+	ToggleHoverText *string `json:"toggle_hover_text,omitempty"`
+	// Toggle button selected background color
+	ToggleSelectedBg *string `json:"toggle_selected_bg,omitempty"`
+	// Toggle button selected text color
+	ToggleSelectedText *string `json:"toggle_selected_text,omitempty"`
+	// Topbar minimum height in pixels
+	TopbarHeight *float64 `json:"topbar_height,omitempty"`
+	// Logo/content alignment in the top bar
+	TopbarLogoAlignment *GetDesignResTopbarLogoAlignment `json:"topbar_logo_alignment,omitempty"`
+}
+
+func (g *GetDesignResDesignTokens) GetAccentColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.AccentColor
+}
+
+func (g *GetDesignResDesignTokens) GetButtonBorderRadius() *float64 {
+	if g == nil {
+		return nil
+	}
+	return g.ButtonBorderRadius
+}
+
+func (g *GetDesignResDesignTokens) GetButtonGhostBg() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ButtonGhostBg
+}
+
+func (g *GetDesignResDesignTokens) GetButtonGhostHoverBg() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ButtonGhostHoverBg
+}
+
+func (g *GetDesignResDesignTokens) GetButtonGhostHoverText() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ButtonGhostHoverText
+}
+
+func (g *GetDesignResDesignTokens) GetButtonGhostText() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ButtonGhostText
+}
+
+func (g *GetDesignResDesignTokens) GetButtonHeight() *float64 {
+	if g == nil {
+		return nil
+	}
+	return g.ButtonHeight
+}
+
+func (g *GetDesignResDesignTokens) GetButtonOutlinedBorder() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ButtonOutlinedBorder
+}
+
+func (g *GetDesignResDesignTokens) GetButtonOutlinedHoverBg() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ButtonOutlinedHoverBg
+}
+
+func (g *GetDesignResDesignTokens) GetButtonOutlinedHoverText() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ButtonOutlinedHoverText
+}
+
+func (g *GetDesignResDesignTokens) GetButtonOutlinedText() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ButtonOutlinedText
+}
+
+func (g *GetDesignResDesignTokens) GetButtonPrimaryBg() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ButtonPrimaryBg
+}
+
+func (g *GetDesignResDesignTokens) GetButtonPrimaryHoverBg() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ButtonPrimaryHoverBg
+}
+
+func (g *GetDesignResDesignTokens) GetButtonPrimaryHoverText() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ButtonPrimaryHoverText
+}
+
+func (g *GetDesignResDesignTokens) GetButtonPrimaryText() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ButtonPrimaryText
+}
+
+func (g *GetDesignResDesignTokens) GetCardBackground() *string {
+	if g == nil {
+		return nil
+	}
+	return g.CardBackground
+}
+
+func (g *GetDesignResDesignTokens) GetCardBorderColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.CardBorderColor
+}
+
+func (g *GetDesignResDesignTokens) GetCardVariant() *GetDesignResCardVariant {
+	if g == nil {
+		return nil
+	}
+	return g.CardVariant
 }
 
 func (g *GetDesignResDesignTokens) GetCashback() *string {
@@ -13,6 +382,48 @@ func (g *GetDesignResDesignTokens) GetCashback() *string {
 		return nil
 	}
 	return g.Cashback
+}
+
+func (g *GetDesignResDesignTokens) GetCheckboxLabelColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.CheckboxLabelColor
+}
+
+func (g *GetDesignResDesignTokens) GetCheckboxUncheckedColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.CheckboxUncheckedColor
+}
+
+func (g *GetDesignResDesignTokens) GetChipBackground() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ChipBackground
+}
+
+func (g *GetDesignResDesignTokens) GetChipHoverBackground() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ChipHoverBackground
+}
+
+func (g *GetDesignResDesignTokens) GetChipHoverTextColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ChipHoverTextColor
+}
+
+func (g *GetDesignResDesignTokens) GetChipTextColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ChipTextColor
 }
 
 func (g *GetDesignResDesignTokens) GetCoupon() *string {
@@ -27,6 +438,237 @@ func (g *GetDesignResDesignTokens) GetCustomCSS() *string {
 		return nil
 	}
 	return g.CustomCSS
+}
+
+func (g *GetDesignResDesignTokens) GetDatepickerBorderRadius() *float64 {
+	if g == nil {
+		return nil
+	}
+	return g.DatepickerBorderRadius
+}
+
+func (g *GetDesignResDesignTokens) GetDatepickerSelectedBg() *string {
+	if g == nil {
+		return nil
+	}
+	return g.DatepickerSelectedBg
+}
+
+func (g *GetDesignResDesignTokens) GetDatepickerSelectedColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.DatepickerSelectedColor
+}
+
+func (g *GetDesignResDesignTokens) GetDividerColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.DividerColor
+}
+
+func (g *GetDesignResDesignTokens) GetDropdownHoverBg() *string {
+	if g == nil {
+		return nil
+	}
+	return g.DropdownHoverBg
+}
+
+func (g *GetDesignResDesignTokens) GetDropdownHoverText() *string {
+	if g == nil {
+		return nil
+	}
+	return g.DropdownHoverText
+}
+
+func (g *GetDesignResDesignTokens) GetDropdownSelectedBg() *string {
+	if g == nil {
+		return nil
+	}
+	return g.DropdownSelectedBg
+}
+
+func (g *GetDesignResDesignTokens) GetDropdownSelectedText() *string {
+	if g == nil {
+		return nil
+	}
+	return g.DropdownSelectedText
+}
+
+func (g *GetDesignResDesignTokens) GetFontSizeScale() *GetDesignResFontSizeScale {
+	if g == nil {
+		return nil
+	}
+	return g.FontSizeScale
+}
+
+func (g *GetDesignResDesignTokens) GetInputBackground() *string {
+	if g == nil {
+		return nil
+	}
+	return g.InputBackground
+}
+
+func (g *GetDesignResDesignTokens) GetInputBorderColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.InputBorderColor
+}
+
+func (g *GetDesignResDesignTokens) GetInputBorderRadius() *float64 {
+	if g == nil {
+		return nil
+	}
+	return g.InputBorderRadius
+}
+
+func (g *GetDesignResDesignTokens) GetInputHeight() *float64 {
+	if g == nil {
+		return nil
+	}
+	return g.InputHeight
+}
+
+func (g *GetDesignResDesignTokens) GetInputLabelColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.InputLabelColor
+}
+
+func (g *GetDesignResDesignTokens) GetInputTextColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.InputTextColor
+}
+
+func (g *GetDesignResDesignTokens) GetInputVariant() *GetDesignResInputVariant {
+	if g == nil {
+		return nil
+	}
+	return g.InputVariant
+}
+
+func (g *GetDesignResDesignTokens) GetLinkColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.LinkColor
+}
+
+func (g *GetDesignResDesignTokens) GetLinkHoverColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.LinkHoverColor
+}
+
+func (g *GetDesignResDesignTokens) GetLogoSize() *float64 {
+	if g == nil {
+		return nil
+	}
+	return g.LogoSize
+}
+
+func (g *GetDesignResDesignTokens) GetOutlineColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.OutlineColor
+}
+
+func (g *GetDesignResDesignTokens) GetRadioLabelColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.RadioLabelColor
+}
+
+func (g *GetDesignResDesignTokens) GetRadioUncheckedColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.RadioUncheckedColor
+}
+
+func (g *GetDesignResDesignTokens) GetSummaryCardBackground() *string {
+	if g == nil {
+		return nil
+	}
+	return g.SummaryCardBackground
+}
+
+func (g *GetDesignResDesignTokens) GetSwitchBorderRadius() *float64 {
+	if g == nil {
+		return nil
+	}
+	return g.SwitchBorderRadius
+}
+
+func (g *GetDesignResDesignTokens) GetSwitchUncheckedBg() *string {
+	if g == nil {
+		return nil
+	}
+	return g.SwitchUncheckedBg
+}
+
+func (g *GetDesignResDesignTokens) GetSwitchUncheckedColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.SwitchUncheckedColor
+}
+
+func (g *GetDesignResDesignTokens) GetToggleBorderColor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ToggleBorderColor
+}
+
+func (g *GetDesignResDesignTokens) GetToggleHoverBg() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ToggleHoverBg
+}
+
+func (g *GetDesignResDesignTokens) GetToggleHoverText() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ToggleHoverText
+}
+
+func (g *GetDesignResDesignTokens) GetToggleSelectedBg() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ToggleSelectedBg
+}
+
+func (g *GetDesignResDesignTokens) GetToggleSelectedText() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ToggleSelectedText
+}
+
+func (g *GetDesignResDesignTokens) GetTopbarHeight() *float64 {
+	if g == nil {
+		return nil
+	}
+	return g.TopbarHeight
+}
+
+func (g *GetDesignResDesignTokens) GetTopbarLogoAlignment() *GetDesignResTopbarLogoAlignment {
+	if g == nil {
+		return nil
+	}
+	return g.TopbarLogoAlignment
 }
 
 type GetDesignResUser struct {
@@ -70,9 +712,10 @@ type GetDesignResDesign struct {
 	BrandID   any      `json:"brand_id,omitempty"`
 	BrandName *string  `json:"brand_name,omitempty"`
 	// Creation date and time
-	CreatedAt      *string                   `json:"created_at,omitempty"`
-	CreatedBy      *string                   `json:"created_by,omitempty"`
-	CustomTheme    any                       `json:"custom_theme,omitempty"`
+	CreatedAt   *string `json:"created_at,omitempty"`
+	CreatedBy   *string `json:"created_by,omitempty"`
+	CustomTheme any     `json:"custom_theme,omitempty"`
+	// Design tokens for journey customization
 	DesignTokens   *GetDesignResDesignTokens `json:"design_tokens,omitempty"`
 	Edited         bool                      `json:"edited"`
 	ID             *string                   `json:"id,omitempty"`

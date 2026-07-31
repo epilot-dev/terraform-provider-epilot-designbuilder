@@ -10,8 +10,9 @@ import (
 type UploadFileResFileType string
 
 const (
-	UploadFileResFileTypeLogo UploadFileResFileType = "LOGO"
-	UploadFileResFileTypeFont UploadFileResFileType = "FONT"
+	UploadFileResFileTypeLogo  UploadFileResFileType = "LOGO"
+	UploadFileResFileTypeFont  UploadFileResFileType = "FONT"
+	UploadFileResFileTypeImage UploadFileResFileType = "IMAGE"
 )
 
 func (e UploadFileResFileType) ToPointer() *UploadFileResFileType {
@@ -26,6 +27,8 @@ func (e *UploadFileResFileType) UnmarshalJSON(data []byte) error {
 	case "LOGO":
 		fallthrough
 	case "FONT":
+		fallthrough
+	case "IMAGE":
 		*e = UploadFileResFileType(v)
 		return nil
 	default:
@@ -34,7 +37,9 @@ func (e *UploadFileResFileType) UnmarshalJSON(data []byte) error {
 }
 
 type UploadFileRes struct {
-	DisplayName *string                `json:"display_name,omitempty"`
+	DisplayName *string `json:"display_name,omitempty"`
+	// ID of the source file entity in the epilot file-entity system. Set when the file was picked from the File Manager (rather than uploaded directly to the design-builder bucket). Consumers resolve the live `public_url` via this reference. The org id is derived from the journey's owning org at render time (same convention as journey image blocks), so blueprint cross-org installs work without any extra remapping.
+	FileID      *string                `json:"file_id,omitempty"`
 	FileType    *UploadFileResFileType `json:"file_type,omitempty"`
 	Name        string                 `json:"name"`
 	S3ObjectKey string                 `json:"s3_object_key"`
@@ -46,6 +51,13 @@ func (u *UploadFileRes) GetDisplayName() *string {
 		return nil
 	}
 	return u.DisplayName
+}
+
+func (u *UploadFileRes) GetFileID() *string {
+	if u == nil {
+		return nil
+	}
+	return u.FileID
 }
 
 func (u *UploadFileRes) GetFileType() *UploadFileResFileType {

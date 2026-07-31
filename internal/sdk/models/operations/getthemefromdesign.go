@@ -36,21 +36,17 @@ func (g *GetThemeFromDesignRequest) GetTheme() shared.Theme {
 	return g.Theme
 }
 
-// GetThemeFromDesignResponseBody - Success - design parsed with success.
-type GetThemeFromDesignResponseBody struct {
-}
-
 type GetThemeFromDesignResponse struct {
 	// HTTP response content type for this operation
 	ContentType string
 	// Validation Errors
 	ErrorResp *shared.ErrorResp
+	// Success - design parsed with success.
+	ParseThemeFromDesignResp *shared.ParseThemeFromDesignResp
 	// HTTP response status code for this operation
 	StatusCode int
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
-	// Success - design parsed with success.
-	Object *GetThemeFromDesignResponseBody
 }
 
 func (g *GetThemeFromDesignResponse) GetContentType() string {
@@ -67,6 +63,13 @@ func (g *GetThemeFromDesignResponse) GetErrorResp() *shared.ErrorResp {
 	return g.ErrorResp
 }
 
+func (g *GetThemeFromDesignResponse) GetParseThemeFromDesignResp() *shared.ParseThemeFromDesignResp {
+	if g == nil {
+		return nil
+	}
+	return g.ParseThemeFromDesignResp
+}
+
 func (g *GetThemeFromDesignResponse) GetStatusCode() int {
 	if g == nil {
 		return 0
@@ -79,11 +82,4 @@ func (g *GetThemeFromDesignResponse) GetRawResponse() *http.Response {
 		return nil
 	}
 	return g.RawResponse
-}
-
-func (g *GetThemeFromDesignResponse) GetObject() *GetThemeFromDesignResponseBody {
-	if g == nil {
-		return nil
-	}
-	return g.Object
 }
